@@ -1,4 +1,4 @@
-import 'package:locoo/post.dart';
+import 'package:locoo/src/features/home/post.dart';
 import 'package:locoo/post/category_badge.dart';
 import 'package:locoo/shared/rounded_small_button.dart';
 import 'package:flutter/material.dart';
@@ -129,6 +129,7 @@ class Home extends StatelessWidget {
                   barStyle: NavigationBarStyle(
                     background: Colors.white,
                     elevation: 0.0,
+                    position: NavigationPosition.top,
                   ),
                   pages: [
                     Container(color: Colors.blue[100]),
