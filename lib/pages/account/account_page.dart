@@ -16,7 +16,7 @@ class AccountPage extends GetView<AccountController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Obx(() => Text("Counter ${controller.counter.value}")),
-              RaisedButton(
+              ElevatedButton(
                 child: const Text("Increase"),
                 onPressed: () => controller.increaseCounter(),
               )
