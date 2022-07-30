@@ -1,14 +1,16 @@
 //import material
-import 'package:locoo/post/action_bar.dart';
-import 'package:locoo/post/discription.dart';
+
 import 'package:locoo/shared/button.dart';
-import 'package:locoo/post/category_badge.dart';
-import 'package:locoo/post/hashtag_badges.dart';
-import 'package:locoo/post/post_profile.dart';
+
 import 'package:locoo/shared/round_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'action_bar.dart';
+import 'category_badge.dart';
+import 'discription.dart';
+import 'hashtag_badges.dart';
+import 'post_profile.dart';
 
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
@@ -68,19 +70,11 @@ class Post extends StatelessWidget {
             // Post title
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                postTitle,
-                //chnage the space between the words
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                  //change the space bettwene the letters
-                  letterSpacing: -0.4,
-
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(postTitle,
+                  //chnage the space between the words
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline5),
             ),
 
             const SizedBox(height: spacingBetween),

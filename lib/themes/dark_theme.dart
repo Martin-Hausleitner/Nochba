@@ -1,27 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Theme {
-  final ThemeData _darkTheme = ThemeData(
-      accentColor: Colors.red,
-      brightness: Brightness.dark,
-      primaryColor: Colors.amber,
-      buttonTheme: ButtonThemeData(
-        buttonColor: Colors.amber,
-        disabledColor: Colors.grey,
-      ));
+ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  scaffoldBackgroundColor: Colors.black87,
+  highlightColor: Colors.transparent,
+  splashColor: Colors.transparent,
 
-  final ThemeData _lightTheme = ThemeData(
-      //
-      accentColor: Colors.pink,
-      brightness: Brightness.light,
-      primaryColor: Colors.blue,
-      buttonTheme: ButtonThemeData(
-        buttonColor: Colors.blue,
-        disabledColor: Colors.grey,
-      ));
-
-  final TextTheme _textTheme = TextTheme(
+  //add text theme
+  textTheme: TextTheme(
     headline1: GoogleFonts.inter(
         fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),
     headline2: GoogleFonts.inter(
@@ -46,5 +33,5 @@ class Theme {
         fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
     overline: GoogleFonts.inter(
         fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
-  );
-}
+  ),
+);

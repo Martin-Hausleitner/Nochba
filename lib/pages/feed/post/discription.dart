@@ -20,9 +20,6 @@ class Discription extends StatelessWidget {
           child: SelectableText(
             //print postDescription.split('\n').length as string
             postDescription,
-            
-            
-            
 
             maxLines: 3,
             style: GoogleFonts.inter(
@@ -62,13 +59,9 @@ class Discription extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
-                child: const Text(
+                child: Text(
                   'More',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
             ],
