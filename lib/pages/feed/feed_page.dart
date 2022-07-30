@@ -13,7 +13,7 @@ class FeedPage extends GetView<FeedController> {
         child: ListView(
           children: const [
             Post(
-              postTitle: 'Post Title',
+              postTitle: 'Post ddddddddddddTitle',
               postImage: 'https://i.pravatar.cc/303',
               postCategory: Category.mitteilung,
               postAuthorName: 'John Doe',

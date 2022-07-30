@@ -11,6 +11,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final ThemeData theme = ThemeData();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -18,11 +20,13 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.list,
       debugShowCheckedModeBanner: false,
       //theme: AppTheme.light,
-      theme: ThemeData(
+      theme: theme.copyWith(
         scaffoldBackgroundColor: Colors.grey.shade100,
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         primaryColor: Color.fromARGB(255, 62, 146, 108),
+        colorScheme: theme.colorScheme
+            .copyWith(secondary: Color.fromARGB(255, 97, 167, 135)),
         textTheme: TextTheme(
           headline1: GoogleFonts.inter(
               fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),
@@ -32,8 +36,13 @@ class MyApp extends StatelessWidget {
               GoogleFonts.inter(fontSize: 48, fontWeight: FontWeight.w400),
           headline4: GoogleFonts.inter(
               fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-          headline5:
-              GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w400),
+          //Poster Title
+          headline5: GoogleFonts.inter(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.4,
+              color: Colors.black87),
+
           headline6: GoogleFonts.inter(
               fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
           subtitle1: GoogleFonts.inter(
@@ -45,7 +54,10 @@ class MyApp extends StatelessWidget {
           bodyText2: GoogleFonts.inter(
               fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
           button: GoogleFonts.inter(
-              fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1.25,
+              color: Colors.white),
           caption: GoogleFonts.inter(
               fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
           overline: GoogleFonts.inter(

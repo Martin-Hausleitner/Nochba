@@ -12,7 +12,6 @@ import 'discription.dart';
 import 'hashtag_badges.dart';
 import 'post_profile.dart';
 
-
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
 class Post extends StatelessWidget {
@@ -71,19 +70,11 @@ class Post extends StatelessWidget {
             // Post title
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                postTitle,
-                //chnage the space between the words
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                  //change the space bettwene the letters
-                  letterSpacing: -0.4,
-
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(postTitle,
+                  //chnage the space between the words
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline5),
             ),
 
             const SizedBox(height: spacingBetween),

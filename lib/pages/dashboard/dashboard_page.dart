@@ -50,6 +50,7 @@ class DashboardPage extends StatelessWidget {
               backgroundColor: Colors.white,
               elevation: 0,
               items: const [
+                
                 BottomNavigationBarItem(
                   icon: Icon(FlutterRemix.home_2_line),
                   label: 'Feed',
@@ -82,4 +83,16 @@ class DashboardPage extends StatelessWidget {
       },
     );
   }
+
+  // _bottomNavigationBarItem({IconData icon, String label, IconData activeIcon}) {
+  //   return ClipRRect(
+  //     borderRadius: BorderRadius.only(
+  //       topLeft: Radius.circular(10),
+  //       topRight: Radius.circular(10),
+  //     ),
+  //     child: BottomNavigationBarItem(
+  //       icon: Icon(Icons.home),
+  //     ),
+  //   );
+  // }
 }
