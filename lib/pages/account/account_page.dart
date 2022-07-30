@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +17,7 @@ class AccountPage extends GetView<AccountController> {
             children: [
               Obx(() => Text("Counter ${controller.counter.value}")),
               RaisedButton(
-                child: Text("Increase"),
+                child: const Text("Increase"),
                 onPressed: () => controller.increaseCounter(),
               )
             ],

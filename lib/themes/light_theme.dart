@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  scaffoldBackgroundColor: Color.fromARGB(255, 249, 249, 249),
+  scaffoldBackgroundColor: const Color.fromARGB(255, 249, 249, 249),
   highlightColor: Colors.transparent,
   splashColor: Colors.transparent,
-  primaryColor: Color.fromARGB(255, 62, 146, 108),
+  primaryColor: const Color.fromARGB(255, 62, 146, 108),
   textTheme: TextTheme(
     headline1: GoogleFonts.inter(
         fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),
