@@ -19,6 +19,9 @@ dependencies:
   flutter_svg: ^1.1.1+1
   scroll_navigation: ^1.3.2
   get: ^4.6.5
+  # add cupertino_icons: ^1.0.0
+  cupertino_icons: 
+  flutter_remix: ^0.0.3
 
 dev_dependencies:
   flutter_test:
