@@ -4,9 +4,9 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/notifications/notifications_page.dart';
 
-import '../account/account_page.dart';
 import '../chats/chats_page.dart';
 import '../new_post/new_post_page.dart';
+import '../profile/profile_page.dart';
 import 'dashboard_controller.dart';
 import '../feed/feed_page.dart';
 
@@ -24,7 +24,7 @@ class DashboardPage extends StatelessWidget {
                 NotificationsPage(),
                 NewPostPage(),
                 ChatsPage(),
-                AccountPage(),
+                ProfilePage(),
               ],
             ),
           ),
@@ -50,7 +50,6 @@ class DashboardPage extends StatelessWidget {
               backgroundColor: Colors.white,
               elevation: 0,
               items: const [
-                
                 BottomNavigationBarItem(
                   icon: Icon(FlutterRemix.home_2_line),
                   label: 'Feed',

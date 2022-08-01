@@ -50,13 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-  cupertino_icons:
+  customizable_space_bar:
     dependency: "direct main"
     description:
-      name: cupertino_icons
+      name: customizable_space_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "0.2.0"
   fake_async:
     dependency: transitive
     description:
@@ -123,13 +123,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  helpers:
-    dependency: transitive
-    description:
-      name: helpers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.4"
   http:
     dependency: transitive
     description:
@@ -270,13 +263,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
-  scroll_navigation:
-    dependency: "direct main"
-    description:
-      name: scroll_navigation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.2"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -32,7 +32,7 @@ class Post extends StatelessWidget {
     required this.postTitle,
     this.postCategory = Category.suche,
     this.postHashtags = const [
-      'test',
+      'test1',
       'test2',
       'test3',
       'test4',
@@ -74,7 +74,7 @@ class Post extends StatelessWidget {
                   //chnage the space between the words
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.headline5),
+                  style: Theme.of(context).textTheme.headlineLarge),
             ),
 
             const SizedBox(height: spacingBetween),

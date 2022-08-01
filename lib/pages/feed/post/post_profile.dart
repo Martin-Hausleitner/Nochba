@@ -37,10 +37,7 @@ class PostProfile extends StatelessWidget {
                     authorName,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
                 Row(
