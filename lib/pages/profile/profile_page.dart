@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 
+import '../settings/settings_page.dart';
 import 'profile_controller.dart';
 
 class ProfilePage extends GetView<ProfileController> {
@@ -111,7 +112,10 @@ class ProfilePage extends GetView<ProfileController> {
                 //add iconbutton
                 IconButton(
                   icon: Icon(FlutterRemix.settings_3_line),
-                  onPressed: () {},
+                  //onPress open SettingsPage
+                  onPressed: () {
+                    Get.to(SettingsPage());
+                  },
                 ),
               ],
             ),

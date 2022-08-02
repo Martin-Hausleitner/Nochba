@@ -25,7 +25,7 @@ class DashboardPage extends StatelessWidget {
                 NotificationsPage(),
                 NewPostPage(),
                 ChatsPage(),
-                SettingsPage(),
+                ProfilePage(),
               ],
             ),
           ),

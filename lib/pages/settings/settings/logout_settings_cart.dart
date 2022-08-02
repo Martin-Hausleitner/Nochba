@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
 //create a class which have a rounded container with a icon on the left side and a text and on the right side a arrow icon
-class SettingsCard extends StatelessWidget {
-  final String title;
-  final Icon icon;
+class LogoutSettingsCard extends StatelessWidget {
   final VoidCallback onTap;
 
-  const SettingsCard({
+  const LogoutSettingsCard({
     Key? key,
-    required this.title,
-    required this.icon,
     required this.onTap,
   }) : super(key: key);
 
@@ -36,14 +32,16 @@ class SettingsCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      icon.icon,
-                      color: Colors.black,
+                      FlutterRemix.logout_box_r_line,
+                      color: Colors.red,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 8),
                       child: Text(
-                        title,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        "Abmelden",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.red,
+                            ),
                       ),
                     ),
                   ],
