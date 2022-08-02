@@ -4,11 +4,17 @@ import 'package:customizable_space_bar/customizable_space_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 
 import 'profile_controller.dart';
 
 class ProfilePage extends GetView<ProfileController> {
+  final List<Tab> myTabs = <Tab>[
+    Tab(text: 'LEFT'),
+    Tab(text: 'RIGHT'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     // return Scaffold(
@@ -94,7 +100,7 @@ class ProfilePage extends GetView<ProfileController> {
         children: [
           Padding(
             padding:
-                const EdgeInsets.only(top: 15, left: 15, right: 0, bottom: 30),
+                const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 30),
             child: Row(
               children: [
                 Text(
@@ -131,7 +137,7 @@ class ProfilePage extends GetView<ProfileController> {
                     icon: Icon(
                       FlutterRemix.pencil_line,
                       color: Colors.white,
-                      size: 18,
+                      size: 17,
                     ),
                     // onpress open snack bar
                     onPressed: () {
@@ -147,13 +153,18 @@ class ProfilePage extends GetView<ProfileController> {
           ),
 
           // show a name
-          const Padding(
-            padding: EdgeInsets.only(top: 12),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
             child: Text(
-              "Max Mustermdann",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              "Maxs Mustermdann",
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
+
+          
+          // add a tabbarview
+
+          // add TabBarView with with info and post
         ],
       ),
     );

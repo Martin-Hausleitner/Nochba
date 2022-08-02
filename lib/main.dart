@@ -66,6 +66,24 @@ class MyApp extends StatelessWidget {
             letterSpacing: -0.5,
             color: Color.fromARGB(255, 22, 22, 22),
           ),
+          titleMedium: GoogleFonts.inter(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.5,
+          ),
+          headlineMedium: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.5,
+            color: Color.fromARGB(255, 22, 22, 22),
+          ),
+          bodyMedium: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            letterSpacing: -0.1,
+            color: Color.fromARGB(255, 66, 66, 66),
+          ),
+          
         ),
       ),
 

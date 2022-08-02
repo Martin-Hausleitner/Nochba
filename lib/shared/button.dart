@@ -3,10 +3,12 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // create a stateless button with a text NEW and a background color of Colors.blue[100]
-class Button2 extends StatelessWidget {
+class Button extends StatelessWidget {
   final String text;
+  final VoidCallback onPressed;
 
-  const Button2({Key? key, required this.text}) : super(key: key);
+  const Button({Key? key, required this.text, required this.onPressed})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     //create a Container with full and a icon and a tex in the middle
@@ -55,7 +57,7 @@ class Button2 extends StatelessWidget {
     // );
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(14),
       child: Stack(
         children: <Widget>[
           Positioned.fill(
@@ -68,20 +70,27 @@ class Button2 extends StatelessWidget {
             //   //set color to primeryColor
 
             // <-- TextButton
-            onPressed: () {},
+            onPressed: onPressed,
             icon: const Icon(
               FlutterRemix.chat_1_fill,
               size: 24.0,
+              color: Colors.white,
             ),
 
-            label: Text('Downldddoad'),
+            label: Text(
+              text,
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.1,
+                color: Colors.white,
+              ),
+            ),
             style: // add primeryColor to the text
                 TextButton.styleFrom(
-              minimumSize: const Size.fromHeight(50),
-              textStyle: Theme.of(context).textTheme.button, // Foreground color
-
-              // Background color
-            ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
+              minimumSize: Size.fromHeight(20),
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+            ),
           ),
         ],
       ),

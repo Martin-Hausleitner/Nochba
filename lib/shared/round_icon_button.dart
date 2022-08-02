@@ -7,12 +7,15 @@ class RoundIconButton extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
 
+  // add onPressed
+  final VoidCallback onPressed;
+
   const RoundIconButton({
     Key? key,
     required this.icon,
     this.iconColor = Colors.black,
+    required this.onPressed,
   }) : super(key: key);
-
   //Create a Contianer with a gray thin broder and inside a IconButton with a Icon and a onPressed function
   @override
   Widget build(BuildContext context) {
@@ -26,10 +29,13 @@ class RoundIconButton extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Icon(
-        icon,
-        color: iconColor,
-        size: 18,
+      child: IconButton(
+        icon: Icon(
+          icon,
+          color: iconColor,
+          size: 18,
+        ),
+        onPressed: onPressed,
       ),
     );
     // return ElevatedButton(

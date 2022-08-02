@@ -1,6 +1,7 @@
 // create A PostProfile class which extends StatelessWidget which is a Row with children Container and Column with 2 text
 
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PostProfile extends StatelessWidget {
@@ -37,14 +38,14 @@ class PostProfile extends StatelessWidget {
                     authorName,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
                 Row(
                   children: [
                     // show a small clock icon
                     const Icon(
-                      Icons.access_time,
+                      FlutterRemix.time_line,
                       size: 12,
                       color: Colors.grey,
                     ),
@@ -78,7 +79,7 @@ class PostProfile extends StatelessWidget {
                       padding: EdgeInsets.only(left: 8),
                       // show this svg:
                       child: Icon(
-                        Icons.location_on_outlined,
+                        FlutterRemix.map_pin_line,
                         size: 12,
                         color: Colors.grey,
                       ),

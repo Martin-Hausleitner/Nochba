@@ -17,56 +17,55 @@ class Discription extends StatelessWidget {
         //align text left
         Align(
           alignment: Alignment.centerLeft,
-          child: SelectableText(
+          child: Text(
             //print postDescription.split('\n').length as string
             postDescription,
 
             maxLines: 3,
-            style: GoogleFonts.inter(
-              //change the space bettwene the letters
-              letterSpacing: -0.1,
-              fontSize: 14,
-              color: Colors.grey.shade800,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
 
-        SizedBox(
-          height: 12,
-          child: Row(
-            // alighn left
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                width: 17,
-                //height is a s bit as the other container
-                height: 50,
+        // SizedBox(
+        //   height: 16,
+        //   child: Row(
+        //     // alighn left
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     children: [
+        //       Container(
+        //         width: 17,
+        //         //height is a s bit as the other container
+        //         height: 50,
 
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withOpacity(0.3),
-                      Colors.white,
-                    ],
-                  ),
-                ),
-              ),
-              //create a white container with a text as child
-              Container(
-                height: 50,
-                padding: const EdgeInsets.only(left: 6),
-                // create a white background
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Text(
-                  'More',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-              ),
-            ],
-          ),
-        ),
+        //         decoration: BoxDecoration(
+        //           gradient: LinearGradient(
+        //             colors: [
+        //               Colors.white.withOpacity(0.3),
+        //               Colors.white,
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //       //create a white container with a text as child
+        //       Container(
+        //         height: 50,
+        //         padding: const EdgeInsets.only(left: 6),
+        //         // create a white background
+        //         decoration: const BoxDecoration(
+        //           color: Colors.white,
+        //         ),
+        //         child: Text(
+        //           'more',
+        //           style: // use bodyMedium but with black color
+        //               Theme.of(context).textTheme.bodyMedium?.copyWith(
+        //                     color: Colors.black,
+        //                     fontWeight: FontWeight.w600,
+        //                   ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
 
         // Container(
         //   padding: const EdgeInsets.only(left: 20),
