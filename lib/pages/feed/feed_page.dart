@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:locoo/pages/feed/post/category_badge.dart';
 import 'package:locoo/pages/feed/post/post.dart';
 
+import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
 
 class FeedPage extends GetView<FeedController> {
@@ -12,6 +13,7 @@ class FeedPage extends GetView<FeedController> {
       body: Container(
         child: ListView(
           children: const [
+            Slider1(),
             Post(
               postTitle: 'Post ddddddddddddTitle',
               postImage: 'https://i.pravatar.cc/303',

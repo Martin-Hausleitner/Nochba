@@ -114,7 +114,8 @@ class ProfilePage extends GetView<ProfileController> {
                   icon: Icon(FlutterRemix.settings_3_line),
                   //onPress open SettingsPage
                   onPressed: () {
-                    Get.to(SettingsPage());
+                    Get.to(SettingsPage(),
+                        transition: Transition.rightToLeftWithFade);
                   },
                 ),
               ],
@@ -165,7 +166,6 @@ class ProfilePage extends GetView<ProfileController> {
             ),
           ),
 
-          
           // add a tabbarview
 
           // add TabBarView with with info and post
