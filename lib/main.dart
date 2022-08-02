@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         primaryColor: Color.fromARGB(255, 62, 146, 108),
         fontFamily: 'Inter',
+        cardColor: Color.fromARGB(255, 245, 245, 245),
         textTheme: TextTheme(
           headlineLarge: GoogleFonts.inter(
             fontSize: 24,
@@ -77,13 +78,26 @@ class MyApp extends StatelessWidget {
             letterSpacing: -0.5,
             color: Color.fromARGB(255, 22, 22, 22),
           ),
-          bodyMedium: GoogleFonts.inter(
+          bodySmall: GoogleFonts.inter(
             fontSize: 14,
             fontWeight: FontWeight.w400,
             letterSpacing: -0.1,
             color: Color.fromARGB(255, 66, 66, 66),
           ),
-          
+          titleSmall: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.1,
+            color: Color.fromARGB(255, 112, 112, 112),
+            // set it uppercase
+            
+          ),
+          bodyMedium: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            letterSpacing: -0.1,
+            color: Color.fromARGB(255, 34, 34, 34),
+          ),
         ),
       ),
 

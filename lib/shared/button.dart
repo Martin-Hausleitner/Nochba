@@ -88,8 +88,8 @@ class Button extends StatelessWidget {
             ),
             style: // add primeryColor to the text
                 TextButton.styleFrom(
-              minimumSize: Size.fromHeight(20),
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              //the minimumSize of the button is 100%
+              minimumSize: const Size(double.infinity, 30),
             ),
           ),
         ],

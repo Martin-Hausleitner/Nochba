@@ -7,6 +7,7 @@ import 'package:locoo/pages/notifications/notifications_page.dart';
 import '../chats/chats_page.dart';
 import '../new_post/new_post_page.dart';
 import '../profile/profile_page.dart';
+import '../settings/settings_page.dart';
 import 'dashboard_controller.dart';
 import '../feed/feed_page.dart';
 
@@ -24,7 +25,7 @@ class DashboardPage extends StatelessWidget {
                 NotificationsPage(),
                 NewPostPage(),
                 ChatsPage(),
-                ProfilePage(),
+                SettingsPage(),
               ],
             ),
           ),
