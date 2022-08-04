@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "394247920474",
+    "project_id": "locoo-fa1d1",
+    "storage_bucket": "locoo-fa1d1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394247920474:android:ea629ce2d30187ad453163",
+        "android_client_info": {
+          "package_name": "at.locoo.locoo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394247920474-bf6thnsgh04ngn9ngqonh65k3mm0nu3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDK9CLIYt5arkwcX0wb8BKRRFkf-1aIPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394247920474-bf6thnsgh04ngn9ngqonh65k3mm0nu3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
