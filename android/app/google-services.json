@@ -29,6 +29,13 @@
             {
               "client_id": "394247920474-bf6thnsgh04ngn9ngqonh65k3mm0nu3o.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "at.locoo.locoo"
+              }
             }
           ]
         }

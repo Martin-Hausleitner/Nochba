@@ -44,17 +44,17 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBOBJjT_z-JX3S_hU30WcePwLnEo4ifjiU',
-    appId: '1:1055122223825:web:0117d17bcad98db0a6cbf0',
-    messagingSenderId: '1055122223825',
-    projectId: 'fir-chat-549ff',
-    authDomain: 'fir-chat-549ff.firebaseapp.com',
-    storageBucket: 'fir-chat-549ff.appspot.com',
+    apiKey: 'AIzaSyCDK9CLIYt5arkwcX0wb8BKRRFkf-1aIPI',
+    appId: '1:394247920474:web:8eef694b1c83361e453163',
+    messagingSenderId: '394247920474',
+    projectId: 'locoo-fa1d1',
+    authDomain: 'locoo-fa1d1.firebaseapp.com',
+    storageBucket: 'locoo-fa1d1.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB1mGYrA18ahhXYUc5C1qbB-ANfOxTa_yk',
-    appId: '1:1055122223825:android:64345d9aec3b7d51a6cbf0',
+    apiKey: 'AIzaSyCDK9CLIYt5arkwcX0wb8BKRRFkf-1aIPI',
+    appId: '1:394247920474:android:ea629ce2d30187ad453163',
     messagingSenderId: '1055122223825',
     projectId: 'fir-chat-549ff',
     storageBucket: 'fir-chat-549ff.appspot.com',
@@ -62,10 +62,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDOLwBp_hkfkJViBVTGkBRhWXNeUq0MgIw',
-    appId: '1:1055122223825:ios:8f1758b5e3e3f03ea6cbf0',
+    appId: '1:394247920474:ios:81eaa364bde4d029453163',
     messagingSenderId: '1055122223825',
     projectId: 'fir-chat-549ff',
-    storageBucket: 'fir-chat-549ff.appspot.com',
+    storageBucket: 'locoo-fa1d1.appspot.com',
     iosClientId: '1055122223825-74iumuce2istudljh6u1qbu2pfg44ku8.apps.googleusercontent.com',
     iosBundleId: 'com.example',
   );
