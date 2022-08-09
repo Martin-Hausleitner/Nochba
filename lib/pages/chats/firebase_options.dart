@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCDK9CLIYt5arkwcX0wb8BKRRFkf-1aIPI',
     appId: '1:394247920474:android:ea629ce2d30187ad453163',
-    messagingSenderId: '1055122223825',
+    messagingSenderId: '394247920474',
     projectId: 'fir-chat-549ff',
     storageBucket: 'fir-chat-549ff.appspot.com',
   );
@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDOLwBp_hkfkJViBVTGkBRhWXNeUq0MgIw',
     appId: '1:394247920474:ios:81eaa364bde4d029453163',
-    messagingSenderId: '1055122223825',
+    messagingSenderId: '394247920474',
     projectId: 'fir-chat-549ff',
     storageBucket: 'locoo-fa1d1.appspot.com',
     iosClientId: '1055122223825-74iumuce2istudljh6u1qbu2pfg44ku8.apps.googleusercontent.com',
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDOLwBp_hkfkJViBVTGkBRhWXNeUq0MgIw',
     appId: '1:1055122223825:ios:8f1758b5e3e3f03ea6cbf0',
-    messagingSenderId: '1055122223825',
+    messagingSenderId: '394247920474',
     projectId: 'fir-chat-549ff',
     storageBucket: 'fir-chat-549ff.appspot.com',
     iosClientId: '1055122223825-74iumuce2istudljh6u1qbu2pfg44ku8.apps.googleusercontent.com',
