@@ -60,22 +60,25 @@ class _ChatsPageState extends State<ChatsPage> {
               //   },
               // ),
               IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: _user == null
-                ? null
-                : () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (context) => const UsersPage(),
-                      ),
-                    );
-                  },
-          ),
-          IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: _user == null ? null : logout,
-        ),
+                icon: const Icon(Icons.add, color: Colors.black),
+                onPressed: _user == null
+                    ? null
+                    : () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (context) => const UsersPage(),
+                          ),
+                        );
+                      },
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ),
+                onPressed: _user == null ? null : logout,
+              ),
             ],
             flexibleSpace: FlexibleSpaceBar(
                 title: Text(
@@ -89,90 +92,82 @@ class _ChatsPageState extends State<ChatsPage> {
                 ),
                 titlePadding: EdgeInsets.only(left: 15, bottom: 15)),
           ),
-           SliverFillRemaining(
-        child: _user == null
-            ? Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(
-                  bottom: 200,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Not authenticated'),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            fullscreenDialog: true,
-                            builder: (context) => const LoginPage(),
-                          ),
-                        );
-                      },
-                      child: const Text('Login'),
+          SliverFillRemaining(
+            child: _user == null
+                ? Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(
+                      bottom: 200,
                     ),
-                  ],
-                ),
-              )
-            : StreamBuilder<List<types.Room>>(
-                stream: FirebaseChatCore.instance.rooms(),
-                initialData: const [],
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(
-                        bottom: 200,
-                      ),
-                      child: const Text('No rooms'),
-                    );
-                  }
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Not authenticated'),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                fullscreenDialog: true,
+                                builder: (context) => const LoginPage(),
+                              ),
+                            );
+                          },
+                          child: const Text('Login'),
+                        ),
+                      ],
+                    ),
+                  )
+                : StreamBuilder<List<types.Room>>(
+                    stream: FirebaseChatCore.instance.rooms(),
+                    initialData: const [],
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(
+                            bottom: 200,
+                          ),
+                          child: const Text('No rooms'),
+                        );
+                      }
 
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      final room = snapshot.data![index];
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          final room = snapshot.data![index];
 
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ChatPage(
-                                room: room,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPage(
+                                    room: room,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              child: Row(
+                                children: [
+                                  _buildAvatar(room),
+                                  Text(room.name ?? ''),
+                                ],
                               ),
                             ),
                           );
                         },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          child: Row(
-                            children: [
-                              _buildAvatar(room),
-                              Text(room.name ?? ''),
-                                                      ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
     );
   }
-  
-  
-    
-  
-            
-
-
-             
 
   void initializeFlutterFire() async {
     try {
