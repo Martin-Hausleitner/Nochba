@@ -32,11 +32,6 @@ dependencies:
   open_file: ^3.2.1
   path_provider: ^2.0.11
   meta: ^1.7.0
-
-
-    
-
-
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.1+1
   get: ^4.6.5
