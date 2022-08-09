@@ -4,6 +4,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/notifications/notifications_page.dart';
 
+import '../../shared/appbar1.dart';
 import '../chats/chats_page.dart';
 import '../new_post/new_post_page.dart';
 import '../profile/profile_page.dart';
@@ -26,6 +27,7 @@ class DashboardPage extends StatelessWidget {
                 NewPostPage(),
                 ChatsPage(),
                 ProfilePage(),
+                AppBar1(),
               ],
             ),
           ),
@@ -70,6 +72,11 @@ class DashboardPage extends StatelessWidget {
                   icon: Icon(FlutterRemix.chat_1_line),
                   label: 'Chats',
                   activeIcon: Icon(FlutterRemix.chat_1_fill),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(FlutterRemix.user_line),
+                  label: 'Account',
+                  activeIcon: Icon(FlutterRemix.user_fill),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(FlutterRemix.user_line),
