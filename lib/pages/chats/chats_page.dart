@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'chat.dart';
 import 'firebase_options.dart';
@@ -40,9 +41,25 @@ class _ChatsPageState extends State<ChatsPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            snap: true,
+            floating: true,
+            shadowColor: Colors.transparent,
+            backgroundColor: Colors.white,
+            expandedHeight: 160.0,
+            forceElevated: true,
+            actions: [
+              // IconButton(
+              //   icon: const Icon(FlutterRemix.pencil_line),
+              //   color: Colors.black,
+              //   onPressed: () {
+              //     Get.snackbar('dsfdsf', 'dsfdsf');
+              //   },
+              // ),
+              IconButton(
             icon: const Icon(Icons.add),
             onPressed: _user == null
                 ? null
@@ -55,77 +72,87 @@ class _ChatsPageState extends State<ChatsPage> {
                     );
                   },
           ),
-        ],
-        leading: IconButton(
+          IconButton(
           icon: const Icon(Icons.logout),
           onPressed: _user == null ? null : logout,
         ),
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        title: const Text('Rooms'),
-      ),
-      body: _user == null
-          ? Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(
-                bottom: 200,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Not authenticated'),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (context) => const LoginPage(),
-                        ),
-                      );
-                    },
-                    child: const Text('Login'),
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+                title: Text(
+                  'Nachrichten',
+                  style: GoogleFonts.inter(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.5,
+                    color: Color.fromARGB(255, 22, 22, 22),
                   ),
-                ],
-              ),
-            )
-          : StreamBuilder<List<types.Room>>(
-              stream: FirebaseChatCore.instance.rooms(),
-              initialData: const [],
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                      bottom: 200,
-                    ),
-                    child: const Text('No rooms'),
-                  );
-                }
-
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    final room = snapshot.data![index];
-
-                    return GestureDetector(
-                      onTap: () {
+                ),
+                titlePadding: EdgeInsets.only(left: 15, bottom: 15)),
+          ),
+           SliverFillRemaining(
+        child: _user == null
+            ? Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(
+                  bottom: 200,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Not authenticated'),
+                    TextButton(
+                      onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => ChatPage(
-                              room: room,
-                            ),
+                            fullscreenDialog: true,
+                            builder: (context) => const LoginPage(),
                           ),
                         );
                       },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Row(
-                          children: [
-                            _buildAvatar(room),
-                            Text(room.name ?? ''),
-                          ],
+                      child: const Text('Login'),
+                    ),
+                  ],
+                ),
+              )
+            : StreamBuilder<List<types.Room>>(
+                stream: FirebaseChatCore.instance.rooms(),
+                initialData: const [],
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(
+                        bottom: 200,
+                      ),
+                      child: const Text('No rooms'),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      final room = snapshot.data![index];
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                room: room,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          child: Row(
+                            children: [
+                              _buildAvatar(room),
+                              Text(room.name ?? ''),
+                                                      ],
                         ),
                       ),
                     );
@@ -133,8 +160,19 @@ class _ChatsPageState extends State<ChatsPage> {
                 );
               },
             ),
+          ),
+        ],
+      ),
     );
   }
+  
+  
+    
+  
+            
+
+
+             
 
   void initializeFlutterFire() async {
     try {
