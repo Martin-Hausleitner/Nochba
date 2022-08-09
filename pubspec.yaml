@@ -42,7 +42,6 @@ dependencies:
   get: ^4.6.5
   flutter_remix: ^0.0.3
   customizable_space_bar: ^0.2.0
-  firebase_core: ^1.20.0
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
