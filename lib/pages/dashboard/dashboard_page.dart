@@ -8,7 +8,7 @@ import '../../shared/appbar1.dart';
 import '../../shared/pageV.dart';
 import '../chats/chats_page.dart';
 import '../new_post/new_post_page.dart';
-import '../profile/profile_page.dart';
+import '../private_profile/private_profile_page.dart';
 import '../settings/settings_page.dart';
 import 'dashboard_controller.dart';
 import '../feed/feed_page.dart';
@@ -27,7 +27,7 @@ class DashboardPage extends StatelessWidget {
                 NotificationsPage(),
                 NewPostPage(),
                 ChatsPage(),
-                ProfilePage(),
+                PrivateProfilePage(),
                 // AppBar1(),
                 // PageV(),
               ],

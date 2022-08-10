@@ -8,9 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 
 import '../settings/settings_page.dart';
-import 'profile_controller.dart';
+import 'private_profile_controller.dart';
 
-class ProfilePage extends GetView<ProfileController> {
+class PrivateProfilePage extends GetView<ProfileController> {
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'LEFT'),
     Tab(text: 'RIGHT'),
