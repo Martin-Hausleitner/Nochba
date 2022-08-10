@@ -50,16 +50,17 @@ jobs:
       - run: flutter clean
       - run: flutter build appbundle
       - run: flutter build apk
-
-      uses: actions/upload-artifact@master
-      with:
-        name: apk-release
-        path: build/app/outputs/bundle/release/app-release.apk
+      
+      # Upload generated apk to the artifacts.
+        uses: actions/upload-artifact@master
+        with:
+          name: apk-release
+          path: build/app/outputs/bundle/release/app-release.apk
 
       - name: Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
-      with:
-        appId: ${{secrets.FIREBASE_APP_ID}}
-        token: ${{secrets.FIREBASE_TOKEN}}
-        groups: testers
-        file: app/build/outputs/apk/release/app-release-unsigned.apk
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: app/build/outputs/apk/release/app-release-unsigned.apk
