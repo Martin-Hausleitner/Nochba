@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -97,80 +98,175 @@ class ProfilePage extends GetView<ProfileController> {
     // return Scaffold( with a colum and a row with headline5 text and a settings icon
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title:
+            const Text('Dein Profil', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              FlutterRemix.settings_3_line,
+              color: Colors.black,
+            ),
+            //onPress open SettingsPage
+            onPressed: () {
+              Get.to(SettingsPage(),
+                  transition: Transition.rightToLeftWithFade);
+            },
+          ),
+          // IconButton(
+          //   icon: const Icon(Icons.navigate_next),
+          //   tooltip: 'Go to the next page',
+          //   onPressed: () {
+          //     Navigator.push(context, MaterialPageRoute<void>(
+          //       builder: (BuildContext context) {
+          //         return Scaffold(
+          //           appBar: AppBar(
+          //             title: const Text('Next page'),
+          //           ),
+          //           body: const Center(
+          //             child: Text(
+          //               'This is the next page',
+          //               style: TextStyle(fontSize: 24),
+          //             ),
+          //           ),
+          //         );
+          //       },
+          //     ));
+          //   },
+          // ),
+        ],
+      ),
       body: Column(
+        //align centet
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 30),
-            child: Row(
+          // create a stack with an CircleAvatar with a photo and in the right bottom corner a small circle with a edit icon in it
+          SizedBox(
+            height: 40,
+          ),
+          Center(
+            child: Stack(
               children: [
-                Text(
-                  "Dein Profil",
-                  style: Theme.of(context).textTheme.titleLarge,
+                CircleAvatar(
+                  radius: 55,
+                  backgroundImage: NetworkImage(
+                    "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+                  ),
                 ),
-                Spacer(),
-                //add iconbutton
-                IconButton(
-                  icon: Icon(FlutterRemix.settings_3_line),
-                  //onPress open SettingsPage
-                  onPressed: () {
-                    Get.to(SettingsPage(),
-                        transition: Transition.rightToLeftWithFade);
-                  },
+                Text('data'),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: CircleAvatar(
+                    radius: 16,
+                    backgroundColor: Theme.of(context).primaryColor,
+                    child: IconButton(
+                      icon: Icon(
+                        FlutterRemix.pencil_line,
+                        color: Colors.white,
+                        size: 17,
+                      ),
+                      // onpress open snack bar
+                      onPressed: () {
+                        Get.snackbar(
+                          "Edift",
+                          "Edit your profile",
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
 
-          // create a stack with an CircleAvatar with a photo and in the right bottom corner a small circle with a edit icon in it
-
-          Stack(
-            children: [
-              CircleAvatar(
-                radius: 55,
-                backgroundImage: NetworkImage(
-                  "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: CircleAvatar(
-                  radius: 16,
-                  backgroundColor: Theme.of(context).primaryColor,
-                  child: IconButton(
-                    icon: Icon(
-                      FlutterRemix.pencil_line,
-                      color: Colors.white,
-                      size: 17,
-                    ),
-                    // onpress open snack bar
-                    onPressed: () {
-                      Get.snackbar(
-                        "Edit",
-                        "Edit your profile",
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-
           // show a name
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: Text(
-              "Maxs Mustermdann",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(top: 20),
+          //   child: Text(
+          //     "Maxs Mustermdann",
+          //     style: Theme.of(context).textTheme.titleMedium,
+          //   ),
+          // ),
+          // SegmentedTabControl(
+          //   // Customization of widget
+          //   radius: const Radius.circular(3),
+          //   backgroundColor: Colors.grey.shade300,
+          //   indicatorColor: Colors.orange.shade200,
+          //   tabTextColor: Colors.black45,
+          //   selectedTabTextColor: Colors.white,
+          //   squeezeIntensity: 2,
+          //   height: 45,
+          //   tabPadding: const EdgeInsets.symmetric(horizontal: 8),
+          //   textStyle: Theme.of(context).textTheme.bodyText1,
+          //   // Options for selection
+          //   // All specified values will override the [SegmentedTabControl] setting
+          //   tabs: [
+          //     SegmentTab(
+          //       label: 'ACCOUNT',
+          //       // For example, this overrides [indicatorColor] from [SegmentedTabControl]
+          //       color: Colors.red.shade200,
+          //     ),
+          //     SegmentTab(
+          //       label: 'HOME',
+          //       backgroundColor: Colors.blue.shade100,
+          //       selectedTextColor: Colors.black45,
+          //       textColor: Colors.black26,
+          //     ),
+          //     const SegmentTab(label: 'NEW'),
+          //   ],
+          // ),
+          // // Sample pages
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 70),
+          //   child: TabBarView(
+          //     physics: const BouncingScrollPhysics(),
+          //     children: [
+          //       SampleWidget(
+          //         label: 'FIRST PAGE',
+          //         color: Colors.red.shade200,
+          //       ),
+          //       SampleWidget(
+          //         label: 'SECOND PAGE',
+          //         color: Colors.blue.shade100,
+          //       ),
+          //       SampleWidget(
+          //         label: 'THIRD PAGE',
+          //         color: Colors.orange.shade200,
+          //       ),
+          //     ],
+          //   ),
+          // ),
 
           // add a tabbarview
 
           // add TabBarView with with info and post
         ],
       ),
+    );
+  }
+}
+
+class SampleWidget extends StatelessWidget {
+  const SampleWidget({
+    Key? key,
+    required this.label,
+    required this.color,
+  }) : super(key: key);
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: color,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(10))),
+      child: Text(label),
     );
   }
 }
