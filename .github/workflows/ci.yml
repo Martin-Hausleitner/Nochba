@@ -49,6 +49,7 @@ jobs:
       - run: flutter pub get
       - run: flutter clean
       - run: flutter build appbundle
+      # Build apk.
       - run: flutter build apk
       
       # Upload generated apk to the artifacts.
