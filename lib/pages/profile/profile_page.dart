@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
-import 'package:customizable_space_bar/customizable_space_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -99,8 +98,7 @@ class ProfilePage extends GetView<ProfileController> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title:
-            const Text('Dein Profil', style: TextStyle(color: Colors.black)),
+        title: const Text('Dein Profil', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         actions: <Widget>[
@@ -149,13 +147,12 @@ class ProfilePage extends GetView<ProfileController> {
           Center(
             child: Stack(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 55,
                   backgroundImage: NetworkImage(
                     "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
                   ),
                 ),
-                Text('data'),
                 Positioned(
                   bottom: 0,
                   right: 0,
@@ -183,62 +180,14 @@ class ProfilePage extends GetView<ProfileController> {
           ),
 
           // show a name
-          // Padding(
-          //   padding: EdgeInsets.only(top: 20),
-          //   child: Text(
-          //     "Maxs Mustermdann",
-          //     style: Theme.of(context).textTheme.titleMedium,
-          //   ),
-          // ),
-          // SegmentedTabControl(
-          //   // Customization of widget
-          //   radius: const Radius.circular(3),
-          //   backgroundColor: Colors.grey.shade300,
-          //   indicatorColor: Colors.orange.shade200,
-          //   tabTextColor: Colors.black45,
-          //   selectedTabTextColor: Colors.white,
-          //   squeezeIntensity: 2,
-          //   height: 45,
-          //   tabPadding: const EdgeInsets.symmetric(horizontal: 8),
-          //   textStyle: Theme.of(context).textTheme.bodyText1,
-          //   // Options for selection
-          //   // All specified values will override the [SegmentedTabControl] setting
-          //   tabs: [
-          //     SegmentTab(
-          //       label: 'ACCOUNT',
-          //       // For example, this overrides [indicatorColor] from [SegmentedTabControl]
-          //       color: Colors.red.shade200,
-          //     ),
-          //     SegmentTab(
-          //       label: 'HOME',
-          //       backgroundColor: Colors.blue.shade100,
-          //       selectedTextColor: Colors.black45,
-          //       textColor: Colors.black26,
-          //     ),
-          //     const SegmentTab(label: 'NEW'),
-          //   ],
-          // ),
-          // // Sample pages
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 70),
-          //   child: TabBarView(
-          //     physics: const BouncingScrollPhysics(),
-          //     children: [
-          //       SampleWidget(
-          //         label: 'FIRST PAGE',
-          //         color: Colors.red.shade200,
-          //       ),
-          //       SampleWidget(
-          //         label: 'SECOND PAGE',
-          //         color: Colors.blue.shade100,
-          //       ),
-          //       SampleWidget(
-          //         label: 'THIRD PAGE',
-          //         color: Colors.orange.shade200,
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text(
+              "Maxs Mustermdann",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          // 
 
           // add a tabbarview
 

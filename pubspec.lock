@@ -141,13 +141,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  customizable_space_bar:
-    dependency: "direct main"
-    description:
-      name: customizable_space_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   dart_code_metrics:
     dependency: "direct dev"
     description:
@@ -176,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
+  expandable_page_view:
+    dependency: "direct main"
+    description:
+      name: expandable_page_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.17"
   fake_async:
     dependency: transitive
     description:
@@ -786,4 +786,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.17.5 <3.0.0"
-  flutter: ">=2.12.0"
+  flutter: ">=3.0.0"

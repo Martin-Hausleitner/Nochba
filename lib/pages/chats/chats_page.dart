@@ -33,7 +33,7 @@ class _ChatsPageState extends State<ChatsPage> {
   @override
   Widget build(BuildContext context) {
     if (_error) {
-      return Text('Error schau bei _error');
+      return Text('Error schau bei');
     }
 
     if (!_initialized) {
@@ -60,7 +60,7 @@ class _ChatsPageState extends State<ChatsPage> {
               //   },
               // ),
               IconButton(
-                icon: const Icon(Icons.add,color: Colors.black),
+                icon: const Icon(Icons.add, color: Colors.black),
                 onPressed: _user == null
                     ? null
                     : () {
