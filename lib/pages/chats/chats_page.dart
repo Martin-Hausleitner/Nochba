@@ -33,7 +33,7 @@ class _ChatsPageState extends State<ChatsPage> {
   @override
   Widget build(BuildContext context) {
     if (_error) {
-      return Text('Error schau bei');
+      return Text('Error schau bei if (_error)');
     }
 
     if (!_initialized) {

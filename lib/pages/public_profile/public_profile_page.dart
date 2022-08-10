@@ -12,12 +12,12 @@ import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
 
 class PublicProfileView extends StatelessWidget {
-  final authorName;
-  final authorImage;
+  final String authorName;
+  final String authorImage;
 
   const PublicProfileView({
     Key? key,
-    this.authorName ,
+    this.authorName = 'John Doe',
     this.authorImage = 'https://i.pravatar.cc/303',
   }) : super(key: key);
 
@@ -55,27 +55,6 @@ class PublicProfileView extends StatelessWidget {
               );
             },
           ),
-          // IconButton(
-          //   icon: const Icon(Icons.navigate_next),
-          //   tooltip: 'Go to the next page',
-          //   onPressed: () {
-          //     Navigator.push(context, MaterialPageRoute<void>(
-          //       builder: (BuildContext context) {
-          //         return Scaffold(
-          //           appBar: AppBar(
-          //             title: const Text('Next page'),
-          //           ),
-          //           body: const Center(
-          //             child: Text(
-          //               'This is the next page',
-          //               style: TextStyle(fontSize: 24),
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     ));
-          //   },
-          // ),
         ],
       ),
       body: Column(
@@ -90,7 +69,7 @@ class PublicProfileView extends StatelessWidget {
             child: CircleAvatar(
               radius: 55,
               backgroundImage: NetworkImage(
-                "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+                authorImage,
               ),
             ),
           ),
@@ -99,7 +78,7 @@ class PublicProfileView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 20),
             child: Text(
-              "Maxs Mustermdann",
+              authorName,
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
