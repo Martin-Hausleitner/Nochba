@@ -7,14 +7,19 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 
+import '../../shared/button.dart';
 import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
 
-class PublicProfilePage extends GetView<PublicProfileController> {
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'LEFT'),
-    Tab(text: 'RIGHT'),
-  ];
+class PublicProfileView extends StatelessWidget {
+  final authorName;
+  final authorImage;
+
+  const PublicProfileView({
+    Key? key,
+    this.authorName ,
+    this.authorImage = 'https://i.pravatar.cc/303',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +103,19 @@ class PublicProfilePage extends GetView<PublicProfileController> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          //
+          Padding(
+            padding: EdgeInsets.only(top: 16),
+            child: Button(
+              text: 'Anschreiben',
+              //onpres open Get.Snackbar
+              onPressed: () {
+                Get.snackbar(
+                  'Anschreiben',
+                  'Du hast den Button gedrückt',
+                );
+              },
+            ),
+          ),
 
           // add a tabbarview
 
