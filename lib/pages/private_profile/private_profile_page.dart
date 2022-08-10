@@ -10,7 +10,7 @@ import 'package:locoo/shared/round_icon_button.dart';
 import '../settings/settings_page.dart';
 import 'private_profile_controller.dart';
 
-class PrivateProfilePage extends GetView<ProfileController> {
+class PrivateProfilePage extends GetView<PrivateProfileController> {
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'LEFT'),
     Tab(text: 'RIGHT'),
@@ -187,7 +187,7 @@ class PrivateProfilePage extends GetView<ProfileController> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          // 
+          //
 
           // add a tabbarview
 
