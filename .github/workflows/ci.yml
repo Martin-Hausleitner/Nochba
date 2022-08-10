@@ -50,7 +50,7 @@ jobs:
       - run: flutter clean
       - run: flutter build appbundle
       - run: flutter build apk
-        uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@master
         with:
           name: apk-release
           path: build/app/outputs/bundle/release/app-release.apk
