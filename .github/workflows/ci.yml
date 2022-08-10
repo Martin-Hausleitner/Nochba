@@ -55,9 +55,12 @@ jobs:
           name: apk-release
           path: build/app/outputs/bundle/release/app-release.apk
 
-  
-      - name: Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
+  firebase-app-distribution:
+    name: Firebase App Distribution
+    runs-on: ubuntu-latest
+    needs: [build_appbundle]
+    steps:
+      - uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}

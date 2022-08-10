@@ -22,21 +22,30 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        
+        title:
+            const Text('Einstellungen', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(
+            FlutterRemix.arrow_left_line,
+            color: Colors.black,
+          ),
+          //onPress open SettingsPage
+          // got back to he previes screen
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      ),
       body: // add colum with a titleLarge text and a list of rounded containers with a text and a icon on the left side
           Container(
         child: Column(
           // allign left
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
-              child: Text(
-                'Settings',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            SizedBox(height: 30),
-
             // add a expended then a lsitview
             Expanded(
               child: ListView(
