@@ -209,6 +209,7 @@ class _ChatPageState extends State<ChatPage> {
       await OpenFile.open(localPath);
     }
   }
+  
 
   void _handlePreviewDataFetched(
     types.TextMessage message,
