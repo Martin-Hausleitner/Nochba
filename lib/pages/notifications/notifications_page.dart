@@ -43,7 +43,7 @@ class NotificationsPage extends GetView<NotificationsController> {
               // When the "middle" parameter is omitted, the widget provided
               // in the "largeTitle" parameter is used instead in the collapsed state.
               largeTitle: Text(
-                'Nachrichten',
+                'Aktiviäten',
               ),
 
               trailing: Icon(
@@ -59,7 +59,7 @@ class NotificationsPage extends GetView<NotificationsController> {
             SliverFillRemaining(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[Text('Ddd')],
+                children: <Widget>[Text('Stropek ist der beste')],
               ),
             ),
           ],

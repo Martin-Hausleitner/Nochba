@@ -53,7 +53,7 @@ class SettingsPage extends StatelessWidget {
               // When the "middle" parameter is omitted, the widget provided
               // in the "largeTitle" parameter is used instead in the collapsed state.
               largeTitle: Text(
-                'Nachrichten',
+                'Einstellungen',
               ),
               leading: IconButton(
                 icon: Icon(
