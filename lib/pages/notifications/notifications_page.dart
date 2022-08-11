@@ -43,7 +43,7 @@ class NotificationsPage extends GetView<NotificationsController> {
               // When the "middle" parameter is omitted, the widget provided
               // in the "largeTitle" parameter is used instead in the collapsed state.
               largeTitle: Text(
-                'Aktiviäten',
+                'Benachrichtigungen',
               ),
 
               trailing: Icon(
