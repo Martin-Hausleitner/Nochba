@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 
-import '../settings/settings_page.dart';
+import '../../views/settings/settings_page.dart';
 import 'private_profile_controller.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {

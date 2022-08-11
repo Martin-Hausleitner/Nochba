@@ -1,11 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/settings/settings/logout_settings_cart.dart';
-import 'package:locoo/pages/settings/settings/settings_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../feed/post/category_badge.dart';
-import '../feed/post/post.dart';
+import 'settings/logout_settings_cart.dart';
+import 'settings/settings_card.dart';
 
 // Text(
 //                 'Settings',
@@ -22,37 +22,66 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        
-        title:
-            const Text('Einstellungen', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(
-            FlutterRemix.arrow_left_line,
-            color: Colors.black,
+      body: CupertinoTheme(
+        data: CupertinoThemeData(
+          textTheme: CupertinoTextThemeData(
+            navTitleTextStyle: GoogleFonts.inter(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+            navLargeTitleTextStyle: GoogleFonts.inter(
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
+              color: Colors.black,
+            ),
           ),
-          //onPress open SettingsPage
-          // got back to he previes screen
-          onPressed: () {
-            Get.back();
-          },
+          barBackgroundColor: Colors.white,
         ),
-      ),
-      body: // add colum with a titleLarge text and a list of rounded containers with a text and a icon on the left side
-          Container(
-        child: Column(
-          // allign left
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // add a expended then a lsitview
-            Expanded(
-              child: ListView(
-                // add a list of rounded containers with a text and a icon on the left side
-                children: [
+        child: CustomScrollView(
+          // A list of sliver widgets.
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              // padding: EdgeInsetsDirectional.only(
+              //   start: 7,
+              //   end: 23,
+              // ),
+
+              // leading: Icon(CupertinoIcons.person_2),
+              // This title is visible in both collapsed and expanded states.
+              // When the "middle" parameter is omitted, the widget provided
+              // in the "largeTitle" parameter is used instead in the collapsed state.
+              largeTitle: Text(
+                'Nachrichten',
+              ),
+              leading: IconButton(
+                icon: Icon(
+                  FlutterRemix.arrow_left_line,
+                  size: 24,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Get.back();
+                },
+                padding: EdgeInsets.zero,
+                alignment: Alignment.centerLeft,
+              ),
+              // padding left 10
+              padding: EdgeInsetsDirectional.only(
+                start: 12,
+                end: 10,
+              ),
+
+              border: //make the border transparent
+                  const Border(bottom: BorderSide(color: Colors.transparent)),
+            ),
+            // add a Silverlist with SettingsCard
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.only(left: 15, top: 15),
                     child: Text(
                       'Konto',
                       style: Theme.of(context).textTheme.titleSmall,
@@ -186,11 +215,6 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-
-            //create a list view
-            // create a list view with a text
-
-            // add listview with a a gray rounded container with a text and a icon on the left side
           ],
         ),
       ),

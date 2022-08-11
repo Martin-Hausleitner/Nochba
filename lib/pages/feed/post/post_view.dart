@@ -58,168 +58,170 @@ class PostView extends StatelessWidget {
   Widget build(BuildContext context) {
     const double spacingBetween = 15;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
-      //create two text children
-      child: Column(
-        //allign left
-        children: <Widget>[
-          // Post Image
-          postImage != ''
-              ? Padding(
-                  padding: const EdgeInsets.only(top: spacingBetween),
-                  child: Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(22),
-                      child: Image.network(
-                        postImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                )
-              : Container(),
-
-          // show a photo from unspash
-          Image.network(
-            'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-            fit: BoxFit.cover,
-          ),
-
-          // Post title
-          Padding(
-            padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(postTitle,
-                      //chnage the space between the words
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headlineLarge),
-                ),
-
-                const SizedBox(height: spacingBetween),
-
-                // Badges
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    // Category Badge
-                    CategoryBadge(
-                      category: postCategory,
-                    ),
-
-                    // Hashtag Badges
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(left: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            HashtagBadges(hashtags: postHashtags),
-                          ],
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        //create two text children
+        child: Column(
+          //allign left
+          children: <Widget>[
+            // Post Image
+            postImage != ''
+                ? Padding(
+                    padding: const EdgeInsets.only(top: spacingBetween),
+                    child: Container(
+                      height: 200,
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(22),
+                        child: Image.network(
+                          postImage,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  )
+                : Container(),
 
-                const SizedBox(height: spacingBetween),
+            // show a photo from unspash
+            Image.network(
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+              fit: BoxFit.cover,
+            ),
 
-                // Post Profile
-                PostProfile(
-                  authorImage: postAuthorImage,
-                  authorName: postAuthorName,
-                  publishDate: postPublishDate,
-                  distance: postDistance,
-                ),
-
-                const SizedBox(height: spacingBetween),
-
-                // show a more button if the maxLines is over 4
-                // ExpandableText(
-                //   postDescription,
-                //   expandText: 'more',
-                //   collapseText: 'show less',
-                //   maxLines: 4,
-                //   linkColor: Colors.red,
-                //   expandOnTextTap: false,
-                //   urlStyle: const TextStyle(
-                //     color: Colors.red,
-                //     decoration: TextDecoration.underline,
-                //   ),
-                //   mentionStyle: const TextStyle(
-                //     color: Colors.green,
-                //     decoration: TextDecoration.underline,
-                //   ),
-                //   hashtagStyle: const TextStyle(
-                //     color: Colors.orange
-
-                //   ),
-                //   onExpandedChanged:
-                //   // show snakbar
-                //   (bool expanded) {
-                //     if (expanded) {
-                //       Scaffold.of(context).showSnackBar(
-                //         const SnackBar(
-                //           content: Text('Expanded'),
-                //         ),
-                //       );
-                //     } else {
-                //       Scaffold.of(context).showSnackBar(
-                //         const SnackBar(
-                //           content: Text('Collapsed'),
-                //         ),
-                //       );
-                //     }
-                //   },
-
-                // ),
-
-                //Create a Layoutbuilder which shows display postDiscription and when the postDescription is longer than 4 lines, show a more button
-
-                Text(
-                  //print postDescription.split('\n').length as string
-                  postDescription,
-
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-
-                //when the catogory is Suche the button2 is visible
-
-                // place a dark green button with a text "anschreiben" and a comment icon on the left side of the button
-
-                // Button
-                if (postCategory == Category.suche)
-                  Padding(
-                    padding: EdgeInsets.only(top: spacingBetween),
-                    child: Button(
-                      text: 'Anschreiben',
-                      //onpres open Get.Snackbar
-                      onPressed: () {
-                        Get.snackbar(
-                          'Anschreiben',
-                          'Du hast den Button gedrückt',
-                        );
-                      },
-                    ),
+            // Post title
+            Padding(
+              padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(postTitle,
+                        //chnage the space between the words
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.headlineLarge),
                   ),
 
-                const SizedBox(height: spacingBetween),
+                  const SizedBox(height: spacingBetween),
 
-                // Action Bar
-                // const ActionBar(),
-              ],
+                  // Badges
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      // Category Badge
+                      CategoryBadge(
+                        category: postCategory,
+                      ),
+
+                      // Hashtag Badges
+                      Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.only(left: 6),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              HashtagBadges(hashtags: postHashtags),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: spacingBetween),
+
+                  // Post Profile
+                  PostProfile(
+                    authorImage: postAuthorImage,
+                    authorName: postAuthorName,
+                    publishDate: postPublishDate,
+                    distance: postDistance,
+                  ),
+
+                  const SizedBox(height: spacingBetween),
+
+                  // show a more button if the maxLines is over 4
+                  // ExpandableText(
+                  //   postDescription,
+                  //   expandText: 'more',
+                  //   collapseText: 'show less',
+                  //   maxLines: 4,
+                  //   linkColor: Colors.red,
+                  //   expandOnTextTap: false,
+                  //   urlStyle: const TextStyle(
+                  //     color: Colors.red,
+                  //     decoration: TextDecoration.underline,
+                  //   ),
+                  //   mentionStyle: const TextStyle(
+                  //     color: Colors.green,
+                  //     decoration: TextDecoration.underline,
+                  //   ),
+                  //   hashtagStyle: const TextStyle(
+                  //     color: Colors.orange
+
+                  //   ),
+                  //   onExpandedChanged:
+                  //   // show snakbar
+                  //   (bool expanded) {
+                  //     if (expanded) {
+                  //       Scaffold.of(context).showSnackBar(
+                  //         const SnackBar(
+                  //           content: Text('Expanded'),
+                  //         ),
+                  //       );
+                  //     } else {
+                  //       Scaffold.of(context).showSnackBar(
+                  //         const SnackBar(
+                  //           content: Text('Collapsed'),
+                  //         ),
+                  //       );
+                  //     }
+                  //   },
+
+                  // ),
+
+                  //Create a Layoutbuilder which shows display postDiscription and when the postDescription is longer than 4 lines, show a more button
+
+                  Text(
+                    //print postDescription.split('\n').length as string
+                    postDescription,
+
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+
+                  //when the catogory is Suche the button2 is visible
+
+                  // place a dark green button with a text "anschreiben" and a comment icon on the left side of the button
+
+                  // Button
+                  if (postCategory == Category.suche)
+                    Padding(
+                      padding: EdgeInsets.only(top: spacingBetween),
+                      child: Button(
+                        text: 'Anschreiben',
+                        //onpres open Get.Snackbar
+                        onPressed: () {
+                          Get.snackbar(
+                            'Anschreiben',
+                            'Du hast den Button gedrückt',
+                          );
+                        },
+                      ),
+                    ),
+
+                  const SizedBox(height: spacingBetween),
+
+                  // Action Bar
+                  // const ActionBar(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
