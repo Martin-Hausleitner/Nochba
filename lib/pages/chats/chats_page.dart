@@ -171,9 +171,12 @@ class _ChatsPageState extends State<ChatsPage> {
 
   void initializeFlutterFire() async {
     try {
+      if (Firebase.apps.isEmpty) {
       await Firebase.initializeApp(
+        name: "THIS",
         options: DefaultFirebaseOptions.currentPlatform,
       );
+      }
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           _user = user;
