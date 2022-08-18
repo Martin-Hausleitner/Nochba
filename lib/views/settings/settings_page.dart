@@ -20,26 +20,26 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CupertinoTheme(
-        data: CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(
-            navTitleTextStyle: GoogleFonts.inter(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-            navLargeTitleTextStyle: GoogleFonts.inter(
-              fontSize: 30,
-              fontWeight: FontWeight.w800,
-              letterSpacing: -0.5,
-              color: Colors.black,
-            ),
+    return CupertinoTheme(
+      data: CupertinoThemeData(
+        textTheme: CupertinoTextThemeData(
+          navTitleTextStyle: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-          barBackgroundColor: Colors.white,
+          navLargeTitleTextStyle: GoogleFonts.inter(
+            fontSize: 30,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.5,
+            color: Colors.black,
+          ),
         ),
-        child: CustomScrollView(
+        barBackgroundColor: Colors.white,
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: CustomScrollView(
           // A list of sliver widgets.
           slivers: <Widget>[
             CupertinoSliverNavigationBar(
@@ -55,17 +55,20 @@ class SettingsPage extends StatelessWidget {
               largeTitle: Text(
                 'Einstellungen',
               ),
-              leading: IconButton(
-                icon: Icon(
-                  FlutterRemix.arrow_left_line,
-                  size: 24,
-                  color: Colors.black,
+              leading: Material(
+                color: Colors.transparent,
+                child: IconButton(
+                  icon: Icon(
+                    FlutterRemix.arrow_left_line,
+                    size: 24,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  padding: EdgeInsets.zero,
+                  alignment: Alignment.centerLeft,
                 ),
-                onPressed: () {
-                  Get.back();
-                },
-                padding: EdgeInsets.zero,
-                alignment: Alignment.centerLeft,
               ),
               // padding left 10
               padding: EdgeInsetsDirectional.only(
