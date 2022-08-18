@@ -9,6 +9,7 @@ import 'package:locoo/shared/round_icon_button.dart';
 
 import '../../views/settings/settings_page.dart';
 import 'private_profile_controller.dart';
+import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   final List<Tab> myTabs = <Tab>[
@@ -18,6 +19,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     // return Scaffold(
     //   body: Container(
     //     child: Center(
@@ -96,6 +99,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
     // );
     // return Scaffold( with a colum and a row with headline5 text and a settings icon
     return Scaffold(
+      
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Dein Profil', style: TextStyle(color: Colors.black)),
@@ -190,7 +194,27 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
           //
 
           // add a tabbarview
-
+          Container(
+                width: width,
+                height: height,
+                child: ContainedTabBarView(
+                  tabs: [
+                    Text('Info', style: TextStyle(fontSize: 20)),
+                    Text('Posts', style: TextStyle(fontSize: 20)),
+                  ],
+                  tabBarProperties: TabBarProperties(
+                    indicatorColor: Theme.of(context).primaryColor,
+                    indicatorWeight: 8.0,
+                    labelColor: Theme.of(context).primaryColor,
+                    unselectedLabelColor: Colors.grey[400],
+                  ),
+                  views: [
+                    Container(color: Colors.red),
+                    Container(color: Colors.green),
+                  ],
+                  onChange: (index) => print(index),
+                ),
+              ),
           // add TabBarView with with info and post
         ],
       ),
