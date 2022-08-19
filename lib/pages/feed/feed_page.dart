@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locoo/models/data_access.dart';
 import 'package:locoo/pages/feed/post/category_badge.dart';
 import 'package:locoo/pages/feed/post/post.dart';
-import 'package:locoo/models/post.dart' as model;
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
@@ -11,9 +9,9 @@ import 'feed_controller.dart';
 class FeedPage extends GetView<FeedController> {
   @override
   Widget build(BuildContext context) {
-    final dataAccess = Get.find<DataAccess>();
     return Scaffold(
       body: Container(
+<<<<<<< HEAD
         child: StreamBuilder<List<model.Post>>(
           stream: dataAccess.getPosts(),
           builder: (context, snapshot) {
@@ -61,6 +59,9 @@ class FeedPage extends GetView<FeedController> {
         
         
         /*ListView(
+=======
+        child: ListView(
+>>>>>>> parent of d73af4b (updated feedpage)
           children: const [
             Slider1(),
             Post(
@@ -95,7 +96,7 @@ class FeedPage extends GetView<FeedController> {
                   'Post https://pub.dev/packages/expandable_text Dddddescrdfffffffffffffffdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfffffffffffffffffffffffffffffffffffffffffisf dddddddddddsdffffffffffffsdfffffdddption',
             ),
           ],
-        ),*/
+        ),
       ),
     );
   }
