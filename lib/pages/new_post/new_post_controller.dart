@@ -97,8 +97,6 @@ class NewPostController extends GetxController {
     final isValid = formKey.currentState!.validate();
     if(!isValid || category == CategoryOptions.None) return;
 
-    Get.snackbar('Moin', 'Seas');
-
     final imageUrl = image == null ? '' : await uploadImageToStorage('post', image!, true);
 
     final post = Post(
