@@ -31,15 +31,20 @@ class FeedPage extends GetView<FeedController> {
                   itemCount: posts.length,
                   itemBuilder: (BuildContext context, int index) {
                     final post = posts.elementAt(index);
-                    return Post(
-                      postTitle: post.title,
-                      postImage: post.imageUrl,
-                      postCategory: Category.mitteilung,
-                      postHashtags: post.tags,
-                      postAuthorName: 'John Doe',
-                      postPublishDate: '${post.createdAt.toDate().day}.${post.createdAt.toDate().month}.${post.createdAt.toDate().year}',
-                      postDistance: '1',
-                      postDescription: post.description,
+                    return Row(
+                      children: [
+                        Post(
+                          postTitle: post.title,
+                          postImage: post.imageUrl,
+                          postCategory: Category.mitteilung,
+                          postHashtags: post.tags,
+                          postAuthorName: 'John Doe',
+                          postPublishDate: '${post.createdAt.toDate().day}.${post.createdAt.toDate().month}.${post.createdAt.toDate().year}',
+                          postDistance: '1',
+                          postDescription: post.description,
+                        ),
+                        SizedBox(height: 3),
+                      ],
                     );
                   }
                 );
