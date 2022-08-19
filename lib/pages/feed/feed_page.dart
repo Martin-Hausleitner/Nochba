@@ -12,6 +12,7 @@ class FeedPage extends GetView<FeedController> {
     return Scaffold(
       body: Container(
 <<<<<<< HEAD
+<<<<<<< HEAD
         child: StreamBuilder<List<model.Post>>(
           stream: dataAccess.getPosts(),
           builder: (context, snapshot) {
@@ -59,6 +60,9 @@ class FeedPage extends GetView<FeedController> {
         
         
         /*ListView(
+=======
+        child: ListView(
+>>>>>>> parent of d73af4b (updated feedpage)
 =======
         child: ListView(
 >>>>>>> parent of d73af4b (updated feedpage)
