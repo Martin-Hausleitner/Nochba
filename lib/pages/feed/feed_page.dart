@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locoo/models/data_access.dart';
 import 'package:locoo/pages/feed/post/category_badge.dart';
 import 'package:locoo/pages/feed/post/post.dart';
+import 'package:locoo/models/post.dart' as model;
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
@@ -9,63 +11,46 @@ import 'feed_controller.dart';
 class FeedPage extends GetView<FeedController> {
   @override
   Widget build(BuildContext context) {
+    final dataAccess = Get.find<DataAccess>();
     return Scaffold(
       body: Container(
-<<<<<<< HEAD
-<<<<<<< HEAD
-        child: StreamBuilder<List<model.Post>>(
-          stream: dataAccess.getPosts(),
-          builder: (context, snapshot) {
-            if(snapshot.hasError) {
-                return Text('Something went wrong: ${snapshot.error.toString()}',
-                    textAlign: TextAlign.center, 
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300)
+          child: StreamBuilder<List<model.Post>>(
+        stream: dataAccess.getPosts(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong: ${snapshot.error.toString()}',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+          } else if (snapshot.hasData) {
+            final posts = snapshot.data!;
+
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: posts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final post = posts.elementAt(index);
+                  return Post(
+                    postTitle: post.title,
+                    postImage: post.imageUrl,
+                    postCategory: Category.mitteilung,
+                    postHashtags: post.tags,
+                    postAuthorName: 'John Doe',
+                    postPublishDate:
+                        '${post.createdAt.toDate().day}.${post.createdAt.toDate().month}.${post.createdAt.toDate().year}',
+                    postDistance: '1',
+                    postDescription: post.description,
                   );
+                });
+          } else {
+            return const Center(child: CircularProgressIndicator());
+            // return const Text('There are no posts in the moment',
+            //   textAlign: TextAlign.center,
+            //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+          }
+        },
+      )
 
-              } else if(snapshot.hasData) {
-                final posts = snapshot.data!;
-                
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: posts.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final post = posts.elementAt(index);
-                    return Row(
-                      children: [
-                        Post(
-                          postTitle: post.title,
-                          postImage: post.imageUrl,
-                          postCategory: Category.mitteilung,
-                          postHashtags: post.tags,
-                          postAuthorName: 'John Doe',
-                          postPublishDate: '${post.createdAt.toDate().day}.${post.createdAt.toDate().month}.${post.createdAt.toDate().year}',
-                          postDistance: '1',
-                          postDescription: post.description,
-                        ),
-                        SizedBox(height: 3),
-                      ],
-                    );
-                  }
-                );
-
-              } else {
-                return const Center(child: CircularProgressIndicator());
-                // return const Text('There are no posts in the moment',
-                //   textAlign: TextAlign.center, 
-                //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
-              } 
-          },
-        )
-        
-        
-        
-        /*ListView(
-=======
-        child: ListView(
->>>>>>> parent of d73af4b (updated feedpage)
-=======
-        child: ListView(
->>>>>>> parent of d73af4b (updated feedpage)
+          /*ListView(
           children: const [
             Slider1(),
             Post(
@@ -100,8 +85,8 @@ class FeedPage extends GetView<FeedController> {
                   'Post https://pub.dev/packages/expandable_text Dddddescrdfffffffffffffffdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfffffffffffffffffffffffffffffffffffffffffisf dddddddddddsdffffffffffffsdfffffdddption',
             ),
           ],
-        ),
-      ),
+        ),*/
+          ),
     );
   }
 }
