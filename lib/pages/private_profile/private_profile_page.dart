@@ -13,94 +13,12 @@ import 'private_profile_controller.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 // import post.dart
 import '../../pages/feed/post/post.dart';
+import 'user_info/user_info.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'LEFT'),
-    Tab(text: 'RIGHT'),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    // return Scaffold(
-    //   body: Container(
-    //     child: Center(
-    //       child: Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         children: [
-    //           Obx(() => Text("Counter ${controller.counter.value}")),
-    //           ElevatedButton(
-    //             child: const Text("Increase"),
-    //             onPressed: () => controller.increaseCounter(),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
-    // return Scaffold(
-    //   body: CustomScrollView(
-    //     slivers: [
-    //       SliverAppBar(
-    //         pinned: true,
-    //         // leading: IconButton(
-    //         //   icon: Icon(Icons.arrow_back_ios_sharp),
-    //         //   onPressed: () {},
-    //         // ),
-    //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-    //         actions: const [
-    //           Icon(
-    //             FlutterRemix.settings_2_line,
-    //             color: Colors.black87,
-    //           ),
-    //         ],
-    //         shadowColor: Colors.transparent,
-
-    //         /// The part you use this package
-    //         flexibleSpace: CustomizableSpaceBar(
-    //           builder: (context, scrollingRate) {
-    //             return Padding(
-    //               // padding: EdgeInsets.only(
-    //               //     bottom: 13, left: 12 + 40 * scrollingRate),
-    //               padding: EdgeInsets.only(
-    //                   bottom: 13, left: 12),
-    //               child: Align(
-    //                 alignment: Alignment.bottomLeft,
-    //                 child: Row(
-    //                   children: [
-    //                     Text(
-    //                       "Dein Profil",
-    //                       style: TextStyle(
-    //                           fontSize: 42 - 18 * scrollingRate,
-    //                           fontWeight: FontWeight.bold),
-    //                     ),
-
-    //                   ],
-    //                 ),
-    //               ),
-    //             );
-    //           },
-    //         ),
-
-    //         /// End of the part
-    //         expandedHeight: 150,
-    //       ),
-    //       SliverList(
-    //         delegate: SliverChildBuilderDelegate(
-    //           (context, index) {
-    //             return ListTile(
-    //               title: Text("LIST ITEM"),
-    //             );
-    //           },
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    // );
-    // return Scaffold( with a colum and a row with headline5 text and a settings icon
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -119,27 +37,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   transition: Transition.rightToLeftWithFade);
             },
           ),
-          // IconButton(
-          //   icon: const Icon(Icons.navigate_next),
-          //   tooltip: 'Go to the next page',
-          //   onPressed: () {
-          //     Navigator.push(context, MaterialPageRoute<void>(
-          //       builder: (BuildContext context) {
-          //         return Scaffold(
-          //           appBar: AppBar(
-          //             title: const Text('Next page'),
-          //           ),
-          //           body: const Center(
-          //             child: Text(
-          //               'This is the next page',
-          //               style: TextStyle(fontSize: 24),
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     ));
-          //   },
-          // ),
+
         ],
       ),
       body: Column(
@@ -204,8 +102,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
             // height: height,
             child: ContainedTabBarView(
               tabs: [
-                Text('Info', style: TextStyle(fontSize: 20)),
-                Text('Posts', style: TextStyle(fontSize: 20)),
+                Text('Info', style: Theme.of(context).textTheme.titleMedium,),
+                Text('Posts', style: Theme.of(context).textTheme.titleMedium),
               ],
               tabBarProperties: TabBarProperties(
                 indicatorColor: Theme.of(context).primaryColor,
@@ -214,7 +112,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                 unselectedLabelColor: Colors.grey[400],
               ),
               views: [
-                Container(color: Colors.red.shade100),
+                UserInfo(),
                 // create a container with a list of post.dart
                 Container(
                   color: Color.fromARGB(146, 238, 238, 238),

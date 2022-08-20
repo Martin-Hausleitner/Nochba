@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.5
   flutter_remix: ^0.0.3
   expandable_page_view: ^1.0.17
+  json_theme: ^4.0.0+8
 
 
   animated_segmented_tab_control: ^1.0.1
@@ -55,3 +56,29 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/appainter_theme.json
+  fonts:
+    - family: Inter
+      fonts:
+        #import font 200
+        - asset: assets/fonts/Inter-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Inter-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Inter-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Inter-Black.ttf
+          weight: 900
+        
+
+
+ 
+

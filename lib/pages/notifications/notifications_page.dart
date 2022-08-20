@@ -10,7 +10,7 @@ class NotificationsPage extends GetView<NotificationsController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       // A ScrollView that creates custom scroll effects using slivers.
       child: CupertinoTheme(
         data: CupertinoThemeData(
@@ -18,16 +18,16 @@ class NotificationsPage extends GetView<NotificationsController> {
             navTitleTextStyle: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
             navLargeTitleTextStyle: GoogleFonts.inter(
               fontSize: 30,
               fontWeight: FontWeight.w800,
               letterSpacing: -0.5,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
-          barBackgroundColor: Colors.white,
+          barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         ),
         child: CustomScrollView(
           // A list of sliver widgets.
@@ -43,13 +43,13 @@ class NotificationsPage extends GetView<NotificationsController> {
               // When the "middle" parameter is omitted, the widget provided
               // in the "largeTitle" parameter is used instead in the collapsed state.
               largeTitle: Text(
-                'Benachrichtigungen',
+                'Aktivitäten',
               ),
 
               trailing: Icon(
                 FlutterRemix.pencil_line,
                 size: 24,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               border: //make the border transparent
                   const Border(bottom: BorderSide(color: Colors.transparent)),

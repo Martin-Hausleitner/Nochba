@@ -22,23 +22,22 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTheme(
       data: CupertinoThemeData(
-        textTheme: CupertinoTextThemeData(
-          navTitleTextStyle: GoogleFonts.inter(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
+          textTheme: CupertinoTextThemeData(
+            navTitleTextStyle: GoogleFonts.inter(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+            navLargeTitleTextStyle: GoogleFonts.inter(
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
+              color: Colors.black,
+            ),
           ),
-          navLargeTitleTextStyle: GoogleFonts.inter(
-            fontSize: 30,
-            fontWeight: FontWeight.w800,
-            letterSpacing: -0.5,
-            color: Colors.black,
-          ),
-        ),
-        barBackgroundColor: Colors.white,
-      ),
+          barBackgroundColor: Theme.of(context).backgroundColor),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         body: CustomScrollView(
           // A list of sliver widgets.
           slivers: <Widget>[
