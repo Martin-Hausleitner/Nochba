@@ -18,16 +18,19 @@ class NotificationsPage extends GetView<NotificationsController> {
             navTitleTextStyle: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: Theme.of(context).colorScheme.onPrimary,
+              // color: Theme.of(context).colorScheme.onPrimary,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
             ),
             navLargeTitleTextStyle: GoogleFonts.inter(
               fontSize: 30,
               fontWeight: FontWeight.w800,
               letterSpacing: -0.5,
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              // color: Colors.black,
             ),
           ),
-          barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          // barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          barBackgroundColor: Theme.of(context).backgroundColor,
         ),
         child: CustomScrollView(
           // A list of sliver widgets.
@@ -49,7 +52,7 @@ class NotificationsPage extends GetView<NotificationsController> {
               trailing: Icon(
                 FlutterRemix.pencil_line,
                 size: 24,
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
               border: //make the border transparent
                   const Border(bottom: BorderSide(color: Colors.transparent)),
