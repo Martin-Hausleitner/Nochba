@@ -16,11 +16,10 @@ import '../../pages/feed/post/post.dart';
 import 'user_info/user_info.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: const Text('Dein Profil', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
@@ -37,7 +36,6 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   transition: Transition.rightToLeftWithFade);
             },
           ),
-
         ],
       ),
       body: Column(
@@ -102,7 +100,10 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
             // height: height,
             child: ContainedTabBarView(
               tabs: [
-                Text('Info', style: Theme.of(context).textTheme.titleMedium,),
+                Text(
+                  'Info',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 Text('Posts', style: Theme.of(context).textTheme.titleMedium),
               ],
               tabBarProperties: TabBarProperties(

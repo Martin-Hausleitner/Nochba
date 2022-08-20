@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserInfo extends StatelessWidget {
@@ -14,63 +15,209 @@ class UserInfo extends StatelessWidget {
     // return a contianer with a title, a sizedbox, a widped Clip
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding:
+            //padding horenzotal 18
+            EdgeInsets.symmetric(horizontal: 18.0),
         child: ListView(
           //align left
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: 18,
+            ),
             Text(
-              'User Info',
+              'Interessen',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
             ),
             // create a text with weigh t900
             SizedBox(
-              height: 18,
+              height: 14,
             ),
             Wrap(
                 // space between chips
-                spacing: 10,
+                spacing: 6,
+                runSpacing: 7,
                 // list of chips
                 children: const [
-                  Chip(
-                    label: Text('Working'),
-                    avatar: Icon(
-                      Icons.work,
-                      color: Colors.red,
-                    ),
-                    backgroundColor: Colors.amberAccent,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  UserInfoClip(
+                    text: "Halfsdflooo",
                   ),
-                  Chip(
-                    label: Text('Music'),
-                    avatar: Icon(Icons.headphones),
-                    backgroundColor: Colors.lightBlueAccent,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  UserInfoClip(
+                    text: "Hallooo",
                   ),
-                  Chip(
-                    label: Text('Gaming'),
-                    avatar: Icon(
-                      Icons.gamepad,
-                      color: Colors.white,
-                    ),
-                    backgroundColor: Colors.pinkAccent,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  UserInfoClip(
+                    text: "Hallosfddsfoo",
                   ),
-                  Chip(
-                    label: Text('Cooking & Eating'),
-                    avatar: Icon(
-                      Icons.restaurant,
-                      color: Colors.pink,
-                    ),
-                    backgroundColor: Colors.greenAccent,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  )
+                  UserInfoClip(
+                    text: "Hallsfsooo",
+                  ),
                 ]),
+            SizedBox(
+              height: 18,
+            ),
+
+            Text(
+              'Bietet',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            SizedBox(
+              height: 14,
+            ),
+            Wrap(
+                // space between chips
+                spacing: 6,
+                runSpacing: 7,
+                // list of chips
+                children: const [
+                  UserInfoClip(
+                    text: "Halfsdflooo",
+                  ),
+                  UserInfoClip(
+                    text: "Hallooo",
+                  ),
+                  UserInfoClip(
+                    text: "Hallosfddsfoo",
+                  ),
+                  UserInfoClip(
+                    text: "Hallsfsooo",
+                  ),
+                ]),
+            SizedBox(
+              height: 18,
+            ),
+            Text(
+              'Basis Info',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            SizedBox(
+              height: 14,
+            ),
+            // create a row tith a colum with a icon and a text
+            BaseInfoRow(
+                data: '11.11.1111',
+                icon: FlutterRemix.cake_2_line,
+                title: 'Geburtstag: '),
+            SizedBox(
+              height: 2,
+            ),
+            BaseInfoRow(
+                data: '11.11.1111',
+                icon: FlutterRemix.history_line,
+                title: 'In der Nachbarschaft seit: '),
+            SizedBox(
+              height: 2,
+            ),
+            BaseInfoRow(
+                data: '11.11.1111',
+                icon: FlutterRemix.briefcase_4_line,
+                title: 'Beruf: '),
+            SizedBox(
+              height: 2,
+            ),
+            BaseInfoRow(
+                data: '11.11.1111',
+                icon: FlutterRemix.group_line,
+                title: 'Familienstand: '),
+            SizedBox(
+              height: 2,
+            ),
+            BaseInfoRow(
+                data: '11.11.1111',
+                icon: Icons.pets_outlined,
+                title: 'Haustiere: '),
+
+            SizedBox(
+              height: 18,
+            ),
+            Text(
+              'Mehr über mich',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            SizedBox(
+              height: 14,
+            ),
+            Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, e',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.color
+                      ?.withOpacity(0.6)),
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class BaseInfoRow extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String data;
+
+  const BaseInfoRow(
+      {super.key, required this.icon, required this.title, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Icon(
+          icon,
+          color: Theme.of(context).primaryColor,
+          size: 17,
+        ),
+        SizedBox(
+          width: 8,
+        ),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        Text(
+          data,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.color
+                  ?.withOpacity(0.6)),
+        ),
+      ],
+    );
+  }
+}
+
+class UserInfoClip extends StatelessWidget {
+  final String text;
+
+  const UserInfoClip({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      label: Text(
+        text,
+        style: Theme.of(context).textTheme.bodyMedium,
+      ),
+
+      // padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      // add a border 1
+      shape: StadiumBorder(
+          side: BorderSide(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+              width: 1)),
+      backgroundColor: Colors.transparent,
     );
   }
 }
