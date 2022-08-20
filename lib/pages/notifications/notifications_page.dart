@@ -21,13 +21,21 @@ class NotificationsPage extends GetView<NotificationsController> {
               // color: Theme.of(context).colorScheme.onPrimary,
               color: Theme.of(context).colorScheme.onSecondaryContainer,
             ),
-            navLargeTitleTextStyle: GoogleFonts.inter(
-              fontSize: 30,
-              fontWeight: FontWeight.w800,
-              letterSpacing: -0.5,
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
-              // color: Colors.black,
-            ),
+            // navLargeTitleTextStyle: GoogleFonts.inter(
+            //   fontSize: 30,
+            //   fontWeight: FontWeight.w800,
+            //   letterSpacing: -0.5,
+            //   color: Theme.of(context).colorScheme.onSecondaryContainer,
+            //   // color: Colors.black,
+            // ),
+            navLargeTitleTextStyle:
+                Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontFamily: 'Inter',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.5,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
           ),
           // barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           barBackgroundColor: Theme.of(context).backgroundColor,

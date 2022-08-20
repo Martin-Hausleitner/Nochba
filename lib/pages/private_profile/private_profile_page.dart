@@ -21,8 +21,14 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: const Text('Dein Profil', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
+        title: const Text('Dein Profil',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Inter',
+              letterSpacing: -0.5,
+            )),
+        backgroundColor: Theme.of(context).backgroundColor,
         shadowColor: Colors.transparent,
         actions: <Widget>[
           IconButton(

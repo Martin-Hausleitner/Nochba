@@ -14,147 +14,154 @@ class UserInfo extends StatelessWidget {
 
     // return a contianer with a title, a sizedbox, a widped Clip
     return Container(
-      child: Padding(
-        padding:
-            //padding horenzotal 18
-            EdgeInsets.symmetric(horizontal: 18.0),
-        child: ListView(
-          //align left
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 18,
-            ),
-            Text(
-              'Interessen',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
-            // create a text with weigh t900
-            SizedBox(
-              height: 14,
-            ),
-            Wrap(
-                // space between chips
-                spacing: 6,
-                runSpacing: 7,
-                // list of chips
-                children: const [
-                  UserInfoClip(
-                    text: "Halfsdflooo",
-                  ),
-                  UserInfoClip(
-                    text: "Hallooo",
-                  ),
-                  UserInfoClip(
-                    text: "Hallosfddsfoo",
-                  ),
-                  UserInfoClip(
-                    text: "Hallsfsooo",
-                  ),
-                ]),
-            SizedBox(
-              height: 18,
-            ),
+      child: ListView(
+        //align left
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 18,
+                ),
+                Text(
+                  'Interessen',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        //use the font of the theme
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                // create a text with weigh t900
+                SizedBox(
+                  height: 14,
+                ),
+                Wrap(
+                    // space between chips
+                    spacing: 6,
+                    runSpacing: 7,
+                    // list of chips
+                    children: const [
+                      UserInfoClip(
+                        text: "Halfsdflooo",
+                      ),
+                      UserInfoClip(
+                        text: "Hallooo",
+                      ),
+                      UserInfoClip(
+                        text: "Hallosfddsfoo",
+                      ),
+                      UserInfoClip(
+                        text: "Hallsfsooo",
+                      ),
+                    ]),
+                SizedBox(
+                  height: 18,
+                ),
 
-            Text(
-              'Bietet',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
-            SizedBox(
-              height: 14,
-            ),
-            Wrap(
-                // space between chips
-                spacing: 6,
-                runSpacing: 7,
-                // list of chips
-                children: const [
-                  UserInfoClip(
-                    text: "Halfsdflooo",
-                  ),
-                  UserInfoClip(
-                    text: "Hallooo",
-                  ),
-                  UserInfoClip(
-                    text: "Hallosfddsfoo",
-                  ),
-                  UserInfoClip(
-                    text: "Hallsfsooo",
-                  ),
-                ]),
-            SizedBox(
-              height: 18,
-            ),
-            Text(
-              'Basis Info',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
-            SizedBox(
-              height: 14,
-            ),
-            // create a row tith a colum with a icon and a text
-            BaseInfoRow(
-                data: '11.11.1111',
-                icon: FlutterRemix.cake_2_line,
-                title: 'Geburtstag: '),
-            SizedBox(
-              height: 2,
-            ),
-            BaseInfoRow(
-                data: '11.11.1111',
-                icon: FlutterRemix.history_line,
-                title: 'In der Nachbarschaft seit: '),
-            SizedBox(
-              height: 2,
-            ),
-            BaseInfoRow(
-                data: '11.11.1111',
-                icon: FlutterRemix.briefcase_4_line,
-                title: 'Beruf: '),
-            SizedBox(
-              height: 2,
-            ),
-            BaseInfoRow(
-                data: '11.11.1111',
-                icon: FlutterRemix.group_line,
-                title: 'Familienstand: '),
-            SizedBox(
-              height: 2,
-            ),
-            BaseInfoRow(
-                data: '11.11.1111',
-                icon: Icons.pets_outlined,
-                title: 'Haustiere: '),
+                Text(
+                  'Bietet',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                Wrap(
+                    // space between chips
+                    spacing: 6,
+                    runSpacing: 7,
+                    // list of chips
+                    children: const [
+                      UserInfoClip(
+                        text: "Halfsdflooo",
+                      ),
+                      UserInfoClip(
+                        text: "Hallooo",
+                      ),
+                      UserInfoClip(
+                        text: "Hallosfddsfoo",
+                      ),
+                      UserInfoClip(
+                        text: "Hallsfsooo",
+                      ),
+                    ]),
+                SizedBox(
+                  height: 18,
+                ),
+                Text(
+                  'Basis Info',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                // create a row tith a colum with a icon and a text
+                BaseInfoRow(
+                    data: '11.11.1111',
+                    icon: FlutterRemix.cake_2_line,
+                    title: 'Geburtstag: '),
+                SizedBox(
+                  height: 2,
+                ),
+                BaseInfoRow(
+                    data: '11.11.1111',
+                    icon: FlutterRemix.history_line,
+                    title: 'In der Nachbarschaft seit: '),
+                SizedBox(
+                  height: 2,
+                ),
+                BaseInfoRow(
+                    data: '11.11.1111',
+                    icon: FlutterRemix.briefcase_4_line,
+                    title: 'Beruf: '),
+                SizedBox(
+                  height: 2,
+                ),
+                BaseInfoRow(
+                    data: '11.11.1111',
+                    icon: FlutterRemix.group_line,
+                    title: 'Familienstand: '),
+                SizedBox(
+                  height: 2,
+                ),
+                BaseInfoRow(
+                    data: '11.11.1111',
+                    icon: Icons.pets_outlined,
+                    title: 'Haustiere: '),
 
-            SizedBox(
-              height: 18,
+                SizedBox(
+                  height: 18,
+                ),
+                Text(
+                  'Mehr über mich',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, e',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.color
+                          ?.withOpacity(0.6)),
+                ),
+                SizedBox(
+                  height: 18,
+                ),
+              ],
             ),
-            Text(
-              'Mehr über mich',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
-            SizedBox(
-              height: 14,
-            ),
-            Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, eget consectetur nisi nisi eget nisi. Nam euismod, nisi eu consectetur consectetur, nisi nisi consectetur nisi, e',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.color
-                      ?.withOpacity(0.6)),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
