@@ -15,12 +15,14 @@ class NotificationsPage extends GetView<NotificationsController> {
       child: CupertinoTheme(
         data: CupertinoThemeData(
           textTheme: CupertinoTextThemeData(
-            navTitleTextStyle: GoogleFonts.inter(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              // color: Theme.of(context).colorScheme.onPrimary,
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
-            ),
+            navTitleTextStyle:
+                Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      // fontFamily: 'Inter',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      // letterSpacing: -0.5,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
             // navLargeTitleTextStyle: GoogleFonts.inter(
             //   fontSize: 30,
             //   fontWeight: FontWeight.w800,
