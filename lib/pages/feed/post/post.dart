@@ -1,5 +1,6 @@
 //import material
 
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/pages/feed/post/post_view.dart';
@@ -207,7 +208,7 @@ class Post extends StatelessWidget {
                   padding: EdgeInsets.only(top: spacingBetween),
                   child: Button(
                     text: 'Anschreiben',
-                    //onpres open Get.Snackbar
+                    icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
                     onPressed: () {
                       Get.snackbar(
                         'Anschreiben',

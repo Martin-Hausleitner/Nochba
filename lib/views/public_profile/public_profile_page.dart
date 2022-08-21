@@ -85,6 +85,7 @@ class PublicProfileView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 16),
             child: Button(
+              icon: FlutterRemix.account_box_fill,
               text: 'Anschreiben',
               //onpres open Get.Snackbar
               onPressed: () {
