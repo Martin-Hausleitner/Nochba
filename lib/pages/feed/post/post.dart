@@ -90,7 +90,9 @@ class Post extends StatelessWidget {
                     //chnage the space between the words
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headlineLarge),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        )),
               ),
 
               const SizedBox(height: spacingBetween),

@@ -60,7 +60,7 @@ class SettingsPage extends StatelessWidget {
                   icon: Icon(
                     FlutterRemix.arrow_left_line,
                     size: 24,
-                    color: Colors.black,
+                    color: Theme.of(context).primaryColor,
                   ),
                   onPressed: () {
                     Get.back();

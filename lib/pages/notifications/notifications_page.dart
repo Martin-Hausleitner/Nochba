@@ -30,7 +30,7 @@ class NotificationsPage extends GetView<NotificationsController> {
             // ),
             navLargeTitleTextStyle:
                 Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontFamily: 'Inter',
+                      // fontFamily: 'Inter',
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
                       letterSpacing: -0.5,
@@ -57,11 +57,19 @@ class NotificationsPage extends GetView<NotificationsController> {
                 'Aktivitäten',
               ),
 
-              trailing: Icon(
-                FlutterRemix.pencil_line,
-                size: 24,
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
+              trailing: Container(
+                  transform: Matrix4.translationValues(14, 0, 0),
+                  child: IconButton(
+                    // alignment: Alignment.topRight,
+                    icon: Icon(
+                      FlutterRemix.menu_line,
+                      size: 24,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                    onPressed: () {
+                      Get.snackbar('title', 'message');
+                    },
+                  )),
               border: //make the border transparent
                   const Border(bottom: BorderSide(color: Colors.transparent)),
             ),
