@@ -53,82 +53,98 @@ class PostProfile extends StatelessWidget {
                           ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      // show a small clock icon
-                      const Icon(
-                        FlutterRemix.time_line,
-                        size: 12,
-                        color: Colors.grey,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2),
-                        child: Row(
-                          children: [
-                            Text(
-                              publishDate,
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            Text(
-                              'min',
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //show a locaiton icon
-                      const Padding(
-                        padding: EdgeInsets.only(left: 8),
-                        // show this svg:
-                        child: Icon(
-                          FlutterRemix.map_pin_line,
-                          size: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2),
-                        child: Row(
-                          children: [
-                            Text(
-                              distance,
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            Text(
-                              'm',
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  TimeDistance(publishDate: publishDate, distance: distance),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class TimeDistance extends StatelessWidget {
+  const TimeDistance({
+    Key? key,
+    required this.publishDate,
+    required this.distance,
+  }) : super(key: key);
+
+  final String publishDate;
+  final String distance;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // show a small clock icon
+        const Icon(
+          FlutterRemix.time_line,
+          size: 12,
+          color: Colors.grey,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 2),
+          child: Row(
+            children: [
+              Text(
+                publishDate,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+              Text(
+                'min',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+            ],
+          ),
+        ),
+        //show a locaiton icon
+        const Padding(
+          padding: EdgeInsets.only(left: 8),
+          // show this svg:
+          child: Icon(
+            FlutterRemix.map_pin_line,
+            size: 12,
+            color: Colors.grey,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 2),
+          child: Row(
+            children: [
+              Text(
+                distance,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+              Text(
+                'm',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

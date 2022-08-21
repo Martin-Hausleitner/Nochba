@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/shared/profile_content.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 
 import '../../shared/button.dart';
@@ -63,7 +64,7 @@ class PublicProfileView extends StatelessWidget {
         children: [
           // create a stack with an CircleAvatar with a photo and in the right bottom corner a small circle with a edit icon in it
           SizedBox(
-            height: 40,
+            height: 30,
           ),
           Center(
             child: CircleAvatar(
@@ -83,9 +84,13 @@ class PublicProfileView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 16),
+            padding: EdgeInsets.only(
+              top: 16,
+              left: 18,
+              right: 18,
+            ),
             child: Button(
-              icon: FlutterRemix.account_box_fill,
+              icon: FlutterRemix.chat_1_fill,
               text: 'Anschreiben',
               //onpres open Get.Snackbar
               onPressed: () {
@@ -96,6 +101,12 @@ class PublicProfileView extends StatelessWidget {
               },
             ),
           ),
+
+          SizedBox(
+            height: 18,
+          ),
+
+          ProfileContent(),
 
           // add a tabbarview
 

@@ -7,14 +7,15 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/round_icon_button.dart';
+import 'package:locoo/shared/user_info.dart';
 
+import '../../shared/profile_content.dart';
 import '../../views/settings/settings_page.dart';
 import '../feed/post/category_badge.dart';
 import 'private_profile_controller.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 // import post.dart
 import '../../pages/feed/post/post.dart';
-import 'user_info/user_info.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override
@@ -191,91 +192,9 @@ class PrivateProfileContent extends StatelessWidget {
         ),
 
         // add a tabbarview
-        Expanded(
-          // width: width,
-          // height: height,
-          child: ContainedTabBarView(
-            tabs: [
-              Text(
-                'Info',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Text('Posts', style: Theme.of(context).textTheme.titleMedium),
-            ],
-            tabBarProperties: TabBarProperties(
-              indicatorColor: Theme.of(context).primaryColor,
-              indicatorWeight: 4.0,
-              labelColor: Theme.of(context).primaryColor,
-              unselectedLabelColor: Colors.grey[400],
-            ),
-            views: [
-              UserInfo(),
-              // create a container with a list of post.dart
-              Container(
-                color: Color.fromARGB(146, 238, 238, 238),
-                child: ListView(children: [
-                  SizedBox(height: 6),
-                  Post(
-                    postTitle: 'Post ddddddddddddTitle',
-                    postImage: 'https://i.pravatar.cc/303',
-                    postCategory: Category.mitteilung,
-                    postAuthorName: 'John Doe',
-                    postPublishDate: '2',
-                    postDistance: '1',
-                    postDescription: 'Post Dddddescrisssption',
-                  ),
-                  SizedBox(height: 3),
-                  Post(
-                    postTitle: 'Post Title',
-                    postImage: 'https://i.pravatar.cc/303',
-                    postAuthorName: 'John Doe',
-                    postPublishDate: '2',
-                    postDistance: '1',
-                    postDescription:
-                        'Post https://pub.dev/packages/expandable_text Dddddescrdfffffffffffffffdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfffffffffffffffffffffffffffffffffffffffffisf dddddddddddsdffffffffffffsdfffffdddption',
-                  ),
-                  SizedBox(height: 3),
-                  Post(
-                    postTitle:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    postImage: 'https://i.pravatar.cc/303',
-                    postAuthorName: 'John Doe',
-                    postPublishDate: '2',
-                    postCategory: Category.warnung,
-                    postDistance: '1',
-                    postDescription:
-                        'Post https://pub.dev/packages/expandable_text Dddddescrdfffffffffffffffdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfffffffffffffffffffffffffffffffffffffffffisf dddddddddddsdffffffffffffsdfffffdddption',
-                  ),
-                ]),
-              ),
-            ],
-            onChange: (index) => print(index),
-          ),
-        ),
+        ProfileContent(),
         // add TabBarView with with info and post
       ],
-    );
-  }
-}
-
-class SampleWidget extends StatelessWidget {
-  const SampleWidget({
-    Key? key,
-    required this.label,
-    required this.color,
-  }) : super(key: key);
-
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: color,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(10))),
-      child: Text(label),
     );
   }
 }
