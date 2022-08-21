@@ -57,7 +57,7 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double spacingBetween = 15;
+    const double spacingBetween = 13;
 
     return GestureDetector(
       //onTap open postz view
@@ -92,6 +92,7 @@ class Post extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
                         )),
               ),
 

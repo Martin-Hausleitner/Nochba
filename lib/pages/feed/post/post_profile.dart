@@ -7,7 +7,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/views/public_profile/public_profile_page.dart';
 
-
 class PostProfile extends StatelessWidget {
   final String authorImage;
   final String authorName;
@@ -48,7 +47,10 @@ class PostProfile extends StatelessWidget {
                       authorName,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: -0.5,
+                          ),
                     ),
                   ),
                   Row(

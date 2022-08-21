@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:json_theme/json_theme.dart';
 
 void main() async {
+  // https://appainter.dev/#/
   WidgetsFlutterBinding.ensureInitialized();
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
   final themeJson = jsonDecode(themeStr);
