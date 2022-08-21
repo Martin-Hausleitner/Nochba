@@ -86,6 +86,9 @@ class SmallPost extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Column(
+                  // align left top
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment:  MainAxisAlignment.start,
                   children: [
                     PostTitle(postTitle: postTitle),
 
