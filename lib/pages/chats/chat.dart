@@ -35,19 +35,16 @@ class _ChatPageState extends State<ChatPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CircleAvatar(
-                radius: 23,
-                backgroundColor: Colors.black,
+                radius: 22,
+                backgroundColor: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.all(2), // Border radius
-                  child: ClipOval(child: Image.network('${widget.room.imageUrl}')),
+                  padding: const EdgeInsets.all(1), // Border radius
+                  child: ClipOval(child: displayProfileImage()),
                 ),
               ),
               Container(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '${widget.room.name}',
-                    style: const TextStyle(fontSize: 20),
-                  ))
+                  child: displayProfileName())
             ],
           ),
         ),
@@ -252,5 +249,31 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {
       _isAttachmentUploading = uploading;
     });
+  }
+
+  Image displayProfileImage() {
+    String fullname =
+        "${widget.room.users[0].firstName} ${widget.room.users[0].lastName}";
+    if (widget.room.name == fullname) {
+      return Image.network('${widget.room.users[0].imageUrl}');
+    } else {
+      return Image.network('${widget.room.users[1].imageUrl}');
+    }
+  }
+
+  Text displayProfileName() {
+    String fullname =
+        "${widget.room.users[0].firstName} ${widget.room.users[0].lastName}";
+    if (widget.room.name == fullname) {
+      return Text(
+        '${widget.room.users[0].firstName} ${widget.room.users[0].lastName}',
+        style: const TextStyle(fontSize: 20),
+      );
+    } else {
+      return Text(
+        '${widget.room.users[1].firstName} ${widget.room.users[1].lastName}',
+        style: const TextStyle(fontSize: 20),
+      );
+    }
   }
 }
