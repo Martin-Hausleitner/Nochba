@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/models/category.dart';
 import 'package:locoo/models/post.dart';
@@ -25,14 +26,13 @@ class NewPostPage extends GetView<NewPostController> {
         shadowColor: Colors.transparent,
       ),
       body: PageView(
-        controller: controller.pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          NewPostCategorySelectionView(),
-          NewPostSubcategorySelectionView(),
-          NewPostView()
-        ]
-      ),
+          controller: controller.pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            NewPostCategorySelectionView(),
+            NewPostSubcategorySelectionView(),
+            NewPostView()
+          ]),
     );
   }
 }
@@ -251,83 +251,85 @@ class _NewPostPageState1 extends State<NewPostPage1> {
 }
 */
 
-
-
 class NewPostCategorySelectionView extends GetView<NewPostController> {
   const NewPostCategorySelectionView({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     NewPostController controller = Get.find<NewPostController>();
-    return Column(
-      children: [
-        Text('Select a category'),
-        const SizedBox(height: 10,),
-        Expanded(
-          child: GridView.count(
-            primary: false,
-            padding: const EdgeInsets.all(20),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 2,
-            children: <Widget>[
-              InkWell(
-                onTap: () {
-                  controller.updateCategory(CategoryOptions.Message);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.lightGreen,
-                  ),
-                  child: Center(child: Text(CategoryOptions.Message.name.toString())),
+    return Column(children: [
+      Text('Select a category'),
+      const SizedBox(
+        height: 10,
+      ),
+      Expanded(
+        child: GridView.count(
+          primary: false,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: 2,
+          children: <Widget>[
+            InkWell(
+              onTap: () {
+                controller.updateCategory(CategoryOptions.Message);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.lightGreen,
                 ),
+                child: Center(
+                    child: Text(CategoryOptions.Message.name.toString())),
               ),
-              InkWell(
-                onTap: () {
-                  controller.updateCategory(CategoryOptions.Lending);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.lightGreen,
-                  ),
-                  child: Center(child: Text(CategoryOptions.Lending.name.toString())),
+            ),
+            InkWell(
+              onTap: () {
+                controller.updateCategory(CategoryOptions.Lending);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.lightGreen,
                 ),
+                child: Center(
+                    child: Text(CategoryOptions.Lending.name.toString())),
               ),
-              InkWell(
-                onTap: () {
-                  controller.updateCategory(CategoryOptions.Event);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.lightGreen,
-                  ),
-                  child: Center(child: Text(CategoryOptions.Event.name.toString())),
+            ),
+            InkWell(
+              onTap: () {
+                controller.updateCategory(CategoryOptions.Event);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.lightGreen,
                 ),
+                child:
+                    Center(child: Text(CategoryOptions.Event.name.toString())),
               ),
-              InkWell(
-                onTap: () {
-                  controller.updateCategory(CategoryOptions.Search);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.lightGreen,
-                  ),
-                  child: Center(child: Text(CategoryOptions.Search.name.toString())),
+            ),
+            InkWell(
+              onTap: () {
+                controller.updateCategory(CategoryOptions.Search);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.lightGreen,
                 ),
+                child:
+                    Center(child: Text(CategoryOptions.Search.name.toString())),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ]
-    );
+      ),
+    ]);
   }
 }
 
@@ -337,11 +339,13 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
   @override
   Widget build(BuildContext context) {
     NewPostController controller = Get.find<NewPostController>();
-    return Column(
-      children: [
-        Text('Select a subcategory'),
-        const SizedBox(height: 10,),
-        Obx(() => Expanded(
+    return Column(children: [
+      Text('Select a subcategory'),
+      const SizedBox(
+        height: 10,
+      ),
+      Obx(
+        () => Expanded(
           child: ListView.separated(
             itemCount: controller.subcategoriesForDisplay.length,
             itemBuilder: (BuildContext context, int index) {
@@ -360,15 +364,20 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
                 ),
               );
             },
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
           ),
-        ),),
-        IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black,),
-          onPressed: () {controller.jumpBack();}
-        )
-      ]
-    );
+        ),
+      ),
+      IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            controller.jumpBack();
+          })
+    ]);
   }
 }
 
@@ -380,93 +389,95 @@ class NewPostView extends StatelessWidget {
   Widget build(BuildContext context) {
     NewPostController controller = Get.find<NewPostController>();
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
-      child: Form(
-        key: controller.formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(controller.subcategory != CategoryOptions.None ? controller.subcategory.name.toString() : controller.category.name.toString(),
-            style: const TextStyle(fontSize: 20)),
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: controller.formKey,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
+                controller.subcategory != CategoryOptions.None
+                    ? controller.subcategory.name.toString()
+                    : controller.category.name.toString(),
+                style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 20),
             TextFormField(
-              controller: controller.titleController,
-              textInputAction: TextInputAction.done,
-              decoration: const InputDecoration(labelText: 'Title'),
-              autovalidateMode: AutovalidateMode.disabled,
-              validator: (value) => 
-                value != null && value.isEmpty
-                ? 'Enter a title'
-                : null
-            ),
+                controller: controller.titleController,
+                textInputAction: TextInputAction.done,
+                decoration: const InputDecoration(labelText: 'Title'),
+                autovalidateMode: AutovalidateMode.disabled,
+                validator: (value) =>
+                    value != null && value.isEmpty ? 'Enter a title' : null),
             SizedBox(height: 40),
             TextFormField(
-              controller: controller.descriptionController,
-              textInputAction: TextInputAction.done,
-              decoration: InputDecoration(labelText: 'Description'),
-              autovalidateMode: AutovalidateMode.disabled,
-              validator: (value) => 
-                value != null && value.isEmpty
-                ? 'Enter a description'
-                : null
-            ),
+                controller: controller.descriptionController,
+                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(labelText: 'Description'),
+                autovalidateMode: AutovalidateMode.disabled,
+                validator: (value) => value != null && value.isEmpty
+                    ? 'Enter a description'
+                    : null),
             SizedBox(height: 10),
             Center(
-              child: InkWell(
-                onTap:() => controller.showTagDialog(context),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.lightGreen,
-                  ),
-                  child: Icon(Icons.add, color: Colors.white),
+                child: InkWell(
+              onTap: () => controller.showTagDialog(context),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.lightGreen,
                 ),
-              )
+                child: Icon(Icons.add, color: Colors.white),
+              ),
+            )),
+            Obx(
+              () => Wrap(
+                children: controller.tags
+                    .map((e) => Chip(
+                          deleteIcon: Icon(Icons.close),
+                          onDeleted: () {
+                            controller.removeTag(e);
+                          },
+                          label: Text('#$e'),
+                        ))
+                    .toList(),
+              ),
             ),
-            Obx(() => Wrap(
-              children: controller.tags
-                  .map((e) => Chip(
-                        deleteIcon: Icon(Icons.close),
-                        onDeleted: () {
-                          controller.removeTag(e);
-                        },
-                        label: Text('#$e'),
-                      ))
-                  .toList(),
-            ),),
             const SizedBox(height: 20),
-            GetBuilder<NewPostController>(builder: (c) => controller.image != null ? 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: MemoryImage(controller.image!),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close), 
-                    onPressed: () => controller.deleteImage(),
-                  )
-                ],
-              )
-              :
-              Center(
-                child: IconButton(
-                  icon: const Icon(Icons.upload), 
-                  onPressed: () => controller.selectImage(context),
-                ),
-              ),),
+            GetBuilder<NewPostController>(
+              builder: (c) => controller.image != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: MemoryImage(controller.image!),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () => controller.deleteImage(),
+                        )
+                      ],
+                    )
+                  : Center(
+                      child: IconButton(
+                        icon: const Icon(Icons.upload),
+                        onPressed: () => controller.selectImage(context),
+                      ),
+                    ),
+            ),
             const SizedBox(height: 20),
-            Button(text: 'Add Post', onPressed:() => controller.addPost()),
+            Button(
+              text: 'Add Post',
+              onPressed: () => controller.addPost(),
+              icon: FlutterRemix.account_box_fill,
+            ),
             IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black,),
-              onPressed: () {
-                controller.jumpBack();
-              }
-            )
-          ]
-        ),
-      )
-    );
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  controller.jumpBack();
+                })
+          ]),
+        ));
   }
 }
