@@ -20,26 +20,37 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CupertinoTheme(
-        data: CupertinoThemeData(
+    return CupertinoTheme(
+      data: CupertinoThemeData(
           textTheme: CupertinoTextThemeData(
-            navTitleTextStyle: GoogleFonts.inter(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-            navLargeTitleTextStyle: GoogleFonts.inter(
-              fontSize: 30,
-              fontWeight: FontWeight.w800,
-              letterSpacing: -0.5,
-              color: Colors.black,
-            ),
+            navTitleTextStyle:
+                Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      // fontFamily: 'Inter',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      // letterSpacing: -0.5,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+            // navLargeTitleTextStyle: GoogleFonts.inter(
+            //   fontSize: 30,
+            //   fontWeight: FontWeight.w800,
+            //   letterSpacing: -0.5,
+            //   color: Theme.of(context).colorScheme.onSecondaryContainer,
+            //   // color: Colors.black,
+            // ),
+            navLargeTitleTextStyle:
+                Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      // fontFamily: 'Inter',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.5,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
           ),
-          barBackgroundColor: Colors.white,
-        ),
-        child: CustomScrollView(
+          barBackgroundColor: Theme.of(context).backgroundColor),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: CustomScrollView(
           // A list of sliver widgets.
           slivers: <Widget>[
             CupertinoSliverNavigationBar(
@@ -55,17 +66,20 @@ class SettingsPage extends StatelessWidget {
               largeTitle: Text(
                 'Einstellungen',
               ),
-              leading: IconButton(
-                icon: Icon(
-                  FlutterRemix.arrow_left_line,
-                  size: 24,
-                  color: Colors.black,
+              leading: Material(
+                color: Colors.transparent,
+                child: IconButton(
+                  icon: Icon(
+                    FlutterRemix.arrow_left_line,
+                    size: 24,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  padding: EdgeInsets.zero,
+                  alignment: Alignment.centerLeft,
                 ),
-                onPressed: () {
-                  Get.back();
-                },
-                padding: EdgeInsets.zero,
-                alignment: Alignment.centerLeft,
               ),
               // padding left 10
               padding: EdgeInsetsDirectional.only(

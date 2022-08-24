@@ -1,6 +1,10 @@
 //import material
 
+
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:flutter_remix/flutter_remix.dart';
+
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/models/category.dart';
@@ -217,6 +221,7 @@ class PostView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: spacingBetween),
                       child: Button(
+                        icon: FlutterRemix.account_box_fill,
                         text: 'Anschreiben',
                         //onpres open Get.Snackbar
                         onPressed: () {

@@ -19,7 +19,7 @@ class LogoutSettingsCard extends StatelessWidget {
         child: Container(
           // add background color to the rounded container
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
             borderRadius: BorderRadius.circular(14),
           ),
 

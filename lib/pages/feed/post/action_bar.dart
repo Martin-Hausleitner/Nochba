@@ -19,7 +19,6 @@ class ActionBar extends StatelessWidget {
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
           RoundIconButton(
             icon: Icons.thumb_up,
-            iconColor: Colors.black,
             onPressed: () {
               Get.snackbar(
                 "Edit",
@@ -43,7 +42,6 @@ class ActionBar extends StatelessWidget {
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
           RoundIconButton(
             icon: Icons.forum,
-            iconColor: Colors.black,
             onPressed: () {
               Get.snackbar(
                 "Edit",
@@ -65,7 +63,6 @@ class ActionBar extends StatelessWidget {
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
           RoundIconButton(
             icon: Icons.bookmark,
-            iconColor: Colors.black,
             onPressed: () {
               Get.snackbar(
                 "Edit",
@@ -76,7 +73,6 @@ class ActionBar extends StatelessWidget {
           Spacer(),
           RoundIconButton(
             icon: Icons.more_horiz,
-            iconColor: Colors.black,
             onPressed: () {
               Get.snackbar(
                 "Edit",
@@ -84,7 +80,6 @@ class ActionBar extends StatelessWidget {
               );
             },
           ),
-          
 
           // add a row with aliged left with a RoundIconButton
 

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
@@ -28,14 +27,26 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   bool _isAttachmentUploading = false;
 
-
-  
-
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-          title: const Text('Chat'),
+        // ignore: unnecessary_new
+        appBar: new AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 22,
+                backgroundColor: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(1), // Border radius
+                  child: ClipOval(child: displayProfileImage()),
+                ),
+              ),
+              Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: displayProfileName())
+            ],
+          ),
         ),
         body: StreamBuilder<types.Room>(
           initialData: widget.room,
@@ -75,8 +86,10 @@ class _ChatPageState extends State<ChatPage> {
                 child: const Align(
                   heightFactor: 2.5,
                   alignment: Alignment.centerLeft,
-                  child:  Text('Select Photo' , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23) ,) ,
-                  
+                  child: Text(
+                    'Select Photo',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
                 ),
               ),
               TextButton(
@@ -87,7 +100,10 @@ class _ChatPageState extends State<ChatPage> {
                 child: const Align(
                   heightFactor: 2.5,
                   alignment: Alignment.centerLeft,
-                  child: Text('Select File', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),), 
+                  child: Text(
+                    'Select File',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
                 ),
               ),
               TextButton(
@@ -95,7 +111,10 @@ class _ChatPageState extends State<ChatPage> {
                 child: const Align(
                   heightFactor: 2.5,
                   alignment: Alignment.centerLeft,
-                  child: Text('Cancel', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),), 
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
                 ),
               ),
             ],
@@ -209,7 +228,6 @@ class _ChatPageState extends State<ChatPage> {
       await OpenFile.open(localPath);
     }
   }
-  
 
   void _handlePreviewDataFetched(
     types.TextMessage message,
@@ -231,5 +249,31 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {
       _isAttachmentUploading = uploading;
     });
+  }
+
+  Image displayProfileImage() {
+    String fullname =
+        "${widget.room.users[0].firstName} ${widget.room.users[0].lastName}";
+    if (widget.room.name == fullname) {
+      return Image.network('${widget.room.users[0].imageUrl}');
+    } else {
+      return Image.network('${widget.room.users[1].imageUrl}');
+    }
+  }
+
+  Text displayProfileName() {
+    String fullname =
+        "${widget.room.users[0].firstName} ${widget.room.users[0].lastName}";
+    if (widget.room.name == fullname) {
+      return Text(
+        '${widget.room.users[0].firstName} ${widget.room.users[0].lastName}',
+        style: const TextStyle(fontSize: 20),
+      );
+    } else {
+      return Text(
+        '${widget.room.users[1].firstName} ${widget.room.users[1].lastName}',
+        style: const TextStyle(fontSize: 20),
+      );
+    }
   }
 }

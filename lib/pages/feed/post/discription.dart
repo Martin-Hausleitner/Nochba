@@ -22,7 +22,14 @@ class Discription extends StatelessWidget {
             postDescription,
 
             maxLines: 3,
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.color
+                      ?.withOpacity(0.7),
+                  letterSpacing: -0.1,
+                ),
           ),
         ),
 
