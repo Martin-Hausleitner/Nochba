@@ -11,7 +11,7 @@ class DashboardBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<DashboardController>(() => DashboardController());
     // Get.lazyPut<AccountController>(() => AccountController());
-    Get.put(() => DataAccess);
+    Get.put(DataAccess());
     Get.put(NewPostController());
   }
 }

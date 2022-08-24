@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:locoo/models/category.dart';
 import 'package:locoo/shared/button.dart';
 
 import 'package:locoo/shared/round_icon_button.dart';
@@ -13,26 +14,28 @@ import 'category_badge.dart';
 import 'discription.dart';
 import 'hashtag_badges.dart';
 import 'post_profile.dart';
+import 'package:locoo/models/post.dart' as models;
+
 
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
 class PostView extends StatelessWidget {
-  final String postTitle;
-  final Category postCategory;
-  final List<String> postHashtags;
+  //final String postTitle;
+  //final CategoryOptions postCategory;
+  //final List<String> postHashtags;
   final String postAuthorImage;
   final String postAuthorName;
-  final String postPublishDate;
+  //final String postPublishDate;
 
-  final String postDistance;
-  final String postImage;
-  final String postDescription;
-  final int postLikes;
+  //final String postDistance;
+  //final String postImage;
+  //final String postDescription;
+  //final int postLikes;
 
-  const PostView({
+  /*const PostView({
     Key? key,
     required this.postTitle,
-    this.postCategory = Category.suche,
+    this.postCategory = CategoryOptions.Search,
     this.postHashtags = const [
       'test1',
       'test2',
@@ -50,9 +53,19 @@ class PostView extends StatelessWidget {
     this.postDescription =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     this.postLikes = 0,
-  }) : super(key: key);
+  }) : super(key: key);*/
 
-  // set the default value for postTitle
+  final models.Post post;
+  CategoryOptions category = CategoryOptions.None;
+  PostView({
+    Key? key,
+    required this.post,
+  
+    required this.postAuthorImage,
+    required this.postAuthorName,
+  }) : super(key: key) {
+    category = CategoryModul.getCategoryOptionByName(post.category);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +81,7 @@ class PostView extends StatelessWidget {
           //allign left
           children: <Widget>[
             // Post Image
-            postImage != ''
+            post.imageUrl != ''
                 ? Padding(
                     padding: const EdgeInsets.only(top: spacingBetween),
                     child: Container(
@@ -77,7 +90,7 @@ class PostView extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(22),
                         child: Image.network(
-                          postImage,
+                          post.imageUrl,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -86,10 +99,10 @@ class PostView extends StatelessWidget {
                 : Container(),
 
             // show a photo from unspash
-            Image.network(
+            /*Image.network(
               'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
               fit: BoxFit.cover,
-            ),
+            ),*/
 
             // Post title
             Padding(
@@ -98,7 +111,7 @@ class PostView extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(postTitle,
+                    child: Text(post.title,
                         //chnage the space between the words
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
@@ -113,7 +126,7 @@ class PostView extends StatelessWidget {
                     children: <Widget>[
                       // Category Badge
                       CategoryBadge(
-                        category: postCategory,
+                        category: category,
                       ),
 
                       // Hashtag Badges
@@ -124,7 +137,7 @@ class PostView extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              HashtagBadges(hashtags: postHashtags),
+                              HashtagBadges(hashtags: post.tags),
                             ],
                           ),
                         ),
@@ -138,8 +151,8 @@ class PostView extends StatelessWidget {
                   PostProfile(
                     authorImage: postAuthorImage,
                     authorName: postAuthorName,
-                    publishDate: postPublishDate,
-                    distance: postDistance,
+                    publishDate: '---',
+                    distance: '---',
                   ),
 
                   const SizedBox(height: spacingBetween),
@@ -188,7 +201,7 @@ class PostView extends StatelessWidget {
 
                   Text(
                     //print postDescription.split('\n').length as string
-                    postDescription,
+                    post.description,
 
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
@@ -198,7 +211,8 @@ class PostView extends StatelessWidget {
                   // place a dark green button with a text "anschreiben" and a comment icon on the left side of the button
 
                   // Button
-                  if (postCategory == Category.suche)
+              if (category == CategoryModul.search || CategoryModul.subCategoriesOfSearch.contains(category) ||
+                  category == CategoryModul.lending || CategoryModul.subCategoriesOfLending.contains(category))
                     Padding(
                       padding: EdgeInsets.only(top: spacingBetween),
                       child: Button(

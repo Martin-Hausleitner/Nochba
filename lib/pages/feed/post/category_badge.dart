@@ -2,16 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/models/category.dart';
 
-enum Category {
+/*enum Category {
   mitteilung,
   suche,
   warnung,
-}
+}*/
 
 class CategoryBadge extends StatelessWidget {
   //creat a enum with Mitteilung und suche
-  final Category category;
+  final CategoryOptions category;
 
   const CategoryBadge({Key? key, required this.category}) : super(key: key);
 
@@ -27,11 +28,15 @@ class CategoryBadge extends StatelessWidget {
 
         //background color is blue
         color: //when the category is  Mitteilung return a color of Colors.blue[100], when the category is suche return a color of Colors.green[100], when the category is warnung return a color of Colors.red[100]
-            category == Category.mitteilung
-                ? Colors.blue[100]
-                : category == Category.suche
-                    ? Colors.green[100]
-                    : Colors.red[100],
+            category == CategoryModul.message || CategoryModul.subCategoriesOfMessage.contains(category)
+                ? Colors.blue[100] : 
+            category == CategoryModul.search || CategoryModul.subCategoriesOfSearch.contains(category)
+                ? Colors.green[100] :
+            category == CategoryModul.event || CategoryModul.subCategoriesOfEvent.contains(category)
+                ? Colors.red[100] :
+            category == CategoryModul.lending || CategoryModul.subCategoriesOfLending.contains(category)
+                ? Colors.orange[100] :
+                Colors.grey[100],
 
         borderRadius: BorderRadius.circular(10),
       ),
@@ -39,20 +44,25 @@ class CategoryBadge extends StatelessWidget {
       // return a text with a fontSize of 12 with a fontWeight of FontWeight.w600 and a color of Colors.white and a child of Text with a text of 'New'
       child: Text(
         //weth the category is Mitteilung return a text of 'Mitteilung', when the category is suche return a text of 'Suche', when the category is warnung return a text of 'Warnung'
-        category == Category.mitteilung
+        /*category == Category.mitteilung
             ? 'Mitteilung'
             : category == Category.suche
                 ? 'Suche'
-                : 'Warnung',
+                : 'Warnung',*/
+        category.name.toString(),
         style: GoogleFonts.inter(
           fontSize: 11,
           fontWeight: FontWeight.w500,
           color: //when the category is  Mitteilung return a color of Colors.blue[900], when the category is suche return a color of Colors.white, when the category is leihen return a color of Colors.red
-              category == Category.mitteilung
-                  ? Colors.blue[800]
-                  : category == Category.suche
-                      ? Colors.green[800]
-                      : Colors.red[800],
+              category == CategoryModul.message || CategoryModul.subCategoriesOfMessage.contains(category)
+                ? Colors.blue[800] : 
+              category == CategoryModul.search || CategoryModul.subCategoriesOfSearch.contains(category)
+                ? Colors.green[800] :
+              category == CategoryModul.event || CategoryModul.subCategoriesOfEvent.contains(category)
+                ? Colors.red[800] :
+              category == CategoryModul.lending || CategoryModul.subCategoriesOfLending.contains(category)
+                ? Colors.orange[800] :
+                Colors.grey[800],
         ),
         // return a text with a fontSize of 12 with a fontWeight of FontWeight.w600 and a color of Colors.white and a child of Text with a text of 'New'
       ),

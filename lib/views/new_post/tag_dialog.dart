@@ -47,6 +47,6 @@ class _TagDialogState extends State<TagDialog> {
 
 // this function is called when the Submit button is tapped
   void _submit() {
-    Navigator.pop(context, '#${textController.text.trim().replaceAll('#', '')}');
+    Navigator.pop(context, textController.text.trim().replaceAll('#', ''));
   }
 }
