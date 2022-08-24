@@ -101,7 +101,7 @@ class FeedPage extends GetView<FeedController> {
             ),
           ],
         ),*/
-      ),
+          ),
     );
   }
 }
