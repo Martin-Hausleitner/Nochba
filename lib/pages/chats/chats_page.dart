@@ -23,6 +23,7 @@ class _ChatsPageState extends State<ChatsPage> {
   bool _error = false;
   bool _initialized = false;
   User? _user;
+  
 
   @override
   void initState() {
