@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'notifications_controller.dart';
 
@@ -23,13 +22,6 @@ class NotificationsPage extends GetView<NotificationsController> {
                       // letterSpacing: -0.5,
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
-            // navLargeTitleTextStyle: GoogleFonts.inter(
-            //   fontSize: 30,
-            //   fontWeight: FontWeight.w800,
-            //   letterSpacing: -0.5,
-            //   color: Theme.of(context).colorScheme.onSecondaryContainer,
-            //   // color: Colors.black,
-            // ),
             navLargeTitleTextStyle:
                 Theme.of(context).textTheme.headlineMedium?.copyWith(
                       // fontFamily: 'Inter',

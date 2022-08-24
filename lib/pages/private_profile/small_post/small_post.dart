@@ -3,12 +3,12 @@
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/pages/feed/post/post_view.dart';
 import 'package:locoo/shared/button.dart';
 
 import 'package:locoo/shared/round_icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../feed/post/action_bar.dart';
 import '../../feed/post/category_badge.dart';
@@ -88,7 +88,7 @@ class SmallPost extends StatelessWidget {
                 child: Column(
                   // align left top
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment:  MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     PostTitle(postTitle: postTitle),
 

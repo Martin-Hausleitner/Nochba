@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/shared/action_card.dart';
 
 import 'settings/logout_settings_cart.dart';
-import 'settings/settings_card.dart';
 
 // Text(
 //                 'Settings',
@@ -101,21 +101,21 @@ class SettingsPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Profil bearbeiten',
                     icon: Icon(FlutterRemix.user_line),
                     onTap: () {
                       Get.snackbar("Presed", "Pressed");
                     },
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Benachrichtigungen',
                     icon: Icon(FlutterRemix.notification_2_line),
                     onTap: () {
                       Get.snackbar("Pressed", "Pressed");
                     },
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Sprache',
                     icon: Icon(
                       Icons.translate_rounded,
@@ -124,14 +124,14 @@ class SettingsPage extends StatelessWidget {
                       Get.snackbar("Pressed", "Pressed");
                     },
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Erscheinungsbild',
                     icon: Icon(FlutterRemix.contrast_2_line),
                     onTap: () {
                       Get.snackbar("Pressed", "Pressed");
                     },
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Hilfe',
                     icon: Icon(FlutterRemix.question_line),
                     onTap: () {
@@ -146,28 +146,28 @@ class SettingsPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Datenschutzerklärung',
                     icon: Icon(FlutterRemix.shield_user_line),
                     onTap: () {
                       Get.snackbar("Pressed", "Pressed");
                     },
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Impressum',
                     icon: Icon(FlutterRemix.dashboard_2_fill),
                     onTap: () {
                       Get.snackbar("Pressed", "Pressed");
                     },
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Lizenzen',
                     icon: Icon(FlutterRemix.stack_fill),
                     onTap: () {
                       Get.snackbar("Pressed", "Pressed");
                     },
                   ),
-                  SettingsCard(
+                  ActionCard(
                     title: 'Über Uns',
                     icon: Icon(FlutterRemix.group_line),
                     onTap: () {

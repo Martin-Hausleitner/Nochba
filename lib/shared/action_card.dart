@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
 //create a class which have a rounded container with a icon on the left side and a text and on the right side a arrow icon
-class SettingsCard extends StatelessWidget {
+class ActionCard extends StatelessWidget {
   final String title;
   final Icon icon;
   final VoidCallback onTap;
 
-  const SettingsCard({
+  const ActionCard({
     Key? key,
     required this.title,
     required this.icon,
