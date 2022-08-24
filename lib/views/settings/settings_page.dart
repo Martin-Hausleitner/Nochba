@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:flutter_remixicon/flutter_remixicon.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -111,10 +110,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                   SettingsCard(
                     title: 'Benachrichtigungen',
-                    // icon: Icon(FlutterRemix.notification_2_line),
-                    icon: Icon(
-                      MIcon.riNotification2Line,
-                    ),
+                    icon: Icon(FlutterRemix.notification_2_line),
                     onTap: () {
                       Get.snackbar("Pressed", "Pressed");
                     },
