@@ -12,20 +12,21 @@ import 'package:json_theme/json_theme.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
-  // final themeJson = jsonDecode(themeStr);
   await Firebase.initializeApp();
-  // final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
-  // runApp(MyApp(theme: theme));
-  runApp(MyApp());
+  final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
+  final themeJson = jsonDecode(themeStr);
+  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+
+  runApp(MyApp(theme: theme));
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // final ThemeData theme = ThemeData();
-  // final ThemeData theme;
+  final ThemeData theme;
 
-  // const MyApp({Key? key, required this.theme}) : super(key: key);
+  const MyApp({Key? key, required this.theme}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.DASHBOARD,
       getPages: AppPages.list,
       debugShowCheckedModeBanner: false,
-      // theme: theme,
+      theme: theme,
 
       // theme: AppTheme.light,
       // theme: theme.copyWith(
