@@ -1,7 +1,9 @@
 //import material
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:locoo/pages/chats/users.dart';
 import 'package:locoo/shared/button.dart';
 
 import 'package:locoo/shared/round_icon_button.dart';
