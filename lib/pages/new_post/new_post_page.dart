@@ -22,7 +22,7 @@ class NewPostPage extends GetView<NewPostController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add a post', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         shadowColor: Colors.transparent,
       ),
       body: PageView(

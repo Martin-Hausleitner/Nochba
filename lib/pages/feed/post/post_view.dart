@@ -1,6 +1,5 @@
 //import material
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter_remix/flutter_remix.dart';
@@ -20,7 +19,6 @@ import 'discription.dart';
 import 'hashtag_badges.dart';
 import 'post_profile.dart';
 import 'package:locoo/models/post.dart' as models;
-
 
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
@@ -65,7 +63,6 @@ class PostView extends StatelessWidget {
   PostView({
     Key? key,
     required this.post,
-  
     required this.postAuthorImage,
     required this.postAuthorName,
   }) : super(key: key) {
@@ -120,7 +117,11 @@ class PostView extends StatelessWidget {
                         //chnage the space between the words
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headlineLarge),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                )),
                   ),
 
                   const SizedBox(height: spacingBetween),
@@ -216,8 +217,10 @@ class PostView extends StatelessWidget {
                   // place a dark green button with a text "anschreiben" and a comment icon on the left side of the button
 
                   // Button
-              if (category == CategoryModul.search || CategoryModul.subCategoriesOfSearch.contains(category) ||
-                  category == CategoryModul.lending || CategoryModul.subCategoriesOfLending.contains(category))
+                  if (category == CategoryModul.search ||
+                      CategoryModul.subCategoriesOfSearch.contains(category) ||
+                      category == CategoryModul.lending ||
+                      CategoryModul.subCategoriesOfLending.contains(category))
                     Padding(
                       padding: EdgeInsets.only(top: spacingBetween),
                       child: Button(
