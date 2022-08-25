@@ -9,7 +9,7 @@ import 'package:locoo/shared/profile_content.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 
 import '../../shared/button.dart';
-import '../settings/settings_page.dart';
+// import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
 
 class PublicProfileView extends StatelessWidget {

@@ -9,15 +9,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 import 'package:locoo/shared/user_info.dart';
-import 'package:locoo/views/settings/settings/logout_settings_cart.dart';
 
 import '../../shared/profile_content.dart';
-import '../../views/settings/settings_page.dart';
 import '../feed/post/category_badge.dart';
 import 'private_profile_controller.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 // import post.dart
 import '../../pages/feed/post/post.dart';
+import 'views/edit_profile_view.dart';
+import 'views/own_posts_view.dart';
+import 'views/saved_posts_view.dart';
+import 'views/settings_view.dart';
+import 'widgets/logout_settings_cart.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override
@@ -137,14 +140,16 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                       // color: Colors.red,
                     ),
                     onTap: () {
-                      Get.snackbar("Pressed", "Pressed");
+                      //get open settingfs page
+                      Get.to(OwnPostsView());
                     },
                   ),
                   ActionCard(
                     title: 'Deine Gespeicherten Posts',
                     icon: Icon(FlutterRemix.bookmark_line),
                     onTap: () {
-                      Get.snackbar("Pressed", "Pressed");
+                      //get open settingfs page
+                      Get.to(SavedPostsView());
                     },
                   ),
                   Padding(
@@ -172,7 +177,10 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                     title: 'Profil Bearbeiten',
                     icon: Icon(FlutterRemix.user_line),
                     onTap: () {
-                      Get.snackbar("Pressed", "Pressed");
+                      //get open settingfs page
+                      Get.to(
+                        EditProfileView(),
+                      );
                     },
                   ),
                   ActionCard(
@@ -180,7 +188,9 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                     icon: Icon(FlutterRemix.settings_3_line),
                     onTap: () {
                       //get open settingfs page
-                      Get.to(SettingsPage());
+                      Get.to(
+                        SettingsView(),
+                      );
                     },
                   ),
                   SizedBox(

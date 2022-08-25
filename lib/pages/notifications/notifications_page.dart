@@ -72,7 +72,9 @@ class NotificationsPage extends GetView<NotificationsController> {
             SliverFillRemaining(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[Text('Stropek ist der beste')],
+                children: <Widget>[
+                  Text('Stropek ist der beste'),
+                ],
               ),
             ),
           ],

@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/action_card.dart';
 
-import 'settings/logout_settings_cart.dart';
-
 // Text(
 //                 'Settings',
 //                 style: Theme.of(context).textTheme.titleLarge,
@@ -15,8 +13,8 @@ import 'settings/logout_settings_cart.dart';
 
 // create a settings Page which have a list of rounded containers with a text and a icon on the left side with scaffold
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+class SettingsView extends StatelessWidget {
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +67,7 @@ class SettingsPage extends StatelessWidget {
               leading: Material(
                 color: Colors.transparent,
                 child: IconButton(
+                  splashRadius: 0.1,
                   icon: Icon(
                     FlutterRemix.arrow_left_line,
                     size: 24,
@@ -175,7 +174,7 @@ class SettingsPage extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 30),
-                  
+
                   SizedBox(height: 30),
 
                   // Create a Center Text wih a love icon and a text of the current version of the app of the app
