@@ -155,8 +155,14 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   Padding(
                     padding: const EdgeInsets.only(left: 15, top: 20),
                     child: Text(
-                      'Nachbarschaft',
-                      style: Theme.of(context).textTheme.titleSmall,
+                      'NACHBARSCHAFT',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.color
+                                ?.withOpacity(0.6),
+                          ),
                     ),
                   ),
                   ActionCard(
@@ -169,8 +175,15 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   Padding(
                     padding: const EdgeInsets.only(left: 15, top: 20),
                     child: Text(
-                      'Einstellungen',
-                      style: Theme.of(context).textTheme.titleSmall,
+                      'EINSTELLUNGEN',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.color
+                                ?.withOpacity(0.6),
+                            fontSize: 12,
+                          ),
                     ),
                   ),
                   ActionCard(

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
@@ -36,14 +38,20 @@ class ActionCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
+                      size: 22,
                       icon.icon,
+                      // color: Theme.of(context).primaryColor,
+                      // color: Colors.black87,
                       color: Colors.black,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 8),
                       child: Text(
                         title,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w500,
+                              // letterSpacing: -0.1,
+                            ),
                       ),
                     ),
                   ],
@@ -54,7 +62,7 @@ class ActionCard extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 13),
                 child: Icon(
                   FlutterRemix.arrow_right_s_line,
-                  color: Colors.black,
+                  color: Colors.black26,
                 ),
               ),
             ],
