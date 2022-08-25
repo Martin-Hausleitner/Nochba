@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 import 'package:locoo/shared/user_info.dart';
+import 'package:locoo/views/settings/settings/logout_settings_cart.dart';
 
 import '../../shared/profile_content.dart';
 import '../../views/settings/settings_page.dart';
@@ -50,70 +51,13 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
         child: CustomScrollView(
           // A list of sliver widgets.
           slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              // padding: EdgeInsetsDirectional.only(
-              //   start: 7,
-              //   end: 23,
-              // ),
-
-              // leading: Icon(CupertinoIcons.person_2),
-              // This title is visible in both collapsed and expanded states.
-              // When the "middle" parameter is omitted, the widget provided
-              // in the "largeTitle" parameter is used instead in the collapsed state.
+            const CupertinoSliverNavigationBar(
               largeTitle: Text(
                 'Dein Profil  ',
               ),
-
-              // trailing: IconButton(
-              //   alignment: Alignment.topRight,
-              //   icon: Icon(
-              //     FlutterRemix.menu_line,
-              //     size: 24,
-              //     color: Theme.of(context).colorScheme.onSecondaryContainer,
-              //   ),
-              //   onPressed: () {
-              //     Get.to(SettingsPage());
-              //   },
-              // ),
-
-              //transform a contian -16 x
-
-              // trailing: Container(
-              //     transform: Matrix4.translationValues(14, 0, 0),
-              //     child: IconButton(
-              //       // alignment: Alignment.topRight,
-              //       icon: Icon(
-              //         FlutterRemix.menu_line,
-              //         size: 24,
-              //         color: Theme.of(context).colorScheme.onSecondaryContainer,
-              //       ),
-              //       onPressed: () {
-              //         Get.to(SettingsPage());
-              //       },
-              //     )),
-
-              // trailing: CupertinoButton(
-              //   padding: EdgeInsets.zero,
-              //   child: Icon(
-              //     FlutterRemix.menu_line,
-              //     size: 24,
-              //     color: Theme.of(context).colorScheme.onSecondaryContainer,
-              //   ),
-              //   onPressed: () {
-              //     Get.to(SettingsPage());
-              //   },
-              // ),
-
-              // trailing: Icon(
-              //   FlutterRemix.pencil_line,
-              //   size: 24,
-              //   color: Theme.of(context).colorScheme.onSecondaryContainer,
-              // ),
               border: //make the border transparent
-                  const Border(bottom: BorderSide(color: Colors.transparent)),
+                  Border(bottom: BorderSide(color: Colors.transparent)),
             ),
-            // This widget fills the remaining space in the viewport.
-            // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
             SliverList(
               delegate: SliverChildListDelegate(
                 [
@@ -146,36 +90,39 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         SizedBox(
                           height: 2,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Mein Öffentliches Profil',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.color
-                                        ?.withOpacity(0.6),
-                                  ),
-                            ),
+                        GestureDetector(
+                          onTap: () => Get.snackbar('title', 'message'),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Mein Öffentliches Profil',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color
+                                          ?.withOpacity(0.6),
+                                    ),
+                              ),
 
-                            // SizedBox(
-                            //   width: 2,
-                            // ),
-                            Icon(
-                              FlutterRemix.arrow_right_s_line,
-                              size: 15,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.color
-                                  ?.withOpacity(0.6),
-                            ),
-                          ],
+                              // SizedBox(
+                              //   width: 2,
+                              // ),
+                              Icon(
+                                FlutterRemix.arrow_right_s_line,
+                                size: 15,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color
+                                    ?.withOpacity(0.6),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -185,10 +132,67 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   ),
                   ActionCard(
                     title: 'Deine Posts',
-                    icon: Icon(FlutterRemix.contrast_2_line),
+                    icon: Icon(
+                      FlutterRemix.file_list_2_line,
+                      // color: Colors.red,
+                    ),
                     onTap: () {
                       Get.snackbar("Pressed", "Pressed");
                     },
+                  ),
+                  ActionCard(
+                    title: 'Deine Gespeicherten Posts',
+                    icon: Icon(FlutterRemix.bookmark_line),
+                    onTap: () {
+                      Get.snackbar("Pressed", "Pressed");
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, top: 20),
+                    child: Text(
+                      'Nachbarschaft',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
+                  ActionCard(
+                    title: 'Veranstaltungen',
+                    icon: Icon(FlutterRemix.calendar_event_line),
+                    onTap: () {
+                      Get.snackbar("Pressed", "Pressed");
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, top: 20),
+                    child: Text(
+                      'Einstellungen',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
+                  ActionCard(
+                    title: 'Profil Bearbeiten',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {
+                      Get.snackbar("Pressed", "Pressed");
+                    },
+                  ),
+                  ActionCard(
+                    title: 'Einstellungen',
+                    icon: Icon(FlutterRemix.settings_3_line),
+                    onTap: () {
+                      //get open settingfs page
+                      Get.to(SettingsPage());
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  LogoutSettingsCard(
+                    onTap: () {
+                      Get.snackbar("Pressed", "Pressed");
+                    },
+                  ),
+                  SizedBox(
+                    height: 18,
                   ),
                 ],
               ),

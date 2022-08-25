@@ -101,13 +101,13 @@ class SettingsPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
-                  ActionCard(
-                    title: 'Profil bearbeiten',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {
-                      Get.snackbar("Presed", "Pressed");
-                    },
-                  ),
+                  // ActionCard(
+                  //   title: 'Profil bearbeiten',
+                  //   icon: Icon(FlutterRemix.user_line),
+                  //   onTap: () {
+                  //     Get.snackbar("Presed", "Pressed");
+                  //   },
+                  // ),
                   ActionCard(
                     title: 'Benachrichtigungen',
                     icon: Icon(FlutterRemix.notification_2_line),
@@ -175,11 +175,7 @@ class SettingsPage extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 30),
-                  LogoutSettingsCard(
-                    onTap: () {
-                      Get.snackbar("Pressed", "Pressed");
-                    },
-                  ),
+                  
                   SizedBox(height: 30),
 
                   // Create a Center Text wih a love icon and a text of the current version of the app of the app
