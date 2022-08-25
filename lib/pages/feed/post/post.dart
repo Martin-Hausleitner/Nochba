@@ -1,5 +1,6 @@
 //import material
 
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/pages/feed/post/post_view.dart';
@@ -57,7 +58,7 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double spacingBetween = 15;
+    const double spacingBetween = 13;
 
     return GestureDetector(
       //onTap open postz view
@@ -90,7 +91,10 @@ class Post extends StatelessWidget {
                     //chnage the space between the words
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headlineLarge),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
+                        )),
               ),
 
               const SizedBox(height: spacingBetween),
@@ -204,7 +208,7 @@ class Post extends StatelessWidget {
                   padding: EdgeInsets.only(top: spacingBetween),
                   child: Button(
                     text: 'Anschreiben',
-                    //onpres open Get.Snackbar
+                    icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
                     onPressed: () {
                       Get.snackbar(
                         'Anschreiben',

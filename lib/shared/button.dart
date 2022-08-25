@@ -6,9 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 class Button extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final IconData icon;
 
-  const Button({Key? key, required this.text, required this.onPressed})
-      : super(key: key);
+  const Button(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.icon});
+
   @override
   Widget build(BuildContext context) {
     //create a Container with full and a icon and a tex in the middle
@@ -71,25 +76,23 @@ class Button extends StatelessWidget {
 
             // <-- TextButton
             onPressed: onPressed,
-            icon: const Icon(
-              FlutterRemix.chat_1_fill,
+            icon: Icon(
+              icon,
               size: 24.0,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
 
             label: Text(
               text,
-              style: GoogleFonts.inter(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                letterSpacing: -0.1,
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.button?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    letterSpacing: -0.07,
+                  ),
             ),
             style: // add primeryColor to the text
                 TextButton.styleFrom(
               //the minimumSize of the button is 100%
-              minimumSize: const Size(double.infinity, 30),
+              minimumSize: const Size.fromHeight(50),
             ),
           ),
         ],

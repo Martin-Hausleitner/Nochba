@@ -7,7 +7,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/views/public_profile/public_profile_page.dart';
 
-
 class PostProfile extends StatelessWidget {
   final String authorImage;
   final String authorName;
@@ -48,85 +47,104 @@ class PostProfile extends StatelessWidget {
                       authorName,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: -0.5,
+                          ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      // show a small clock icon
-                      const Icon(
-                        FlutterRemix.time_line,
-                        size: 12,
-                        color: Colors.grey,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2),
-                        child: Row(
-                          children: [
-                            Text(
-                              publishDate,
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            Text(
-                              'min',
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //show a locaiton icon
-                      const Padding(
-                        padding: EdgeInsets.only(left: 8),
-                        // show this svg:
-                        child: Icon(
-                          FlutterRemix.map_pin_line,
-                          size: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2),
-                        child: Row(
-                          children: [
-                            Text(
-                              distance,
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            Text(
-                              'm',
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                // add light gray color
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  TimeDistance(publishDate: publishDate, distance: distance),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class TimeDistance extends StatelessWidget {
+  const TimeDistance({
+    Key? key,
+    required this.publishDate,
+    required this.distance,
+  }) : super(key: key);
+
+  final String publishDate;
+  final String distance;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // show a small clock icon
+        const Icon(
+          FlutterRemix.time_line,
+          size: 12,
+          color: Colors.grey,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 2),
+          child: Row(
+            children: [
+              Text(
+                publishDate,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+              Text(
+                'min',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+            ],
+          ),
+        ),
+        //show a locaiton icon
+        const Padding(
+          padding: EdgeInsets.only(left: 8),
+          // show this svg:
+          child: Icon(
+            FlutterRemix.map_pin_line,
+            size: 12,
+            color: Colors.grey,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 2),
+          child: Row(
+            children: [
+              Text(
+                distance,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+              Text(
+                'm',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color: Colors.grey[600],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
