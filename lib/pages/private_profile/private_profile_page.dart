@@ -121,20 +121,64 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                     height: 20,
                   ),
                   Center(
-                    child: Column(children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage:
-                            NetworkImage('https://picsum.photos/250?image=9'),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Max Mustermann',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                    ]),
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage:
+                              NetworkImage('https://picsum.photos/250?image=9'),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Max Mustermann',
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    // fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: -0.5,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer,
+                                  ),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Mein Öffentliches Profil',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.6),
+                                  ),
+                            ),
+
+                            // SizedBox(
+                            //   width: 2,
+                            // ),
+                            Icon(
+                              FlutterRemix.arrow_right_s_line,
+                              size: 15,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.color
+                                  ?.withOpacity(0.6),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 10,
