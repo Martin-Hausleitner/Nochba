@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/pages/private_profile/private_profile_page.dart';
 import 'package:locoo/shared/action_card.dart';
+
+import 'settings/security_view.dart';
 
 // Text(
 //                 'Settings',
@@ -95,9 +98,8 @@ class SettingsView extends StatelessWidget {
                 [
                   Padding(
                     padding: const EdgeInsets.only(left: 15, top: 15),
-                    child: Text(
-                      'Konto',
-                      style: Theme.of(context).textTheme.titleSmall,
+                    child: ActionCardTitle(
+                      title: 'Konto',
                     ),
                   ),
                   // ActionCard(
@@ -107,6 +109,16 @@ class SettingsView extends StatelessWidget {
                   //     Get.snackbar("Presed", "Pressed");
                   //   },
                   // ),
+                  ActionCard(
+                    title: 'Sicherheit',
+                    icon: Icon(FlutterRemix.lock_password_line),
+                    onTap: () {
+                      Get.to(
+                        SecurityView(),
+                      );
+                    },
+                  ),
+                 
                   ActionCard(
                     title: 'Benachrichtigungen',
                     icon: Icon(FlutterRemix.notification_2_line),
@@ -140,9 +152,8 @@ class SettingsView extends StatelessWidget {
                   SizedBox(height: 25),
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
-                    child: Text(
-                      'Inhalte & Aktivität',
-                      style: Theme.of(context).textTheme.titleSmall,
+                    child: ActionCardTitle(
+                      title: 'Inhalte & Aktivität',
                     ),
                   ),
                   ActionCard(

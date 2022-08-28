@@ -4,9 +4,10 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/action_card.dart';
+import 'package:locoo/shared/action_text_card.dart';
 
-class OwnPostsView extends StatelessWidget {
-  const OwnPostsView({Key? key}) : super(key: key);
+class SecurityView extends StatelessWidget {
+  const SecurityView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class OwnPostsView extends StatelessWidget {
           slivers: <Widget>[
             CupertinoSliverNavigationBar(
               largeTitle: Text(
-                'Deine Posts',
+                'Sicherheit',
               ),
               leading: Material(
                 color: Colors.transparent,
@@ -67,7 +68,14 @@ class OwnPostsView extends StatelessWidget {
             // add a Silverlist with SettingsCard
             SliverList(
               delegate: SliverChildListDelegate(
-                [],
+                [
+                  ActionTextCard(
+                    title: 'Passwort',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: '⦁⦁⦁⦁⦁⦁⦁⦁⦁',
+                  ),
+                ],
               ),
             ),
           ],

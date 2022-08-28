@@ -134,18 +134,13 @@ class EditProfileView extends StatelessWidget {
                     onTap: () {},
                     text: 'Gutenbergstraße 1, 1234 Wien',
                   ),
-                  Padding(
-                    padding:
-                        //left 18
-                        EdgeInsets.only(left: 15, top: 20),
-                    child: ActionCardTitle(title: 'Sicherheit'),
-                  ),
-                  ActionTextCard(
-                    title: 'Passwort',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: '⦁⦁⦁⦁⦁⦁⦁⦁⦁',
-                  ),
+                  // Padding(
+                  //   padding:
+                  //       //left 18
+                  //       EdgeInsets.only(left: 15, top: 20),
+                  //   child: ActionCardTitle(title: 'Sicherheit'),
+                  // ),
+                  
                   SizedBox(
                     height: 40,
                   ),
