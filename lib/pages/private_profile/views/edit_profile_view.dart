@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/pages/private_profile/private_profile_page.dart';
 import 'package:locoo/shared/action_card.dart';
+import 'package:locoo/shared/action_text_card.dart';
+
+import '../../../shared/action_text_card_red.dart';
 
 // Text(
 //                 'Settings',
@@ -100,32 +104,107 @@ class EditProfileView extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
+                  Padding(
+                    padding:
+                        //left 18
+                        EdgeInsets.only(left: 15),
+                    child: ActionCardTitle(title: 'Persönliche Daten'),
+                  ),
+                  ActionTextCard(
+                    title: 'Name',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: 'Martin Hausleitner',
+                  ),
+                  ActionTextCard(
+                    title: 'Email',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: 'Test@test.at',
+                  ),
+                  ActionTextCard(
+                    title: 'Geburtstag',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: '01.01.2022',
+                  ),
+                  ActionTextCard(
+                    title: 'Adresse',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: 'Gutenbergstraße 1, 1234 Wien',
+                  ),
+                  Padding(
+                    padding:
+                        //left 18
+                        EdgeInsets.only(left: 15, top: 20),
+                    child: ActionCardTitle(title: 'Sicherheit'),
+                  ),
+                  ActionTextCard(
+                    title: 'Passwort',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: '⦁⦁⦁⦁⦁⦁⦁⦁⦁',
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ActionTextCardRed(
+                    title: 'Account löschen',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: '',
+                  ),
 
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                    child: TextField(),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                    child: TextField(),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                    child: TextField(),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                    child: TextField(),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                    child: TextField(),
-                  ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                  //   child: TextField(
+                  //     label: 'Vorname',
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                  //   child: TextField(
+                  //     label: 'Nachname',
+                  //   ),
+                  // ),
+
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                  //   child: Row(
+                  //     children: [
+                  //       Padding(
+                  //         padding:
+                  //             //left 12
+                  //             const EdgeInsets.only(left: 12),
+                  //         child: Text(
+                  //           'Zeige ersten Buchstaben des Nachnamen',
+                  //           style: Theme.of(context)
+                  //               .textTheme
+                  //               .caption
+                  //               ?.copyWith(
+                  //                 color:
+                  //                     Theme.of(context).colorScheme.onSurface,
+                  //               ),
+                  //         ),
+                  //       ),
+                  //       Spacer(),
+                  //       Transform.scale(
+                  //         scale: 0.8,
+                  //         child: CupertinoSwitch(
+                  //           value: false,
+                  //           onChanged: (value) {},
+                  //           activeColor: Theme.of(context).primaryColor,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+
+                  //create CupertinoSwitch
 
                   // Create TextFormField with a focusNode which triggers a DecoratedBox border to change to red border
                 ],
@@ -139,7 +218,9 @@ class EditProfileView extends StatelessWidget {
 }
 
 class TextField extends StatefulWidget {
-  TextField({Key? key}) : super(key: key);
+  final String label;
+
+  TextField({required this.label});
 
   @override
   _TextFieldState createState() => _TextFieldState();
@@ -193,7 +274,9 @@ class _TextFieldState extends State<TextField> {
             // labelStyle: ,
 
             border: InputBorder.none,
-            labelText: "Test",
+            labelText: widget.label,
+
+            floatingLabelBehavior: FloatingLabelBehavior.always,
             // prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
             // prefixIcon: Padding(
             //   padding: EdgeInsets.symmetric(vertical: 18, horizontal: 8),

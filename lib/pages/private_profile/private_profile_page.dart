@@ -154,15 +154,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15, top: 20),
-                    child: Text(
-                      'NACHBARSCHAFT',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.color
-                                ?.withOpacity(0.6),
-                          ),
+                    child: ActionCardTitle(
+                      title: 'Nachbarschaft',
                     ),
                   ),
                   ActionCard(
@@ -174,16 +167,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15, top: 20),
-                    child: Text(
-                      'EINSTELLUNGEN',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.color
-                                ?.withOpacity(0.6),
-                            fontSize: 12,
-                          ),
+                    child: ActionCardTitle(
+                      title: 'Einstellungen',
                     ),
                   ),
                   ActionCard(
@@ -223,6 +208,23 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ActionCardTitle extends StatelessWidget {
+  final String title;
+
+  const ActionCardTitle({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title.toUpperCase(),
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color:
+                Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6),
+          ),
     );
   }
 }
