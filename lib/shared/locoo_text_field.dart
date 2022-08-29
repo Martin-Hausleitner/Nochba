@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 
-class TextField extends StatefulWidget {
+class LocooTextField extends StatefulWidget {
   final String label;
 
-  TextField({required this.label});
+  LocooTextField({required this.label});
 
   @override
-  _TextFieldState createState() => _TextFieldState();
+  _LocooTextFieldState createState() => _LocooTextFieldState();
 }
 
-class _TextFieldState extends State<TextField> {
+class _LocooTextFieldState extends State<LocooTextField> {
   // Use it to change color for border when textFiled in focus
   FocusNode _focusNode = FocusNode();
 
@@ -48,6 +48,7 @@ class _TextFieldState extends State<TextField> {
         ),
         child: TextFormField(
           focusNode: _focusNode,
+          autofocus: true,
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),
           keyboardType: TextInputType.number,

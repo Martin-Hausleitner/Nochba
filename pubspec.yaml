@@ -40,6 +40,7 @@ dependencies:
   expandable_page_view: ^1.0.17
   json_theme: ^4.0.0+8
   animated_segmented_tab_control: ^1.0.1
+  syncfusion_flutter_datepicker: ^20.2.45
 
 
 dev_dependencies:

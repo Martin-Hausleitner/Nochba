@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  calendar_date_picker2:
+    dependency: "direct main"
+    description:
+      name: calendar_date_picker2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
   characters:
     dependency: transitive
     description:
@@ -714,6 +721,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.2.45"
+  syncfusion_flutter_datepicker:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_datepicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.2.45"
   term_glyph:
     dependency: transitive
     description:

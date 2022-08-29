@@ -3,43 +3,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/models/data_access.dart';
-import 'package:locoo/models/post.dart';
 import 'package:locoo/pages/private_profile/views/own_posts_view.dart';
 import 'package:locoo/shared/action_card.dart';
 
-import 'package:locoo/pages/feed/post/post.dart' as widget;
-import 'package:locoo/models/post.dart' as models;
 import 'package:locoo/models/user.dart' as models;
 
-import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/models/auth_access.dart';
-import 'package:locoo/models/data_access.dart';
-import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/action_card_title.dart';
 import 'package:locoo/shared/action_text_card.dart';
-import 'package:locoo/shared/app_bar_view.dart';
+import 'package:locoo/shared/app_bar_big_view.dart';
+import 'package:locoo/shared/locoo_text_field.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 import 'package:locoo/shared/user_info.dart';
 
-import '../../shared/profile_content.dart';
-import '../feed/post/category_badge.dart';
+import '../../models/data_access.dart';
 import 'private_profile_controller.dart';
-import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
-// import post.dart
-import '../../pages/feed/post/post.dart';
-// import 'views/edit_profile_view.dart';
-// import 'views/own_posts_view.dart';
-import 'views/saved_posts_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'package:locoo/models/user.dart' as models;
 
@@ -268,7 +249,7 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarView(title: 'Profil Bearbeiten', children: [
+    return AppBarBigView(title: 'Profil Bearbeiten', children: [
       // SizedBox(
       //   height: 30,
       // ),
@@ -280,13 +261,85 @@ class EditProfileView extends StatelessWidget {
       ActionTextCard(
         title: 'Name',
         icon: Icon(FlutterRemix.user_line),
-        onTap: () {},
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: Container(
+                  height: 200,
+                  // color: Colors.amber,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const Text('Modal BottomSheet'),
+                        ElevatedButton(
+                          child: const Text('Close BottomSheet'),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        LocooTextField(
+                          label: 'name',
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
         text: 'Martin Hausleitner',
       ),
       ActionTextCard(
         title: 'Geburtstag',
         icon: Icon(FlutterRemix.user_line),
-        onTap: () {},
+        onTap: //open widget
+            () {
+          Get.to(
+            AppBarBigView(
+              title: 'Geburtstag',
+              children: [
+                //https://help.syncfusion.com/flutter/daterangepicker/overview
+                SfDateRangePicker(
+                  view: DateRangePickerView.decade,
+                  // monthViewSettings:
+                  //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                  showNavigationArrow: true,
+                  showActionButtons: true,
+                  maxDate: DateTime.now(),
+                  minDate: DateTime(1880),
+                  //set initial year to 1999
+                  // enableMultiView: true,
+                  initialDisplayDate: DateTime(2000),
+                  yearCellStyle: DateRangePickerYearCellStyle(
+                    textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.7),
+                        ),
+                    leadingDatesTextStyle:
+                        Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.color
+                                  ?.withOpacity(0.7),
+                            ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
         text: '01.01.2022',
       ),
       ActionTextCard(
@@ -475,7 +528,7 @@ class SavedPostsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarView(title: 'Gespeicherten Posts', children: [
+    return AppBarBigView(title: 'Gespeicherten Posts', children: [
       Text('lol'),
     ]);
   }

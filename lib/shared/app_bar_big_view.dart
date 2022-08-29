@@ -7,11 +7,11 @@ import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/action_text_card.dart';
 import 'package:locoo/shared/action_text_card_red.dart';
 
-class AppBarView extends StatelessWidget {
+class AppBarBigView extends StatelessWidget {
   final String title;
   final List<Widget> children;
 
-  const AppBarView({super.key, required this.title, required this.children});
+  const AppBarBigView({super.key, required this.title, required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class AppBarView extends StatelessWidget {
       ),
       child: Scaffold(
         // backgroundColor:
-            // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+        // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
         body: CustomScrollView(
           slivers: <Widget>[
             CupertinoSliverNavigationBar(

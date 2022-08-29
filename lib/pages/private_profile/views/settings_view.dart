@@ -10,7 +10,7 @@ import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/action_card_title.dart';
 import 'package:locoo/shared/action_text_card.dart';
 import 'package:locoo/shared/action_text_card_red.dart';
-import 'package:locoo/shared/app_bar_view.dart';
+import 'package:locoo/shared/app_bar_big_view.dart';
 
 // Text(
 //                 'Settings',
@@ -25,7 +25,7 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarView(
+    return AppBarBigView(
       title: 'Einstellungen',
       children: [
         ActionCardTitle(
@@ -119,7 +119,7 @@ class ManageAccountView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarView(
+    return AppBarBigView(
       title: 'Konto Verwalten',
       children: [
         ActionTextCard(
