@@ -269,29 +269,7 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return Padding(
-                padding: MediaQuery.of(context).viewInsets,
-                child: Container(
-                  height: 200,
-                  // color: Colors.amber,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const Text('Modal BottomSheet'),
-                        ElevatedButton(
-                          child: const Text('Close BottomSheet'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        LocooTextField(
-                          label: 'name',
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              return BottomSheet();
             },
           );
         },
@@ -409,6 +387,115 @@ class EditProfileView extends StatelessWidget {
   }
 }
 
+class BottomSheet extends StatelessWidget {
+  const BottomSheet({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            // const Text('Modal BottomSheet'),
+            // ElevatedButton(
+            //   child: const Text('Close BottomSheet'),
+            //   onPressed: () => Navigator.pop(context),
+            // ),
+            Padding(
+              padding: //top 10
+                  EdgeInsets.only(
+                top: 15,
+                left: 15,
+                right: 15,
+              ),
+              child: Row(
+                children: [
+                  //iconButton black x -> close sheet
+                  SimpleCircularIconButton(
+                    iconData: FlutterRemix.close_line,
+                    fillColor: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.05),
+                    iconColor: Colors.black,
+                    radius: 32,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  Spacer(),
+
+                  SimpleCircularIconButton(
+                    iconData: FlutterRemix.check_line,
+                    fillColor: Theme.of(context).primaryColor,
+                    iconColor: Colors.white,
+                    radius: 32,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  LocooTextField(
+                    label: 'Vorname',
+                  ),
+                  SizedBox(height: 10),
+                  LocooTextField(
+                    label: 'Nachname',
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: // right left 5
+                        EdgeInsets.only(
+                      left: 7,
+                      right: 7,
+                    ),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.6)),
+                          ),
+                        ),
+                        //tranform  scale 0.8 cupertuon swtich
+                        Transform.scale(
+                          scale: 0.8,
+                          child: CupertinoSwitch(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: true,
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class EditAvatar extends StatelessWidget {
   const EditAvatar({
     Key? key,
@@ -451,6 +538,78 @@ class EditAvatar extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SimpleCircularIconButton extends StatelessWidget {
+  const SimpleCircularIconButton(
+      {this.fillColor = Colors.transparent,
+      required this.iconData,
+      this.iconColor = Colors.blue,
+      this.outlineColor = Colors.transparent,
+      this.notificationFillColor = Colors.red,
+      this.notificationCount,
+      this.onPressed,
+      this.radius = 48.0,
+      Key? key})
+      : super(key: key);
+
+  final IconData iconData;
+  final Color fillColor;
+  final Color outlineColor;
+  final Color iconColor;
+  final Color notificationFillColor;
+  final int? notificationCount;
+  final Function? onPressed;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Ink(
+          width: radius,
+          height: radius,
+          decoration: ShapeDecoration(
+            color: fillColor,
+            shape: CircleBorder(side: BorderSide(color: outlineColor)),
+          ),
+          child: IconButton(
+            padding: EdgeInsets.zero,
+            splashRadius: radius / 2,
+            iconSize: radius / 2,
+            icon: Icon(iconData, color: iconColor),
+            splashColor: iconColor.withOpacity(.4),
+            onPressed: onPressed as void Function()?,
+          ),
+        ),
+        if (notificationCount != null) ...[
+          Positioned(
+            top: radius / -14,
+            right: radius / -14,
+            child: Container(
+              width: radius / 2.2,
+              height: radius / 2.2,
+              decoration: ShapeDecoration(
+                color: notificationFillColor,
+                shape: const CircleBorder(),
+              ),
+              child: Center(
+                child: Text(
+                  notificationCount.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: radius / 4,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

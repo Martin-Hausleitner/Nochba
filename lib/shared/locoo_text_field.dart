@@ -49,14 +49,19 @@ class _LocooTextFieldState extends State<LocooTextField> {
         child: TextFormField(
           focusNode: _focusNode,
           autofocus: true,
+          textInputAction: TextInputAction.go,
+          // on textInputAction () => Navigator.pop(context),
+          onFieldSubmitted: (value) => Get.back(),
+
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),
-          keyboardType: TextInputType.number,
+          // keyboardType: TextInputType.number,
           decoration: InputDecoration(
             contentPadding:
                 // top 8 bottom 8 left 8 right 8
                 EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             fillColor: Colors.red,
+
             // labelStyle: ,
 
             border: InputBorder.none,
