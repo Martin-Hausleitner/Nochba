@@ -5,9 +5,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/action_text_card.dart';
+import 'package:locoo/shared/action_text_card_red.dart';
 
-class SecurityView extends StatelessWidget {
-  const SecurityView({Key? key}) : super(key: key);
+class AppBarView extends StatelessWidget {
+  final String title;
+  final List<Widget> children;
+
+  const AppBarView({super.key, required this.title, required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,7 @@ class SecurityView extends StatelessWidget {
           slivers: <Widget>[
             CupertinoSliverNavigationBar(
               largeTitle: Text(
-                'Sicherheit',
+                title,
               ),
               leading: Material(
                 color: Colors.transparent,
@@ -69,11 +73,15 @@ class SecurityView extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  ActionTextCard(
-                    title: 'Passwort',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: '⦁⦁⦁⦁⦁⦁⦁⦁⦁',
+                  //create a listview -> padding
+                  Padding(
+                    padding: // left right 15 top 20
+                        const EdgeInsets.only(left: 15, right: 15, top: 18),
+                    child: Column(
+                      //align start
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: children,
+                    ),
                   ),
                 ],
               ),

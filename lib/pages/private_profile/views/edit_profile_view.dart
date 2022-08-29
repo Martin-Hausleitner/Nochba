@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/pages/private_profile/private_profile_page.dart';
 import 'package:locoo/shared/action_card.dart';
+import 'package:locoo/shared/action_card_title.dart';
 import 'package:locoo/shared/action_text_card.dart';
 
 import '../../../shared/action_text_card_red.dart';
@@ -116,70 +117,28 @@ class EditProfileView extends StatelessWidget {
                     onTap: () {},
                     text: 'Martin Hausleitner',
                   ),
-                  ActionTextCard(
-                    title: 'Email',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: 'Test@test.at',
-                  ),
+                  
                   ActionTextCard(
                     title: 'Geburtstag',
                     icon: Icon(FlutterRemix.user_line),
                     onTap: () {},
                     text: '01.01.2022',
                   ),
-                  ActionTextCard(
-                    title: 'Adresse',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: 'Gutenbergstraße 1, 1234 Wien',
-                  ),
+                  
                   // Padding(
                   //   padding:
                   //       //left 18
                   //       EdgeInsets.only(left: 15, top: 20),
                   //   child: ActionCardTitle(title: 'Sicherheit'),
                   // ),
+                  //create a input field which check if the input is the same as a string and if it is the same it will run a function
+
+                  
 
                   SizedBox(
                     height: 40,
                   ),
-                  ActionTextCardRed(
-                    title: 'Account löschen',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () => showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('AlertDialog Title'),
-                        content: const Text('AlertDialog description'),
-                        actions: <Widget>[
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Abbrechen'),
-                                  child: const Text('Abbrechen'),
-                                  style: TextButton.styleFrom(
-                                    primary: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    text: '',
-                  ),
+                  
 
                   // Padding(
                   //   padding:
