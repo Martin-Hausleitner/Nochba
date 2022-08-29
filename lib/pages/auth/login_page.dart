@@ -63,7 +63,6 @@ class LoginPage extends GetView<AuthController> {
                 builder: (context) => ForgotPasswordPage()
               )),
             ),*/
-            const SizedBox(height: 24),
             RichText(
               text: TextSpan(
                 style: const TextStyle(color: Colors.black, fontSize: 20),
@@ -81,6 +80,7 @@ class LoginPage extends GetView<AuthController> {
                 ]
               ),
             ),
+            const SizedBox(height: 24),
             Button(text: 'Create a demo account', onPressed: () async => controller.createDemoAccount(), icon: Icons.account_box)
           ]
         )

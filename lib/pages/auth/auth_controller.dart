@@ -53,8 +53,8 @@ class AuthController extends GetxController {
       lastName
     );
 
-    emailController.text = email;
-    passwordController.text = password;
+    /*emailController.text = email;
+    passwordController.text = password;*/
   }
 
   @override void dispose() {

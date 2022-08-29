@@ -46,4 +46,8 @@ class AuthAccess extends GetxService {
       return false;
     }
   }
+
+  Future signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }

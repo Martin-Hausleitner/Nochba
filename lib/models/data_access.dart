@@ -31,6 +31,12 @@ class DataAccess extends GetxService {
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
 
+  Stream<List<Post>> getPostsOfUser(String uid) => postCol
+        .where('user', isEqualTo: uid)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
+
   Future<String> uploadPostImageToStorage(String imageName, Uint8List file) async {
     Reference ref = FirebaseStorage.instance.ref().child('posts/$imageName');
     UploadTask uploadTask = ref.putData(file);

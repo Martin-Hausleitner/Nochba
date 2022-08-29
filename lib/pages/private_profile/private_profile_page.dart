@@ -1,11 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/models/auth_access.dart';
+import 'package:locoo/models/data_access.dart';
 import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 import 'package:locoo/shared/user_info.dart';
@@ -22,9 +25,13 @@ import 'views/saved_posts_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 
+import 'package:locoo/models/user.dart' as models;
+
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override
   Widget build(BuildContext context) {
+    final dataAccess = Get.find<DataAccess>();
+    final authAccess = Get.find<AuthAccess>();
     return CupertinoPageScaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       // A ScrollView that creates custom scroll effects using slivers.
@@ -67,69 +74,82 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   SizedBox(
                     height: 20,
                   ),
-                  Center(
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              NetworkImage('https://picsum.photos/250?image=9'),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Max Mustermann',
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    // fontSize: 30,
-                                    fontWeight: FontWeight.w700,
-                                    letterSpacing: -0.5,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondaryContainer,
-                                  ),
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        GestureDetector(
-                          onTap: () => Get.snackbar('title', 'message'),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Mein Öffentliches Profil',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.color
-                                          ?.withOpacity(0.6),
+                  FutureBuilder<models.User?>(
+                          future: dataAccess.getUser(FirebaseAuth.instance.currentUser!.uid),
+                          builder: (context, snapshot) {
+                            if(snapshot.hasData) {
+                              final data = snapshot.data!;
+                              return Center(
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 50,
+                                      backgroundImage:
+                                          NetworkImage(data.imageUrl),
                                     ),
-                              ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      '${data.firstName} ${data.lastName}',
+                                      style:
+                                          Theme.of(context).textTheme.titleLarge?.copyWith(
+                                                // fontSize: 30,
+                                                fontWeight: FontWeight.w700,
+                                                letterSpacing: -0.5,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer,
+                                              ),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Get.snackbar('title', 'message'),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Mein Öffentliches Profil',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.color
+                                                      ?.withOpacity(0.6),
+                                                ),
+                                          ),
 
-                              // SizedBox(
-                              //   width: 2,
-                              // ),
-                              Icon(
-                                FlutterRemix.arrow_right_s_line,
-                                size: 15,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.color
-                                    ?.withOpacity(0.6),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                                          // SizedBox(
+                                          //   width: 2,
+                                          // ),
+                                          Icon(
+                                            FlutterRemix.arrow_right_s_line,
+                                            size: 15,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.color
+                                                ?.withOpacity(0.6),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            } else if(snapshot.hasError) {
+                              return Center(child: Text('Fail'),);
+                            } else {
+                              return Center(child: CircularProgressIndicator(),);
+                            }
+                          },
+                        ),
+
                   SizedBox(
                     height: 10,
                   ),
@@ -196,7 +216,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                   ),
                   LogoutSettingsCard(
                     onTap: () {
-                      Get.snackbar("Pressed", "Pressed");
+                      //Get.snackbar("Pressed", "Pressed");
+                      authAccess.signOut();
                     },
                   ),
                   SizedBox(
