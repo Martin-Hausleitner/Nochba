@@ -1,12 +1,15 @@
 //import material
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 import 'package:flutter_remix/flutter_remix.dart';
 
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/models/category.dart';
+import 'package:locoo/models/data_access.dart';
+import 'package:locoo/pages/chats/chat.dart';
 import 'package:locoo/shared/button.dart';
 
 import 'package:locoo/shared/round_icon_button.dart';
@@ -72,6 +75,7 @@ class PostView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double spacingBetween = 15;
+    final dataaccess = Get.find<DataAccess>();
 
     return Scaffold(
       body: Container(
@@ -227,10 +231,19 @@ class PostView extends StatelessWidget {
                         icon: FlutterRemix.account_box_fill,
                         text: 'Anschreiben',
                         //onpres open Get.Snackbar
-                        onPressed: () {
-                          Get.snackbar(
-                            'Anschreiben',
-                            'Du hast den Button gedrückt',
+                        onPressed: () async {
+                          final navigator = Navigator.of(context);
+                          final userId = post.user;
+                          final thisUser = await dataaccess.getChatUser(userId);
+                          final room = await FirebaseChatCore.instance.createRoom(thisUser!);
+
+                          navigator.pop();
+                          await navigator.push(
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                room: room,
+                              ),
+                            ),
                           );
                         },
                       ),
