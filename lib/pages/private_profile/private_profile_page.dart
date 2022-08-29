@@ -75,81 +75,86 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                     height: 20,
                   ),
                   FutureBuilder<models.User?>(
-                          future: dataAccess.getUser(FirebaseAuth.instance.currentUser!.uid),
-                          builder: (context, snapshot) {
-                            if(snapshot.hasData) {
-                              final data = snapshot.data!;
-                              return Center(
-                                child: Column(
+                    future: dataAccess
+                        .getUser(FirebaseAuth.instance.currentUser!.uid),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final data = snapshot.data!;
+                        return Center(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 50,
+                                backgroundImage: NetworkImage(data.imageUrl),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '${data.firstName} ${data.lastName}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                      // fontSize: 30,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: -0.5,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer,
+                                    ),
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              GestureDetector(
+                                onTap: () => Get.snackbar('title', 'message'),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    CircleAvatar(
-                                      radius: 50,
-                                      backgroundImage:
-                                          NetworkImage(data.imageUrl),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
                                     Text(
-                                      '${data.firstName} ${data.lastName}',
-                                      style:
-                                          Theme.of(context).textTheme.titleLarge?.copyWith(
-                                                // fontSize: 30,
-                                                fontWeight: FontWeight.w700,
-                                                letterSpacing: -0.5,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryContainer,
-                                              ),
-                                    ),
-                                    SizedBox(
-                                      height: 2,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () => Get.snackbar('title', 'message'),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Mein Öffentliches Profil',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.color
-                                                      ?.withOpacity(0.6),
-                                                ),
-                                          ),
-
-                                          // SizedBox(
-                                          //   width: 2,
-                                          // ),
-                                          Icon(
-                                            FlutterRemix.arrow_right_s_line,
-                                            size: 15,
+                                      'Mein Öffentliches Profil',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
                                             color: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium
                                                 ?.color
                                                 ?.withOpacity(0.6),
                                           ),
-                                        ],
-                                      ),
-                                    )
+                                    ),
+
+                                    // SizedBox(
+                                    //   width: 2,
+                                    // ),
+                                    Icon(
+                                      FlutterRemix.arrow_right_s_line,
+                                      size: 15,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color
+                                          ?.withOpacity(0.6),
+                                    ),
                                   ],
                                 ),
-                              );
-                            } else if(snapshot.hasError) {
-                              return Center(child: Text('Fail'),);
-                            } else {
-                              return Center(child: CircularProgressIndicator(),);
-                            }
-                          },
-                        ),
-
+                              )
+                            ],
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Fail'),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
                   SizedBox(
                     height: 10,
                   ),
