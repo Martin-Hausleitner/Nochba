@@ -118,7 +118,7 @@ class SettingsView extends StatelessWidget {
                       );
                     },
                   ),
-                 
+
                   ActionCard(
                     title: 'Benachrichtigungen',
                     icon: Icon(FlutterRemix.notification_2_line),
@@ -163,12 +163,8 @@ class SettingsView extends StatelessWidget {
                       Get.snackbar("Pressed", "Pressed");
                     },
                   ),
-                  ActionCard(
-                    title: 'Impressum',
-                    icon: Icon(FlutterRemix.dashboard_2_fill),
-                    onTap: () {
-                      Get.snackbar("Pressed", "Pressed");
-                    },
+                  ActionCardImpressum(
+                    onTap: () => {},
                   ),
                   ActionCard(
                     title: 'Lizenzen',
@@ -236,6 +232,80 @@ class SettingsView extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ActionCardImpressum extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const ActionCardImpressum({super.key, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          // add background color to the rounded container
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(14),
+          ),
+
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // return a rounded container with a icon on the left side and a text
+              Padding(
+                padding: const EdgeInsets.only(left: 12, top: 12, bottom: 12),
+                child: Row(
+                  children: [
+                    // Icon(
+                    //   size: 22,
+                    //   icon.icon,
+                    //   // color: Theme.of(context).primaryColor,
+                    //   // color: Colors.black87,
+                    //   color: Colors.black,
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 7, right: 6,),
+                      child: Text(
+                        '§',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w500,
+
+                              // letterSpacing: -0.1,
+                            ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Text(
+                        'Impressum',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w500,
+                              // letterSpacing: -0.1,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // return a arrow icon
+              Padding(
+                padding: const EdgeInsets.only(right: 13),
+                child: Icon(
+                  FlutterRemix.arrow_right_s_line,
+                  color: Colors.black26,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

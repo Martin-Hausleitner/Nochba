@@ -140,14 +140,44 @@ class EditProfileView extends StatelessWidget {
                   //       EdgeInsets.only(left: 15, top: 20),
                   //   child: ActionCardTitle(title: 'Sicherheit'),
                   // ),
-                  
+
                   SizedBox(
                     height: 40,
                   ),
                   ActionTextCardRed(
                     title: 'Account löschen',
                     icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
+                    onTap: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('AlertDialog Title'),
+                        content: const Text('AlertDialog description'),
+                        actions: <Widget>[
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Abbrechen'),
+                                  child: const Text('Abbrechen'),
+                                  style: TextButton.styleFrom(
+                                    primary: Colors.black,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     text: '',
                   ),
 
