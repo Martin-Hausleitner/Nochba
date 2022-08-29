@@ -38,7 +38,8 @@ class AuthAccess extends GetxService {
           id: cred.user!.uid,
           imageUrl: 'https://i.pravatar.cc/300?u=$email',
           lastName: lastName,
-          role: types.Role.user
+          role: types.Role.user,
+          metadata: const {'value': ''}
         ),
       );
       return true;
