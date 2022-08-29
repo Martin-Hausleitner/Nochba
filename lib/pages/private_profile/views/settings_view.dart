@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -70,7 +72,7 @@ class SettingsView extends StatelessWidget {
             Get.snackbar("Pressed", "Pressed");
           },
         ),
-        SizedBox(height: 25),
+        // SizedBox(height: 25),
         ActionCardTitle(
           title: 'Inhalte & Aktivität',
         ),
@@ -138,6 +140,7 @@ class ManageAccountView extends StatelessWidget {
           onTap: () {},
           text: 'Gutenbergstraße 1, 1234 Wien',
         ),
+        SizedBox(height: 30),
         ActionTextCardRed(
           title: 'Account löschen',
           icon: Icon(FlutterRemix.user_line),
@@ -159,73 +162,76 @@ class AlertDialogDeleteAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      //add round corner 20
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      title: Column(
-        //align center
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // add a red icon flutterremix error-warning-line
-          Icon(
-            FlutterRemix.error_warning_line,
-            // color: Theme.of(context).colorScheme.error,
-            color: Colors.red,
-            size: 40,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          const Text(
-            'Account löschen',
-            //add fontwiehgt w500
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
-      content: const Text(
-        'Lösche deinen Account für immer bei Locoo. Die Daten können nicht wiederhergestellt werden.',
-        //style the text gray
-        style: TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
-      ),
-      actions: <Widget>[
-        Row(
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+      child: AlertDialog(
+        //add round corner 20
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Column(
+          //align center
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 1,
-              child: TextButton(
-                onPressed: () => Navigator.pop(context, 'Abbrechen'),
-                child: const Text('Abbrechen'),
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
+            // add a red icon flutterremix error-warning-line
+            Icon(
+              FlutterRemix.error_warning_line,
+              // color: Theme.of(context).colorScheme.error,
+              color: Colors.red,
+              size: 40,
             ),
-            Expanded(
-              flex: 1,
-              child: TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('Löschen'),
-                //style the button red
-                style: TextButton.styleFrom(
-                  primary: Colors.red,
-                  // add round corner 20
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
+            SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Account löschen',
+              //add fontwiehgt w500
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],
         ),
-      ],
+        content: const Text(
+          'Lösche deinen Account für immer bei Locoo. Die Daten können nicht wiederhergestellt werden.',
+          //style the text gray
+          style: TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
+        ),
+        actions: <Widget>[
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context, 'Abbrechen'),
+                  child: const Text('Abbrechen'),
+                  style: TextButton.styleFrom(
+                    primary: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('Löschen'),
+                  //style the button red
+                  style: TextButton.styleFrom(
+                    primary: Colors.red,
+                    // add round corner 20
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -348,7 +354,8 @@ class ActionCardImpressum extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 13),
                 child: Icon(
                   FlutterRemix.arrow_right_s_line,
-                  color: Colors.black26,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
             ],

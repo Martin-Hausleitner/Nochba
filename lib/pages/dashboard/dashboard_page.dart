@@ -44,14 +44,14 @@ class DashboardPage extends StatelessWidget {
               ],
             ),
             child: BottomNavigationBar(
-              unselectedItemColor: Colors.black,
-              selectedItemColor: Theme.of(context).primaryColor,
+              // unselectedItemColor: Colors.black,
+              // selectedItemColor: Theme.of(context).primaryColor,
               onTap: controller.changeTabIndex,
               currentIndex: controller.tabIndex,
               showSelectedLabels: false,
               showUnselectedLabels: false,
               type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.white,
+              // backgroundColor: Colors.white,
               elevation: 0,
               items: const [
                 BottomNavigationBarItem(

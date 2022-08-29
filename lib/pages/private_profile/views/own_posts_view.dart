@@ -12,7 +12,6 @@ import 'package:locoo/pages/feed/post/post.dart' as widget;
 import 'package:locoo/models/post.dart' as models;
 import 'package:locoo/models/user.dart' as models;
 
-
 // Text(
 //                 'Settings',
 //                 style: Theme.of(context).textTheme.titleLarge,
@@ -27,6 +26,7 @@ class OwnPostsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dataAccess = Get.find<DataAccess>();
+
     return CupertinoTheme(
       data: CupertinoThemeData(
           textTheme: CupertinoTextThemeData(
@@ -54,9 +54,11 @@ class OwnPostsView extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
           ),
-          barBackgroundColor: Theme.of(context).backgroundColor),
+          barBackgroundColor: Theme.of(context).scaffoldBackgroundColor),
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        // backgroundColor:
+        // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.97),
+        // Theme.of(context).backgroundColor,
         body: CustomScrollView(
           // A list of sliver widgets.
           slivers: <Widget>[
@@ -104,47 +106,52 @@ class OwnPostsView extends StatelessWidget {
                 [
                   Expanded(
                     child: StreamBuilder<List<models.Post>>(
-                      stream: dataAccess.getPostsOfUser(FirebaseAuth.instance.currentUser!.uid),
+                      stream: dataAccess.getPostsOfUser(
+                          FirebaseAuth.instance.currentUser!.uid),
                       builder: ((context, snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Something went wrong: ${snapshot.error.toString()}',
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    fontSize: 32, fontWeight: FontWeight.w300));
-                          } else if (snapshot.hasData) {
-                            final posts = snapshot.data!;
+                        if (snapshot.hasError) {
+                          return Text(
+                              'Something went wrong: ${snapshot.error.toString()}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 32, fontWeight: FontWeight.w300));
+                        } else if (snapshot.hasData) {
+                          final posts = snapshot.data!;
 
-                            return ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: posts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final post = posts.elementAt(index);
+                          return ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: posts.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final post = posts.elementAt(index);
 
-                                return FutureBuilder<models.User?>(
-                                  future: dataAccess.getUser(post.user),
-                                  builder: ((context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      final user = snapshot.data!;
-                                      return widget.Post(
-                                        post: post,
-                                        postAuthorName: '${user.firstName} ${user.lastName}',
-                                        postAuthorImage: user.imageUrl,
-                                      );
-                                    } else {
-                                      return Container();
-                                    }
-                                  }),
-                                );
-                              },
-                              separatorBuilder: (BuildContext context, int index) =>
-                                  const SizedBox(height: 3),
-                            );
-                          } else {
-                            return const Center(child: CircularProgressIndicator());
-                            // return const Text('There are no posts in the moment',
-                            //   textAlign: TextAlign.center,
-                            //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
-                          }
+                              return FutureBuilder<models.User?>(
+                                future: dataAccess.getUser(post.user),
+                                builder: ((context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    final user = snapshot.data!;
+                                    return widget.Post(
+                                      post: post,
+                                      postAuthorName:
+                                          '${user.firstName} ${user.lastName}',
+                                      postAuthorImage: user.imageUrl,
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                }),
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const SizedBox(height: 3),
+                          );
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                          // return const Text('There are no posts in the moment',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+                        }
                       }),
                     ),
                   ),

@@ -1,4 +1,17 @@
-// ignore_for_file: deprecated_member_use
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/models/data_access.dart';
+import 'package:locoo/models/post.dart';
+import 'package:locoo/pages/private_profile/views/own_posts_view.dart';
+import 'package:locoo/shared/action_card.dart';
+
+import 'package:locoo/pages/feed/post/post.dart' as widget;
+import 'package:locoo/models/post.dart' as models;
+import 'package:locoo/models/user.dart' as models;
 
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +24,8 @@ import 'package:locoo/models/auth_access.dart';
 import 'package:locoo/models/data_access.dart';
 import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/action_card_title.dart';
+import 'package:locoo/shared/action_text_card.dart';
+import 'package:locoo/shared/app_bar_view.dart';
 import 'package:locoo/shared/round_icon_button.dart';
 import 'package:locoo/shared/user_info.dart';
 
@@ -20,8 +35,8 @@ import 'private_profile_controller.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 // import post.dart
 import '../../pages/feed/post/post.dart';
-import 'views/edit_profile_view.dart';
-import 'views/own_posts_view.dart';
+// import 'views/edit_profile_view.dart';
+// import 'views/own_posts_view.dart';
 import 'views/saved_posts_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
@@ -207,8 +222,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           onTap: () {
                             //get open settingfs page
                             Get.to(
-                              EditProfileView(),
-                            );
+                                // EditProfileView(),
+                                EditProfileView());
                           },
                         ),
                         ActionCard(
@@ -246,131 +261,222 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
   }
 }
 
+class EditProfileView extends StatelessWidget {
+  const EditProfileView({
+    Key? key,
+  }) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return AppBarView(title: 'Profil Bearbeiten', children: [
+      // SizedBox(
+      //   height: 30,
+      // ),
+      EditAvatar(),
+      SizedBox(
+        height: 30,
+      ),
+      ActionCardTitle(title: 'Persönliche Daten'),
+      ActionTextCard(
+        title: 'Name',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Martin Hausleitner',
+      ),
+      ActionTextCard(
+        title: 'Geburtstag',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: '01.01.2022',
+      ),
+      ActionTextCard(
+        title: 'In der Nachbarschaft seit',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: '01.01.2022',
+      ),
+      ActionTextCard(
+        title: 'Beruf',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Legobaumeister',
+      ),
 
-// class PrivateProfileContent extends StatelessWidget {
-//   const PrivateProfileContent({
+      ActionTextCard(
+        title: 'Mehr über dich',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Hallo, mein name ist martin und ich bin ein legobaumeister',
+      ),
+      ActionCardTitle(title: 'Mehr'),
+      ActionTextCard(
+        title: 'Interessen',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Freunde, Familie, Legobaumeister',
+      ),
+      ActionTextCard(
+        title: 'Bietet',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Babysitten, Nachb',
+      ),
+      ActionCardTitle(title: 'Familie'),
+      ActionTextCard(
+        title: 'Familien Status',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Verheiratet',
+      ),
+      ActionTextCard(
+        title: 'Kinder',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: '3',
+      ),
+      ActionTextCard(
+        title: 'Tiere',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Hund, Katze',
+      ),
+
+      // Padding(
+      //   padding:
+      //       //left 18
+      //       EdgeInsets.only(left: 15, top: 20),
+      //   child: ActionCardTitle(title: 'Sicherheit'),
+      // ),
+      //create a input field which check if the input is the same as a string and if it is the same it will run a function
+
+      SizedBox(
+        height: 40,
+      ),
+    ]);
+  }
+}
+
+class EditAvatar extends StatelessWidget {
+  const EditAvatar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        children: [
+          const CircleAvatar(
+            radius: 55,
+            backgroundImage: NetworkImage(
+              "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: CircleAvatar(
+              radius: 16,
+              backgroundColor: Theme.of(context).primaryColor,
+              child: IconButton(
+                splashRadius: 16,
+                splashColor: Theme.of(context).primaryColor.withOpacity(.4),
+                icon: Icon(
+                  FlutterRemix.pencil_line,
+                  color: Colors.white,
+                  size: 17,
+                ),
+                // onpress open snack bar
+                onPressed: () {
+                  Get.snackbar(
+                    "Edift",
+                    "Edit your profile",
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// class OwnPostsView extends StatelessWidget {
+//   const OwnPostsView({
 //     Key? key,
 //   }) : super(key: key);
 
 //   @override
 //   Widget build(BuildContext context) {
+//     final dataAccess = Get.find<DataAccess>();
 
-//     //return a list with a column
+//     return AppBarView(
+//       title: 'title',
+//       children: [
+//         Expanded(
+//           child: StreamBuilder<List<models.Post>>(
+//             stream: dataAccess
+//                 .getPostsOfUser(FirebaseAuth.instance.currentUser!.uid),
+//             builder: ((context, snapshot) {
+//               if (snapshot.hasError) {
+//                 return Text(
+//                     'Something went wrong: ${snapshot.error.toString()}',
+//                     textAlign: TextAlign.center,
+//                     style: const TextStyle(
+//                         fontSize: 32, fontWeight: FontWeight.w300));
+//               } else if (snapshot.hasData) {
+//                 final posts = snapshot.data!;
 
-// return ListView(
-//   child: Column(
-//     //align centet
-//     crossAxisAlignment: CrossAxisAlignment.center,
-//     children: [
+//                 return ListView.separated(
+//                   shrinkWrap: true,
+//                   itemCount: posts.length,
+//                   itemBuilder: (BuildContext context, int index) {
+//                     final post = posts.elementAt(index);
 
-//       //Create a row with two columns
-//       Row(
-//         //align center
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           //Create a column with a container
-//           Column(
-//             //align center
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               //Create a container with a circle avatar
-//               Container(
-//                 width: 100,
-//                 height: 100,
-//                 decoration: BoxDecoration(
-//                   shape: BoxShape.circle,
-//                   image: DecorationImage(
-//                     image: AssetImage('assets/images/profile_image.png'),
-//                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//               ),
-//               //Create a container with a name
-//               Container(
-//                 margin: EdgeInsets.only(top: 10),
-//                 child: Text(
-//                   'John Doe',
-//                   style: GoogleFonts.inter(
-//                     fontSize: 20,
-//                     fontWeight: FontWeight.w600,
-//                     color: Theme.of(context).colorScheme.onSecondaryContainer,
-//                   ),
-//                 ),
-//               ),
-//               //Create a container with a description
-//               Container(
-//                 margin: EdgeInsets.only(top: 10),
-//                 child: Text(
-//                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-//                   style: GoogleFonts.inter(
-//                     fontSize: 14,
-//                     fontWeight: FontWeight.w400,
-//                     color: Theme.of(context).colorScheme.onSecondaryContainer,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//Create a column with a container
-
-// create a stack with an CircleAvatar with a photo and in the right bottom corner a small circle with a edit icon in it
-// SizedBox(
-//   height: 40,
-// ),
-// Center(
-//   child: Stack(
-//     children: [
-//       const CircleAvatar(
-//         radius: 55,
-//         backgroundImage: NetworkImage(
-//           "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-//         ),
-//       ),
-//       Positioned(
-//         bottom: 0,
-//         right: 0,
-//         child: CircleAvatar(
-//           radius: 16,
-//           backgroundColor: Theme.of(context).primaryColor,
-//           child: IconButton(
-//             icon: Icon(
-//               FlutterRemix.pencil_line,
-//               color: Colors.white,
-//               size: 17,
-//             ),
-//             // onpress open snack bar
-//             onPressed: () {
-//               Get.snackbar(
-//                 "Edift",
-//                 "Edit your profile",
-//               );
-//             },
+//                     return FutureBuilder<models.User?>(
+//                       future: dataAccess.getUser(post.user),
+//                       builder: ((context, snapshot) {
+//                         if (snapshot.hasData) {
+//                           final user = snapshot.data!;
+//                           return widget.Post(
+//                             post: post,
+//                             postAuthorName:
+//                                 '${user.firstName} ${user.lastName}',
+//                             postAuthorImage: user.imageUrl,
+//                           );
+//                         } else {
+//                           return Container();
+//                         }
+//                       }),
+//                     );
+//                   },
+//                   separatorBuilder: (BuildContext context, int index) =>
+//                       const SizedBox(height: 3),
+//                 );
+//               } else {
+//                 return const Center(child: CircularProgressIndicator());
+//                 // return const Text('There are no posts in the moment',
+//                 //   textAlign: TextAlign.center,
+//                 //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+//               }
+//             }),
 //           ),
 //         ),
-//       ),
-//     ],
-//   ),
-// ),
-
-// // show a name
-// Padding(
-//   padding: EdgeInsets.only(top: 20),
-//   child: Text(
-//     "Maxs Mustermdann",
-//     style: Theme.of(context).textTheme.titleMedium,
-//   ),
-// ),
-// //
-// SizedBox(
-//   height: 20,
-// ),
-
-// // add a tabbarview
-// ProfileContent(),
-// add TabBarView with with info and post
-//         ],
-//       ),
+//       ].toList(),
 //     );
 //   }
 // }
+
+class SavedPostsView extends StatelessWidget {
+  const SavedPostsView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBarView(title: 'Gespeicherten Posts', children: [
+      Text('lol'),
+    ]);
+  }
+}

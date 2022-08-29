@@ -21,47 +21,14 @@ import 'post_profile.dart';
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
 class Post extends StatelessWidget {
-  //final String postTitle;
-  //final CategoryOptions postCategory;
-  //final List<String> postHashtags;
   final String postAuthorImage;
   final String postAuthorName;
-  //final String postPublishDate;
-
-  //final String postDistance;
-  //final String postImage;
-  //final String postDescription;
-  //final int postLikes;
-
-  /*const Post({
-    Key? key,
-    required this.postTitle,
-    this.postCategory = CategoryOptions.Search,
-    this.postHashtags = const [
-      'test1',
-      'test2',
-      'test3',
-      'test4',
-      'test5',
-      'test6',
-    ],
-    this.postAuthorImage = 'https://i.pravatar.cc/340',
-    this.postAuthorName =
-        'ffffgggggggklljdsffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdsfj',
-    this.postPublishDate = '3',
-    this.postDistance = '300',
-    this.postImage = '',
-    this.postDescription =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    this.postLikes = 0,
-  }) : super(key: key);*/
 
   final models.Post post;
   CategoryOptions category = CategoryOptions.None;
   Post({
     Key? key,
     required this.post,
-  
     required this.postAuthorImage,
     required this.postAuthorName,
   }) : super(key: key) {
@@ -92,7 +59,7 @@ class Post extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         //create two text children
         child: Padding(
@@ -152,48 +119,6 @@ class Post extends StatelessWidget {
 
               const SizedBox(height: spacingBetween),
 
-              // show a more button if the maxLines is over 4
-              // ExpandableText(
-              //   postDescription,
-              //   expandText: 'more',
-              //   collapseText: 'show less',
-              //   maxLines: 4,
-              //   linkColor: Colors.red,
-              //   expandOnTextTap: false,
-              //   urlStyle: const TextStyle(
-              //     color: Colors.red,
-              //     decoration: TextDecoration.underline,
-              //   ),
-              //   mentionStyle: const TextStyle(
-              //     color: Colors.green,
-              //     decoration: TextDecoration.underline,
-              //   ),
-              //   hashtagStyle: const TextStyle(
-              //     color: Colors.orange
-
-              //   ),
-              //   onExpandedChanged:
-              //   // show snakbar
-              //   (bool expanded) {
-              //     if (expanded) {
-              //       Scaffold.of(context).showSnackBar(
-              //         const SnackBar(
-              //           content: Text('Expanded'),
-              //         ),
-              //       );
-              //     } else {
-              //       Scaffold.of(context).showSnackBar(
-              //         const SnackBar(
-              //           content: Text('Collapsed'),
-              //         ),
-              //       );
-              //     }
-              //   },
-
-              // ),
-
-              //Create a Layoutbuilder which shows display postDiscription and when the postDescription is longer than 4 lines, show a more button
-
               Discription(postDescription: post.description),
 
               //when the catogory is Suche the button2 is visible
@@ -219,8 +144,10 @@ class Post extends StatelessWidget {
                   : Container(),
 
               // Button
-              if (category == CategoryModul.search || CategoryModul.subCategoriesOfSearch.contains(category) ||
-                  category == CategoryModul.lending || CategoryModul.subCategoriesOfLending.contains(category))
+              if (category == CategoryModul.search ||
+                  CategoryModul.subCategoriesOfSearch.contains(category) ||
+                  category == CategoryModul.lending ||
+                  CategoryModul.subCategoriesOfLending.contains(category))
                 Padding(
                   padding: EdgeInsets.only(top: spacingBetween),
                   child: Button(

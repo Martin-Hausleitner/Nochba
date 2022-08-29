@@ -38,9 +38,9 @@ class ActionCard extends StatelessWidget {
                     Icon(
                       size: 22,
                       icon.icon,
-                      // color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.onSurface,
                       // color: Colors.black87,
-                      color: Colors.black,
+                      // color: Colors.black,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 8),
@@ -60,7 +60,8 @@ class ActionCard extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 13),
                 child: Icon(
                   FlutterRemix.arrow_right_s_line,
-                  color: Colors.black26,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
             ],
