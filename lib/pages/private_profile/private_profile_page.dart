@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -550,7 +552,35 @@ class EditProfileView extends StatelessWidget {
       ActionTextCard(
         title: 'Kinder',
         icon: Icon(FlutterRemix.user_line),
-        onTap: () {},
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheet(
+                children: [
+                  // ad a counter with + an- buttons
+                  Row(
+                    children: [
+                      Text('0'),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(FlutterRemix.add_line),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(FlutterRemix.subtract_line),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          );
+        },
         text: '3',
       ),
       ActionTextCard(

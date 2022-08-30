@@ -59,6 +59,7 @@ class _LocooTextFieldState extends State<LocooTextField> {
           focusNode: _focusNode,
           keyboardType: widget.keyboardType,
           maxLines: widget.maxLines,
+
           // minLines: 2,
           autofocus: true,
           textInputAction: TextInputAction.go,
@@ -70,9 +71,12 @@ class _LocooTextFieldState extends State<LocooTextField> {
           // keyboardType: TextInputType.number,
           decoration: InputDecoration(
             contentPadding:
+
                 // top 8 bottom 8 left 8 right 8
                 EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             fillColor: Colors.red,
+            // counterText: //current word count
+            //     '',
 
             // labelStyle: ,
 
