@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
 
-class SavedPostsView extends StatelessWidget {
-  const SavedPostsView({
+class BookmarkedPostsView extends StatelessWidget {
+  const BookmarkedPostsView({
     Key? key,
   }) : super(key: key);
 

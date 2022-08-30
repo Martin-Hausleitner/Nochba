@@ -15,8 +15,8 @@ import 'package:locoo/shared/ui/cards/action_card_title.dart';
 
 import '../../models/data_access.dart';
 import 'private_profile_controller.dart';
+import 'views/bookmarked_posts_view.dart';
 import 'views/edit_profile_view.dart';
-import 'views/saved_posts_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -180,7 +180,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           icon: Icon(FlutterRemix.bookmark_line),
                           onTap: () {
                             //get open settingfs page
-                            Get.to(SavedPostsView());
+                            Get.to(BookmarkedPostsView());
                           },
                         ),
                         ActionCardTitle(
@@ -240,11 +240,3 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
     );
   }
 }
-
-
-
-
-
-
-
-
