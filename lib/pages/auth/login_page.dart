@@ -29,9 +29,17 @@ class LoginPage extends GetView<AuthController> {
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
             ),
-            // add a
-            // make if when on dont show widget
-            if (kIsWeb)
+            const SizedBox(height: 20),
+
+            // add a body smaall text 'Die Beta ist noch in Entwicklung also sehr absolut nicht geeignet für die Produktion'
+            Text(
+              'Die Beta Version für die Webversion ist noch sehr unstable also treten viele Bugs auf!',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+
+            // if (kIsWeb) show a button to open the web version
+            if (!kIsWeb)
               Column(
                 children: [
                   const SizedBox(height: 40),
@@ -91,9 +99,10 @@ class LoginPage extends GetView<AuthController> {
 
             const SizedBox(height: 24),
             LocooTextButton(
-                text: 'Create a demo account',
-                onPressed: () async => controller.createDemoAccount(),
-                icon: Icons.account_box)
+              text: 'Erstelle einen Demo Account',
+              onPressed: () async => controller.createDemoAccount(),
+              icon: Icons.login,
+            ),
           ],
         ),
       ),
