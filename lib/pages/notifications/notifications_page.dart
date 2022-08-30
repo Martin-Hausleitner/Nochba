@@ -85,6 +85,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                     radius: 32,
                     onPressed: () => Navigator.pop(context),
                   ),
+                 
                   LocooCircularIconButton(
                     iconData: Icons.remove,
                     fillColor: Colors.red,

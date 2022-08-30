@@ -6,13 +6,26 @@ class LocooTextField extends StatefulWidget {
   final String label;
   final TextInputType keyboardType;
   final int maxLines;
+  final TextEditingController controller;
+  final TextInputAction textInputAction;
+  final bool obscureText;
 
-  const LocooTextField({
-    super.key,
-    required this.label,
-    this.keyboardType = TextInputType.text,
-    this.maxLines = 1,
-  });
+  const LocooTextField(
+      {super.key,
+      required this.label,
+      this.keyboardType = TextInputType.text,
+      this.maxLines = 1,
+      // assign emty controller
+      required this.controller,
+      this.textInputAction = TextInputAction.go,
+      this.obscureText = false});
+
+  // const LocooTextField({
+  //   super.key,
+  //   required this.label,
+  //   this.keyboardType = TextInputType.text,
+  //   this.maxLines = 1,
+  // });
 
   @override
   _LocooTextFieldState createState() => _LocooTextFieldState();
@@ -54,13 +67,16 @@ class _LocooTextFieldState extends State<LocooTextField> {
           color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
         ),
         child: TextFormField(
+          controller: widget.controller,
           focusNode: _focusNode,
           keyboardType: widget.keyboardType,
           maxLines: widget.maxLines,
+          textInputAction: widget.textInputAction,
+          obscureText: widget.obscureText,
 
           // minLines: 2,
           autofocus: true,
-          textInputAction: TextInputAction.go,
+          // textInputAction: TextInputAction.go,
           // on textInputAction () => Navigator.pop(context),
           onFieldSubmitted: (value) => Get.back(),
 

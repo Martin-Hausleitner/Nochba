@@ -41,10 +41,12 @@ class EditProfileView extends StatelessWidget {
                 children: [
                   LocooTextField(
                     label: 'Vorname',
+                    controller: TextEditingController(text: 'Max'),
                   ),
                   SizedBox(height: 10),
                   LocooTextField(
                     label: 'Nachname',
+                    controller: TextEditingController(text: 'Mustermann'),
                   ),
                   SizedBox(
                     height: 15,
@@ -256,6 +258,7 @@ class EditProfileView extends StatelessWidget {
                 children: [
                   LocooTextField(
                     label: 'Beruf',
+                    controller: TextEditingController(text: 'Beruf'),
                   ),
                   SizedBox(height: 10),
                   SizedBox(
@@ -284,6 +287,7 @@ class EditProfileView extends StatelessWidget {
                 children: [
                   LocooTextField(
                     label: 'Mehr über dich',
+                    controller: TextEditingController(text: 'Mehr über dich'),
                     maxLines: 10,
                     keyboardType: TextInputType.multiline,
                   ),
