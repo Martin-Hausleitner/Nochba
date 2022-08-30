@@ -17,7 +17,7 @@ jobs:
           channel: 'stable'
     - run: flutter pub get
     - run: flutter clean
-    - run: flutter build ios --release --no-codesign
+    - run: flutter build ipa --release --no-codesign
     # - uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
     #   with:
     #       appId: ${{secrets.FIREBASE_APP_ID_IOS}}
@@ -29,7 +29,7 @@ jobs:
       with:
         name: ios-build
         path: build/ios/iphoneos
-        
+
   firebase_app_distribution_ios:
     name: Upload iOS Beta to Firebase App Distribution
     needs: [build_ios]

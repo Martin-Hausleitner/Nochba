@@ -32,15 +32,21 @@ class ProfileContent extends StatelessWidget {
         tabs: [
           Text(
             'Info',
-            style: Theme.of(context).textTheme.titleMedium,
+            // style: Theme.of(context).textTheme.titleMedium,
           ),
-          Text('Posts', style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            'Posts',
+            // style: Theme.of(context).textTheme.titleMedium,
+          ),
         ],
         tabBarProperties: TabBarProperties(
           indicatorColor: Theme.of(context).primaryColor,
           indicatorWeight: 4.0,
+          // padding: EdgeInsets.only(left: 18, right: 18),
+          height: 30,
           labelColor: Theme.of(context).primaryColor,
-          unselectedLabelColor: Colors.grey[400],
+          unselectedLabelColor: Theme.of(context).textTheme.bodyMedium?.color,
+          labelStyle: Theme.of(context).textTheme.titleMedium,
         ),
         views: [
           UserInfo(),

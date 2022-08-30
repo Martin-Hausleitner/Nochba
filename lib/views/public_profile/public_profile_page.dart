@@ -29,6 +29,7 @@ class PublicProfileView extends StatelessWidget {
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         leading: IconButton(
+          splashRadius: 0.001,
           icon: Icon(
             FlutterRemix.arrow_left_line,
             color: Colors.black,
@@ -41,6 +42,8 @@ class PublicProfileView extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
+            splashRadius: 0.001,
+
             icon: Icon(
               FlutterRemix.more_line,
               color: Colors.black,

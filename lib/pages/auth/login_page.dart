@@ -116,6 +116,11 @@ class LoginPage extends GetView<AuthController> {
                               ))
                         ]),
                   ),
+                  LocooTextButton(
+                    text: 'Erstelle einen Demo Account',
+                    onPressed: () async => controller.createDemoAccount(),
+                    icon: Icons.login,
+                  ),
                 ],
               ),
 

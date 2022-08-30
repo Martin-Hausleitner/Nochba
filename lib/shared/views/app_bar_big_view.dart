@@ -44,6 +44,7 @@ class AppBarBigView extends StatelessWidget {
               leading: Material(
                 color: Colors.transparent,
                 child: IconButton(
+                  splashRadius: 0.01,
                   icon: Icon(
                     FlutterRemix.arrow_left_line,
                     size: 24,
