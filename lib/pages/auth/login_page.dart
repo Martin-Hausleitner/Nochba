@@ -22,36 +22,38 @@ class LoginPage extends GetView<AuthController> {
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              //align center
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            if (kIsWeb)
+              Column(
+                //align center
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
 
-              children: [
-                const Text(
-                  'Locoo Beta',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 20),
+                children: [
+                  const Text(
+                    'Locoo Beta',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 32, fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(height: 20),
 
-                // add a body smaall text 'Die Beta ist noch in Entwicklung also sehr absolut nicht geeignet für die Produktion'
-                Text(
-                  'Die Beta Version für die Webversion ist noch sehr unstable also treten viele Bugs auf',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                  // add a body smaall text 'Die Beta ist noch in Entwicklung also sehr absolut nicht geeignet für die Produktion'
+                  Text(
+                    'Die Beta Version für die Webversion ist noch sehr unstable also treten viele Bugs auf',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
 
-                const SizedBox(height: 24),
-                LocooTextButton(
-                  text: 'Erstelle einen Demo Account',
-                  onPressed: () async => controller.createDemoAccount(),
-                  icon: Icons.login,
-                ),
-              ],
-            ),
+                  const SizedBox(height: 24),
+                  LocooTextButton(
+                    text: 'Erstelle einen Demo Account',
+                    onPressed: () async => controller.createDemoAccount(),
+                    icon: Icons.login,
+                  ),
+                ],
+              ),
 
             // if (kIsWeb) show a button to open the web version
             if (!kIsWeb)
@@ -71,6 +73,11 @@ class LoginPage extends GetView<AuthController> {
                     obscureText: true,
                   ),
                   const SizedBox(height: 20),
+                  LocooTextButton(
+                    text: 'Erstelle einen Demo Account',
+                    onPressed: controller.signIn,
+                    icon: Icons.login,
+                  ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),

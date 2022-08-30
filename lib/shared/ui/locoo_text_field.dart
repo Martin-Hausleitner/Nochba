@@ -6,9 +6,13 @@ class LocooTextField extends StatefulWidget {
   final String label;
   final TextInputType keyboardType;
   final int maxLines;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputAction textInputAction;
   final bool obscureText;
+  final AutovalidateMode? autovalidateMode;
+  final String? Function(String?)? validator;
+  final bool autofocus;
+  final void Function(String)? onFieldSubmitted;
 
   const LocooTextField(
       {super.key,
@@ -16,9 +20,13 @@ class LocooTextField extends StatefulWidget {
       this.keyboardType = TextInputType.text,
       this.maxLines = 1,
       // assign emty controller
-      required this.controller,
+      this.controller,
       this.textInputAction = TextInputAction.go,
-      this.obscureText = false});
+      this.obscureText = false,
+      this.autovalidateMode,
+      this.validator,
+      this.autofocus = false,
+      this.onFieldSubmitted});
 
   // const LocooTextField({
   //   super.key,
@@ -73,12 +81,12 @@ class _LocooTextFieldState extends State<LocooTextField> {
           maxLines: widget.maxLines,
           textInputAction: widget.textInputAction,
           obscureText: widget.obscureText,
+          autovalidateMode: widget.autovalidateMode,
+          validator: widget.validator,
 
-          // minLines: 2,
-          autofocus: true,
-          // textInputAction: TextInputAction.go,
-          // on textInputAction () => Navigator.pop(context),
-          onFieldSubmitted: (value) => Get.back(),
+          autofocus: widget.autofocus,
+          // onFieldSubmitted: (value) => Get.back(),
+          onFieldSubmitted: widget.onFieldSubmitted,
 
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),
