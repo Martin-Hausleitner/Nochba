@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+
 import 'package:locoo/shared/ui/buttons/round_icon_button.dart';
+
+import 'package:locoo/models/bookmark.dart';
+import 'package:locoo/models/data_access.dart';
+import 'package:locoo/models/post.dart';
+
 
 
 //create a ActionBar class which have multiple round icon Buttons
 
 class ActionBar extends StatelessWidget {
-  const ActionBar({Key? key}) : super(key: key);
+  final Post post;
+  const ActionBar({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final dataAccess = Get.find<DataAccess>();
+
     // return a row with round icon buttons and a text
     return Container(
       child: Row(
@@ -61,14 +70,37 @@ class ActionBar extends StatelessWidget {
             ),
           ),
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
-          RoundIconButton(
-            icon: Icons.bookmark,
-            onPressed: () {
-              Get.snackbar(
-                "Edit",
-                "Edit your profile",
-              );
-            },
+          StreamBuilder<BookMark?>(
+            stream: dataAccess.getBookMarkOfCurrentUser(),
+            builder: ((context, snapshot) {
+              if(snapshot.hasData) {
+                final bookMark = snapshot.data!;
+                if(bookMark.posts.contains(post.id)) {
+                  return RoundIconButton(
+                    icon: Icons.bookmark,
+                    color: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      bookMark.posts.removeWhere((e) => e == post.id);
+                      dataAccess.updateBookMark(bookMark);
+                    },
+                  );
+                } else {
+                  return RoundIconButton(
+                    icon: Icons.bookmark,
+                    onPressed: () {
+                      bookMark.posts.add(post.id);
+                      dataAccess.updateBookMark(bookMark);
+                    },
+                  );
+                }
+              } else {
+                return RoundIconButton(
+                  icon: Icons.bookmark,
+                  color: Colors.grey,
+                  onPressed: () {}
+                );
+              }
+            }),
           ),
           Spacer(),
           RoundIconButton(

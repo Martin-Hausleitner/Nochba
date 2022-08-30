@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:locoo/models/bookmark.dart';
 
 
 class AuthAccess extends GetxService {
@@ -32,16 +34,28 @@ class AuthAccess extends GetxService {
         email: email, 
         password: password
       );
+      final uid = cred.user!.uid;
       await FirebaseChatCore.instance.createUserInFirestore(
         types.User(
           firstName: firstName,
-          id: cred.user!.uid,
+          id: uid,
           imageUrl: 'https://i.pravatar.cc/300?u=$email',
           lastName: lastName,
           role: types.Role.user,
           metadata: const {'value': ''}
         ),
       );
+
+      final bookMark = BookMark(id: uid, posts: []);
+      print(bookMark.id);
+      await FirebaseFirestore.
+                          instance.
+                          collection('users').
+                          doc(uid).
+                          collection('bookmarks').
+                          doc(uid).
+                          set(bookMark.toJson());
+
       return true;
     } on Exception catch(e) {
       print(e);
