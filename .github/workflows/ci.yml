@@ -52,7 +52,7 @@ jobs:
   #       file: Runner.ipa
   build_android:
     name: Build Flutter (Android)
-    needs: [flutter_test]
+    # needs: [flutter_test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
