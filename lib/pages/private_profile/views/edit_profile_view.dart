@@ -71,6 +71,8 @@ class EditProfileView extends StatelessWidget {
                                         ?.withOpacity(0.6)),
                           ),
                         ),
+                        Spacer(),
+
                         //tranform  scale 0.8 cupertuon swtich
                         Transform.scale(
                           scale: 0.8,
@@ -162,6 +164,7 @@ class EditProfileView extends StatelessWidget {
                                             ?.withOpacity(0.6)),
                               ),
                             ),
+                            Spacer(),
                             //tranform  scale 0.8 cupertuon swtich
                             Transform.scale(
                               scale: 0.8,

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
 import 'notifications_controller.dart';
 
@@ -73,7 +75,42 @@ class NotificationsPage extends GetView<NotificationsController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text('Stropek ist der beste'),
+                  LocooCircularIconButton(
+                    iconData: FlutterRemix.close_line,
+                    fillColor: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.05),
+                    iconColor: Colors.black,
+                    radius: 32,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  LocooCircularIconButton(
+                    iconData: Icons.remove,
+                    fillColor: Colors.red,
+                    iconColor: Colors.white,
+                    radius: 32,
+                    onPressed: () {},
+                  ),
+                  LocooCircularIconButton(
+                    iconData: Icons.add,
+                    fillColor: Colors.green,
+                    iconColor: Colors.white,
+                    radius: 48,
+                    onPressed: () {},
+                  ),
+                  LocooCircularIconButton(
+                    iconData: Icons.check,
+                    iconColor: Colors.green,
+                    outlineColor: Colors.green,
+                    onPressed: () {},
+                  ),
+                  SimpleElevatedButtonWithIcon(
+                    label: const Text("Done"),
+                    iconData: Icons.check,
+                    color: Colors.green,
+                    onPressed: () {},
+                  ),
                 ],
               ),
             ),
