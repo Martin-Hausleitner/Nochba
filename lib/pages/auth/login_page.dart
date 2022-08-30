@@ -15,25 +15,20 @@ class LoginPage extends GetView<AuthController> {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          padding: const EdgeInsets.all(16),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const SizedBox(height: 60),
-            const FlutterLogo(size: 120),
             const SizedBox(height: 20),
-            const Text('Welcome back\nto the neighbourhood',
-              textAlign: TextAlign.center, 
-              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w700)
-            ),
+            const Text('Locoo Beta',
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 32, fontWeight: FontWeight.w700)),
             const SizedBox(height: 40),
             TextField(
-              controller: controller.emailController,
-              cursorColor: Colors.white,
-              textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'Email')
-            ),
-
+                controller: controller.emailController,
+                cursorColor: Colors.white,
+                textInputAction: TextInputAction.next,
+                decoration: const InputDecoration(labelText: 'Email')),
             const SizedBox(height: 4),
             TextField(
               controller: controller.passwordController,
@@ -44,9 +39,9 @@ class LoginPage extends GetView<AuthController> {
             const SizedBox(height: 20),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50),
+                minimumSize: const Size.fromHeight(50),
               ),
-              icon: const Icon(Icons.lock_open, size: 32), 
+              icon: const Icon(Icons.lock_open, size: 32),
               label: const Text('Sign In', style: TextStyle(fontSize: 24)),
               onPressed: controller.signIn,
             ),
@@ -65,26 +60,24 @@ class LoginPage extends GetView<AuthController> {
             ),*/
             RichText(
               text: TextSpan(
-                style: const TextStyle(color: Colors.black, fontSize: 20),
-                text: 'No Account? ',
-                children: [
-                  TextSpan(
-                    recognizer: TapGestureRecognizer()..onTap = onClicked,
-                    text: 'Sign Up',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Theme.of(context).colorScheme.secondary,
-
-                    )
-                  )
-                ]
-              ),
+                  style: const TextStyle(color: Colors.black, fontSize: 20),
+                  text: 'No Account? ',
+                  children: [
+                    TextSpan(
+                        recognizer: TapGestureRecognizer()..onTap = onClicked,
+                        text: 'Sign Up',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ))
+                  ]),
             ),
             const SizedBox(height: 24),
-            LocooTextButton(text: 'Create a demo account', onPressed: () async => controller.createDemoAccount(), icon: Icons.account_box)
-          ]
-        )
-      ),
+            LocooTextButton(
+                text: 'Create a demo account',
+                onPressed: () async => controller.createDemoAccount(),
+                icon: Icons.account_box)
+          ])),
     );
   }
 }
