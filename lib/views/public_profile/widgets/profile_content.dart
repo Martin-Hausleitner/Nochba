@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locoo/shared/user_info.dart';
 
-import '../pages/feed/post/category_badge.dart';
-import '../pages/feed/post/post.dart';
 // import '../pages/private_profile/small_post/small_post.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +10,9 @@ import 'package:locoo/pages/feed/post/post.dart';
 import 'package:locoo/models/post.dart' as models;
 import 'package:locoo/models/user.dart' as models;
 
-import '../../shared/range_slider/range_slider.dart';
 import 'package:locoo/pages/feed/feed_controller.dart';
+
+import 'user_info.dart';
 
 //import feed Controller
 

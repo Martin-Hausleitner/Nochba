@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/shared/action_card.dart';
-import 'package:locoo/shared/action_text_card.dart';
-import 'package:locoo/shared/action_text_card_red.dart';
 
 class AppBarSmallView extends StatelessWidget {
   final String title;

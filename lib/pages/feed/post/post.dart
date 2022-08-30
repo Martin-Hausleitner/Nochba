@@ -6,11 +6,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/models/category.dart';
 import 'package:locoo/models/post.dart' as models;
 import 'package:locoo/pages/feed/post/post_view.dart';
-import 'package:locoo/shared/button.dart';
 
-import 'package:locoo/shared/round_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
 import 'action_bar.dart';
 import 'category_badge.dart';
@@ -150,7 +149,7 @@ class Post extends StatelessWidget {
                   CategoryModul.subCategoriesOfLending.contains(category))
                 Padding(
                   padding: EdgeInsets.only(top: spacingBetween),
-                  child: Button(
+                  child: LocooTextButton(
                     text: 'Anschreiben',
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
                     onPressed: () {

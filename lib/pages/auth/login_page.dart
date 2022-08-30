@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/auth/auth_controller.dart';
-import 'package:locoo/shared/button.dart';
+import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
 class LoginPage extends GetView<AuthController> {
   final VoidCallback onClicked;
@@ -81,7 +81,7 @@ class LoginPage extends GetView<AuthController> {
               ),
             ),
             const SizedBox(height: 24),
-            Button(text: 'Create a demo account', onPressed: () async => controller.createDemoAccount(), icon: Icons.account_box)
+            LocooTextButton(text: 'Create a demo account', onPressed: () async => controller.createDemoAccount(), icon: Icons.account_box)
           ]
         )
       ),

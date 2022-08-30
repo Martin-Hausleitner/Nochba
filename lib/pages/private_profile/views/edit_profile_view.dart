@@ -1,321 +1,363 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/pages/private_profile/private_profile_page.dart';
-import 'package:locoo/shared/action_card.dart';
-import 'package:locoo/shared/action_card_title.dart';
-import 'package:locoo/shared/action_text_card.dart';
+import 'package:locoo/shared/ui/cards/action_card_title.dart';
+import 'package:locoo/shared/ui/cards/action_text_card.dart';
+import 'package:locoo/shared/ui/locoo_text_field.dart';
+import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:locoo/shared/views/bottom_sheet_view.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import '../../../shared/action_text_card_red.dart';
-
-// Text(
-//                 'Settings',
-//                 style: Theme.of(context).textTheme.titleLarge,
-//               ),
-//               SizedBox(height: 20),
-
-// create a settings Page which have a list of rounded containers with a text and a icon on the left side with scaffold
+import '../private_profile_page.dart';
 
 class EditProfileView extends StatelessWidget {
-  const EditProfileView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoTheme(
-      data: CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(
-            navTitleTextStyle:
-                Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      // fontFamily: 'Inter',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      // letterSpacing: -0.5,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
-            // navLargeTitleTextStyle: GoogleFonts.inter(
-            //   fontSize: 30,
-            //   fontWeight: FontWeight.w800,
-            //   letterSpacing: -0.5,
-            //   color: Theme.of(context).colorScheme.onSecondaryContainer,
-            //   // color: Colors.black,
-            // ),
-            navLargeTitleTextStyle:
-                Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      // fontFamily: 'Inter',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.5,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
-          ),
-          barBackgroundColor: Theme.of(context).backgroundColor),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: CustomScrollView(
-          // A list of sliver widgets.
-          slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              // padding: EdgeInsetsDirectional.only(
-              //   start: 7,
-              //   end: 23,
-              // ),
-
-              // leading: Icon(CupertinoIcons.person_2),
-              // This title is visible in both collapsed and expanded states.
-              // When the "middle" parameter is omitted, the widget provided
-              // in the "largeTitle" parameter is used instead in the collapsed state.
-              largeTitle: Text(
-                'Profil Bearbeiten',
-              ),
-              leading: Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  splashRadius: 0.1,
-                  icon: Icon(
-                    FlutterRemix.arrow_left_line,
-                    size: 24,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () {
-                    Get.back();
-                  },
-                  padding: EdgeInsets.zero,
-                  alignment: Alignment.centerLeft,
-                ),
-              ),
-              // padding left 10
-              padding: EdgeInsetsDirectional.only(
-                start: 12,
-                end: 10,
-              ),
-
-              border: //make the border transparent
-                  const Border(bottom: BorderSide(color: Colors.transparent)),
-            ),
-            // add a Silverlist with SettingsCard
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  EditAvatar(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding:
-                        //left 18
-                        EdgeInsets.only(left: 15),
-                    child: ActionCardTitle(title: 'Persönliche Daten'),
-                  ),
-                  ActionTextCard(
-                    title: 'Name',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: 'Martin Hausleitner',
-                  ),
-                  
-                  ActionTextCard(
-                    title: 'Geburtstag',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: '01.01.2022',
-                  ),
-                  
-                  // Padding(
-                  //   padding:
-                  //       //left 18
-                  //       EdgeInsets.only(left: 15, top: 20),
-                  //   child: ActionCardTitle(title: 'Sicherheit'),
-                  // ),
-                  //create a input field which check if the input is the same as a string and if it is the same it will run a function
-
-                  
-
-                  SizedBox(
-                    height: 40,
-                  ),
-                  
-
-                  // Padding(
-                  //   padding:
-                  //       const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                  //   child: TextField(
-                  //     label: 'Vorname',
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding:
-                  //       const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                  //   child: TextField(
-                  //     label: 'Nachname',
-                  //   ),
-                  // ),
-
-                  // Padding(
-                  //   padding:
-                  //       const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                  //   child: Row(
-                  //     children: [
-                  //       Padding(
-                  //         padding:
-                  //             //left 12
-                  //             const EdgeInsets.only(left: 12),
-                  //         child: Text(
-                  //           'Zeige ersten Buchstaben des Nachnamen',
-                  //           style: Theme.of(context)
-                  //               .textTheme
-                  //               .caption
-                  //               ?.copyWith(
-                  //                 color:
-                  //                     Theme.of(context).colorScheme.onSurface,
-                  //               ),
-                  //         ),
-                  //       ),
-                  //       Spacer(),
-                  //       Transform.scale(
-                  //         scale: 0.8,
-                  //         child: CupertinoSwitch(
-                  //           value: false,
-                  //           onChanged: (value) {},
-                  //           activeColor: Theme.of(context).primaryColor,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-
-                  //create CupertinoSwitch
-
-                  // Create TextFormField with a focusNode which triggers a DecoratedBox border to change to red border
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TextField extends StatefulWidget {
-  final String label;
-
-  TextField({required this.label});
-
-  @override
-  _TextFieldState createState() => _TextFieldState();
-}
-
-class _TextFieldState extends State<TextField> {
-  // Use it to change color for border when textFiled in focus
-  FocusNode _focusNode = FocusNode();
-
-  // Color for border
-  Color _borderColor = Colors.transparent;
-
-  @override
-  void initState() {
-    super.initState();
-    // Change color for border if focus was changed
-    _focusNode.addListener(() {
-      setState(() {
-        _borderColor = _focusNode.hasFocus
-            ? Theme.of(context).primaryColor
-            : Colors.transparent;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: _borderColor, width: 1.5),
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-        ),
-        child: TextFormField(
-          focusNode: _focusNode,
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onSecondaryContainer),
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            contentPadding:
-                // top 8 bottom 8 left 8 right 8
-                EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            fillColor: Colors.red,
-            // labelStyle: ,
-
-            border: InputBorder.none,
-            labelText: widget.label,
-
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            // prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
-            // prefixIcon: Padding(
-            //   padding: EdgeInsets.symmetric(vertical: 18, horizontal: 8),
-            //   child:
-            //       Text("₦", style: TextStyle(fontSize: 16, color: Colors.grey)),
-            // ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class EditAvatar extends StatelessWidget {
-  const EditAvatar({
+  const EditProfileView({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          const CircleAvatar(
-            radius: 55,
-            backgroundImage: NetworkImage(
-              "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: CircleAvatar(
-              radius: 16,
-              backgroundColor: Theme.of(context).primaryColor,
-              child: IconButton(
-                splashRadius: 16,
-                splashColor: Theme.of(context).primaryColor.withOpacity(.4),
-                icon: Icon(
-                  FlutterRemix.pencil_line,
-                  color: Colors.white,
-                  size: 17,
-                ),
-                // onpress open snack bar
-                onPressed: () {
-                  Get.snackbar(
-                    "Edift",
-                    "Edit your profile",
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+    return AppBarBigView(title: 'Profil Bearbeiten', children: [
+      // SizedBox(
+      //   height: 30,
+      // ),
+      EditAvatar(),
+      SizedBox(
+        height: 30,
       ),
-    );
+      ActionCardTitle(title: 'Persönliche Daten'),
+      ActionTextCard(
+        title: 'Name',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheetView(
+                children: [
+                  LocooTextField(
+                    label: 'Vorname',
+                  ),
+                  SizedBox(height: 10),
+                  LocooTextField(
+                    label: 'Nachname',
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: // right left 5
+                        EdgeInsets.only(
+                      left: 7,
+                      right: 7,
+                    ),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.6)),
+                          ),
+                        ),
+                        //tranform  scale 0.8 cupertuon swtich
+                        Transform.scale(
+                          scale: 0.8,
+                          child: CupertinoSwitch(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: true,
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        text: 'Martin Hausleitner',
+      ),
+      ActionTextCard(
+        title: 'Geburtstag',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheetView(
+                children: [
+                  Column(
+                    children: [
+                      SfDateRangePicker(
+                        view: DateRangePickerView.decade,
+                        // monthViewSettings:
+                        //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                        showNavigationArrow: true,
+                        // showActionButtons: true,
+                        maxDate: DateTime.now(),
+                        minDate: DateTime(1880),
+                        //set initial year to 1999
+                        // enableMultiView: true,
+                        initialDisplayDate: DateTime(2000),
+                        // when onSubmit () => Navigator.pop(context),
+                        // onSubmit: (value) {
+                        //   Navigator.pop(context);
+                        // },
+
+                        yearCellStyle: DateRangePickerYearCellStyle(
+                          textStyle:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.7),
+                                  ),
+                          leadingDatesTextStyle:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.7),
+                                  ),
+                        ),
+                      ),
+                      Padding(
+                        padding: // right left 5
+                            EdgeInsets.only(
+                          left: 7,
+                          right: 7,
+                        ),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                'Zeiger deinen Geburtstag an in deinen Öffentlichen Profil an',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.color
+                                            ?.withOpacity(0.6)),
+                              ),
+                            ),
+                            //tranform  scale 0.8 cupertuon swtich
+                            Transform.scale(
+                              scale: 0.8,
+                              child: CupertinoSwitch(
+                                activeColor: Theme.of(context).primaryColor,
+                                value: true,
+                                onChanged: (value) {},
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        text: '01.01.2022',
+      ),
+      ActionTextCard(
+        title: 'In der Nachbarschaft seit',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheetView(
+                children: [
+                  SfDateRangePicker(
+                    view: DateRangePickerView.decade,
+                    // monthViewSettings:
+                    //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                    showNavigationArrow: true,
+                    // showActionButtons: true,
+                    maxDate: DateTime.now(),
+                    minDate: DateTime(1880),
+                    //set initial year to 1999
+                    // enableMultiView: true,
+                    initialDisplayDate: DateTime(2000),
+                    // when onSubmit () => Navigator.pop(context),
+                    // onSubmit: (value) {
+                    //   Navigator.pop(context);
+                    // },
+
+                    yearCellStyle: DateRangePickerYearCellStyle(
+                      textStyle:
+                          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color
+                                    ?.withOpacity(0.7),
+                              ),
+                      leadingDatesTextStyle:
+                          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color
+                                    ?.withOpacity(0.7),
+                              ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        text: '01.01.2022',
+      ),
+      ActionTextCard(
+        title: 'Beruf',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheetView(
+                children: [
+                  LocooTextField(
+                    label: 'Beruf',
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        text: 'Legobaumeister',
+      ),
+
+      ActionTextCard(
+        title: 'Mehr über dich',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheetView(
+                children: [
+                  LocooTextField(
+                    label: 'Mehr über dich',
+                    maxLines: 10,
+                    keyboardType: TextInputType.multiline,
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        text: 'Hallo, mein name ist martin und ich bin ein legobaumeister',
+      ),
+      ActionCardTitle(title: 'Mehr'),
+      ActionTextCard(
+        title: 'Interessen',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Freunde, Familie, Legobaumeister',
+      ),
+      ActionTextCard(
+        title: 'Bietet',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Babysitten, Nachb',
+      ),
+      ActionCardTitle(title: 'Familie'),
+      ActionTextCard(
+        title: 'Familien Status',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Verheiratet',
+      ),
+      ActionTextCard(
+        title: 'Kinder',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheetView(
+                children: [
+                  // ad a counter with + an- buttons
+                  Row(
+                    children: [
+                      Text('0'),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(FlutterRemix.add_line),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(FlutterRemix.subtract_line),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        text: '3',
+      ),
+      ActionTextCard(
+        title: 'Tiere',
+        icon: Icon(FlutterRemix.user_line),
+        onTap: () {},
+        text: 'Hund, Katze',
+      ),
+      SizedBox(
+        height: 40,
+      ),
+    ]);
   }
 }

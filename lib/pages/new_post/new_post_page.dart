@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:locoo/models/category.dart';
 import 'package:locoo/models/post.dart';
 import 'package:locoo/models/tag.dart';
-import 'package:locoo/shared/button.dart';
-import 'package:locoo/shared/error_text_field.dart';
-import 'package:locoo/shared/multi_select.dart';
+import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 import 'package:locoo/views/new_post/tag_dialog.dart';
 
 import 'new_post_controller.dart';
@@ -464,7 +462,7 @@ class NewPostView extends StatelessWidget {
                     ),
             ),
             const SizedBox(height: 20),
-            Button(
+            LocooTextButton(
               text: 'Add Post',
               onPressed: () => controller.addPost(),
               icon: FlutterRemix.account_box_fill,

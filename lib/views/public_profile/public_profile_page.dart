@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/shared/profile_content.dart';
-import 'package:locoo/shared/round_icon_button.dart';
-
-import '../../shared/button.dart';
+import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 // import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
+import 'widgets/profile_content.dart';
 
 class PublicProfileView extends StatelessWidget {
   final String authorName;
@@ -89,7 +87,7 @@ class PublicProfileView extends StatelessWidget {
               left: 18,
               right: 18,
             ),
-            child: Button(
+            child: LocooTextButton(
               icon: FlutterRemix.chat_1_fill,
               text: 'Anschreiben',
               //onpres open Get.Snackbar

@@ -1,24 +1,18 @@
 //import material
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 import 'package:flutter_remix/flutter_remix.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/models/category.dart';
 import 'package:locoo/models/data_access.dart';
 import 'package:locoo/pages/chats/chat.dart';
-import 'package:locoo/shared/button.dart';
 
-import 'package:locoo/shared/round_icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
-import 'action_bar.dart';
 import 'category_badge.dart';
-import 'discription.dart';
 import 'hashtag_badges.dart';
 import 'post_profile.dart';
 import 'package:locoo/models/post.dart' as models;
@@ -227,7 +221,7 @@ class PostView extends StatelessWidget {
                       CategoryModul.subCategoriesOfLending.contains(category))
                     Padding(
                       padding: EdgeInsets.only(top: spacingBetween),
-                      child: Button(
+                      child: LocooTextButton(
                         icon: FlutterRemix.account_box_fill,
                         text: 'Anschreiben',
                         //onpres open Get.Snackbar
@@ -235,7 +229,8 @@ class PostView extends StatelessWidget {
                           final navigator = Navigator.of(context);
                           final userId = post.user;
                           final thisUser = await dataaccess.getChatUser(userId);
-                          final room = await FirebaseChatCore.instance.createRoom(thisUser!);
+                          final room = await FirebaseChatCore.instance
+                              .createRoom(thisUser!);
 
                           navigator.pop();
                           await navigator.push(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:locoo/shared/ui/buttons/round_icon_button.dart';
 
-import '../../../shared/round_icon_button.dart';
 
 //create a ActionBar class which have multiple round icon Buttons
 

@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/models/data_access.dart';
 import 'package:locoo/models/post.dart';
-import 'package:locoo/shared/action_card.dart';
 
 import 'package:locoo/pages/feed/post/post.dart' as widget;
 import 'package:locoo/models/post.dart' as models;

@@ -6,11 +6,11 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/pages/private_profile/private_profile_page.dart';
-import 'package:locoo/shared/action_card.dart';
-import 'package:locoo/shared/action_card_title.dart';
-import 'package:locoo/shared/action_text_card.dart';
-import 'package:locoo/shared/action_text_card_red.dart';
-import 'package:locoo/shared/app_bar_big_view.dart';
+import 'package:locoo/shared/ui/cards/action_card.dart';
+import 'package:locoo/shared/ui/cards/action_card_title.dart';
+import 'package:locoo/shared/ui/cards/action_text_card.dart';
+import 'package:locoo/shared/ui/cards/action_text_card_red.dart';
+import 'package:locoo/shared/views/app_bar_big_view.dart';
 
 // Text(
 //                 'Settings',

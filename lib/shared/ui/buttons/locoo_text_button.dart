@@ -3,12 +3,12 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // create a stateless button with a text NEW and a background color of Colors.blue[100]
-class Button extends StatelessWidget {
+class LocooTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData icon;
 
-  const Button(
+  const LocooTextButton(
       {super.key,
       required this.text,
       required this.onPressed,
