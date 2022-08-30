@@ -9,10 +9,11 @@ import 'themes/app_theme.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:json_theme/json_theme.dart';
+import 'firebase_options.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
 
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
   final themeJson = jsonDecode(themeStr);
