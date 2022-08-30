@@ -1,11 +1,20 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 
 class LocooTextField extends StatefulWidget {
   final String label;
+  final TextInputType keyboardType;
+  final int maxLines;
 
-  LocooTextField({required this.label});
+  const LocooTextField({
+    super.key,
+    required this.label,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
+  });
 
   @override
   _LocooTextFieldState createState() => _LocooTextFieldState();
@@ -48,6 +57,9 @@ class _LocooTextFieldState extends State<LocooTextField> {
         ),
         child: TextFormField(
           focusNode: _focusNode,
+          keyboardType: widget.keyboardType,
+          maxLines: widget.maxLines,
+          // minLines: 2,
           autofocus: true,
           textInputAction: TextInputAction.go,
           // on textInputAction () => Navigator.pop(context),

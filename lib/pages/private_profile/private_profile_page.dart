@@ -269,7 +269,54 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return BottomSheet();
+              return BottomSheet(
+                children: [
+                  LocooTextField(
+                    label: 'Vorname',
+                  ),
+                  SizedBox(height: 10),
+                  LocooTextField(
+                    label: 'Nachname',
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: // right left 5
+                        EdgeInsets.only(
+                      left: 7,
+                      right: 7,
+                    ),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.6)),
+                          ),
+                        ),
+                        //tranform  scale 0.8 cupertuon swtich
+                        Transform.scale(
+                          scale: 0.8,
+                          child: CupertinoSwitch(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: true,
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
             },
           );
         },
@@ -278,44 +325,92 @@ class EditProfileView extends StatelessWidget {
       ActionTextCard(
         title: 'Geburtstag',
         icon: Icon(FlutterRemix.user_line),
-        onTap: //open widget
-            () {
-          Get.to(
-            AppBarBigView(
-              title: 'Geburtstag',
-              children: [
-                //https://help.syncfusion.com/flutter/daterangepicker/overview
-                SfDateRangePicker(
-                  view: DateRangePickerView.decade,
-                  // monthViewSettings:
-                  //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
-                  showNavigationArrow: true,
-                  showActionButtons: true,
-                  maxDate: DateTime.now(),
-                  minDate: DateTime(1880),
-                  //set initial year to 1999
-                  // enableMultiView: true,
-                  initialDisplayDate: DateTime(2000),
-                  yearCellStyle: DateRangePickerYearCellStyle(
-                    textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.color
-                              ?.withOpacity(0.7),
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheet(
+                children: [
+                  Column(
+                    children: [
+                      SfDateRangePicker(
+                        view: DateRangePickerView.decade,
+                        // monthViewSettings:
+                        //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                        showNavigationArrow: true,
+                        // showActionButtons: true,
+                        maxDate: DateTime.now(),
+                        minDate: DateTime(1880),
+                        //set initial year to 1999
+                        // enableMultiView: true,
+                        initialDisplayDate: DateTime(2000),
+                        // when onSubmit () => Navigator.pop(context),
+                        // onSubmit: (value) {
+                        //   Navigator.pop(context);
+                        // },
+
+                        yearCellStyle: DateRangePickerYearCellStyle(
+                          textStyle:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.7),
+                                  ),
+                          leadingDatesTextStyle:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.7),
+                                  ),
                         ),
-                    leadingDatesTextStyle:
-                        Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.color
-                                  ?.withOpacity(0.7),
+                      ),
+                      Padding(
+                        padding: // right left 5
+                            EdgeInsets.only(
+                          left: 7,
+                          right: 7,
+                        ),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                'Zeiger deinen Geburtstag an in deinen Öffentlichen Profil an',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.color
+                                            ?.withOpacity(0.6)),
+                              ),
                             ),
+                            //tranform  scale 0.8 cupertuon swtich
+                            Transform.scale(
+                              scale: 0.8,
+                              child: CupertinoSwitch(
+                                activeColor: Theme.of(context).primaryColor,
+                                value: true,
+                                onChanged: (value) {},
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
           );
         },
         text: '01.01.2022',
@@ -323,20 +418,113 @@ class EditProfileView extends StatelessWidget {
       ActionTextCard(
         title: 'In der Nachbarschaft seit',
         icon: Icon(FlutterRemix.user_line),
-        onTap: () {},
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheet(
+                children: [
+                  SfDateRangePicker(
+                    view: DateRangePickerView.decade,
+                    // monthViewSettings:
+                    //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                    showNavigationArrow: true,
+                    // showActionButtons: true,
+                    maxDate: DateTime.now(),
+                    minDate: DateTime(1880),
+                    //set initial year to 1999
+                    // enableMultiView: true,
+                    initialDisplayDate: DateTime(2000),
+                    // when onSubmit () => Navigator.pop(context),
+                    // onSubmit: (value) {
+                    //   Navigator.pop(context);
+                    // },
+
+                    yearCellStyle: DateRangePickerYearCellStyle(
+                      textStyle:
+                          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color
+                                    ?.withOpacity(0.7),
+                              ),
+                      leadingDatesTextStyle:
+                          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color
+                                    ?.withOpacity(0.7),
+                              ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
         text: '01.01.2022',
       ),
       ActionTextCard(
         title: 'Beruf',
         icon: Icon(FlutterRemix.user_line),
-        onTap: () {},
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheet(
+                children: [
+                  LocooTextField(
+                    label: 'Beruf',
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ],
+              );
+            },
+          );
+        },
         text: 'Legobaumeister',
       ),
 
       ActionTextCard(
         title: 'Mehr über dich',
         icon: Icon(FlutterRemix.user_line),
-        onTap: () {},
+        onTap: () {
+          showModalBottomSheet<void>(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25.0))),
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return BottomSheet(
+                children: [
+                  LocooTextField(
+                    label: 'Mehr über dich',
+                    maxLines: 10,
+                    keyboardType: TextInputType.multiline,
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ],
+              );
+            },
+          );
+        },
         text: 'Hallo, mein name ist martin und ich bin ein legobaumeister',
       ),
       ActionCardTitle(title: 'Mehr'),
@@ -388,9 +576,10 @@ class EditProfileView extends StatelessWidget {
 }
 
 class BottomSheet extends StatelessWidget {
-  const BottomSheet({
-    Key? key,
-  }) : super(key: key);
+  //children
+  final List<Widget> children;
+
+  const BottomSheet({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -401,11 +590,6 @@ class BottomSheet extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // const Text('Modal BottomSheet'),
-            // ElevatedButton(
-            //   child: const Text('Close BottomSheet'),
-            //   onPressed: () => Navigator.pop(context),
-            // ),
             Padding(
               padding: //top 10
                   EdgeInsets.only(
@@ -441,52 +625,7 @@ class BottomSheet extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
-                children: [
-                  LocooTextField(
-                    label: 'Vorname',
-                  ),
-                  SizedBox(height: 10),
-                  LocooTextField(
-                    label: 'Nachname',
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: // right left 5
-                        EdgeInsets.only(
-                      left: 7,
-                      right: 7,
-                    ),
-                    child: Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.color
-                                        ?.withOpacity(0.6)),
-                          ),
-                        ),
-                        //tranform  scale 0.8 cupertuon swtich
-                        Transform.scale(
-                          scale: 0.8,
-                          child: CupertinoSwitch(
-                            activeColor: Theme.of(context).primaryColor,
-                            value: true,
-                            onChanged: (value) {},
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                children: children,
               ),
             ),
           ],
