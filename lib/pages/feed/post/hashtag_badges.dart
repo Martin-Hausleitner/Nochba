@@ -52,7 +52,7 @@ class HashtagBadge extends StatelessWidget {
         style: GoogleFonts.inter(
           fontSize: 11,
           fontWeight: FontWeight.w500,
-          color: Colors.black,
+          // color: Colors.black,
         ),
       ),
     );

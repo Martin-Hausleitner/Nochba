@@ -21,7 +21,7 @@ class NewPostPage extends GetView<NewPostController> {
     NewPostController controller = Get.find<NewPostController>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add a post', style: TextStyle(color: Colors.black)),
+        title: const Text('Add a post'),
         backgroundColor: Theme.of(context).backgroundColor,
         shadowColor: Colors.transparent,
       ),

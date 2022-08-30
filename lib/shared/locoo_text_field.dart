@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 
-class TextField extends StatefulWidget {
+class LocooTextField extends StatefulWidget {
   final String label;
+  final TextInputType keyboardType;
+  final int maxLines;
 
-  TextField({required this.label});
+  const LocooTextField({
+    super.key,
+    required this.label,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
+  });
 
   @override
-  _TextFieldState createState() => _TextFieldState();
+  _LocooTextFieldState createState() => _LocooTextFieldState();
 }
 
-class _TextFieldState extends State<TextField> {
+class _LocooTextFieldState extends State<LocooTextField> {
   // Use it to change color for border when textFiled in focus
   FocusNode _focusNode = FocusNode();
 
@@ -48,14 +55,27 @@ class _TextFieldState extends State<TextField> {
         ),
         child: TextFormField(
           focusNode: _focusNode,
+          keyboardType: widget.keyboardType,
+          maxLines: widget.maxLines,
+
+          // minLines: 2,
+          autofocus: true,
+          textInputAction: TextInputAction.go,
+          // on textInputAction () => Navigator.pop(context),
+          onFieldSubmitted: (value) => Get.back(),
+
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),
-          keyboardType: TextInputType.number,
+          // keyboardType: TextInputType.number,
           decoration: InputDecoration(
             contentPadding:
+
                 // top 8 bottom 8 left 8 right 8
                 EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             fillColor: Colors.red,
+            // counterText: //current word count
+            //     '',
+
             // labelStyle: ,
 
             border: InputBorder.none,

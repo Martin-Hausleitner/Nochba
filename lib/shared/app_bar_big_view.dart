@@ -7,39 +7,38 @@ import 'package:locoo/shared/action_card.dart';
 import 'package:locoo/shared/action_text_card.dart';
 import 'package:locoo/shared/action_text_card_red.dart';
 
-class AppBarView extends StatelessWidget {
+class AppBarBigView extends StatelessWidget {
   final String title;
   final List<Widget> children;
 
-  const AppBarView({super.key, required this.title, required this.children});
+  const AppBarBigView({super.key, required this.title, required this.children});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoTheme(
       data: CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(
-            navTitleTextStyle:
-                Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      // fontFamily: 'Inter',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      // letterSpacing: -0.5,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
-            navLargeTitleTextStyle:
-                Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      // fontFamily: 'Inter',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.5,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
-          ),
-          barBackgroundColor: Theme.of(context).backgroundColor),
+        textTheme: CupertinoTextThemeData(
+          navTitleTextStyle:
+              Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    // color: Theme.of(context).secondaryHeaderColor,
+                  ),
+          navLargeTitleTextStyle:
+              Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.5,
+                    // color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+        ),
+        barBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        // backgroundColor:
+        // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
         body: CustomScrollView(
-          // A list of sliver widgets.
           slivers: <Widget>[
             CupertinoSliverNavigationBar(
               largeTitle: Text(
@@ -51,7 +50,7 @@ class AppBarView extends StatelessWidget {
                   icon: Icon(
                     FlutterRemix.arrow_left_line,
                     size: 24,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).buttonTheme.colorScheme?.primary,
                   ),
                   onPressed: () {
                     Get.back();
@@ -60,25 +59,22 @@ class AppBarView extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                 ),
               ),
-              // padding left 10
               padding: EdgeInsetsDirectional.only(
                 start: 12,
                 end: 10,
               ),
-
-              border: //make the border transparent
-                  const Border(bottom: BorderSide(color: Colors.transparent)),
+              border: const Border(
+                bottom: BorderSide(color: Colors.transparent),
+              ),
             ),
             // add a Silverlist with SettingsCard
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  //create a listview -> padding
                   Padding(
-                    padding: // left right 15 top 20
+                    padding:
                         const EdgeInsets.only(left: 15, right: 15, top: 18),
                     child: Column(
-                      //align start
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: children,
                     ),

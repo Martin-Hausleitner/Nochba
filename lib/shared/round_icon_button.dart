@@ -29,7 +29,7 @@ class RoundIconButton extends StatelessWidget {
         iconSize: 18,
         icon: Icon(
           icon,
-          color: Theme.of(context).colorScheme.onSecondaryContainer,
+          color: Theme.of(context).colorScheme.onSurface,
           // size: 18,
         ),
         onPressed: onPressed,

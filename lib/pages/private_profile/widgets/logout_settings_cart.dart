@@ -13,7 +13,9 @@ class LogoutSettingsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10, ),
+      padding: const EdgeInsets.only(
+        bottom: 10,
+      ),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
@@ -52,7 +54,8 @@ class LogoutSettingsCard extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 13),
                 child: Icon(
                   FlutterRemix.arrow_right_s_line,
-                  color: Colors.black,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
             ],

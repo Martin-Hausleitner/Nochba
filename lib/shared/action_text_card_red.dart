@@ -66,7 +66,7 @@ class ActionTextCardRed extends StatelessWidget {
                 Icon(
                   FlutterRemix.arrow_right_s_line,
                   color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ],
             ),
