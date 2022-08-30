@@ -165,7 +165,7 @@ class Post extends StatelessWidget {
               const SizedBox(height: spacingBetween),
 
               // Action Bar
-              const ActionBar(),
+              ActionBar(post: post,),
             ],
           ),
         ),

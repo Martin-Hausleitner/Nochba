@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 class RoundIconButton extends StatelessWidget {
   // Icon
   final IconData icon;
+  Color? color;
 
   // add onPressed
   final VoidCallback onPressed;
 
-  const RoundIconButton({super.key, required this.icon, required this.onPressed});
+  RoundIconButton({super.key, required this.icon, this.color, required this.onPressed});
 
   
   //Create a Contianer with a gray thin broder and inside a IconButton with a Icon and a onPressed function
@@ -29,7 +30,7 @@ class RoundIconButton extends StatelessWidget {
         iconSize: 18,
         icon: Icon(
           icon,
-          color: Theme.of(context).colorScheme.onSurface,
+          color: color ?? Theme.of(context).colorScheme.onSurface,
           // size: 18,
         ),
         onPressed: onPressed,
