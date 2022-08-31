@@ -55,6 +55,9 @@ jobs:
           echo ----find
           find . -name "ExportOptions.plist" -print
           find . -name "export_options.plist" -print
+          #find all files with .plist extension
+          echo ----find
+          find . -name "*.plist" -print
          
           
 
