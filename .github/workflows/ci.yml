@@ -58,6 +58,9 @@ jobs:
           #find all files with .plist extension
           echo ----find
           find . -name "*.plist" -print
+          echo ----findd
+          cd /Users/builder/
+          ls
          
           
 
