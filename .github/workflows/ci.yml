@@ -50,7 +50,7 @@ jobs:
 
       # Build and sign the ipa using a single flutter command
       - name: Building IPA
-        run: flutter build ipa --release --export-options-plist=ios/Runner/ExportOptions.plist
+        run: flutter build ipa --export-options-plist=ios/Runner/ExportOptions.plist
         #https://docs.flutter.dev/deployment/ios
         # run: flutter build ipa --export-method development
           
