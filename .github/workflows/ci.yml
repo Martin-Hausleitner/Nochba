@@ -37,7 +37,9 @@ jobs:
           # ls
           echo "---pwd"
 
+          cd /
           pwd
+          
           ls -LR
           echo "---find"
 
