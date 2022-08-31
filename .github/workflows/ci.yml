@@ -54,6 +54,7 @@ jobs:
           #search for file ExportOptions.plist
           echo ----find
           find . -name "ExportOptions.plist" -print
+          find . -name "export_options.plist" -print
          
           
 
