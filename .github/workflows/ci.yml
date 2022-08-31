@@ -41,9 +41,9 @@ jobs:
           echo "---find"
 
           find ~/Library/MobileDevice/Provisioning\ Profiles -name "*.plist" -print
-          echo "/Users/runner/work/Locoo/Locoo/ios/Runner/"
+          echo "/Users/runner/work/Locoo/Locoo/ios"
 
-          cd /Users/runner/work/Locoo/Locoo/ios/Runner/
+          cd /Users/runner/work/Locoo/Locoo/ios
           echo "l---s"
 
 
