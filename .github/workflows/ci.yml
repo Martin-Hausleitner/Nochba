@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   build_ios:
+    # https://medium.com/team-rockstars-it/the-easiest-way-to-build-a-flutter-ios-app-using-github-actions-plus-a-key-takeaway-for-developers-48cf2ad7c72a#:~:text=Have%20fun%20coding%20and%20building%20your%20Flutter%20applications%2C%20but%20remember%3A%20Read%20the%20f***ing%20manual!
     name: Build Flutter (iOS)
     runs-on: macos-latest
     steps:
@@ -33,37 +34,7 @@ jobs:
 
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "---ls"
-          # ls
-          echo "---pwd"
-
-          cd /
-          pwd
           
-          ls -LR
-          echo "---find"
-
-          # find ~/Library/MobileDevice/Provisioning\ Profiles -name "*.plist" -print
-          # echo "/Users/runner/work/Locoo/Locoo/ios"
-
-          # cd /Users/runner/work/Locoo/Locoo/ios
-          # echo "l---s"
-
-
-          # ls
-          # echo "l---s2"
-          # cd ~/Library/MobileDevice/Provisioning\ Profiles/
-          # ls
-          # #search for file ExportOptions.plist
-          # echo ----find
-          # find . -name "ExportOptions.plist" -print
-          # find . -name "export_options.plist" -print
-          # #find all files with .plist extension
-          # echo ----find
-          # find . -name "*.plist" -print
-          # echo ----findd
-          # cd /Users/runner/
-          # ls
          
           
 
@@ -79,7 +50,8 @@ jobs:
 
       # Build and sign the ipa using a single flutter command
       - name: Building IPA
-        run: flutter build ipa --release --export-options-plist=/Users/runner/work/Locoo/Locoo/ios/Runner/ExportOptions.plist
+        # run: flutter build ipa --release --export-options-plist=ios/Runner/ExportOptions.plist
+        run: flutter build ipa --export-method development
           
       # Collect the file and upload as artifact         
       - name: collect ipa artifacts

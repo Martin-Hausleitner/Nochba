@@ -223,6 +223,7 @@ class UserInfoClip extends StatelessWidget {
       shape: StadiumBorder(
           side: BorderSide(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+              // color: Colors.transparent,
               width: 1)),
       backgroundColor: Colors.transparent,
     );

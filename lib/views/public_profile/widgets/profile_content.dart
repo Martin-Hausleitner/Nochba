@@ -43,16 +43,18 @@ class ProfileContent extends StatelessWidget {
           indicatorColor: Theme.of(context).primaryColor,
           indicatorWeight: 4.0,
           // padding: EdgeInsets.only(left: 18, right: 18),
-          height: 30,
+          // height: 30,
+          // width: 20,
           labelColor: Theme.of(context).primaryColor,
           unselectedLabelColor: Theme.of(context).textTheme.bodyMedium?.color,
           labelStyle: Theme.of(context).textTheme.titleMedium,
+          // isScrollable: true,
         ),
         views: [
           UserInfo(),
-          // create a container with a list of post.dart
           Container(
-            color: Color.fromARGB(146, 238, 238, 238),
+            color: Theme.of(context).scaffoldBackgroundColor,
+//
             child: ListView(children: [
               SizedBox(height: 6),
               Container(

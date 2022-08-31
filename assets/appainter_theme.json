@@ -1,7 +1,15 @@
 {
   "applyElevationOverlayColor": false,
-  "backgroundColor": "#fffafdfa",
-  "bottomAppBarColor": "#fffafdfa",
+  "backgroundColor": "#ffffffff",
+  "bottomAppBarColor": "#ffffffff",
+  "bottomNavigationBarTheme": {
+    "backgroundColor": "#ffffffff",
+    "elevation": 10,
+    "showSelectedLabels": false,
+    "showUnselectedLabels": false,
+    "type": "fixed",
+    "unselectedItemColor": "#d6000000"
+  },
   "brightness": "light",
   "buttonTheme": {
     "alignedDropdown": false,
@@ -231,7 +239,7 @@
       "inherit": true
     }
   },
-  "scaffoldBackgroundColor": "#fff4f7f4",
+  "scaffoldBackgroundColor": "#fffafdfa",
   "secondaryHeaderColor": "#ffe3f2fd",
   "selectedRowColor": "#fff5f5f5",
   "shadowColor": "#ff000000",
@@ -241,7 +249,7 @@
     "bodyLarge": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -254,7 +262,7 @@
     "bodyMedium": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -267,7 +275,7 @@
     "bodySmall": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -280,7 +288,7 @@
     "displayLarge": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_300",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -293,7 +301,7 @@
     "displayMedium": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_300",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -306,7 +314,7 @@
     "displaySmall": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -319,7 +327,7 @@
     "headlineLarge": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -328,7 +336,7 @@
     "headlineMedium": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -341,7 +349,7 @@
     "headlineSmall": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -354,7 +362,7 @@
     "labelLarge": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_500",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -367,7 +375,7 @@
     "labelMedium": {
       "color": "#ff000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -376,7 +384,7 @@
     "labelSmall": {
       "color": "#ff000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -389,7 +397,7 @@
     "titleLarge": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_500",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -402,7 +410,7 @@
     "titleMedium": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_regular",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -415,7 +423,7 @@
     "titleSmall": {
       "color": "#ff000000",
       "decoration": "none",
-      "fontFamily": "Inter",
+      "fontFamily": "Inter_500",
       "fontFamilyFallback": [
         "Inter"
       ],

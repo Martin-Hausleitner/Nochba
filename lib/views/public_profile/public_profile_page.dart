@@ -23,16 +23,16 @@ class PublicProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         // title: const Text('Dein Profil', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         shadowColor: Colors.transparent,
         leading: IconButton(
           splashRadius: 0.001,
           icon: Icon(
             FlutterRemix.arrow_left_line,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
           //onPress open SettingsPage
           // got back to he previes screen
@@ -46,7 +46,7 @@ class PublicProfileView extends StatelessWidget {
 
             icon: Icon(
               FlutterRemix.more_line,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
             //onPress open SettingsPage
             onPressed: () {
