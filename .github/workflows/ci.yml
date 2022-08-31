@@ -51,6 +51,9 @@ jobs:
           echo "l---s2"
           cd ~/Library/MobileDevice/Provisioning\ Profiles/
           ls
+          #search for file ExportOptions.plist
+          echo ----find
+          find . -name "ExportOptions.plist" -print
          
           
 
