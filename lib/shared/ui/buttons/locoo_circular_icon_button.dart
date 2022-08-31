@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class LocooCircularIconButton extends StatelessWidget {
-  const LocooCircularIconButton(
-      {this.fillColor = Colors.transparent,
-      required this.iconData,
-      this.iconColor = Colors.blue,
-      this.outlineColor = Colors.transparent,
-      this.notificationFillColor = Colors.red,
-      this.notificationCount,
-      this.onPressed,
-      this.radius = 48.0,
-      Key? key})
-      : super(key: key);
+  final double radius;
+
+  const LocooCircularIconButton({
+    this.fillColor = Colors.transparent,
+    required this.iconData,
+    this.iconColor = Colors.blue,
+    this.outlineColor = Colors.transparent,
+    this.notificationFillColor = Colors.red,
+    this.notificationCount,
+    this.onPressed,
+    this.radius = 48.0,
+    Key? key,
+  }) : super(key: key);
 
   final IconData iconData;
   final Color fillColor;
@@ -20,7 +22,6 @@ class LocooCircularIconButton extends StatelessWidget {
   final Color notificationFillColor;
   final int? notificationCount;
   final Function? onPressed;
-  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class LocooCircularIconButton extends StatelessWidget {
           child: IconButton(
             padding: EdgeInsets.zero,
             splashRadius: radius / 2,
-            iconSize: radius / 2,
+            iconSize: radius / 2 + 3,
             icon: Icon(iconData, color: iconColor),
             splashColor: iconColor.withOpacity(.4),
             onPressed: onPressed as void Function()?,

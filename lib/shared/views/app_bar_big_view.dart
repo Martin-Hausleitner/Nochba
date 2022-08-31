@@ -36,8 +36,11 @@ class AppBarBigView extends StatelessWidget {
         // backgroundColor:
         // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
         body: CustomScrollView(
+          //disable scroll bar
+          
           slivers: <Widget>[
             CupertinoSliverNavigationBar(
+              
               largeTitle: Text(
                 title,
               ),

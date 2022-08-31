@@ -102,7 +102,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                           ?.copyWith(
                                             // fontSize: 30,
                                             fontWeight: FontWeight.w700,
-                                            letterSpacing: -0.5,
+                                            letterSpacing: -0.3,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSecondaryContainer,
@@ -162,7 +162,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           },
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         ActionCard(
                           title: 'Deine Posts',
@@ -172,7 +172,12 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           ),
                           onTap: () {
                             //get open settingfs page
-                            Get.to(OwnPostsView());
+
+                            Get.to(
+                              fullscreenDialog: true,
+                              transition: Transition.cupertino,
+                              OwnPostsView(),
+                            );
                           },
                         ),
                         ActionCard(
@@ -180,7 +185,11 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           icon: Icon(FlutterRemix.bookmark_line),
                           onTap: () {
                             //get open settingfs page
-                            Get.to(BookmarkedPostsView());
+                            Get.to(
+                              fullscreenDialog: true,
+                              transition: Transition.cupertino,
+                              BookmarkedPostsView(),
+                            );
                           },
                         ),
                         ActionCardTitle(
@@ -202,8 +211,10 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           onTap: () {
                             //get open settingfs page
                             Get.to(
-                                // EditProfileView(),
-                                EditProfileView());
+                              fullscreenDialog: true,
+                              transition: Transition.cupertino,
+                              EditProfileView(),
+                            );
                           },
                         ),
                         ActionCard(
@@ -212,6 +223,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           onTap: () {
                             //get open settingfs page
                             Get.to(
+                              fullscreenDialog: true,
+                              transition: Transition.cupertino,
                               SettingsView(),
                             );
                           },

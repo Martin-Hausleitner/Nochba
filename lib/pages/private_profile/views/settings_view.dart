@@ -36,7 +36,10 @@ class SettingsView extends StatelessWidget {
           icon: Icon(FlutterRemix.user_line),
           onTap: () {
             Get.to(
+              // routeName: 'test',
               // ManageAccountView(),
+              fullscreenDialog: true,
+              transition: Transition.cupertino,
               ManageAccountView(),
             );
           },

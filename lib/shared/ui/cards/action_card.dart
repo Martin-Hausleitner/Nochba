@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
 //create a class which have a rounded container with a icon on the left side and a text and on the right side a arrow icon
@@ -19,7 +20,10 @@ class ActionCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: GestureDetector(
-        onTap: onTap,
+        onTap: () {
+          HapticFeedback.lightImpact();
+          onTap();
+        },
         child: Container(
           // add background color to the rounded container
           decoration: BoxDecoration(

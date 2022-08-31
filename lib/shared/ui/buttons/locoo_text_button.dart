@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 
 // create a stateless button with a text NEW and a background color of Colors.blue[100]
 class LocooTextButton extends StatelessWidget {
@@ -31,7 +32,12 @@ class LocooTextButton extends StatelessWidget {
             //   //set color to primeryColor
 
             // <-- TextButton
-            onPressed: onPressed,
+            // add to onPressed HapticFeedback.lightImpact(); and onPressed
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              onPressed();
+            },
+
             icon: Icon(
               icon,
               size: 24.0,

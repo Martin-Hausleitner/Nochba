@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 
-
 class BottomSheetView extends StatelessWidget {
   //children
   final List<Widget> children;
@@ -34,8 +33,11 @@ class BottomSheetView extends StatelessWidget {
                         .colorScheme
                         .onSurface
                         .withOpacity(0.05),
-                    iconColor: Colors.black,
-                    radius: 32,
+                    iconColor: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.9),
+                    radius: 35,
                     onPressed: () => Navigator.pop(context),
                   ),
                   Spacer(),

@@ -249,7 +249,7 @@
     "bodyLarge": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -262,7 +262,7 @@
     "bodyMedium": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -275,7 +275,7 @@
     "bodySmall": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -288,7 +288,7 @@
     "displayLarge": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter_300",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -301,7 +301,7 @@
     "displayMedium": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter_300",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -314,7 +314,7 @@
     "displaySmall": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -327,7 +327,7 @@
     "headlineLarge": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -336,7 +336,7 @@
     "headlineMedium": {
       "color": "#8a000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -349,7 +349,7 @@
     "headlineSmall": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -362,7 +362,7 @@
     "labelLarge": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter_500",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -375,7 +375,7 @@
     "labelMedium": {
       "color": "#ff000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -384,7 +384,7 @@
     "labelSmall": {
       "color": "#ff000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -397,7 +397,7 @@
     "titleLarge": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter_500",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -410,7 +410,7 @@
     "titleMedium": {
       "color": "#dd000000",
       "decoration": "none",
-      "fontFamily": "Inter_regular",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],
@@ -423,7 +423,7 @@
     "titleSmall": {
       "color": "#ff000000",
       "decoration": "none",
-      "fontFamily": "Inter_500",
+      "fontFamily": "Inter",
       "fontFamilyFallback": [
         "Inter"
       ],

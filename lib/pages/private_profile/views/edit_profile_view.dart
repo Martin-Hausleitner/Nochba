@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:locoo/shared/ui/cards/action_card_title.dart';
 import 'package:locoo/shared/ui/cards/action_text_card.dart';
 import 'package:locoo/shared/ui/locoo_text_field.dart';
@@ -21,7 +22,28 @@ class EditProfileView extends StatelessWidget {
       // SizedBox(
       //   height: 30,
       // ),
-      EditAvatar(),
+      // EditAvatar(),
+      Center(
+        child: Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.black26,
+              radius: 55,
+              backgroundImage: NetworkImage(
+                "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+              ),
+            ),
+            LocooCircularIconButton(
+              iconData: FlutterRemix.pencil_line,
+              fillColor: Theme.of(context).primaryColor,
+              iconColor: Colors.white,
+              radius: 32,
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      ),
       SizedBox(
         height: 30,
       ),
@@ -41,11 +63,14 @@ class EditProfileView extends StatelessWidget {
                 children: [
                   LocooTextField(
                     label: 'Vorname',
+                    textInputAction: TextInputAction.next,
+                    autofocus: true,
                     controller: TextEditingController(text: 'Max'),
                   ),
                   SizedBox(height: 10),
                   LocooTextField(
                     label: 'Nachname',
+                    textInputAction: TextInputAction.done,
                     controller: TextEditingController(text: 'Mustermann'),
                   ),
                   SizedBox(
@@ -58,6 +83,9 @@ class EditProfileView extends StatelessWidget {
                       right: 7,
                     ),
                     child: Row(
+                      //spacebetween
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
                         Flexible(
                           child: Text(
@@ -73,7 +101,6 @@ class EditProfileView extends StatelessWidget {
                                         ?.withOpacity(0.6)),
                           ),
                         ),
-                        Spacer(),
 
                         //tranform  scale 0.8 cupertuon swtich
                         Transform.scale(
@@ -86,6 +113,9 @@ class EditProfileView extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                 ],
               );
@@ -151,10 +181,13 @@ class EditProfileView extends StatelessWidget {
                           right: 7,
                         ),
                         child: Row(
+                          //spacebetween
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                           children: [
                             Flexible(
                               child: Text(
-                                'Zeiger deinen Geburtstag an in deinen Öffentlichen Profil an',
+                                'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
@@ -166,7 +199,7 @@ class EditProfileView extends StatelessWidget {
                                             ?.withOpacity(0.6)),
                               ),
                             ),
-                            Spacer(),
+
                             //tranform  scale 0.8 cupertuon swtich
                             Transform.scale(
                               scale: 0.8,
@@ -180,6 +213,9 @@ class EditProfileView extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                 ],
               );
@@ -258,6 +294,7 @@ class EditProfileView extends StatelessWidget {
                 children: [
                   LocooTextField(
                     label: 'Beruf',
+                    autofocus: true,
                     controller: TextEditingController(text: 'Beruf'),
                   ),
                   SizedBox(height: 10),
@@ -289,6 +326,7 @@ class EditProfileView extends StatelessWidget {
                     label: 'Mehr über dich',
                     controller: TextEditingController(text: 'Mehr über dich'),
                     maxLines: 10,
+                    autofocus: true,
                     keyboardType: TextInputType.multiline,
                   ),
                   SizedBox(height: 10),
