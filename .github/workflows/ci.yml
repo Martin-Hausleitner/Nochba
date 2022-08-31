@@ -59,7 +59,7 @@ jobs:
           echo ----find
           find . -name "*.plist" -print
           echo ----findd
-          cd /Users/builder/
+          cd /Users/runner/
           ls
          
           
