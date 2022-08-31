@@ -36,6 +36,8 @@ jobs:
           ls
           pwd
           find ~/Library/MobileDevice/Provisioning\ Profiles -name "*.plist" -print
+          cd /Users/runner/work/Locoo/Locoo/ios/Runner/
+          ls
          
           
 
@@ -51,7 +53,7 @@ jobs:
 
       # Build and sign the ipa using a single flutter command
       - name: Building IPA
-        run: flutter build ipa --release --export-options-plist=ios/Runner/ExportOptions.plist
+        run: flutter build ipa --release --export-options-plist=/Users/runner/work/Locoo/Locoo/ios/Runner/ExportOptions.plist
           
       # Collect the file and upload as artifact         
       - name: collect ipa artifacts
