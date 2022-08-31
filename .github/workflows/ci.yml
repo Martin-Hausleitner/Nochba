@@ -33,10 +33,23 @@ jobs:
 
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "---ls"
           ls
+          echo "---pwd"
+
           pwd
+          echo "---find"
+
           find ~/Library/MobileDevice/Provisioning\ Profiles -name "*.plist" -print
+          echo "/Users/runner/work/Locoo/Locoo/ios/Runner/"
+
           cd /Users/runner/work/Locoo/Locoo/ios/Runner/
+          echo "l---s"
+
+
+          ls
+          echo "l---s2"
+          cd ~/Library/MobileDevice/Provisioning\ Profiles/
           ls
          
           
