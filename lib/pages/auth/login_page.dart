@@ -47,11 +47,6 @@ class LoginPage extends GetView<AuthController> {
                   ),
 
                   const SizedBox(height: 24),
-                  LocooTextButton(
-                    text: 'Erstelle einen Demo Account',
-                    onPressed: () async => controller.createDemoAccount(),
-                    icon: Icons.login,
-                  ),
                 ],
               ),
 
@@ -116,13 +111,13 @@ class LoginPage extends GetView<AuthController> {
                               ))
                         ]),
                   ),
-                  LocooTextButton(
-                    text: 'Erstelle einen Demo Account',
-                    onPressed: () async => controller.createDemoAccount(),
-                    icon: Icons.login,
-                  ),
                 ],
               ),
+            LocooTextButton(
+              text: 'Erstelle einen Demo Account',
+              onPressed: () async => controller.createDemoAccount(),
+              icon: Icons.login,
+            ),
 
             // if (!Platform.isAndroid)
           ],
