@@ -34,33 +34,34 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           echo "---ls"
-          ls
+          # ls
           echo "---pwd"
 
           pwd
+          ls -LR
           echo "---find"
 
-          find ~/Library/MobileDevice/Provisioning\ Profiles -name "*.plist" -print
-          echo "/Users/runner/work/Locoo/Locoo/ios"
+          # find ~/Library/MobileDevice/Provisioning\ Profiles -name "*.plist" -print
+          # echo "/Users/runner/work/Locoo/Locoo/ios"
 
-          cd /Users/runner/work/Locoo/Locoo/ios
-          echo "l---s"
+          # cd /Users/runner/work/Locoo/Locoo/ios
+          # echo "l---s"
 
 
-          ls
-          echo "l---s2"
-          cd ~/Library/MobileDevice/Provisioning\ Profiles/
-          ls
-          #search for file ExportOptions.plist
-          echo ----find
-          find . -name "ExportOptions.plist" -print
-          find . -name "export_options.plist" -print
-          #find all files with .plist extension
-          echo ----find
-          find . -name "*.plist" -print
-          echo ----findd
-          cd /Users/runner/
-          ls
+          # ls
+          # echo "l---s2"
+          # cd ~/Library/MobileDevice/Provisioning\ Profiles/
+          # ls
+          # #search for file ExportOptions.plist
+          # echo ----find
+          # find . -name "ExportOptions.plist" -print
+          # find . -name "export_options.plist" -print
+          # #find all files with .plist extension
+          # echo ----find
+          # find . -name "*.plist" -print
+          # echo ----findd
+          # cd /Users/runner/
+          # ls
          
           
 
