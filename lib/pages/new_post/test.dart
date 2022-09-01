@@ -41,7 +41,7 @@ class NewPostPage1 extends StatelessWidget {
 
 //create a cirele with a number on it with a state ture false and when its ture it will be a check mark and the background green
 class StateCircleStep extends StatefulWidget {
-  final bool isfinished;
+  final num isfinished;
   //add onTap
   final VoidCallback? onTap;
   const StateCircleStep({Key? key, required this.isfinished, this.onTap})
@@ -68,11 +68,12 @@ class _StateCircleStepState extends State<StateCircleStep> {
         ),
         child: Center(
           child: widget.isfinished
-              ? Icon(
+          if
+              Icon(
                   Icons.check,
                   color: Colors.white,
                 )
-              : Text(
+               Text(
                   '1',
                   style: TextStyle(
                     color: Colors.black,
