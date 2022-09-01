@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:locoo/pages/new_post/new_post_page.dart';
 import 'package:locoo/pages/notifications/notifications_page.dart';
 
 import '../chats/chats_page.dart';
-import '../new_post/test.dart';
 import '../private_profile/private_profile_page.dart';
 import 'dashboard_controller.dart';
 import '../feed/feed_page.dart';

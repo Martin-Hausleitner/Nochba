@@ -264,14 +264,11 @@ class MadebyAndVersion extends StatelessWidget {
             Row(
               //align center
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
                   "Made with ",
                   // add font size 12 and gray color
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Icon(
                   FlutterRemix.heart_3_fill,
@@ -281,10 +278,7 @@ class MadebyAndVersion extends StatelessWidget {
                 Text(
                   " in Linz",
                   // add font size 12 and gray color
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -305,10 +299,10 @@ class MadebyAndVersion extends StatelessWidget {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('App Name: ${data.appName}'),
-                    Text('Package Name: ${data.packageName}'),
-                    Text('Version: ${data.version}'),
-                    Text('Build Number: ${data.buildNumber}'),
+                    Text(
+                      'Version: ${data.version}+${data.buildNumber}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ],
                 );
               },
