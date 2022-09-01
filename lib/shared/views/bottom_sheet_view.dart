@@ -42,12 +42,41 @@ class BottomSheetView extends StatelessWidget {
                   ),
                   Spacer(),
 
-                  LocooCircularIconButton(
-                    iconData: FlutterRemix.check_line,
-                    fillColor: Theme.of(context).primaryColor,
-                    iconColor: Colors.white,
-                    radius: 32,
+                  // LocooCircularIconButton(
+                  //   iconData: FlutterRemix.check_line,
+                  //   fillColor: Theme.of(context).primaryColor,
+                  //   iconColor: Colors.white,
+                  //   radius: 32,
+                  //   onPressed: () => Navigator.pop(context),
+                  // ),
+                  ElevatedButton.icon(
                     onPressed: () => Navigator.pop(context),
+                    icon: Icon(
+                      FlutterRemix.check_line,
+                    ),
+                    label: Text(
+                      'Speichern',
+                      style: Theme.of(context).textTheme.button?.copyWith(
+                            color: Theme.of(context)
+                                .buttonTheme
+                                .colorScheme
+                                ?.onPrimary,
+                            letterSpacing: -0.07,
+                          ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      // minimumSize: Size.fromHeight(35),
+                      // maximumSize: //set size 30
+                      // Size.fromHeight(30),
+                      shadowColor: Colors.transparent,
+                      // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                    ),
                   ),
                 ],
               ),
