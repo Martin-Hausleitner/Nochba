@@ -12,10 +12,12 @@ import 'package:locoo/pages/chats/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
-import 'category_badge.dart';
-import 'hashtag_badges.dart';
-import 'post_profile.dart';
+
 import 'package:locoo/models/post.dart' as models;
+
+import '../widgets/category_badge.dart';
+import '../widgets/hashtag_badges.dart';
+import '../widgets/post_profile.dart';
 
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
@@ -223,7 +225,7 @@ class PostView extends StatelessWidget {
                       padding: EdgeInsets.only(top: spacingBetween),
                       child: LocooTextButton(
                         icon: FlutterRemix.account_box_fill,
-                        text: 'Anschreiben',
+                        label: 'Anschreiben',
                         //onpres open Get.Snackbar
                         onPressed: () async {
                           final navigator = Navigator.of(context);

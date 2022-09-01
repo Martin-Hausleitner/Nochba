@@ -92,7 +92,7 @@ class PublicProfileView extends StatelessWidget {
             ),
             child: LocooTextButton(
               icon: FlutterRemix.chat_1_fill,
-              text: 'Anschreiben',
+              label: 'Anschreiben',
               //onpres open Get.Snackbar
               onPressed: () {
                 Get.snackbar(
