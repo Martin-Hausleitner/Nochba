@@ -4,10 +4,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/notifications/notifications_page.dart';
 
-import '../../shared/appbar1.dart';
-import '../../shared/pageV.dart';
 import '../chats/chats_page.dart';
-import '../new_post/new_post_page.dart';
 import '../new_post/test.dart';
 import '../private_profile/private_profile_page.dart';
 import 'dashboard_controller.dart';
@@ -26,7 +23,7 @@ class DashboardPage extends StatelessWidget {
                 FeedPage(),
                 NotificationsPage(),
                 // NewPostPage(),
-                MyStatefulWidget(),
+                NewPostPage(),
                 ChatsPage(),
                 PrivateProfilePage(),
                 // AppBar1(),

@@ -1,69 +1,86 @@
+// create a scaffold with a pageview
+// add a pageview to the scaffold
+
 import 'package:flutter/material.dart';
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
-
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _currentStep = 0;
+class NewPostPage extends StatelessWidget {
+  const NewPostPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Stepper(
-        type: StepperType.horizontal,
-        elevation: 0,
-        steps: _mySteps(),
-        currentStep: this._currentStep,
-        onStepTapped: (step) {
-          setState(() {
-            this._currentStep = step;
-          });
-        },
-        onStepContinue: () {
-          setState(() {
-            if (this._currentStep < this._mySteps().length - 1) {
-              this._currentStep = this._currentStep + 1;
-            } else {
-              //Logic to check if everything is completed
-              print('Completed, check fields.');
-            }
-          });
-        },
-        onStepCancel: () {
-          setState(() {
-            if (this._currentStep > 0) {
-              this._currentStep = this._currentStep - 1;
-            } else {
-              this._currentStep = 0;
-            }
-          });
-        },
+    return Scaffold(
+      body: PageView(
+        children: [
+          NewPostPage1(),
+          // NewPostPage2(),
+          // NewPostPage3(),
+        ],
       ),
     );
   }
+}
 
-  List<Step> _mySteps() {
-    List<Step> _steps = [
-      Step(
-        title: Text(''),
-        content: TextField(),
-        isActive: _currentStep >= 0,
+// NewPostPage1
+
+class NewPostPage1 extends StatelessWidget {
+  const NewPostPage1({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          StateCircleStep(
+            isfinished: true,
+          ),
+        ],
       ),
-      Step(
-        title: Text(''),
-        content: TextField(),
-        isActive: _currentStep >= 1,
-      ),
-      Step(
-        title: Text(''),
-        content: TextField(),
-        isActive: _currentStep >= 2,
-      )
-    ];
-    return _steps;
+    );
   }
 }
+
+//create a cirele with a number on it with a state ture false and when its ture it will be a check mark and the background green
+class StateCircleStep extends StatefulWidget {
+  final bool isfinished;
+  //add onTap
+  final VoidCallback? onTap;
+  const StateCircleStep({Key? key, required this.isfinished, this.onTap})
+      : super(key: key);
+
+  @override
+  _StateCircleStepState createState() => _StateCircleStepState();
+}
+
+class _StateCircleStepState extends State<StateCircleStep> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        width: 30,
+        height: 30,
+        decoration: BoxDecoration(
+          color: widget.isfinished ? Colors.green : Colors.white,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.grey,
+          ),
+        ),
+        child: Center(
+          child: widget.isfinished
+              ? Icon(
+                  Icons.check,
+                  color: Colors.white,
+                )
+              : Text(
+                  '1',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
