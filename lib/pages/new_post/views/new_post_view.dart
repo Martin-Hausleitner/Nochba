@@ -7,8 +7,9 @@ import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 import '../new_post_controller.dart';
 import '../widgets/back_outlined_button.dart';
 import '../widgets/circle_step.dart';
+import '../widgets/next_elevated_button.dart';
 import '../widgets/progress_line.dart';
-import '../widgets/publish_button.dart';
+import 'published_new_post_view.dart';
 
 class NewPostView extends StatelessWidget {
   final bool hasSubcategories;
@@ -159,10 +160,24 @@ class NewPostView extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: BackOutlinedButton(controller: controller),
+                    child: BackOutlinedButton(
+                        controller: controller,
+                        icon: FlutterRemix.arrow_left_s_line,
+                        label: 'Zurück'),
                   ),
                   const SizedBox(width: 8),
-                  Expanded(child: PublishButton(controller: controller)),
+                  Expanded(
+                      child: NextElevatedButton(
+                    onPressed: //controller.addPost() and go to
+                        () {
+                      controller.addPost();
+                      controller.jumpToPage(4);
+                      // Get.to(PublishedNewPostView());
+                    },
+                    controller: controller,
+                    icon: Icons.done_outlined,
+                    label: 'Veröffenlichen',
+                  )),
                 ],
               ),
             ),

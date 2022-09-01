@@ -4,9 +4,13 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:locoo/pages/new_post/new_post_controller.dart';
 
 class BackOutlinedButton extends StatelessWidget {
+  final String label;
+  final IconData icon;
   const BackOutlinedButton({
     Key? key,
     required this.controller,
+    required this.label,
+    required this.icon,
   }) : super(key: key);
 
   final NewPostController controller;
@@ -24,11 +28,11 @@ class BackOutlinedButton extends StatelessWidget {
         enableFeedback: true,
       ),
       icon: Icon(
-        FlutterRemix.arrow_left_s_line,
+        icon,
         color: Theme.of(context).colorScheme.onSurface,
       ),
       label: Text(
-        'Zurück',
+        label,
         style: Theme.of(context).textTheme.button?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               letterSpacing: -0.07,

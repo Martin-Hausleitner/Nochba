@@ -13,6 +13,7 @@ import 'package:locoo/views/new_post/tag_dialog.dart';
 import 'new_post_controller.dart';
 import 'views/new_post_subcategory_selection_view.dart';
 import 'views/new_post_view.dart';
+import 'views/published_new_post_view.dart';
 import 'widgets/category_tile.dart';
 import 'widgets/circle_step.dart';
 import 'widgets/progress_line.dart';
@@ -37,7 +38,8 @@ class NewPostPage extends GetView<NewPostController> {
         children: const [
           NewPostCategorySelectionView(),
           NewPostSubcategorySelectionView(),
-          NewPostView()
+          NewPostView(),
+          PublishedNewPostView(),
         ],
       ),
     );
@@ -140,7 +142,6 @@ class NewPostCategorySelectionView extends GetView<NewPostController> {
               ],
             ),
           ),
-          
         ],
       ),
     );

@@ -71,6 +71,10 @@ class NewPostController extends GetxController {
                         curve: Curves.easeInOut,
                       );*/
   }
+  // create JumpToPage which pageController.jumpToPage(2);
+  jumpToPage(int page) {
+    pageController.jumpToPage(page);
+  }
 
   updateSubcategory(CategoryOptions newSubcategory) {
     if(CategoryModul.subCategories.contains(newSubcategory) || newSubcategory == CategoryOptions.Other) {

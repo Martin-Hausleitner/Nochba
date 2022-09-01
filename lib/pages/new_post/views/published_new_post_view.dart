@@ -7,10 +7,11 @@ import 'package:locoo/shared/ui/cards/action_card.dart';
 import '../new_post_controller.dart';
 import '../widgets/back_outlined_button.dart';
 import '../widgets/circle_step.dart';
+import '../widgets/next_elevated_button.dart';
 import '../widgets/progress_line.dart';
 
-class NewPostSubcategorySelectionView extends GetView<NewPostController> {
-  const NewPostSubcategorySelectionView({Key? key}) : super(key: key);
+class PublishedNewPostView extends GetView<NewPostController> {
+  const PublishedNewPostView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +34,21 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
           SizedBox(height: 28),
           Row(
             children: [
-              CircleStep(1, '1', () {}),
-              ProgressLineHalf(
-                isFinished: false,
-              ),
-              CircleStep(2, '2', () {}),
+              CircleStep(3, '1', () {}),
               ProgressLine(
-                isFinished: false,
+                isFinished: true,
               ),
-              CircleStep(2, '3', () {}),
+              CircleStep(3, '2', () {}),
+              ProgressLine(
+                isFinished: true,
+              ),
+              CircleStep(3, '3', () {}),
             ],
           ),
           SizedBox(height: 28),
           //tile small Wähle deien Kategorie
           Text(
-            'Wähle deine Kategorie',
+            'Fertig!',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   // color: Theme.of(context).secondaryHeaderColor,
@@ -56,7 +57,7 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
           //tile small Schritt 1 von 3
           SizedBox(height: 2),
           Text(
-            'Schritt 1 von 3',
+            'Schritt 3 von 3',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 // fontSize: 18,
                 // fontWeight: FontWeight.w600,
@@ -64,45 +65,22 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
                 ),
           ),
           SizedBox(height: 28),
-          Obx(
-            () => Expanded(
-              child: ListView.separated(
-                itemCount: controller.subcategoriesForDisplay.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final categories = controller.subcategoriesForDisplay;
-                  // return ActionCard(
-                  //     title: categories[index].name.toString(),
-                  //     icon: Icon(
-                  //       Icons.close_outlined,
-                  //     ),
-                  //     onTap: controller.updateSubcategory(categories[index]));
-                  return InkWell(
-                    onTap: () {
-                      controller.updateSubcategory(categories[index]);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.08),
-                      ),
-                      child: Text(categories[index].name.toString()),
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
-              ),
-            ),
-          ),
 
           BackOutlinedButton(
             controller: controller,
-            icon: FlutterRemix.arrow_left_s_line,
-            label: "Zurück",
+            icon: FlutterRemix.pencil_line,
+            label: "Post Bearbeiten",
+          ),
+          NextElevatedButton(
+            onPressed: //controller.addPost() and go to
+                () {
+              controller.addPost();
+              controller.jumpToPage(4);
+              // Get.to(PublishedNewPostView());
+            },
+            controller: controller,
+            icon: FlutterRemix.home_2_line,
+            label: 'Zurück zum Feed',
           ),
         ],
       ),

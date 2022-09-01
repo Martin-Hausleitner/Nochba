@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:locoo/pages/new_post/new_post_controller.dart';
 
-class PublishButton extends StatelessWidget {
-  const PublishButton({
+class NextElevatedButton extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final VoidCallback onPressed;
+  const NextElevatedButton({
     Key? key,
     required this.controller,
+    required this.label,
+    required this.icon,
+    required this.onPressed,
   }) : super(key: key);
 
   final NewPostController controller;
@@ -12,10 +18,10 @@ class PublishButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () => controller.addPost(),
-      icon: const Icon(Icons.check),
+      onPressed: onPressed,
+      icon: Icon(icon),
       label: Text(
-        'Veröffentlichen',
+        label,
         style: Theme.of(context).textTheme.button?.copyWith(
               color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
               letterSpacing: -0.07,
