@@ -24,16 +24,18 @@ class NewPostPage extends GetView<NewPostController> {
         shadowColor: Colors.transparent,
       ),
       body: PageView(
-          controller: controller.pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            NewPostCategorySelectionView(),
-            NewPostSubcategorySelectionView(),
-            NewPostView()
-          ]),
+        controller: controller.pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          NewPostCategorySelectionView(),
+          NewPostSubcategorySelectionView(),
+          NewPostView()
+        ],
+      ),
     );
   }
 }
+
 
 /*
 class NewPostPage1 extends StatefulWidget {
@@ -337,45 +339,47 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
   @override
   Widget build(BuildContext context) {
     NewPostController controller = Get.find<NewPostController>();
-    return Column(children: [
-      Text('Select a subcategory'),
-      const SizedBox(
-        height: 10,
-      ),
-      Obx(
-        () => Expanded(
-          child: ListView.separated(
-            itemCount: controller.subcategoriesForDisplay.length,
-            itemBuilder: (BuildContext context, int index) {
-              final categories = controller.subcategoriesForDisplay;
-              return InkWell(
-                onTap: () {
-                  controller.updateSubcategory(categories[index]);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.lightGreen,
+    return Column(
+      children: [
+        Text('Select a subcategory'),
+        const SizedBox(
+          height: 10,
+        ),
+        Obx(
+          () => Expanded(
+            child: ListView.separated(
+              itemCount: controller.subcategoriesForDisplay.length,
+              itemBuilder: (BuildContext context, int index) {
+                final categories = controller.subcategoriesForDisplay;
+                return InkWell(
+                  onTap: () {
+                    controller.updateSubcategory(categories[index]);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.lightGreen,
+                    ),
+                    child: Text(categories[index].name.toString()),
                   ),
-                  child: Text(categories[index].name.toString()),
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(),
+            ),
           ),
         ),
-      ),
-      IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            controller.jumpBack();
-          })
-    ]);
+        IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              controller.jumpBack();
+            })
+      ],
+    );
   }
 }
 
@@ -387,10 +391,12 @@ class NewPostView extends StatelessWidget {
   Widget build(BuildContext context) {
     NewPostController controller = Get.find<NewPostController>();
     return SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Form(
-          key: controller.formKey,
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      padding: EdgeInsets.all(16),
+      child: Form(
+        key: controller.formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Text(
                 controller.subcategory != CategoryOptions.None
                     ? controller.subcategory.name.toString()
@@ -468,14 +474,17 @@ class NewPostView extends StatelessWidget {
               icon: FlutterRemix.account_box_fill,
             ),
             IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  controller.jumpBack();
-                })
-          ]),
-        ));
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                controller.jumpBack();
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

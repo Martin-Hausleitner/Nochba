@@ -8,6 +8,7 @@ import '../../shared/appbar1.dart';
 import '../../shared/pageV.dart';
 import '../chats/chats_page.dart';
 import '../new_post/new_post_page.dart';
+import '../new_post/test.dart';
 import '../private_profile/private_profile_page.dart';
 import 'dashboard_controller.dart';
 import '../feed/feed_page.dart';
@@ -24,7 +25,8 @@ class DashboardPage extends StatelessWidget {
               children: [
                 FeedPage(),
                 NotificationsPage(),
-                NewPostPage(),
+                // NewPostPage(),
+                MyStatefulWidget(),
                 ChatsPage(),
                 PrivateProfilePage(),
                 // AppBar1(),
@@ -61,7 +63,7 @@ class DashboardPage extends StatelessWidget {
                 type: BottomNavigationBarType.fixed,
                 // backgroundColor: Colors.white,
                 elevation: 0,
-                items: const [
+                items: [
                   BottomNavigationBarItem(
                     icon: Icon(
                       FlutterRemix.home_2_line,
@@ -81,13 +83,23 @@ class DashboardPage extends StatelessWidget {
                     ),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(FlutterRemix.add_circle_line),
-                    label: '',
-                    activeIcon: Icon(
-                      FlutterRemix.add_circle_line,
-                      // color: Theme.of(context).primaryColor,
+                    icon: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      padding: EdgeInsets.all(11),
+                      child: Icon(
+                        //flutter plus
+                        FlutterRemix.add_line,
+                        size: 25,
+
+                        color: Colors.white,
+                      ),
                     ),
+                    label: '',
                   ),
+
                   BottomNavigationBarItem(
                     icon: Icon(FlutterRemix.chat_1_line),
                     label: '',

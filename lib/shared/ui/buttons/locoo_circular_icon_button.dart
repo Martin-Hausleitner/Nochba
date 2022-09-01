@@ -44,30 +44,30 @@ class LocooCircularIconButton extends StatelessWidget {
             onPressed: onPressed as void Function()?,
           ),
         ),
-        if (notificationCount != null) ...[
-          Positioned(
-            top: radius / -14,
-            right: radius / -14,
-            child: Container(
-              width: radius / 2.2,
-              height: radius / 2.2,
-              decoration: ShapeDecoration(
-                color: notificationFillColor,
-                shape: const CircleBorder(),
-              ),
-              child: Center(
-                child: Text(
-                  notificationCount.toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: radius / 4,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+        // if (notificationCount != null) ...[
+        //   Positioned(
+        //     top: radius / -14,
+        //     right: radius / -14,
+        //     child: Container(
+        //       width: radius / 2.2,
+        //       height: radius / 2.2,
+        //       decoration: ShapeDecoration(
+        //         color: notificationFillColor,
+        //         shape: const CircleBorder(),
+        //       ),
+        //       child: Center(
+        //         child: Text(
+        //           notificationCount.toString(),
+        //           style: TextStyle(
+        //             color: Colors.white,
+        //             fontSize: radius / 4,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ],
     );
   }
