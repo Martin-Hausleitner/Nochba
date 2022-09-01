@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
@@ -85,7 +86,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                     radius: 32,
                     onPressed: () => Navigator.pop(context),
                   ),
-                 
+
                   LocooCircularIconButton(
                     iconData: Icons.remove,
                     fillColor: Colors.red,
@@ -111,6 +112,43 @@ class NotificationsPage extends GetView<NotificationsController> {
                     iconData: Icons.check,
                     color: Colors.green,
                     onPressed: () {},
+                  ),
+
+                  // create a button with  HapticFeedback.lightImpact();
+                  LocooTextButton(
+                    label: 'HapticFeedback.lightImpact()',
+                    icon: Icons.check,
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                    },
+                  ),
+                  LocooTextButton(
+                    label: 'HapticFeedback.heavyImpact();',
+                    icon: Icons.check,
+                    onPressed: () {
+                      HapticFeedback.heavyImpact();
+                    },
+                  ),
+                  LocooTextButton(
+                    label: 'mediumImpact()',
+                    icon: Icons.check,
+                    onPressed: () {
+                      HapticFeedback.mediumImpact();
+                    },
+                  ),
+                  LocooTextButton(
+                    label: 'selectionClick(',
+                    icon: Icons.check,
+                    onPressed: () {
+                      HapticFeedback.selectionClick();
+                    },
+                  ),
+                  LocooTextButton(
+                    label: 'vibrate()',
+                    icon: Icons.check,
+                    onPressed: () {
+                      HapticFeedback.vibrate();
+                    },
                   ),
                 ],
               ),

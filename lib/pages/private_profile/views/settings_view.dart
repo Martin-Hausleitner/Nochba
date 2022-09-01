@@ -178,7 +178,7 @@ class MadebyAndVersion extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Version: ${data.version}+${data.buildNumber}',
+                      'Version: ${data.version} (${data.buildNumber})',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],

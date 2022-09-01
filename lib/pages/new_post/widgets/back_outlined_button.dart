@@ -25,7 +25,7 @@ class BackOutlinedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
         ),
         // splashFactory: InkRipple.splashFactory,
-        enableFeedback: true,
+        // enableFeedback: true,
       ),
       icon: Icon(
         icon,

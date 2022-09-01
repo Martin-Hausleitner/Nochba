@@ -8,7 +8,6 @@ And this is where Locoo comes into play. An app is to be developed that brings t
 ## Prototyp / Präsentation
 https://framer.com/share/Locoo-Prototype-2-0--7TtQOclvjE71OYagqgTF/EtmYk_avt#EtmYk_avt
 
-https://www.youtube.com/user/legokleistein/channels?view=49&shelf_id=2
 
 ## Zeitungsartikel
 https://www.linz.at/medienservice/2022/202203_114704.php
