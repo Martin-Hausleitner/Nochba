@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/shared/ui/cards/action_card.dart';
 
 import '../new_post_controller.dart';
+import '../widgets/back_outlined_button.dart';
 import '../widgets/circle_step.dart';
 import '../widgets/progress_line.dart';
 
@@ -96,23 +98,8 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
               ),
             ),
           ),
-          // Obx(
-          //   () => ActionCard(
-          //     title: 'Weiter',
-          //     icon: Icon(FlutterRemix.t_box_fill),
-          //     onTap: () {
-          //       controller.updateSubcategory(categories[1]);
-          //     },
-          //   ),
-          // ),
-          IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                controller.jumpBack();
-              })
+
+          BackOutlinedButton(controller: controller),
         ],
       ),
     );

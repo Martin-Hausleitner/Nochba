@@ -140,6 +140,7 @@ class NewPostCategorySelectionView extends GetView<NewPostController> {
               ],
             ),
           ),
+          
         ],
       ),
     );
