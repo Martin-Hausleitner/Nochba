@@ -79,7 +79,7 @@ class PublishedNewPostView extends GetView<NewPostController> {
                       'assets/lottie/success.json',
                       height: 200,
                       fit: BoxFit.cover,
-                      // repeat: false,
+                      repeat: false,
                       
                       alignment: Alignment.topCenter,
                     ),
