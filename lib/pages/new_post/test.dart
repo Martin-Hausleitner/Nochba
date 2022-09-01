@@ -2,6 +2,7 @@
 // add a pageview to the scaffold
 
 import 'package:flutter/material.dart';
+import 'package:locoo/pages/chats/util.dart';
 
 class NewPostPage extends StatelessWidget {
   const NewPostPage({Key? key}) : super(key: key);
@@ -30,9 +31,9 @@ class NewPostPage1 extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          StateCircleStep(
-            isfinished: true,
-          ),
+          // StateCircleStep(
+          //   isfinished: true,
+          // ),
         ],
       ),
     );
@@ -41,10 +42,10 @@ class NewPostPage1 extends StatelessWidget {
 
 //create a cirele with a number on it with a state ture false and when its ture it will be a check mark and the background green
 class StateCircleStep extends StatefulWidget {
-  final num isfinished;
+  final num state;
   //add onTap
   final VoidCallback? onTap;
-  const StateCircleStep({Key? key, required this.isfinished, this.onTap})
+  const StateCircleStep({Key? key, required this.state, this.onTap})
       : super(key: key);
 
   @override
@@ -60,25 +61,31 @@ class _StateCircleStepState extends State<StateCircleStep> {
         width: 30,
         height: 30,
         decoration: BoxDecoration(
-          color: widget.isfinished ? Colors.green : Colors.white,
+          // color: widget.isfinished ? Colors.green : Colors.white,
           shape: BoxShape.circle,
           border: Border.all(
             color: Colors.grey,
           ),
         ),
         child: Center(
-          child: widget.isfinished
-          if
-              Icon(
-                  Icons.check,
-                  color: Colors.white,
-                )
-               Text(
-                  '1',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
+          child: Column(
+            children: [
+              // if
+
+
+            ],
+          ),
+          // if(widget.state = 1) 
+          //     Icon(
+          //         Icons.check,
+          //         color: Colors.white,
+          //       ),
+          //      Text(
+          //         '1',
+          //         style: TextStyle(
+          //           color: Colors.black,
+          //         ),
+          //       ),
         ),
       ),
     );
