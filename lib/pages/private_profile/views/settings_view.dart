@@ -11,6 +11,9 @@ import 'package:locoo/shared/ui/cards/action_card_title.dart';
 import 'package:locoo/shared/ui/cards/action_text_card.dart';
 import 'package:locoo/shared/ui/cards/action_text_card_red.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 
 // Text(
 //                 'Settings',
@@ -246,46 +249,51 @@ class MadebyAndVersion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            //align center
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                "Made with ",
-                // add font size 12 and gray color
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
+    return GestureDetector(
+      //draw on tap confetti with Path drawStar(Size size) {
+        
+      
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              //align center
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  "Made with ",
+                  // add font size 12 and gray color
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-              Icon(
-                FlutterRemix.heart_3_fill,
-                color: Colors.red,
-                size: 14,
-              ),
-              Text(
-                " in Linz",
-                // add font size 12 and gray color
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
+                Icon(
+                  FlutterRemix.heart_3_fill,
+                  color: Colors.red,
+                  size: 14,
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 3),
-          const Text(
-            'Version 1.0.0',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey,
+                Text(
+                  " in Linz",
+                  // add font size 12 and gray color
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            SizedBox(height: 3),
+            const Text(
+              'Version 1.0.0',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
