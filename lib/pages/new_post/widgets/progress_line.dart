@@ -56,7 +56,7 @@ class ProgressLineHalf extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 1.2,
+                  height: 1,
                   color: Theme.of(context).primaryColor,
                 ),
               ),

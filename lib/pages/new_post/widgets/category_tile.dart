@@ -19,7 +19,7 @@ class CategoryTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       customBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Stack(
         children: [
@@ -27,7 +27,7 @@ class CategoryTile extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.08),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

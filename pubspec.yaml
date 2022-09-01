@@ -44,6 +44,7 @@ dependencies:
   dotted_line: ^3.1.0
   confetti: ^0.7.0
   package_info_plus: ^1.4.3+1
+  lottie: ^1.4.2
 
 
 dev_dependencies:
@@ -60,6 +61,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/lottie/
     - assets/appainter_theme.json
   fonts:
     - family: Inter

@@ -33,7 +33,9 @@ class NewPostSubcategorySelectionView extends GetView<NewPostController> {
           SizedBox(height: 28),
           Row(
             children: [
-              CircleStep(1, '1', () {}),
+              CircleStep(1, '1', () {
+                controller.jumpBack();
+              }),
               ProgressLineHalf(
                 isFinished: false,
               ),
