@@ -11,6 +11,8 @@ import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 import 'package:locoo/views/new_post/tag_dialog.dart';
 
 import 'new_post_controller.dart';
+import 'views/new_post_subcategory_selection_view.dart';
+import 'views/new_post_view.dart';
 import 'widgets/category_tile.dart';
 import 'widgets/circle_step.dart';
 import 'widgets/progress_line.dart';
@@ -144,161 +146,8 @@ class NewPostCategorySelectionView extends GetView<NewPostController> {
   }
 }
 
-class NewPostSubcategorySelectionView extends GetView<NewPostController> {
-  const NewPostSubcategorySelectionView({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    NewPostController controller = Get.find<NewPostController>();
-    return Column(
-      children: [
-        Text('Select a subcategory'),
-        const SizedBox(
-          height: 10,
-        ),
-        Obx(
-          () => Expanded(
-            child: ListView.separated(
-              itemCount: controller.subcategoriesForDisplay.length,
-              itemBuilder: (BuildContext context, int index) {
-                final categories = controller.subcategoriesForDisplay;
-                return InkWell(
-                  onTap: () {
-                    controller.updateSubcategory(categories[index]);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.lightGreen,
-                    ),
-                    child: Text(categories[index].name.toString()),
-                  ),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
-            ),
-          ),
-        ),
-        IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              controller.jumpBack();
-            })
-      ],
-    );
-  }
-}
 
-class NewPostView extends StatelessWidget {
-  final bool hasSubcategories;
-  const NewPostView({Key? key, this.hasSubcategories = true}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    NewPostController controller = Get.find<NewPostController>();
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
-      child: Form(
-        key: controller.formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-                controller.subcategory != CategoryOptions.None
-                    ? controller.subcategory.name.toString()
-                    : controller.category.name.toString(),
-                style: const TextStyle(fontSize: 20)),
-            const SizedBox(height: 20),
-            TextFormField(
-                controller: controller.titleController,
-                textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(labelText: 'Title'),
-                autovalidateMode: AutovalidateMode.disabled,
-                validator: (value) =>
-                    value != null && value.isEmpty ? 'Enter a title' : null),
-            SizedBox(height: 40),
-            TextFormField(
-                controller: controller.descriptionController,
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(labelText: 'Description'),
-                autovalidateMode: AutovalidateMode.disabled,
-                validator: (value) => value != null && value.isEmpty
-                    ? 'Enter a description'
-                    : null),
-            SizedBox(height: 10),
-            Center(
-                child: InkWell(
-              onTap: () => controller.showTagDialog(context),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.lightGreen,
-                ),
-                child: Icon(Icons.add, color: Colors.white),
-              ),
-            )),
-            Obx(
-              () => Wrap(
-                children: controller.tags
-                    .map((e) => Chip(
-                          deleteIcon: Icon(Icons.close),
-                          onDeleted: () {
-                            controller.removeTag(e);
-                          },
-                          label: Text('#$e'),
-                        ))
-                    .toList(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            GetBuilder<NewPostController>(
-              builder: (c) => controller.image != null
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: MemoryImage(controller.image!),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () => controller.deleteImage(),
-                        )
-                      ],
-                    )
-                  : Center(
-                      child: IconButton(
-                        icon: const Icon(Icons.upload),
-                        onPressed: () => controller.selectImage(context),
-                      ),
-                    ),
-            ),
-            const SizedBox(height: 20),
-            LocooTextButton(
-              text: 'Add Post',
-              onPressed: () => controller.addPost(),
-              icon: FlutterRemix.account_box_fill,
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                controller.jumpBack();
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 
 
