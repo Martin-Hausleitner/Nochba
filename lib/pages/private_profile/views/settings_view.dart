@@ -11,6 +11,7 @@ import 'package:locoo/shared/ui/cards/action_card_title.dart';
 import 'package:locoo/shared/ui/cards/action_text_card.dart';
 import 'package:locoo/shared/ui/cards/action_text_card_red.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
@@ -247,12 +248,15 @@ class MadebyAndVersion extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  Future<PackageInfo> _getPackageInfo() {
+    return PackageInfo.fromPlatform();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       //draw on tap confetti with Path drawStar(Size size) {
-        
-      
+
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -285,13 +289,38 @@ class MadebyAndVersion extends StatelessWidget {
               ],
             ),
             SizedBox(height: 3),
-            const Text(
-              'Version 1.0.0',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
+            //display packageInfo.version in Text
+            FutureBuilder<PackageInfo>(
+              future: _getPackageInfo(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                if (snapshot.hasError) {
+                  return const Text('ERROR');
+                } else if (!snapshot.hasData) {
+                  return const Text('Loading...');
+                }
+
+                final data = snapshot.data!;
+
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('App Name: ${data.appName}'),
+                    Text('Package Name: ${data.packageName}'),
+                    Text('Version: ${data.version}'),
+                    Text('Build Number: ${data.buildNumber}'),
+                  ],
+                );
+              },
             ),
+
+            // const Text(
+            //   'Version 1.0.0',
+            //   style: TextStyle(
+            //     fontSize: 12,
+            //     color: Colors.grey,
+            //   ),
+            // ),
           ],
         ),
       ),
