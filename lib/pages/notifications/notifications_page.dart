@@ -5,6 +5,8 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
+import 'package:locoo/shared/ui/locoo_text_field.dart';
+import 'package:locoo/shared/ui/pretty_textfield.dart';
 
 import 'notifications_controller.dart';
 
@@ -76,80 +78,104 @@ class NotificationsPage extends GetView<NotificationsController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  LocooCircularIconButton(
-                    iconData: FlutterRemix.close_line,
-                    fillColor: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.05),
-                    iconColor: Colors.black,
-                    radius: 32,
-                    onPressed: () => Navigator.pop(context),
-                  ),
+                  LocooTextField(
+                      label: 'First Nam',
+                      controller: TextEditingController(text: 'test'),
+                      textInputAction: TextInputAction.done,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) => value != null && value.length < 2
+                          ? 'Enter min. 2 characters'
+                          : null),
+                  LocooTextField(
+                      controller: TextEditingController(text: 'test'),
+                      textInputAction: TextInputAction.next,
+                      label: 'Email',
+                      validator: (value) => value != null && value.length < 2
+                          ? 'Enter min. 2 characters'
+                          : null),
+                  TextFormField(
+                      controller: TextEditingController(text: 't'),
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(labelText: 'Last Name'),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) => value != null && value.length < 2
+                          ? 'Enter min. 2 characters'
+                          : null),
 
-                  LocooCircularIconButton(
-                    iconData: Icons.remove,
-                    fillColor: Colors.red,
-                    iconColor: Colors.white,
-                    radius: 32,
-                    onPressed: () {},
-                  ),
-                  LocooCircularIconButton(
-                    iconData: Icons.add,
-                    fillColor: Colors.green,
-                    iconColor: Colors.white,
-                    radius: 48,
-                    onPressed: () {},
-                  ),
-                  LocooCircularIconButton(
-                    iconData: Icons.check,
-                    iconColor: Colors.green,
-                    outlineColor: Colors.green,
-                    onPressed: () {},
-                  ),
-                  SimpleElevatedButtonWithIcon(
-                    label: const Text("Done"),
-                    iconData: Icons.check,
-                    color: Colors.green,
-                    onPressed: () {},
-                  ),
+                  // LocooCircularIconButton(
+                  //   iconData: FlutterRemix.close_line,
+                  //   fillColor: Theme.of(context)
+                  //       .colorScheme
+                  //       .onSurface
+                  //       .withOpacity(0.05),
+                  //   iconColor: Colors.black,
+                  //   radius: 32,
+                  //   onPressed: () => Navigator.pop(context),
+                  // ),
+
+                  // LocooCircularIconButton(
+                  //   iconData: Icons.remove,
+                  //   fillColor: Colors.red,
+                  //   iconColor: Colors.white,
+                  //   radius: 32,
+                  //   onPressed: () {},
+                  // ),
+                  // LocooCircularIconButton(
+                  //   iconData: Icons.add,
+                  //   fillColor: Colors.green,
+                  //   iconColor: Colors.white,
+                  //   radius: 48,
+                  //   onPressed: () {},
+                  // ),
+                  // LocooCircularIconButton(
+                  //   iconData: Icons.check,
+                  //   iconColor: Colors.green,
+                  //   outlineColor: Colors.green,
+                  //   onPressed: () {},
+                  // ),
+                  // SimpleElevatedButtonWithIcon(
+                  //   label: const Text("Done"),
+                  //   iconData: Icons.check,
+                  //   color: Colors.green,
+                  //   onPressed: () {},
+                  // ),
 
                   // create a button with  HapticFeedback.lightImpact();
-                  LocooTextButton(
-                    label: 'HapticFeedback.lightImpact()',
-                    icon: Icons.check,
-                    onPressed: () {
-                      HapticFeedback.lightImpact();
-                    },
-                  ),
-                  LocooTextButton(
-                    label: 'HapticFeedback.heavyImpact();',
-                    icon: Icons.check,
-                    onPressed: () {
-                      HapticFeedback.heavyImpact();
-                    },
-                  ),
-                  LocooTextButton(
-                    label: 'mediumImpact()',
-                    icon: Icons.check,
-                    onPressed: () {
-                      HapticFeedback.mediumImpact();
-                    },
-                  ),
-                  LocooTextButton(
-                    label: 'selectionClick(',
-                    icon: Icons.check,
-                    onPressed: () {
-                      HapticFeedback.selectionClick();
-                    },
-                  ),
-                  LocooTextButton(
-                    label: 'vibrate()',
-                    icon: Icons.check,
-                    onPressed: () {
-                      HapticFeedback.vibrate();
-                    },
-                  ),
+                  // LocooTextButton(
+                  //   label: 'HapticFeedback.lightImpact()',
+                  //   icon: Icons.check,
+                  //   onPressed: () {
+                  //     HapticFeedback.lightImpact();
+                  //   },
+                  // ),
+                  // LocooTextButton(
+                  //   label: 'HapticFeedback.heavyImpact();',
+                  //   icon: Icons.check,
+                  //   onPressed: () {
+                  //     HapticFeedback.heavyImpact();
+                  //   },
+                  // ),
+                  // LocooTextButton(
+                  //   label: 'mediumImpact()',
+                  //   icon: Icons.check,
+                  //   onPressed: () {
+                  //     HapticFeedback.mediumImpact();
+                  //   },
+                  // ),
+                  // LocooTextButton(
+                  //   label: 'selectionClick(',
+                  //   icon: Icons.check,
+                  //   onPressed: () {
+                  //     HapticFeedback.selectionClick();
+                  //   },
+                  // ),
+                  // LocooTextButton(
+                  //   label: 'vibrate()',
+                  //   icon: Icons.check,
+                  //   onPressed: () {
+                  //     HapticFeedback.vibrate();
+                  //   },
+                  // ),
                 ],
               ),
             ),

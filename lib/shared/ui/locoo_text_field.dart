@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class LocooTextField extends StatefulWidget {
   final String label;
@@ -14,19 +15,20 @@ class LocooTextField extends StatefulWidget {
   final bool autofocus;
   final void Function(String)? onFieldSubmitted;
 
-  const LocooTextField(
-      {super.key,
-      required this.label,
-      this.keyboardType = TextInputType.text,
-      this.maxLines = 1,
-      // assign emty controller
-      this.controller,
-      this.textInputAction = TextInputAction.go,
-      this.obscureText = false,
-      this.autovalidateMode,
-      this.validator,
-      this.autofocus = false,
-      this.onFieldSubmitted});
+  const LocooTextField({
+    super.key,
+    required this.label,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
+    // assign emty controller
+    this.controller,
+    this.textInputAction = TextInputAction.go,
+    this.obscureText = false,
+    this.autovalidateMode,
+    this.validator,
+    this.autofocus = false,
+    this.onFieldSubmitted,
+  });
 
   // const LocooTextField({
   //   super.key,
@@ -67,54 +69,60 @@ class _LocooTextFieldState extends State<LocooTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: _borderColor, width: 1.5),
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-        ),
-        child: TextFormField(
-          controller: widget.controller,
-          focusNode: _focusNode,
-          keyboardType: widget.keyboardType,
-          maxLines: widget.maxLines,
-          textInputAction: widget.textInputAction,
-          obscureText: widget.obscureText,
-          autovalidateMode: widget.autovalidateMode,
-          validator: widget.validator,
-
-          autofocus: widget.autofocus,
-          // onFieldSubmitted: (value) => Get.back(),
-          onFieldSubmitted: widget.onFieldSubmitted,
-
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onSecondaryContainer),
-          // keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            contentPadding:
-
-                // top 8 bottom 8 left 8 right 8
-                EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            fillColor: Colors.red,
-            // counterText: //current word count
-            //     '',
-
-            // labelStyle: ,
-
-            border: InputBorder.none,
-            labelText: widget.label,
-
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            // prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
-            // prefixIcon: Padding(
-            //   padding: EdgeInsets.symmetric(vertical: 18, horizontal: 8),
-            //   child:
-            //       Text("₦", style: TextStyle(fontSize: 16, color: Colors.grey)),
-            // ),
+    return Column(
+      // align left
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: _borderColor, width: 1.5),
+            borderRadius: BorderRadius.circular(12),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+          ),
+          child: TextFormField(
+            controller: widget.controller,
+            focusNode: _focusNode,
+            keyboardType: widget.keyboardType,
+            maxLines: widget.maxLines,
+            textInputAction: widget.textInputAction,
+            obscureText: widget.obscureText,
+            autovalidateMode: widget.autovalidateMode,
+            validator: widget.validator,
+            autofocus: widget.autofocus,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondaryContainer),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              fillColor: Colors.red,
+              border: InputBorder.none,
+              labelText: widget.label,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+            ),
           ),
         ),
-      ),
+        // shoe the validation error and print it to a text
+        Visibility(
+          visible: false,
+          child: Padding(
+            padding:
+                // left 10
+                const EdgeInsets.only(left: 12, top: 3.5),
+            child: Text(
+              widget.controller!.text,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: //error color
+                        Theme.of(context).colorScheme.error,
+                  ),
+            ),
+          ),
+        ),
+
+        // Visibility(
+        //   child: Text(widget.validator)),
+        //   visible: true,
+        // ),
+      ],
     );
   }
 }

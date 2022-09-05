@@ -41,7 +41,7 @@ class SignUpPage extends GetView<AuthController> {
                             : null),
                     const SizedBox(height: 4),
                     LocooTextField(
-                        label: 'First Name',
+                        label: 'First Nam',
                         controller: controller.passwordController,
                         textInputAction: TextInputAction.done,
                         autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -55,6 +55,7 @@ class LoginPage extends GetView<AuthController> {
               Column(
                 children: [
                   const SizedBox(height: 40),
+                
                   LocooTextField(
                     controller: controller.emailController,
                     textInputAction: TextInputAction.next,
