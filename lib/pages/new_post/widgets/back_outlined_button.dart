@@ -22,7 +22,7 @@ class BackOutlinedButton extends StatelessWidget {
         minimumSize: const Size.fromHeight(60),
         primary: Theme.of(context).colorScheme.onSurface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(140),
         ),
         // splashFactory: InkRipple.splashFactory,
         // enableFeedback: true,

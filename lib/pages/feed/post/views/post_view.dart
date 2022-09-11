@@ -19,19 +19,100 @@ import '../widgets/category_badge.dart';
 import '../widgets/hashtag_badges.dart';
 import '../widgets/post_profile.dart';
 
+class PostView extends StatelessWidget {
+  final models.Post post;
+  final String postAuthorImage;
+  final String postAuthorName;
+  const PostView(
+      {super.key,
+      required this.post,
+      required this.postAuthorImage,
+      required this.postAuthorName});
+
+  @override
+  Widget build(BuildContext context) {
+    if (post.imageUrl == '') {
+      return PostViewNoImage(
+          post: this.post,
+          postAuthorImage: this.postAuthorImage,
+          postAuthorName: this.postAuthorName);
+    } else {
+      return PostViewImage(
+          post: this.post,
+          postAuthorImage: this.postAuthorImage,
+          postAuthorName: this.postAuthorName);
+    }
+  }
+}
+
+class PostViewNoImage extends StatelessWidget {
+  final models.Post post;
+  final String postAuthorImage;
+  final String postAuthorName;
+  const PostViewNoImage(
+      {super.key,
+      required this.post,
+      required this.postAuthorImage,
+      required this.postAuthorName});
+
+  @override
+  Widget build(BuildContext context) {
+    // return a scaffold with a appbar
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Post'),
+        leading: IconButton(
+          splashRadius: 0.0001,
+          icon: Icon(
+            Icons.arrow_back_outlined,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              splashRadius: 0.0001,
+
+              icon: Icon(
+                FlutterRemix.more_line,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              //onPress open SettingsPage
+              onPressed: () {
+                //opne snackbar
+                Get.snackbar(
+                  "Settings",
+                  "This is a snackbar",
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      body: Container(
+        color: Colors.red,
+      ),
+    );
+  }
+}
+
 const startColor = Colors.black;
 const targetColor = Colors.white;
 
 const startIconColor = Colors.white;
 const targetIconColor = Colors.black;
 
-class PostView extends StatefulWidget {
+class PostViewImage extends StatefulWidget {
   final String postAuthorImage;
   final String postAuthorName;
 
   final models.Post post;
   CategoryOptions category = CategoryOptions.None;
-  PostView(
+  PostViewImage(
       {Key? key,
       required this.postAuthorImage,
       required this.postAuthorName,
@@ -39,10 +120,10 @@ class PostView extends StatefulWidget {
       : super(key: key);
 
   @override
-  _PostViewState createState() => _PostViewState();
+  _PostViewImageState createState() => _PostViewImageState();
 }
 
-class _PostViewState extends State<PostView> {
+class _PostViewImageState extends State<PostViewImage> {
   final scrollController = ScrollController();
 
   final appBarColorTween = ColorTween(begin: startColor, end: targetColor);
@@ -77,6 +158,7 @@ class _PostViewState extends State<PostView> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+      // if widget.post.imageUrl is null then return Container else return CustomScrollView
       body: CustomScrollView(
         //disable scroll bar
 
@@ -88,10 +170,13 @@ class _PostViewState extends State<PostView> {
             // if widget.post.imageUrl is null
 
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                widget.post.imageUrl,
-                // post.imageUrl,
-                fit: BoxFit.cover,
+              background: Hero(
+                tag: widget.post.id,
+                child: Image.network(
+                  widget.post.imageUrl,
+                  // post.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             pinned: true,
@@ -260,7 +345,7 @@ class _PostViewState extends State<PostView> {
                 // red container balck border 700 height 100 width 100
 
                 //red conteienr 5000 height
-                // const SizedBox(height: 5000),
+                const SizedBox(height: 5000),
               ],
             ),
           ),

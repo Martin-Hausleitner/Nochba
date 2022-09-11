@@ -45,7 +45,7 @@ class Post extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PostView(
+            builder: (context) => PostViewImage(
               post: post,
               postAuthorName: postAuthorName,
               postAuthorImage: postAuthorImage,
@@ -132,9 +132,12 @@ class Post extends StatelessWidget {
                         width: double.infinity,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(22),
-                          child: Image.network(
-                            post.imageUrl,
-                            fit: BoxFit.cover,
+                          child: Hero(
+                            tag: post.id,
+                            child: Image.network(
+                              post.imageUrl,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),

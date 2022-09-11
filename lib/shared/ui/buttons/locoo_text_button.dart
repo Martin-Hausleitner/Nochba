@@ -26,7 +26,8 @@ class LocooTextButton extends StatelessWidget {
         label,
         style: Theme.of(context).textTheme.button?.copyWith(
               color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
-              letterSpacing: -0.07,
+              letterSpacing: 0.00,
+              fontWeight: FontWeight.w500,
             ),
       ),
       style: ElevatedButton.styleFrom(
@@ -35,7 +36,7 @@ class LocooTextButton extends StatelessWidget {
         shadowColor: Colors.transparent,
         // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(140),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       ),
