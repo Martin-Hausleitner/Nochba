@@ -42,7 +42,7 @@ class FeedPage extends GetView<FeedController> {
                   builder: (BuildContext context) {
                     return Container(
                       // height of the modal bottom sheet
-                      height: MediaQuery.of(context).size.height * 0.723,
+                      height: 580,
                       child: FeedPostFilterView(),
                     );
                   },

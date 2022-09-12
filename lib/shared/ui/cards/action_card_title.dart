@@ -8,7 +8,7 @@ class ActionCardTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8, top: 12),
+      padding: const EdgeInsets.only(bottom: 8, top: 12, left: 17),
       child: Text(
         title.toUpperCase(),
         //align left
