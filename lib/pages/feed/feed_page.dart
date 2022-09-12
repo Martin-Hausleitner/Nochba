@@ -7,7 +7,7 @@ import 'package:locoo/models/data_access.dart';
 import 'package:locoo/pages/feed/post/post.dart';
 import 'package:locoo/models/post.dart' as models;
 import 'package:locoo/models/user.dart' as models;
-import 'package:locoo/shared/ui/filter_range_slider.dart';
+import 'package:locoo/pages/feed/post/views/feed_post_filter_view.dart';
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
@@ -21,7 +21,35 @@ class FeedPage extends GetView<FeedController> {
         value: SystemUiOverlayStyle.dark,
         child: Column(
           children: [
-            LocooRangeSlider(),
+            // LocooRangeSlider(),
+            ElevatedButton(
+              child: const Text('Filter'),
+              // onPressed: () {
+              //   showModalBottomSheet<void>(
+              //     context: context,
+              //     builder: (BuildContext context) {
+              //       return FeedPostFilterView();
+              //     },
+              //   );
+              // },
+              onPressed: () {
+                showModalBottomSheet<void>(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(25.0))),
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return Container(
+                      // height of the modal bottom sheet
+                      height: MediaQuery.of(context).size.height * 0.723,
+                      child: FeedPostFilterView(),
+                    );
+                  },
+                );
+              },
+            ),
+
             Expanded(
               child: StreamBuilder<List<models.Post>>(
                 stream: dataAccess.getPosts(),
