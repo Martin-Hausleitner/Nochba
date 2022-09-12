@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/models/category.dart';
 import 'package:locoo/models/data_access.dart';
 import 'package:locoo/pages/feed/post/post.dart';
 import 'package:locoo/models/post.dart' as models;
 import 'package:locoo/models/user.dart' as models;
+import 'package:locoo/shared/ui/filter_range_slider.dart';
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
@@ -19,7 +21,7 @@ class FeedPage extends GetView<FeedController> {
         value: SystemUiOverlayStyle.dark,
         child: Column(
           children: [
-            
+            LocooRangeSlider(),
             Expanded(
               child: StreamBuilder<List<models.Post>>(
                 stream: dataAccess.getPosts(),
