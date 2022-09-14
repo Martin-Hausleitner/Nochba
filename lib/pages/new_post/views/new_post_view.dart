@@ -91,19 +91,30 @@ class NewPostView extends StatelessWidget {
                             // color: Theme.of(context).secondaryHeaderColor,
                             ),
                       ),
+                      SizedBox(height: 20),
+
                       TextFormField(
                           controller: controller.titleController,
-                          textInputAction: TextInputAction.done,
-                          decoration: const InputDecoration(labelText: 'Title'),
+                          textInputAction: TextInputAction.next,
+                          decoration: const InputDecoration(
+                            labelText: 'Titel',
+                            border: OutlineInputBorder(),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                          ),
                           autovalidateMode: AutovalidateMode.disabled,
                           validator: (value) => value != null && value.isEmpty
                               ? 'Enter a title'
                               : null),
-                      SizedBox(height: 40),
+                      SizedBox(height: 20),
                       TextFormField(
+                          maxLines: 10,
                           controller: controller.descriptionController,
                           textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(labelText: 'Description'),
+                          decoration: const InputDecoration(
+                            labelText: 'Beschreibung',
+                            border: OutlineInputBorder(),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                          ),
                           autovalidateMode: AutovalidateMode.disabled,
                           validator: (value) => value != null && value.isEmpty
                               ? 'Enter a description'
@@ -199,6 +210,8 @@ class BottomNavBar extends StatelessWidget {
                 () {
               controller.addPost();
               controller.jumpToPage(4);
+              //close keyboard
+              FocusScope.of(context).unfocus();
               // Get.to(PublishedNewPostView());
             },
             controller: controller,
