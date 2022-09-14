@@ -89,7 +89,7 @@
   "canvasColor": "#fffafdfa",
   "cardColor": "#fffafdfa",
   "colorScheme": {
-    "background": "#fffafdfa",
+    "background": "#fff9f9f9",
     "brightness": "light",
     "error": "#ffba1b1b",
     "errorContainer": "#ffffdad4",
@@ -239,7 +239,7 @@
       "inherit": true
     }
   },
-  "scaffoldBackgroundColor": "#fffafdfa",
+  "scaffoldBackgroundColor": "#ffffffff",
   "secondaryHeaderColor": "#ffe3f2fd",
   "selectedRowColor": "#fff5f5f5",
   "shadowColor": "#ff000000",
@@ -250,9 +250,7 @@
       "color": "#dd000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 16,
       "inherit": true,
@@ -263,9 +261,7 @@
       "color": "#dd000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 14,
       "inherit": true,
@@ -276,9 +272,7 @@
       "color": "#8a000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 12,
       "inherit": true,
@@ -289,9 +283,7 @@
       "color": "#8a000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w300",
       "fontSize": 96,
       "inherit": true,
@@ -302,9 +294,7 @@
       "color": "#8a000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w300",
       "fontSize": 60,
       "inherit": true,
@@ -315,9 +305,7 @@
       "color": "#8a000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 48,
       "inherit": true,
@@ -328,18 +316,14 @@
       "color": "#8a000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "inherit": true
     },
     "headlineMedium": {
       "color": "#8a000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 34,
       "inherit": true,
@@ -350,9 +334,7 @@
       "color": "#dd000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 24,
       "inherit": true,
@@ -363,9 +345,7 @@
       "color": "#dd000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w500",
       "fontSize": 14,
       "inherit": true,
@@ -376,18 +356,14 @@
       "color": "#ff000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "inherit": true
     },
     "labelSmall": {
       "color": "#ff000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 10,
       "inherit": true,
@@ -398,9 +374,7 @@
       "color": "#dd000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w500",
       "fontSize": 20,
       "inherit": true,
@@ -411,9 +385,7 @@
       "color": "#dd000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w400",
       "fontSize": 16,
       "inherit": true,
@@ -424,9 +396,7 @@
       "color": "#ff000000",
       "decoration": "none",
       "fontFamily": "Inter",
-      "fontFamilyFallback": [
-        "Inter"
-      ],
+      "fontFamilyFallback": ["Inter"],
       "fontWeight": "w500",
       "fontSize": 14,
       "inherit": true,

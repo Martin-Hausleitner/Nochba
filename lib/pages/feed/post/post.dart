@@ -45,7 +45,7 @@ class Post extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PostViewImage(
+            builder: (context) => PostView(
               post: post,
               postAuthorName: postAuthorName,
               postAuthorImage: postAuthorImage,

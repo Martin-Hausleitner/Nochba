@@ -17,6 +17,7 @@ class FeedPage extends GetView<FeedController> {
   Widget build(BuildContext context) {
     final dataAccess = Get.find<DataAccess>();
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: Column(

@@ -28,36 +28,37 @@ class OwnPostsView extends StatelessWidget {
 
     return CupertinoTheme(
       data: CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(
-            navTitleTextStyle:
-                Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      // fontFamily: 'Inter',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      // letterSpacing: -0.5,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
-            // navLargeTitleTextStyle: GoogleFonts.inter(
-            //   fontSize: 30,
-            //   fontWeight: FontWeight.w800,
-            //   letterSpacing: -0.5,
-            //   color: Theme.of(context).colorScheme.onSecondaryContainer,
-            //   // color: Colors.black,
-            // ),
-            navLargeTitleTextStyle:
-                Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      // fontFamily: 'Inter',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.5,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
-          ),
-          barBackgroundColor: Theme.of(context).scaffoldBackgroundColor),
+        textTheme: CupertinoTextThemeData(
+          navTitleTextStyle:
+              Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    // fontFamily: 'Inter',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    // letterSpacing: -0.5,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+          // navLargeTitleTextStyle: GoogleFonts.inter(
+          //   fontSize: 30,
+          //   fontWeight: FontWeight.w800,
+          //   letterSpacing: -0.5,
+          //   color: Theme.of(context).colorScheme.onSecondaryContainer,
+          //   // color: Colors.black,
+          // ),
+          navLargeTitleTextStyle:
+              Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    // fontFamily: 'Inter',
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.5,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+        ),
+        barBackgroundColor: Theme.of(context).colorScheme.background,
+      ),
       child: Scaffold(
-        // backgroundColor:
-        // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.97),
-        // Theme.of(context).backgroundColor,
+        backgroundColor:
+            // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.97),
+            Theme.of(context).colorScheme.background,
         body: CustomScrollView(
           // A list of sliver widgets.
           slivers: <Widget>[

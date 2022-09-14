@@ -57,15 +57,19 @@ class PostViewNoImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double spacingBetween = 13;
+
     // return a scaffold with a appbar
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Text('Post'),
         leading: IconButton(
           splashRadius: 0.0001,
           icon: Icon(
             Icons.arrow_back_outlined,
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
           onPressed: () {
             Get.back();
@@ -79,7 +83,7 @@ class PostViewNoImage extends StatelessWidget {
 
               icon: Icon(
                 FlutterRemix.more_line,
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
               //onPress open SettingsPage
               onPressed: () {
@@ -93,8 +97,120 @@ class PostViewNoImage extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        color: Colors.red,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Expanded(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(post.title,
+                        //chnage the space between the words
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                )),
+                  ),
+
+                  const SizedBox(height: spacingBetween),
+
+                  // Badges
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      // Category Badge
+                      // CategoryBadge(
+                      //   category: post.category,
+                      // ),
+
+                      // Hashtag Badges
+                      Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.only(left: 6),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              HashtagBadges(hashtags: post.tags),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: spacingBetween),
+
+                  // Post Profile
+                  PostProfile(
+                    authorImage: postAuthorImage,
+                    authorName: postAuthorName,
+                    publishDate: '---',
+                    distance: '---',
+                  ),
+
+                  const SizedBox(height: spacingBetween),
+
+                  // Discription(postDescription: widget.post.description),
+
+                  //when the catogory is Suche the button2 is visible
+
+                  // place a dark green button with a text "anschreiben" and a comment icon on the left side of the button
+
+                  // Post Image
+
+                  // Button
+                  // if (widget.category == CategoryModul.search ||
+                  //     CategoryModul.subCategoriesOfSearch
+                  //         .contains(category) ||
+                  //     widget.category == CategoryModul.lending ||
+                  //     CategoryModul.subCategoriesOfLending
+                  //         .contains(widget.category))
+                  //   Padding(
+                  //     padding: EdgeInsets.only(top: spacingBetween),
+                  //     child: LocooTextButton(
+                  //       label: 'Anschreiben',
+                  //       height: 48,
+                  //       icon: FlutterRemix
+                  //           .chat_1_fill, //onpres open Get.Snackbar
+                  //       onPressed: () {
+                  //         Get.snackbar(
+                  //           'Anschreiben',
+                  //           'Du hast den Button gedrückt',
+                  //         );
+                  //       },
+                  //     ),
+                  //   ),
+
+                  Text(
+                    //print postDescription.split('\n').length as string
+                    post.description,
+
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.7),
+                          letterSpacing: -0.1,
+                        ),
+                  ),
+                  const SizedBox(height: spacingBetween),
+
+                  // Action Bar
+                  ActionBar(
+                    post: post,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
