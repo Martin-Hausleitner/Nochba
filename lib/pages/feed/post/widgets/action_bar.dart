@@ -8,8 +8,6 @@ import 'package:locoo/models/bookmark.dart';
 import 'package:locoo/models/data_access.dart';
 import 'package:locoo/models/post.dart';
 
-
-
 //create a ActionBar class which have multiple round icon Buttons
 
 class ActionBar extends StatelessWidget {
@@ -73,9 +71,9 @@ class ActionBar extends StatelessWidget {
           StreamBuilder<BookMark?>(
             stream: dataAccess.getBookMarkOfCurrentUser(),
             builder: ((context, snapshot) {
-              if(snapshot.hasData) {
+              if (snapshot.hasData) {
                 final bookMark = snapshot.data!;
-                if(bookMark.posts.contains(post.id)) {
+                if (bookMark.posts.contains(post.id)) {
                   return RoundIconButton(
                     icon: Icons.bookmark,
                     color: Theme.of(context).colorScheme.primary,
@@ -95,10 +93,7 @@ class ActionBar extends StatelessWidget {
                 }
               } else {
                 return RoundIconButton(
-                  icon: Icons.bookmark,
-                  color: Colors.grey,
-                  onPressed: () {}
-                );
+                    icon: Icons.bookmark, color: Colors.grey, onPressed: () {});
               }
             }),
           ),
@@ -106,9 +101,27 @@ class ActionBar extends StatelessWidget {
           RoundIconButton(
             icon: Icons.more_horiz,
             onPressed: () {
-              Get.snackbar(
-                "Edit",
-                "Edit your profile",
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 200,
+                    color: Colors.amber,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          const Text('Modal BottomSheet'),
+                          ElevatedButton(
+                            child: const Text('Close BottomSheet'),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               );
             },
           ),
