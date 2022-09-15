@@ -27,7 +27,87 @@ class ActionBarMore extends StatelessWidget {
                 title: 'Post melden',
                 icon: FlutterRemix.flag_line,
                 onTap: () {
-                  print('test');
+                  showModalBottomSheet<dynamic>(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(25.0))),
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return BottomSheetTitleCloseView(
+                        title: 'Melden',
+                        children: [
+                          Padding(
+                            padding: //right 15 left 15 bottom 5 top 1
+                                const EdgeInsets.only(
+                                    right: 15, left: 15, bottom: 5),
+                            child: Column(
+                              children: [
+                                //show 10 ActionCards
+                                ActionCard(
+                                  title: 'Spam',
+                                  onTap: () {
+                                    showModalBottomSheet<dynamic>(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(25.0))),
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return BottomSheetTitleCloseView(
+                        title: 'Melden',
+                        children: [
+                          Padding(
+                            padding: //right 15 left 15 bottom 5 top 1
+                                const EdgeInsets.only(
+                                    right: 15, left: 15, bottom: 5),
+                            child: Column(
+                              children: [
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                                  },
+                                ),
+
+                                
+                                ),
+                                ActionCard(
+                                  title: 'Nicht jugendfrei',
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ActionCard(
+                                  title: 'Gewalt',
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+
+                                ActionCard(
+                                  title: 'Nicht jugendfrei',
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+
+                                // ActionCard(
+                                //   title: 'Post bearbeiten',
+                                //   onTap: () {
+                                //     print('test');
+                                //   },
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
               ActionCard(
