@@ -23,6 +23,7 @@ class ManageAccountView extends StatelessWidget {
           icon: Icon(FlutterRemix.user_line),
           onTap: () {
             showModalBottomSheet<void>(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(25.0))),
@@ -52,6 +53,7 @@ class ManageAccountView extends StatelessWidget {
           icon: Icon(FlutterRemix.user_line),
           onTap: () {
             showModalBottomSheet<void>(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(25.0))),
@@ -81,6 +83,7 @@ class ManageAccountView extends StatelessWidget {
           icon: Icon(FlutterRemix.user_line),
           onTap: () {
             showModalBottomSheet<void>(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(25.0))),

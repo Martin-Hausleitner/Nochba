@@ -10,7 +10,7 @@ class BookmarkedPostsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBarBigView(
         title: 'Gespeicherten Posts',
-        BackgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.background,
         children: [
           Text('lol'),
         ]);

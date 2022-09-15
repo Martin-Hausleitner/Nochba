@@ -103,6 +103,7 @@ class ActionBar extends StatelessWidget {
             icon: Icons.more_horiz,
             onPressed: () {
               showModalBottomSheet<dynamic>(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(25.0))),

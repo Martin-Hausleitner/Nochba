@@ -28,6 +28,7 @@ class ActionBarMore extends StatelessWidget {
                 icon: FlutterRemix.flag_line,
                 onTap: () {
                   showModalBottomSheet<dynamic>(
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     shape: RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(25.0))),
@@ -48,32 +49,34 @@ class ActionBarMore extends StatelessWidget {
                                   title: 'Spam',
                                   onTap: () {
                                     showModalBottomSheet<dynamic>(
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(25.0))),
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return BottomSheetTitleCloseView(
-                        title: 'Melden',
-                        children: [
-                          Padding(
-                            padding: //right 15 left 15 bottom 5 top 1
-                                const EdgeInsets.only(
-                                    right: 15, left: 15, bottom: 5),
-                            child: Column(
-                              children: [
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                                      backgroundColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(25.0))),
+                                      context: context,
+                                      isScrollControlled: true,
+                                      builder: (BuildContext context) {
+                                        return BottomSheetTitleCloseView(
+                                          title: 'Melden',
+                                          children: [
+                                            Padding(
+                                              padding: //right 15 left 15 bottom 5 top 1
+                                                  const EdgeInsets.only(
+                                                      right: 15,
+                                                      left: 15,
+                                                      bottom: 5),
+                                              child: Column(
+                                                children: [],
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   },
                                 ),
 
-                                
                                 //),
                                 ActionCard(
                                   title: 'Nicht jugendfrei',

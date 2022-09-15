@@ -33,6 +33,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBarBigView(
       title: 'Einstellungen',
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         ActionCardTitle(
           title: 'Konto',

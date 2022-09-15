@@ -6,14 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppBarBigView extends StatelessWidget {
   final String title;
-  final Color? BackgroundColor;
+  final Color? backgroundColor;
   final List<Widget> children;
 
   const AppBarBigView(
       {super.key,
       required this.title,
       required this.children,
-      this.BackgroundColor});
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +35,10 @@ class AppBarBigView extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onSecondaryContainer,
                   ),
         ),
-        barBackgroundColor: BackgroundColor,
+        barBackgroundColor: backgroundColor,
       ),
       child: Scaffold(
-        backgroundColor: BackgroundColor,
+        backgroundColor: backgroundColor,
         // Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
         body: CustomScrollView(
           //disable scroll bar
