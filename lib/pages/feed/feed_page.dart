@@ -41,11 +41,7 @@ class FeedPage extends GetView<FeedController> {
                   context: context,
                   isScrollControlled: true,
                   builder: (BuildContext context) {
-                    return Container(
-                      // height of the modal bottom sheet
-                      height: 580,
-                      child: FeedPostFilterView(),
-                    );
+                    return FeedPostFilterView();
                   },
                 );
               },

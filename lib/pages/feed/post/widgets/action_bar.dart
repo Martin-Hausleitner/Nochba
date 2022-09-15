@@ -102,10 +102,19 @@ class ActionBar extends StatelessWidget {
           RoundIconButton(
             icon: Icons.more_horiz,
             onPressed: () {
-              showModalBottomSheet<void>(
+              showModalBottomSheet<dynamic>(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25.0))),
                 context: context,
+                isScrollControlled: true,
                 builder: (BuildContext context) {
-                  return ActionBarMore();
+                  return
+                      // height of the modal bottom sheet
+                      ActionBarMore(
+                    postID: post.id,
+                    userID: 'lol',
+                  );
                 },
               );
             },
@@ -119,4 +128,3 @@ class ActionBar extends StatelessWidget {
     );
   }
 }
-

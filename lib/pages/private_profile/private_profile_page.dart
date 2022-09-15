@@ -166,10 +166,9 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         ActionCard(
                           title: 'Deine Posts',
-                          icon: Icon(
-                            FlutterRemix.file_list_2_line,
-                            // color: Colors.red,
-                          ),
+                          icon: FlutterRemix.file_list_2_line,
+                          // color: Colors.red,
+
                           onTap: () {
                             //get open settingfs page
 
@@ -182,7 +181,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         ActionCard(
                           title: 'Deine Gespeicherten Posts',
-                          icon: Icon(FlutterRemix.bookmark_line),
+                          icon: FlutterRemix.bookmark_line,
                           onTap: () {
                             //get open settingfs page
                             Get.to(
@@ -197,7 +196,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         ActionCard(
                           title: 'Veranstaltungen',
-                          icon: Icon(FlutterRemix.calendar_event_line),
+                          icon: FlutterRemix.calendar_event_line,
                           onTap: () {
                             Get.snackbar("Pressed", "Pressed");
                           },
@@ -207,7 +206,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         ActionCard(
                           title: 'Profil Bearbeiten',
-                          icon: Icon(FlutterRemix.user_line),
+                          icon: FlutterRemix.user_line,
                           onTap: () {
                             //get open settingfs page
                             Get.to(
@@ -219,7 +218,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         ActionCard(
                           title: 'Einstellungen',
-                          icon: Icon(FlutterRemix.settings_3_line),
+                          icon: FlutterRemix.settings_3_line,
                           onTap: () {
                             //get open settingfs page
                             Get.to(

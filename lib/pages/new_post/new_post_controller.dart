@@ -13,17 +13,16 @@ import 'package:locoo/views/new_post/tag_dialog.dart';
 import '../../models/post.dart';
 
 class NewPostController extends GetxController {
-
   final pageController = PageController(initialPage: 0);
 
   final Rx<CategoryOptions> _category = CategoryOptions.None.obs;
   final Rx<CategoryOptions> _subcategory = CategoryOptions.None.obs;
-  final RxList<CategoryOptions> _subcategoriesForDisplay = <CategoryOptions>[CategoryOptions.Other].obs;
+  final RxList<CategoryOptions> _subcategoriesForDisplay =
+      <CategoryOptions>[CategoryOptions.Other].obs;
 
   CategoryOptions get category => _category.value;
   CategoryOptions get subcategory => _subcategory.value;
   List<CategoryOptions> get subcategoriesForDisplay => _subcategoriesForDisplay;
-
 
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
@@ -39,31 +38,31 @@ class NewPostController extends GetxController {
   final dataAccess = Get.find<DataAccess>();
 
   updateCategory(CategoryOptions newCategory) {
-    if(newCategory == CategoryModul.message) {
+    if (newCategory == CategoryModul.message) {
       _category.value = CategoryModul.message;
-      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfMessage + [CategoryOptions.Other];
-      
-      pageController.jumpToPage(1);
+      _subcategoriesForDisplay.value =
+          CategoryModul.subCategoriesOfMessage + [CategoryOptions.Other];
 
-    } else if(newCategory == CategoryModul.search) {
+      pageController.jumpToPage(1);
+    } else if (newCategory == CategoryModul.search) {
       _category.value = CategoryModul.search;
-      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfSearch  + [CategoryOptions.Other];
+      _subcategoriesForDisplay.value =
+          CategoryModul.subCategoriesOfSearch + [CategoryOptions.Other];
 
       pageController.jumpToPage(1);
-
-    } else if(newCategory == CategoryModul.lending) {
+    } else if (newCategory == CategoryModul.lending) {
       _category.value = CategoryModul.lending;
-      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfLending  + [CategoryOptions.Other];
+      _subcategoriesForDisplay.value =
+          CategoryModul.subCategoriesOfLending + [CategoryOptions.Other];
 
       pageController.jumpToPage(2);
-
-    } else if(newCategory == CategoryModul.event) {
+    } else if (newCategory == CategoryModul.event) {
       _category.value = CategoryModul.event;
-      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfEvent + [CategoryOptions.Other];
+      _subcategoriesForDisplay.value =
+          CategoryModul.subCategoriesOfEvent + [CategoryOptions.Other];
 
       pageController.jumpToPage(2);
-    } 
-
+    }
 
     /*pageController.animateToPage(
                         1,
@@ -71,21 +70,24 @@ class NewPostController extends GetxController {
                         curve: Curves.easeInOut,
                       );*/
   }
+
   // create JumpToPage which pageController.jumpToPage(2);
   jumpToPage(int page) {
     pageController.jumpToPage(page);
   }
 
   updateSubcategory(CategoryOptions newSubcategory) {
-    if(CategoryModul.subCategories.contains(newSubcategory) || newSubcategory == CategoryOptions.Other) {
-      _subcategory.value = newSubcategory == CategoryOptions.Other ? category : newSubcategory;
+    if (CategoryModul.subCategories.contains(newSubcategory) ||
+        newSubcategory == CategoryOptions.Other) {
+      _subcategory.value =
+          newSubcategory == CategoryOptions.Other ? category : newSubcategory;
 
       pageController.jumpToPage(2);
     }
   }
 
   jumpBack() {
-    if(_subcategory.value == CategoryOptions.None) {
+    if (_subcategory.value == CategoryOptions.None) {
       _category.value = CategoryOptions.None;
       pageController.jumpToPage(0);
     } else {
@@ -111,7 +113,6 @@ class NewPostController extends GetxController {
   }
 
   void showTagDialog(BuildContext context) async {
-
     final String result = await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -123,29 +124,31 @@ class NewPostController extends GetxController {
   }
 
   selectImage(BuildContext context) {
-    return showDialog(context: context, builder: (context) {
-      return SimpleDialog(
-        title: const Text('Create a post'),
-        children: [
-          SimpleDialogOption(
-            padding: const EdgeInsets.all(20),
-            child: const Text('Pick an image'),
-            onPressed: () async {
-              Navigator.of(context).pop();
-              await pickImage(ImageSource.gallery);
-            },
-          ),
-          SimpleDialogOption(
-            padding: const EdgeInsets.all(20),
-            child: const Text('Take a photo'),
-            onPressed: () async {
-              Navigator.of(context).pop();
-              await pickImage(ImageSource.camera);
-            },
-          )
-        ],
-      );
-    });
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Create a post'),
+            children: [
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Pick an image'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await pickImage(ImageSource.gallery);
+                },
+              ),
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Take a photo'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await pickImage(ImageSource.camera);
+                },
+              )
+            ],
+          );
+        });
   }
 
   pickImage(ImageSource imageSource) async {
@@ -153,7 +156,7 @@ class NewPostController extends GetxController {
 
     XFile? file = await imagePicker.pickImage(source: imageSource);
 
-    if(file != null) {
+    if (file != null) {
       imageName = file.path.split('/').last;
       image = await file.readAsBytes();
       update();
@@ -168,9 +171,11 @@ class NewPostController extends GetxController {
 
   addPost() async {
     final isValid = formKey.currentState!.validate();
-    if(!isValid || category == CategoryOptions.None) return;
+    if (!isValid || category == CategoryOptions.None) return;
 
-    final imageUrl = image == null ? '' : await dataAccess.uploadPostImageToStorage(imageName, image!);
+    final imageUrl = image == null
+        ? ''
+        : await dataAccess.uploadPostImageToStorage(imageName, image!);
 
     final post = Post(
       user: FirebaseAuth.instance.currentUser!.uid,
@@ -178,16 +183,18 @@ class NewPostController extends GetxController {
       description: descriptionController.text.trim(),
       imageUrl: imageUrl,
       createdAt: Timestamp.now(),
-      category: subcategory != CategoryOptions.None ? subcategory.name.toString() : category.name.toString(),
+      category: subcategory != CategoryOptions.None
+          ? subcategory.name.toString()
+          : category.name.toString(),
       tags: tags,
       liked: [],
     );
 
-    try{
+    try {
       final doc = FirebaseFirestore.instance.collection('posts').doc();
       post.id = doc.id;
-      doc.set(post.toJson());    
-    } on FirebaseAuthException catch(e) {
+      doc.set(post.toJson());
+    } on FirebaseAuthException catch (e) {
       print(e);
       Get.snackbar('Error', e.message!);
     }
@@ -205,7 +212,8 @@ class NewPostController extends GetxController {
     pageController.jumpToPage(0);
   }
 
-  @override void dispose() {
+  @override
+  void dispose() {
     pageController.dispose();
     titleController.dispose();
     descriptionController.dispose();

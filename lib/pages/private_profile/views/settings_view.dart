@@ -39,7 +39,7 @@ class SettingsView extends StatelessWidget {
         ),
         ActionCard(
           title: 'Konto verwalten',
-          icon: Icon(FlutterRemix.user_line),
+          icon: FlutterRemix.user_line,
           onTap: () {
             Get.to(
               // routeName: 'test',
@@ -53,30 +53,28 @@ class SettingsView extends StatelessWidget {
 
         ActionCard(
           title: 'Benachrichtigungen',
-          icon: Icon(FlutterRemix.notification_2_line),
+          icon: FlutterRemix.notification_2_line,
           onTap: () {
             Get.snackbar("Pressed", "Pressed");
           },
         ),
         ActionCard(
           title: 'Sprache',
-          icon: Icon(
-            Icons.translate_rounded,
-          ),
+          icon: Icons.translate_rounded,
           onTap: () {
             Get.snackbar("Pressed", "Pressed");
           },
         ),
         ActionCard(
           title: 'Erscheinungsbild',
-          icon: Icon(FlutterRemix.contrast_2_line),
+          icon: FlutterRemix.contrast_2_line,
           onTap: () {
             Get.snackbar("Pressed", "Pressed");
           },
         ),
         ActionCard(
           title: 'Hilfe',
-          icon: Icon(FlutterRemix.question_line),
+          icon: FlutterRemix.question_line,
           onTap: () {
             Get.snackbar("Pressed", "Pressed");
           },
@@ -87,7 +85,7 @@ class SettingsView extends StatelessWidget {
         ),
         ActionCard(
           title: 'Datenschutzerklärung',
-          icon: Icon(FlutterRemix.shield_user_line),
+          icon: FlutterRemix.shield_user_line,
           onTap: () {
             Get.snackbar("Pressed", "Pressed");
           },
@@ -97,14 +95,14 @@ class SettingsView extends StatelessWidget {
         ),
         ActionCard(
           title: 'Lizenzen',
-          icon: Icon(FlutterRemix.stack_fill),
+          icon: FlutterRemix.stack_fill,
           onTap: () {
             Get.snackbar("Pressed", "Pressed");
           },
         ),
         ActionCard(
           title: 'Über Uns',
-          icon: Icon(FlutterRemix.group_line),
+          icon: FlutterRemix.group_line,
           onTap: () {
             Get.snackbar("Pressed", "Pressed");
           },

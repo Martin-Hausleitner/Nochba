@@ -6,7 +6,7 @@ import 'package:locoo/shared/ui/cards/action_text_card.dart';
 import 'package:locoo/shared/ui/cards/action_text_card_red.dart';
 import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
-import 'package:locoo/shared/views/bottom_sheet_view.dart';
+import 'package:locoo/shared/views/bottom_sheet_close_save_view.dart';
 
 class ManageAccountView extends StatelessWidget {
   const ManageAccountView({
@@ -29,7 +29,7 @@ class ManageAccountView extends StatelessWidget {
               context: context,
               isScrollControlled: true,
               builder: (BuildContext context) {
-                return BottomSheetView(
+                return BottomSheetCloseSaveView(
                   children: [
                     LocooTextField(
                       label: 'Email',
@@ -58,7 +58,7 @@ class ManageAccountView extends StatelessWidget {
               context: context,
               isScrollControlled: true,
               builder: (BuildContext context) {
-                return BottomSheetView(
+                return BottomSheetCloseSaveView(
                   children: [
                     LocooTextField(
                       label: 'Passwort',
@@ -87,7 +87,7 @@ class ManageAccountView extends StatelessWidget {
               context: context,
               isScrollControlled: true,
               builder: (BuildContext context) {
-                return BottomSheetView(
+                return BottomSheetCloseSaveView(
                   children: [
                     LocooTextField(
                       label: 'Straße',
@@ -95,14 +95,12 @@ class ManageAccountView extends StatelessWidget {
                       controller: TextEditingController(text: 'Teststraße'),
                     ),
                     SizedBox(height: 10),
-
                     LocooTextField(
                       label: 'Stadt',
                       autofocus: true,
                       controller: TextEditingController(text: 'Linz'),
                     ),
                     SizedBox(height: 10),
-
                     LocooTextField(
                       label: 'Postleitzahl',
                       autofocus: true,

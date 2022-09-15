@@ -5,13 +5,13 @@ import 'package:flutter_remix/flutter_remix.dart';
 //create a class which have a rounded container with a icon on the left side and a text and on the right side a arrow icon
 class ActionCard extends StatelessWidget {
   final String title;
-  final Icon icon;
+  final IconData? icon;
   final VoidCallback onTap;
 
   const ActionCard({
     Key? key,
     required this.title,
-    required this.icon,
+    this.icon,
     required this.onTap,
   }) : super(key: key);
 
@@ -39,13 +39,19 @@ class ActionCard extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15),
                 child: Row(
                   children: [
-                    Icon(
-                      size: 22,
-                      icon.icon,
-                      color: Theme.of(context).colorScheme.onSurface,
-                      // color: Colors.black87,
-                      // color: Colors.black,
-                    ),
+                    //if icon is null then return a empty container else icon
+                    icon == null
+                        ? Container()
+                        : Icon(
+                            size: 22,
+                            //if icon is null shwo nothing
+
+                            icon,
+                            color: Theme.of(context).colorScheme.onSurface,
+                            // color: Colors.black87,
+                            // color: Colors.black,
+                          ),
+
                     Padding(
                       padding: EdgeInsets.only(left: 8),
                       child: Text(

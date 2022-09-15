@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 
-class BottomSheetView extends StatelessWidget {
+class BottomSheetCloseSaveView extends StatelessWidget {
   //children
   final List<Widget> children;
 
-  const BottomSheetView({super.key, required this.children});
+  const BottomSheetCloseSaveView({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {

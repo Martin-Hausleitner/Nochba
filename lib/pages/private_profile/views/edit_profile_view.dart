@@ -6,7 +6,7 @@ import 'package:locoo/shared/ui/cards/action_card_title.dart';
 import 'package:locoo/shared/ui/cards/action_text_card.dart';
 import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
-import 'package:locoo/shared/views/bottom_sheet_view.dart';
+import 'package:locoo/shared/views/bottom_sheet_close_save_view.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../private_profile_page.dart';
@@ -66,7 +66,7 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return BottomSheetView(
+              return BottomSheetCloseSaveView(
                 children: [
                   LocooTextField(
                     label: 'Vorname',
@@ -142,7 +142,7 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return BottomSheetView(
+              return BottomSheetCloseSaveView(
                 children: [
                   Column(
                     children: [
@@ -242,7 +242,7 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return BottomSheetView(
+              return BottomSheetCloseSaveView(
                 children: [
                   SfDateRangePicker(
                     view: DateRangePickerView.decade,
@@ -297,7 +297,7 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return BottomSheetView(
+              return BottomSheetCloseSaveView(
                 children: [
                   LocooTextField(
                     label: 'Beruf',
@@ -327,7 +327,7 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return BottomSheetView(
+              return BottomSheetCloseSaveView(
                 children: [
                   LocooTextField(
                     label: 'Mehr über dich',
@@ -378,7 +378,7 @@ class EditProfileView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return BottomSheetView(
+              return BottomSheetCloseSaveView(
                 children: [
                   // ad a counter with + an- buttons
                   Row(
