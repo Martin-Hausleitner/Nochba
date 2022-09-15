@@ -74,7 +74,7 @@ class ActionBarMore extends StatelessWidget {
                                 ),
 
                                 
-                                ),
+                                //),
                                 ActionCard(
                                   title: 'Nicht jugendfrei',
                                   onTap: () {
