@@ -8,12 +8,14 @@ class AppBarBigView extends StatelessWidget {
   final String title;
   final Color? backgroundColor;
   final List<Widget> children;
+  final bool showBackButton;
 
   const AppBarBigView(
       {super.key,
       required this.title,
       required this.children,
-      this.backgroundColor});
+      this.backgroundColor,
+      this.showBackButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -48,22 +50,29 @@ class AppBarBigView extends StatelessWidget {
               largeTitle: Text(
                 title,
               ),
-              leading: Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  splashRadius: 0.01,
-                  icon: Icon(
-                    FlutterRemix.arrow_left_line,
-                    size: 24,
-                    color: Theme.of(context).buttonTheme.colorScheme?.primary,
-                  ),
-                  onPressed: () {
-                    Get.back();
-                  },
-                  padding: EdgeInsets.zero,
-                  alignment: Alignment.centerLeft,
-                ),
-              ),
+              // if showBackbutton is true return a container
+              leading: showBackButton
+                  ? Material(
+                      color: Colors.transparent,
+                      child: IconButton(
+                        splashRadius: 0.01,
+                        icon: Icon(
+                          FlutterRemix.arrow_left_line,
+                          size: 24,
+                          color: Theme.of(context)
+                              .buttonTheme
+                              .colorScheme
+                              ?.primary,
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
+                        padding: EdgeInsets.zero,
+                        alignment: Alignment.centerLeft,
+                      ),
+                    )
+                  : null,
+
               padding: EdgeInsetsDirectional.only(
                 start: 12,
                 end: 10,
