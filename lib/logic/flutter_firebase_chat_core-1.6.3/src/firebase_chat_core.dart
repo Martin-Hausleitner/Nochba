@@ -476,7 +476,7 @@ class FirebaseChatCore {
     try {
       final user = await fetchUser(
         getFirebaseFirestore(),
-        firebaseUser!.uid,
+        uid,
         config.usersCollectionName,
         role: types.Role.user.toShortString(),
       );

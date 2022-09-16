@@ -162,8 +162,7 @@ class Post extends StatelessWidget {
                       final otherUser = await FirebaseChatCore.instance.user(post.user);
                       if(otherUser != null) {
                         final room = await FirebaseChatCore.instance.createRoom(otherUser);
-
-                        navigator.pop();
+                        
                         await navigator.push(
                           MaterialPageRoute(
                             builder: (context) => ChatPage(
