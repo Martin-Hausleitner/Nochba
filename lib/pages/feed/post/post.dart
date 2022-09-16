@@ -3,11 +3,13 @@
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
 import 'package:locoo/logic/models/category.dart';
 import 'package:locoo/logic/models/post.dart' as models;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/pages/chats/chat.dart';
 import 'package:locoo/pages/feed/post/views/post_view.dart';
 import 'package:locoo/pages/feed/post/widgets/action_bar.dart';
 import 'package:locoo/pages/feed/post/widgets/category_badge.dart';
@@ -155,11 +157,22 @@ class Post extends StatelessWidget {
                     label: 'Anschreiben',
                     height: 48,
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
-                    onPressed: () {
-                      Get.snackbar(
-                        'Anschreiben',
-                        'Du hast den Button gedrückt',
-                      );
+                    onPressed: () async {
+                      final navigator = Navigator.of(context);
+                      final otherUser = await FirebaseChatCore.instance.user(post.user);
+                      if(otherUser != null) {
+                        final room = await FirebaseChatCore.instance.createRoom(otherUser);
+
+                        navigator.pop();
+                        await navigator.push(
+                          MaterialPageRoute(
+                            builder: (context) => ChatPage(
+                              room: room,
+                            ),
+                          ),
+                        );
+                      }
+                      
                     },
                   ),
                 ),

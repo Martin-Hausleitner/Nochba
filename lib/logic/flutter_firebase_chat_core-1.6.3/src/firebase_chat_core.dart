@@ -469,4 +469,21 @@ class FirebaseChatCore {
           ),
         );
   }
+
+  Future<types.User?> user(String uid) async {
+    if (firebaseUser == null) return null;
+    
+    try {
+      final user = await fetchUser(
+        getFirebaseFirestore(),
+        firebaseUser!.uid,
+        config.usersCollectionName,
+        role: types.Role.user.toShortString(),
+      );
+
+      return types.User.fromJson(user);
+    } on Exception catch(e) {
+      return null;
+    }
+  }
 }
