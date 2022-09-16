@@ -170,8 +170,8 @@ class NewPostController extends GetxController {
   }
 
   addPost() async {
-    final isValid = formKey.currentState!.validate();
-    if (!isValid || category == CategoryOptions.None) return;
+    //final isValid = formKey.currentState!.validate();
+    if (/*!isValid ||*/ category == CategoryOptions.None) return;
 
     final imageUrl = image == null
         ? ''

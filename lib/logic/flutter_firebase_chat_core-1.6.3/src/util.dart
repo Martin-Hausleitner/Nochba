@@ -25,11 +25,11 @@ Future<Map<String, dynamic>> fetchUser(
 
   final data = doc.data()!;
 
-  data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
+  data['createdAt'] = data['createdAt'];
   data['id'] = doc.id;
-  data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
+  data['lastSeen'] = data['lastSeen'];
   data['role'] = role;
-  data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
+  data['updatedAt'] = data['updatedAt'];
 
   return data;
 }
@@ -63,9 +63,9 @@ Future<types.Room> processRoomDocument(
 ) async {
   final data = doc.data()!;
 
-  data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
+  data['createdAt'] = data['createdAt'];
   data['id'] = doc.id;
-  data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
+  data['updatedAt'] = data['updatedAt'];
 
   var imageUrl = data['imageUrl'] as String?;
   var name = data['name'] as String?;
@@ -111,9 +111,9 @@ Future<types.Room> processRoomDocument(
       );
 
       lm['author'] = author;
-      lm['createdAt'] = lm['createdAt']?.millisecondsSinceEpoch;
+      lm['createdAt'] = lm['createdAt'];
       lm['id'] = lm['id'] ?? '';
-      lm['updatedAt'] = lm['updatedAt']?.millisecondsSinceEpoch;
+      lm['updatedAt'] = lm['updatedAt'];
 
       return lm;
     }).toList();

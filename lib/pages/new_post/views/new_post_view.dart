@@ -210,7 +210,7 @@ class BottomNavBar extends StatelessWidget {
             onPressed: //controller.addPost() and go to
                 () {
               controller.addPost();
-              controller.jumpToPage(4);
+              //controller.jumpToPage(4);
               //close keyboard
               FocusScope.of(context).unfocus();
               // Get.to(PublishedNewPostView());
