@@ -107,6 +107,7 @@ class FirebaseChatCore {
     final fu = firebaseUser;
 
     if (fu == null) return Future.error('User does not exist');
+    if(fu.uid == otherUser.id) return Future.error('Can`t create a room with yourself');
 
     // Sort two user ids array to always have the same array for both users,
     // this will make it easy to find the room if exist and make one read only.
