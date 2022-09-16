@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+//import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart' as chat;
 import 'package:get/get.dart';
 
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:locoo/models/bookmark.dart';
+//import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/models/bookmark.dart';
 
 
 class AuthAccess extends GetxService {
@@ -35,7 +37,7 @@ class AuthAccess extends GetxService {
         password: password
       );
       final uid = cred.user!.uid;
-      await FirebaseChatCore.instance.createUserInFirestore(
+      await chat.FirebaseChatCore.instance.createUserInFirestore(
         types.User(
           firstName: firstName,
           id: uid,

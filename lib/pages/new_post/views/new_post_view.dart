@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/models/category.dart';
+import 'package:locoo/logic/models/category.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
 import '../new_post_controller.dart';

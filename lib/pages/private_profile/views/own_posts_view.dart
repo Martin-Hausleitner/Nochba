@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/models/data_access.dart';
-import 'package:locoo/models/post.dart';
+import 'package:locoo/logic/data_access.dart';
+import 'package:locoo/logic/models/post.dart';
 
 import 'package:locoo/pages/feed/post/post.dart' as widget;
-import 'package:locoo/models/post.dart' as models;
-import 'package:locoo/models/user.dart' as models;
+import 'package:locoo/logic/models/post.dart' as models;
+import 'package:locoo/logic/models/user.dart' as models;
 
 // Text(
 //                 'Settings',

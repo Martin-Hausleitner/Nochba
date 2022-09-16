@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+// import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart' show PhotoViewComputedScale;
+
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
 
 import '../chat_l10n.dart';
 import '../chat_theme.dart';

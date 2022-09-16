@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/models/category.dart';
+import 'package:locoo/logic/models/category.dart';
 
 /*enum Category {
   mitteilung,

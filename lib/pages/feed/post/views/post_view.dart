@@ -1,18 +1,19 @@
 //import material
 
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+//import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart' as chat;
 
 import 'package:flutter_remix/flutter_remix.dart';
 
 import 'package:get/get.dart';
-import 'package:locoo/models/category.dart';
-import 'package:locoo/models/data_access.dart';
+import 'package:locoo/logic/models/category.dart';
+import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/pages/chats/chat.dart';
 
 import 'package:flutter/material.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
-import 'package:locoo/models/post.dart' as models;
+import 'package:locoo/logic/models/post.dart' as models;
 
 import '../widgets/action_bar.dart';
 import '../widgets/category_badge.dart';

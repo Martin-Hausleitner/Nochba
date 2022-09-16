@@ -4,12 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:locoo/models/bookmark.dart';
-import 'package:locoo/models/category.dart';
-import 'package:locoo/models/post.dart';
-import 'package:locoo/models/user.dart' as models;
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-
+import 'package:locoo/logic/models/bookmark.dart';
+import 'package:locoo/logic/models/category.dart';
+import 'package:locoo/logic/models/post.dart';
+import 'package:locoo/logic/models/user.dart' as models;
+//import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
 
 class DataAccess extends GetxService {
     final CollectionReference<Map<String, dynamic>> userdataCol = FirebaseFirestore.instance.collection('users');
@@ -40,10 +40,12 @@ class DataAccess extends GetxService {
 
   Future<List<Post>> getSavedPostsOfCurrentUser() async {
     try {
+
       final uid = FirebaseAuth.instance.currentUser!.uid;
       final snapshot1 = await userdataCol.doc(uid).collection('bookmarks').doc(uid).get();
 
       if(snapshot1.exists) {
+
         final posts = BookMark.fromJson(snapshot1.data()!).posts;
         final snapshot2 = await postCol.where('id', whereIn: posts).get();
 

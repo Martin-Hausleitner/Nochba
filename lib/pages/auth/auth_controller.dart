@@ -3,7 +3,7 @@ import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locoo/models/auth_access.dart';
+import 'package:locoo/logic/auth_access.dart';
 
 class AuthController extends GetxController {
   Rx<bool> _isLogin = true.obs;

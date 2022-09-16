@@ -3,8 +3,8 @@
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:locoo/models/category.dart';
-import 'package:locoo/models/post.dart' as models;
+import 'package:locoo/logic/models/category.dart';
+import 'package:locoo/logic/models/post.dart' as models;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

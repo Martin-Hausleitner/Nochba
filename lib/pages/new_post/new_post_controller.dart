@@ -6,11 +6,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:locoo/models/category.dart';
-import 'package:locoo/models/data_access.dart';
+import 'package:locoo/logic/models/category.dart';
+import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/views/new_post/tag_dialog.dart';
 
-import '../../models/post.dart';
+import '../../logic/models/post.dart';
 
 class NewPostController extends GetxController {
   final pageController = PageController(initialPage: 0);

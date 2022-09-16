@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/models/category.dart';
-import 'package:locoo/models/data_access.dart';
+import 'package:locoo/logic/models/category.dart';
+import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/pages/feed/post/post.dart';
-import 'package:locoo/models/post.dart' as models;
-import 'package:locoo/models/user.dart' as models;
+import 'package:locoo/logic/models/post.dart' as models;
+import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/pages/feed/post/views/feed_post_filter_view.dart';
 
 import '../../shared/range_slider/range_slider.dart';

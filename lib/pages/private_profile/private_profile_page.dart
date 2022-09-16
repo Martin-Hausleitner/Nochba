@@ -7,13 +7,13 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/private_profile/views/own_posts_view.dart';
 
-import 'package:locoo/models/user.dart' as models;
+import 'package:locoo/logic/models/user.dart' as models;
 
-import 'package:locoo/models/auth_access.dart';
+import 'package:locoo/logic/auth_access.dart';
 import 'package:locoo/shared/ui/cards/action_card.dart';
 import 'package:locoo/shared/ui/cards/action_card_title.dart';
 
-import '../../models/data_access.dart';
+import '../../logic/data_access.dart';
 import 'private_profile_controller.dart';
 import 'views/bookmarked_posts_view.dart';
 import 'views/edit_profile_view.dart';
@@ -21,7 +21,7 @@ import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import 'package:locoo/models/user.dart' as models;
+import 'package:locoo/logic/models/user.dart' as models;
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override

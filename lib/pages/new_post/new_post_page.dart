@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/models/category.dart';
-import 'package:locoo/models/post.dart';
-import 'package:locoo/models/tag.dart';
+import 'package:locoo/logic/models/category.dart';
+import 'package:locoo/logic/models/post.dart';
+import 'package:locoo/logic/models/tag.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 import 'package:locoo/views/new_post/tag_dialog.dart';
 

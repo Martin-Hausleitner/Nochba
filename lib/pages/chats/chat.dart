@@ -3,14 +3,19 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+//import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+//import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+//import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart' as chat;
+import 'package:locoo/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart' as ui;
+
 
 class ChatPage extends StatefulWidget {
   const ChatPage({
@@ -50,11 +55,11 @@ class _ChatPageState extends State<ChatPage> {
         ),
         body: StreamBuilder<types.Room>(
           initialData: widget.room,
-          stream: FirebaseChatCore.instance.room(widget.room.id),
+          stream: chat.FirebaseChatCore.instance.room(widget.room.id),
           builder: (context, snapshot) => StreamBuilder<List<types.Message>>(
             initialData: const [],
-            stream: FirebaseChatCore.instance.messages(snapshot.data!),
-            builder: (context, snapshot) => Chat(
+            stream: chat.FirebaseChatCore.instance.messages(snapshot.data!),
+            builder: (context, snapshot) => ui.Chat(
               isAttachmentUploading: _isAttachmentUploading,
               messages: snapshot.data ?? [],
               onAttachmentPressed: _handleAtachmentPressed,
@@ -62,7 +67,7 @@ class _ChatPageState extends State<ChatPage> {
               onPreviewDataFetched: _handlePreviewDataFetched,
               onSendPressed: _handleSendPressed,
               user: types.User(
-                id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
+                id: chat.FirebaseChatCore.instance.firebaseUser?.uid ?? '',
               ),
             ),
           ),
@@ -147,7 +152,7 @@ class _ChatPageState extends State<ChatPage> {
           uri: uri,
         );
 
-        FirebaseChatCore.instance.sendMessage(message, widget.room.id);
+        chat.FirebaseChatCore.instance.sendMessage(message, widget.room.id);
         _setAttachmentUploading(false);
       } finally {
         _setAttachmentUploading(false);
@@ -183,7 +188,7 @@ class _ChatPageState extends State<ChatPage> {
           width: image.width.toDouble(),
         );
 
-        FirebaseChatCore.instance.sendMessage(
+        chat.FirebaseChatCore.instance.sendMessage(
           message,
           widget.room.id,
         );
@@ -201,7 +206,7 @@ class _ChatPageState extends State<ChatPage> {
       if (message.uri.startsWith('http')) {
         try {
           final updatedMessage = message.copyWith(isLoading: true);
-          FirebaseChatCore.instance.updateMessage(
+          chat.FirebaseChatCore.instance.updateMessage(
             updatedMessage,
             widget.room.id,
           );
@@ -218,7 +223,7 @@ class _ChatPageState extends State<ChatPage> {
           }
         } finally {
           final updatedMessage = message.copyWith(isLoading: false);
-          FirebaseChatCore.instance.updateMessage(
+          chat.FirebaseChatCore.instance.updateMessage(
             updatedMessage,
             widget.room.id,
           );
@@ -235,11 +240,11 @@ class _ChatPageState extends State<ChatPage> {
   ) {
     final updatedMessage = message.copyWith(previewData: previewData);
 
-    FirebaseChatCore.instance.updateMessage(updatedMessage, widget.room.id);
+    chat.FirebaseChatCore.instance.updateMessage(updatedMessage, widget.room.id);
   }
 
   void _handleSendPressed(types.PartialText message) {
-    FirebaseChatCore.instance.sendMessage(
+    chat.FirebaseChatCore.instance.sendMessage(
       message,
       widget.room.id,
     );

@@ -5,9 +5,9 @@ import 'package:locoo/pages/feed/post/views/action_bar_more/action_bar_more_view
 
 import 'package:locoo/shared/ui/buttons/round_icon_button.dart';
 
-import 'package:locoo/models/bookmark.dart';
-import 'package:locoo/models/data_access.dart';
-import 'package:locoo/models/post.dart';
+import 'package:locoo/logic/models/bookmark.dart';
+import 'package:locoo/logic/data_access.dart';
+import 'package:locoo/logic/models/post.dart';
 
 //create a ActionBar class which have multiple round icon Buttons
 

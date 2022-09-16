@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_link_previewer/flutter_link_previewer.dart'
+//import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+//import 'package:flutter_link_previewer/flutter_link_previewer.dart'
+//    show LinkPreview, regexEmail, regexLink;
+import 'package:locoo/logic/flutter_link_previewer-3.0.1/flutter_link_previewer.dart'
     show LinkPreview, regexEmail, regexLink;
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:url_launcher/url_launcher.dart';
