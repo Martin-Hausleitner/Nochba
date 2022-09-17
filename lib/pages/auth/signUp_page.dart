@@ -122,7 +122,10 @@ class SignUpPage extends GetView<AuthController> {
                       label: const Text('New Sign Up',
                           style: TextStyle(fontSize: 24)),
                       onPressed: //open NewSignUpPage widget
-                          () => Get.to(NewSignUpPage()),
+                          () => Get.to(
+                              fullscreenDialog: true,
+                              transition: Transition.cupertino,
+                              NewSignUpPage()),
                     ),
                   ]))),
     );

@@ -34,7 +34,7 @@ class SignUpController extends GetxController {
   void goToPage(int page) {
     pageController.animateToPage(
       page,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 1),
       curve: Curves.ease,
     );
   }
