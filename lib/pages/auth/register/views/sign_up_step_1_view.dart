@@ -124,7 +124,6 @@ class SignUpStep1View extends StatelessWidget {
               onPressed: //controller.addPost() and go to
                   () {
                 controller.goToPage(1);
-                //close keyboard
                 FocusScope.of(context).unfocus();
                 // Get.to(PublishedNewPostView());
               },

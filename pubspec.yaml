@@ -58,6 +58,7 @@ dependencies:
   json_annotation: ^4.6.0
   linkify: ^4.1.0
   flutter_linkify: ^5.0.2
+  flutter_awesome_select: 6.5.0
 
 
 dev_dependencies:

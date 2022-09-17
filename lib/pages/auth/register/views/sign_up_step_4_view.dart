@@ -82,6 +82,41 @@ class SignUpStep4View extends StatelessWidget {
                 floatingLabelBehavior: FloatingLabelBehavior.always,
               ),
             ),
+            SizedBox(height: 10),
+            Padding(
+              padding: // right left 5
+                  EdgeInsets.only(
+                top: 15,
+                left: 7,
+                right: 7,
+              ),
+              child: Row(
+                //spacebetween
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+                  Flexible(
+                    child: Text(
+                      'Ich Akzeptiere die Nutzungsbedingungen und Datenschutzbestimmungen',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.6)),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+
+                  //show a checkbox
+                  Checkbox(
+                    activeColor: Theme.of(context).primaryColor,
+                    value: true,
+                    onChanged: (value) {},
+                  ),
+                ],
+              ),
+            ),
 
             SizedBox(height: 20),
 
@@ -103,35 +138,32 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: BackOutlinedButton(
-              controller: controller,
-              icon: FlutterRemix.arrow_left_s_line,
-              label: 'Zurück',
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-              child: NextElevatedButton(
-            onPressed: //controller.addPost() and go to
-                () {
-              //first page:
-              controller.goToPage(0);
-              //controller.jumpToPage(4);
-              //close keyboard
-              FocusScope.of(context).unfocus();
-              // Get.to(PublishedNewPostView());
-            },
+    return Row(
+      children: [
+        Expanded(
+          child: BackOutlinedButton(
             controller: controller,
-            icon: Icons.done_outlined,
-            label: 'Veröffenlichen',
-          )),
-        ],
-      ),
+            icon: FlutterRemix.arrow_left_s_line,
+            label: 'Zurück',
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+            child: NextElevatedButton(
+          onPressed: //controller.addPost() and go to
+              () {
+            //first page:
+            controller.goToPage(0);
+            //controller.jumpToPage(4);
+            //close keyboard
+            FocusScope.of(context).unfocus();
+            // Get.to(PublishedNewPostView());
+          },
+          controller: controller,
+          icon: Icons.done_outlined,
+          label: 'Regestrieren',
+        )),
+      ],
     );
   }
 }

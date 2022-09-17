@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/auth/register/sign_up_controller.dart';
@@ -16,6 +17,14 @@ class SignUpStep3View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SignUpController controller = Get.put(SignUpController());
+    // a simple usage
+
+    List<int> value = [2];
+    List<S2Choice<int>> frameworks = [
+      S2Choice<int>(value: 1, title: 'Ionic'),
+      S2Choice<int>(value: 2, title: 'Flutter'),
+      S2Choice<int>(value: 3, title: 'React Native'),
+    ];
 
     return AppBarBigView(
       title: 'Registrieren',
@@ -62,26 +71,8 @@ class SignUpStep3View extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 28),
-            TextFormField(
-              // controller: controller.emailController,
-              textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Vorname',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
-            ),
-            SizedBox(height: 10),
 
-            TextFormField(
-              // controller: controller.emailController,
-              textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Nachname',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
-            ),
+            ChooserRadio(),
 
             SizedBox(height: 20),
 
@@ -103,35 +94,151 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: BackOutlinedButton(
-              controller: controller,
-              icon: FlutterRemix.arrow_left_s_line,
-              label: 'Zurück',
+    return Row(
+      children: [
+        Expanded(
+          child: BackOutlinedButton(
+            controller: controller,
+            icon: FlutterRemix.arrow_left_s_line,
+            label: 'Zurück',
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: NextElevatedButton(
+            rtl: true,
+            onPressed: //controller.addPost() and go to
+                () {
+              controller.nextPage();
+              //close keyboard
+              FocusScope.of(context).unfocus();
+              // Get.to(PublishedNewPostView());
+            },
+            controller: controller,
+            icon: Icons.chevron_left_outlined,
+            label: 'Weiter',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+enum SingingCharacter { location, qrcode }
+
+class ChooserRadio extends StatefulWidget {
+  const ChooserRadio({super.key});
+
+  @override
+  State<ChooserRadio> createState() => _ChooserRadioState();
+}
+
+class _ChooserRadioState extends State<ChooserRadio> {
+  SingingCharacter? _character = SingingCharacter.location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _character = SingingCharacter.location;
+            });
+          },
+          child: Container(
+            height: 90,
+            // add background color to the rounded container
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child:
+                // a listtile ein a gray round box
+                Center(
+              child: ListTile(
+                title: Row(
+                  children: [
+                    //Email icon
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                          size: 40,
+                          Icons.near_me_outlined,
+                          color: Colors.black.withOpacity(0.2)),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                        child: Text('Verifiziere dich mit deinen Standort')),
+                  ],
+                ),
+                trailing: Radio<SingingCharacter>(
+                  value: SingingCharacter.location,
+                  groupValue: _character,
+                  onChanged: (SingingCharacter? value) {
+                    setState(() {
+                      _character = value;
+                    });
+                  },
+                  activeColor: Theme.of(context).primaryColor,
+                ),
+              ),
             ),
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: NextElevatedButton(
-              rtl: true,
-              onPressed: //controller.addPost() and go to
-                  () {
-                controller.nextPage();
-                //close keyboard
-                FocusScope.of(context).unfocus();
-                // Get.to(PublishedNewPostView());
-              },
-              controller: controller,
-              icon: Icons.chevron_left_outlined,
-              label: 'Weiter',
+        ),
+        SizedBox(height: 10),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _character = SingingCharacter.qrcode;
+            });
+          },
+          child: Container(
+            height: 90,
+            // add background color to the rounded container
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Center(
+              child: ListTile(
+                title: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  //center align
+
+                  children: [
+                    //Email icon
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                          size: 40,
+                          // gr code
+                          Icons.qr_code_scanner_outlined,
+                          color: Colors.black.withOpacity(0.2)),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        'Verfiziere dich mit einem QR Code',
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: Radio<SingingCharacter>(
+                  activeColor: Theme.of(context).primaryColor,
+                  value: SingingCharacter.qrcode,
+                  groupValue: _character,
+                  onChanged: (SingingCharacter? value) {
+                    setState(() {
+                      _character = value;
+                    });
+                  },
+                ),
+              ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

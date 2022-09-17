@@ -134,35 +134,32 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: BackOutlinedButton(
-              controller: controller,
-              icon: FlutterRemix.arrow_left_s_line,
-              label: 'Zurück',
-            ),
+    return Row(
+      children: [
+        Expanded(
+          child: BackOutlinedButton(
+            controller: controller,
+            icon: FlutterRemix.arrow_left_s_line,
+            label: 'Zurück',
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: NextElevatedButton(
-              rtl: true,
-              onPressed: //controller.addPost() and go to
-                  () {
-                controller.nextPage();
-                //close keyboard
-                FocusScope.of(context).unfocus();
-                // Get.to(PublishedNewPostView());
-              },
-              controller: controller,
-              icon: Icons.chevron_left_outlined,
-              label: 'Weiter',
-            ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: NextElevatedButton(
+            rtl: true,
+            onPressed: //controller.addPost() and go to
+                () {
+              controller.nextPage();
+              //close keyboard
+              FocusScope.of(context).unfocus();
+              // Get.to(PublishedNewPostView());
+            },
+            controller: controller,
+            icon: Icons.chevron_left_outlined,
+            label: 'Weiter',
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -41,7 +41,7 @@ class NextElevatedButton extends StatelessWidget {
           shadowColor: Colors.transparent,
           // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(140),
+            borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         ),

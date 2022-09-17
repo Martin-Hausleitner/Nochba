@@ -247,7 +247,7 @@ packages:
     source: hosted
     version: "0.7.8"
   diffutil_dart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: diffutil_dart
       url: "https://pub.dartlang.org"
@@ -261,12 +261,12 @@ packages:
     source: hosted
     version: "3.1.0"
   equatable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.5"
   expandable_page_view:
     dependency: "direct main"
     description:
@@ -391,20 +391,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_chat_types:
+  flutter_awesome_select:
     dependency: "direct main"
     description:
-      name: flutter_chat_types
+      name: flutter_awesome_select
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.4.5"
-  flutter_chat_ui:
-    dependency: "direct main"
-    description:
-      name: flutter_chat_ui
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.4"
+    version: "6.5.0"
   flutter_colorpicker:
     dependency: transitive
     description:
@@ -412,22 +405,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  flutter_firebase_chat_core:
-    dependency: "direct main"
-    description:
-      name: flutter_firebase_chat_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.3"
-  flutter_link_previewer:
-    dependency: transitive
-    description:
-      name: flutter_link_previewer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
   flutter_linkify:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_linkify
       url: "https://pub.dartlang.org"
@@ -441,7 +420,7 @@ packages:
     source: hosted
     version: "2.0.1"
   flutter_parsed_text:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_parsed_text
       url: "https://pub.dartlang.org"
@@ -619,7 +598,7 @@ packages:
     source: hosted
     version: "0.6.4"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
@@ -647,7 +626,7 @@ packages:
     source: hosted
     version: "4.0.0+8"
   linkify:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: linkify
       url: "https://pub.dartlang.org"
@@ -892,7 +871,7 @@ packages:
     source: hosted
     version: "5.0.0"
   photo_view:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: photo_view
       url: "https://pub.dartlang.org"
@@ -1079,7 +1058,7 @@ packages:
     source: hosted
     version: "1.0.0"
   url_launcher:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"
@@ -1149,7 +1128,7 @@ packages:
     source: hosted
     version: "2.1.2"
   visibility_detector:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: visibility_detector
       url: "https://pub.dartlang.org"
