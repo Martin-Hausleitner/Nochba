@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:locoo/pages/auth/auth_controller.dart';
 import 'package:locoo/shared/ui/locoo_text_field.dart';
 
+import 'register/sign_up_page.dart';
+
 class SignUpPage extends GetView<AuthController> {
   final VoidCallback onClicked;
   const SignUpPage({Key? key, required this.onClicked}) : super(key: key);
@@ -109,7 +111,19 @@ class SignUpPage extends GetView<AuthController> {
                                       Theme.of(context).colorScheme.secondary,
                                 ))
                           ]),
-                    )
+                    ),
+                    //button which opens SignUpPage
+
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(50),
+                      ),
+                      icon: const Icon(Icons.arrow_forward, size: 32),
+                      label: const Text('New Sign Up',
+                          style: TextStyle(fontSize: 24)),
+                      onPressed: //open NewSignUpPage widget
+                          () => Get.to(NewSignUpPage()),
+                    ),
                   ]))),
     );
   }

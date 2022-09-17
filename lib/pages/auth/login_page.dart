@@ -55,18 +55,26 @@ class LoginPage extends GetView<AuthController> {
               Column(
                 children: [
                   const SizedBox(height: 40),
-                
-                  LocooTextField(
+
+                  TextFormField(
                     controller: controller.emailController,
                     textInputAction: TextInputAction.next,
-                    label: 'Email',
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  LocooTextField(
-                    label: 'Password',
+                  TextFormField(
                     controller: controller.passwordController,
                     textInputAction: TextInputAction.done,
                     obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   LocooTextButton(

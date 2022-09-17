@@ -71,7 +71,7 @@ class AppBarBigView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                       ),
                     )
-                  : null,
+                  : SizedBox(),
 
               padding: EdgeInsetsDirectional.only(
                 start: 12,
