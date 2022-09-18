@@ -78,29 +78,29 @@ class NotificationsPage extends GetView<NotificationsController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  LocooTextField(
-                      label: 'First Nam',
-                      controller: TextEditingController(text: 'test'),
-                      textInputAction: TextInputAction.done,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) => value != null && value.length < 2
-                          ? 'Enter min. 2 characters'
-                          : null),
-                  LocooTextField(
-                      controller: TextEditingController(text: 'test'),
-                      textInputAction: TextInputAction.next,
-                      label: 'Email',
-                      validator: (value) => value != null && value.length < 2
-                          ? 'Enter min. 2 characters'
-                          : null),
-                  TextFormField(
-                      controller: TextEditingController(text: 't'),
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(labelText: 'Last Name'),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) => value != null && value.length < 2
-                          ? 'Enter min. 2 characters'
-                          : null),
+                  // LocooTextField(
+                  //     label: 'First Nam',
+                  //     controller: TextEditingController(text: 'test'),
+                  //     textInputAction: TextInputAction.done,
+                  //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                  //     validator: (value) => value != null && value.length < 2
+                  //         ? 'Enter min. 2 characters'
+                  //         : null),
+                  // LocooTextField(
+                  //     controller: TextEditingController(text: 'test'),
+                  //     textInputAction: TextInputAction.next,
+                  //     label: 'Email',
+                  //     validator: (value) => value != null && value.length < 2
+                  //         ? 'Enter min. 2 characters'
+                  //         : null),
+                  // TextFormField(
+                  //     controller: TextEditingController(text: 't'),
+                  //     textInputAction: TextInputAction.next,
+                  //     decoration: const InputDecoration(labelText: 'Last Name'),
+                  //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                  //     validator: (value) => value != null && value.length < 2
+                  //         ? 'Enter min. 2 characters'
+                  //         : null),
 
                   // LocooCircularIconButton(
                   //   iconData: FlutterRemix.close_line,
