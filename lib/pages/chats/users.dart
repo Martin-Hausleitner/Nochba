@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_Chat_types.dart' as types;
 import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart' as chat;
@@ -17,6 +18,12 @@ class UsersPage extends StatelessWidget {
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle.light,
           title: const Text('Users'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Get.back();
+            },
+          ),
         ),
         body: StreamBuilder<List<types.User>>(
           stream: chat.FirebaseChatCore.instance.users(),
