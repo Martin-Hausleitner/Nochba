@@ -10,8 +10,10 @@ class AuthPage extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<AuthController>();
-    return Obx(() => controller.isLogin 
-    ? LoginPage(onClicked:  controller.toggle) 
-    : SignUpPage(onClicked:  controller.toggle));
+    return Obx(
+      () => controller.isLogin
+          ? LoginPage(onClicked: controller.toggle)
+          : SignUpPage(onClicked: controller.toggle),
+    );
   }
 }
