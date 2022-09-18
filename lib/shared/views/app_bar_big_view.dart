@@ -67,12 +67,14 @@ class AppBarBigView extends StatelessWidget {
                               ?.primary,
                         ),
                         onPressed: () {
-                          Get.to(
-                            fullscreenDialog: true,
-                            transition: Transition.leftToRightWithFade,
-                            AuthPage(),
-                          );
-                          // Get.back();
+                          // Get.to(
+                          //   fullscreenDialog: true,
+                          //   transition: Transition.leftToRightWithFade,
+                          //   // AuthPage(),
+
+                          // );
+
+                          Get.back();
                         },
                         padding: EdgeInsets.zero,
                         alignment: Alignment.centerLeft,
