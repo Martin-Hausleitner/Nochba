@@ -39,7 +39,7 @@ class NewPostPage extends GetView<NewPostController> {
           NewPostCategorySelectionView(),
           NewPostSubcategorySelectionView(),
           NewPostView(),
-          //PublishedNewPostView(),
+          // PublishedNewPostView(),
         ],
       ),
     );
