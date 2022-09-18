@@ -193,7 +193,7 @@ class DataAccess extends GetxService {
       createdAt: Timestamp.now(),
     );
 
-    final snapshot = await userdataCol
+    final snapshot = await notificationCol
     .where('fromUser', isEqualTo: notification.fromUser)
     .where('toUser', isEqualTo: notification.toUser)
     .where('postId', isEqualTo: notification.postId)
