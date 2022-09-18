@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:locoo/logic/models/Notification.dart';
 import 'package:locoo/logic/models/bookmark.dart';
 import 'package:locoo/logic/models/category.dart';
 import 'package:locoo/logic/models/post.dart';
@@ -14,6 +15,7 @@ import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as
 class DataAccess extends GetxService {
     final CollectionReference<Map<String, dynamic>> userdataCol = FirebaseFirestore.instance.collection('users');
     final CollectionReference<Map<String, dynamic>> postCol = FirebaseFirestore.instance.collection('posts');
+    final CollectionReference<Map<String, dynamic>> notificationCol = FirebaseFirestore.instance.collection('notifications');
     final CollectionReference<Map<String, dynamic>> categoryCol = FirebaseFirestore.instance.collection('categories');
 
     /*Future<List<Category>> getCategories() async {
@@ -166,6 +168,48 @@ class DataAccess extends GetxService {
     } on Exception catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  Stream<List<Notification>> getNotifications() => notificationCol
+        .where('toUser', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => Notification.fromJson(doc.data())).toList());
+
+  Future<bool> sendNotification(String toUser, NotificationType type, {String? postId}) async {
+    if(toUser.isEmpty) {
+      return false;
+    }
+    if(type == NotificationType.chatRequest && (postId == null || postId.isEmpty)) {
+      return false;
+    }
+
+    final notification = Notification(
+      fromUser: FirebaseAuth.instance.currentUser!.uid,
+      toUser: toUser,
+      type: type,
+      postId: postId,
+      createdAt: Timestamp.now(),
+    );
+    
+    try {
+      final doc = notificationCol.doc();
+      notification.id = doc.id;
+      await doc.set(notification.toJson());
+      return true;
+    } on FirebaseException catch (e) {
+      print(e.message);
+      return false;
+    }
+  }
+
+  Future<bool> deleteNotification(String notificationId) async {
+    try {
+      await notificationCol.doc(notificationId).delete();
+      return true;
+    } on FirebaseException catch(e) {
+      return false;
     }
   }
 

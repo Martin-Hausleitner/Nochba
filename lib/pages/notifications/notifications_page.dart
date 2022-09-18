@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:locoo/logic/data_access.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
+import 'package:locoo/pages/chats/chat.dart';
+import 'package:locoo/pages/notifications/notifications_controller.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/ui/pretty_textfield.dart';
-
-import 'notifications_controller.dart';
+import 'package:locoo/logic/models/user.dart' as models;
+import 'package:locoo/logic/models/Notification.dart' as models;
 
 class NotificationsPage extends GetView<NotificationsController> {
   @override
   Widget build(BuildContext context) {
+    final dataAccess = Get.find<DataAccess>();
     return CupertinoPageScaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       // A ScrollView that creates custom scroll effects using slivers.
@@ -78,7 +84,39 @@ class NotificationsPage extends GetView<NotificationsController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  LocooTextField(
+                  StreamBuilder<List<models.Notification>>(
+                    stream: dataAccess.getNotifications(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text(
+                            'Something went wrong: ${snapshot.error.toString()}',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.w300));
+                      } else if (snapshot.hasData) {
+                        final notifications = snapshot.data!;
+
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: notifications.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final notification = notifications.elementAt(index);
+
+                            return NotificationElement(notification: notification);
+                          },
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const SizedBox(height: 3),
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                        // return const Text('There are no posts in the moment',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+                      }
+                    },
+                  ),
+
+                  /*LocooTextField(
                       label: 'First Nam',
                       controller: TextEditingController(text: 'test'),
                       textInputAction: TextInputAction.done,
@@ -100,7 +138,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) => value != null && value.length < 2
                           ? 'Enter min. 2 characters'
-                          : null),
+                          : null),*/
 
                   // LocooCircularIconButton(
                   //   iconData: FlutterRemix.close_line,
@@ -183,5 +221,63 @@ class NotificationsPage extends GetView<NotificationsController> {
         ),
       ),
     );
+  }
+}
+
+class NotificationElement extends StatelessWidget {
+  const NotificationElement({Key? key, required this.notification}) : super(key: key);
+  final models.Notification notification;
+
+  @override
+  Widget build(BuildContext context) {
+    final dataAccess = Get.find<DataAccess>();
+    return FutureBuilder<types.User?>(
+            future: FirebaseChatCore.instance.user(notification.fromUser),
+            builder: ((context, snapshot) {
+              if (snapshot.hasData) {
+                final otherUser = snapshot.data!;
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(22),
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  child: Column(
+                    children: [
+                      Text('${otherUser.firstName} ${otherUser.lastName} would like to get in touch with you.'),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.thumb_up),
+                            onPressed: () async {
+                              final navigator = Navigator.of(context);
+                              final room = await FirebaseChatCore.instance.createRoom(otherUser);
+                              
+                              await navigator.push(
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPage(
+                                    room: room,
+                                  ),
+                                ),
+                              );
+
+                              await dataAccess.deleteNotification(notification.id);
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.thumb_down),
+                            onPressed: () async {
+                              await dataAccess.deleteNotification(notification.id);
+                            },
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            }),
+          );
   }
 }

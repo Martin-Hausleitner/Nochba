@@ -1,9 +1,12 @@
 //import material
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
+import 'package:locoo/logic/models/Notification.dart';
 import 'package:locoo/logic/models/category.dart';
 import 'package:locoo/logic/models/post.dart' as models;
 
@@ -40,6 +43,7 @@ class Post extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double spacingBetween = 13;
+    final dataAccess = Get.find<DataAccess>();
 
     return GestureDetector(
       //onTap open postz view
@@ -147,10 +151,11 @@ class Post extends StatelessWidget {
                   : Container(),
 
               // Button
-              if (category == CategoryModul.search ||
+              if (post.user != FirebaseAuth.instance.currentUser!.uid &&
+                  (category == CategoryModul.search ||
                   CategoryModul.subCategoriesOfSearch.contains(category) ||
                   category == CategoryModul.lending ||
-                  CategoryModul.subCategoriesOfLending.contains(category))
+                  CategoryModul.subCategoriesOfLending.contains(category)))
                 Padding(
                   padding: EdgeInsets.only(top: spacingBetween),
                   child: LocooTextButton(
@@ -158,20 +163,11 @@ class Post extends StatelessWidget {
                     height: 48,
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
                     onPressed: () async {
-                      final navigator = Navigator.of(context);
-                      final otherUser = await FirebaseChatCore.instance.user(post.user);
-                      if(otherUser != null) {
-                        final room = await FirebaseChatCore.instance.createRoom(otherUser);
-                        
-                        await navigator.push(
-                          MaterialPageRoute(
-                            builder: (context) => ChatPage(
-                              room: room,
-                            ),
-                          ),
-                        );
-                      }
-                      
+                      bool v = await dataAccess.sendNotification(
+                        post.user, NotificationType.chatRequest, 
+                        postId: post.id
+                      );
+                      if(v) Get.snackbar('title', 'message');
                     },
                   ),
                 ),
