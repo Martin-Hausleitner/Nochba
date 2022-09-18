@@ -19,7 +19,7 @@ class SignUpStep4View extends StatelessWidget {
 
     return AppBarBigView(
       title: 'Registrieren',
-      showBackButton: false,
+      // showBackButton: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         Column(

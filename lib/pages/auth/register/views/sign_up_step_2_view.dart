@@ -18,7 +18,7 @@ class SignUpStep2View extends StatelessWidget {
     SignUpController controller = Get.put(SignUpController());
 
     return AppBarBigView(
-      showBackButton: false,
+      // showBackButton: false,
       title: 'Registrieren',
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
