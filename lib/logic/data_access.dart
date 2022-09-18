@@ -184,7 +184,7 @@ class DataAccess extends GetxService {
     if(type == NotificationType.chatRequest && (postId == null || postId.isEmpty)) {
       return false;
     }
-
+ 
     final notification = Notification(
       fromUser: FirebaseAuth.instance.currentUser!.uid,
       toUser: toUser,
@@ -192,16 +192,27 @@ class DataAccess extends GetxService {
       postId: postId,
       createdAt: Timestamp.now(),
     );
-    
-    try {
-      final doc = notificationCol.doc();
-      notification.id = doc.id;
-      await doc.set(notification.toJson());
-      return true;
-    } on FirebaseException catch (e) {
-      print(e.message);
+
+    final snapshot = await userdataCol
+    .where('fromUser', isEqualTo: notification.fromUser)
+    .where('toUser', isEqualTo: notification.toUser)
+    .where('postId', isEqualTo: notification.postId)
+    .get();
+
+    if(snapshot.docs.isEmpty) {
+      try {
+        final doc = notificationCol.doc();
+        notification.id = doc.id;
+        await doc.set(notification.toJson());
+        return true;
+      } on FirebaseException catch (e) {
+        print(e.message);
+        return false;
+      }
+    } else {
       return false;
     }
+    
   }
 
   Future<bool> deleteNotification(String notificationId) async {
