@@ -163,11 +163,11 @@ class Post extends StatelessWidget {
                     height: 48,
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
                     onPressed: () async {
-                      bool v = await dataAccess.sendNotification(
+                      bool sent = await dataAccess.sendNotification(
                         post.user, NotificationType.chatRequest, 
                         postId: post.id
                       );
-                      if(v) Get.snackbar('title', 'message');
+                      if(sent) Get.snackbar('Sent', 'A request was sent to the user');
                     },
                   ),
                 ),

@@ -14,6 +14,7 @@ import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/ui/pretty_textfield.dart';
 import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/logic/models/Notification.dart' as models;
+import 'package:get/get.dart' as getx;
 
 class NotificationsPage extends GetView<NotificationsController> {
   @override
@@ -252,13 +253,14 @@ class NotificationElement extends StatelessWidget {
                               final navigator = Navigator.of(context);
                               final room = await FirebaseChatCore.instance.createRoom(otherUser);
                               
-                              await navigator.push(
+                              /*await navigator.push(
                                 MaterialPageRoute(
                                   builder: (context) => ChatPage(
                                     room: room,
                                   ),
                                 ),
-                              );
+                              );*/
+                              await getx.Get.to(() => ChatPage(room: room));
 
                               await dataAccess.deleteNotification(notification.id);
                             },
