@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class LocooTextField extends StatefulWidget {
+  final double height;
   final String label;
   final TextInputType keyboardType;
   final int maxLines;
@@ -28,6 +29,7 @@ class LocooTextField extends StatefulWidget {
     this.validator,
     this.autofocus = false,
     this.onFieldSubmitted,
+    this.height = 48,
   });
 
   // const LocooTextField({
@@ -76,7 +78,8 @@ class _LocooTextFieldState extends State<LocooTextField> {
     return Stack(
       children: [
         Container(
-          height: 50,
+          //set the hight as TextFormField
+          height: widget.height,
           decoration: BoxDecoration(
             border: Border.all(color: _borderColor, width: 1.5),
             borderRadius: BorderRadius.circular(12),

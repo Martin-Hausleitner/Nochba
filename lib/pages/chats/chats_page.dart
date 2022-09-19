@@ -72,34 +72,33 @@ class ChatsPage extends GetView<ChatsController> {
               trailing: Row(
                 children: [
                   Container(
-                    transform: Matrix4.translationValues(14, 0, 0),
-                    child: IconButton(
-                      // alignment: Alignment.topRight,
-                      icon: Icon(
-                        FlutterRemix.pencil_line,
-                        size: 24,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondaryContainer,
-                      ),
-                      onPressed: () {
-                        Get.snackbar('title', 'message');
-                      },
-                    )
-                  ),
+                      transform: Matrix4.translationValues(14, 0, 0),
+                      child: IconButton(
+                        // alignment: Alignment.topRight,
+                        icon: Icon(
+                          FlutterRemix.pencil_line,
+                          size: 24,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
+                        ),
+                        onPressed: () {
+                          Get.snackbar('title', 'message');
+                        },
+                      )),
                   Container(
                     transform: Matrix4.translationValues(14, 0, 0),
                     child: IconButton(
                       icon: const Icon(Icons.add, color: Colors.black),
                       onPressed: () {
-                              /*Navigator.of(context).push(
+                        /*Navigator.of(context).push(
                                 MaterialPageRoute(
                                   fullscreenDialog: true,
                                   builder: (context) => const UsersPage(),
                                 ),
                               );*/
-                              Get.to(() => const UsersPage());
-                            },
+                        Get.to(() => const UsersPage());
+                      },
                     ),
                   ),
                 ],
@@ -115,12 +114,31 @@ class ChatsPage extends GetView<ChatsController> {
                 initialData: const [],
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(
-                        bottom: 200,
-                      ),
-                      child: const Text('No rooms'),
+                    return Column(
+                      //center
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [
+                        // add a forum icon
+                        Icon(
+                          Icons.forum_outlined,
+                          size: 100,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.06),
+                        ),
+                        Text(
+                          'Keine Chats!',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.4),
+                                  ),
+                        ),
+                      ],
                     );
                   }
 
