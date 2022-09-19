@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/auth/auth_controller.dart';
 import 'package:locoo/pages/auth/signUp_page.dart';
@@ -57,25 +58,19 @@ class LoginPage extends GetView<AuthController> {
               Column(
                 children: [
                   const SizedBox(height: 40),
-                  TextFormField(
+
+                  LocooTextField(
+                    label: 'Email',
                     controller: controller.emailController,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                    ),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 10),
-                  TextFormField(
+                  LocooTextField(
+                    label: 'Passwort',
                     controller: controller.passwordController,
                     textInputAction: TextInputAction.done,
                     obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                    ),
                   ),
                   const SizedBox(height: 20),
                   NextElevatedButton(
@@ -85,57 +80,146 @@ class LoginPage extends GetView<AuthController> {
                     label: 'Anmelden',
                     controller: controller,
                   ),
-                  SizedBox(height: 20),
-                  // OutlinedButton(
-                  //   style: OutlinedButton.styleFrom(
-                  //     minimumSize: const Size.fromHeight(60),
-                  //     primary: Theme.of(context).colorScheme.onSurface,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //     // splashFactory: InkRipple.splashFactory,
-                  //     // enableFeedback: true,
-                  //   ),
-                  //   child: Text(
-                  //     'Regestrieren',
-                  //     style: Theme.of(context).textTheme.button?.copyWith(
-                  //           color: Theme.of(context).colorScheme.onSurface,
-                  //           letterSpacing: -0.07,
-                  //         ),
-                  //   ),
-                  //   //onPRessed signup PAge
-                  //   onPressed: () {
-                  //     //get.to signuppage
-                  //     Get.to(() => SignUpPage(
-                  //           onClicked: onClicked,
-                  //         ));
-                  //   },
-                  // ),
-                  RichText(
-                    text: TextSpan(
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 17),
-                        text: 'No Account? ',
-                        children: [
-                          TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = onClicked,
-                              text: 'Sign Up',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ))
-                        ]),
+                  SizedBox(height: 10),
+
+                  //add a small text 'Passwort vergessen'
+                  Align(
+                    //align left
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'Passwort vergessen?',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+
+                  SizedBox(height: 25),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 1,
+                        ),
+                      ),
+                      Padding(
+                        padding: //peddign left right 10
+                            const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          'oder',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(),
+                        ),
+                      ),
+                      Expanded(
+                          child: Divider(
+                        thickness: 1,
+                      )),
+                    ],
+                  ),
+                  SizedBox(height: 25),
+
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(60),
+                      primary: Theme.of(context).colorScheme.onSurface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      // splashFactory: InkRipple.splashFactory,
+                      // enableFeedback: true,
+                    ),
+                    icon: SvgPicture.asset(
+                      'assets/icons/google_g_logo.svg',
+                      width: 38,
+                    ),
+                    label: Text(
+                      'Mit Google anmelden',
+                      style: Theme.of(context).textTheme.button?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            letterSpacing: -0.07,
+                          ),
+                    ),
+                    onPressed: () {
+                      // controller.jumpBack();
+                      // controller.previousPage();
+                      // HapticFeedback.lightImpact();
+                      FocusScope.of(context).unfocus();
+                    },
+                  ),
+                  SizedBox(height: 10),
+
+                  ElevatedButton.icon(
+                    onPressed: //open snackbar
+                        () {},
+                    //right icon posission
+
+                    icon: Padding(
+                      padding: //right 10
+                          const EdgeInsets.only(right: 10),
+                      child: SvgPicture.asset(
+                        'assets/icons/apple_logo.svg',
+                        color: Theme.of(context).colorScheme.background,
+                        width: 20,
+                      ),
+                    ),
+
+                    //   SvgPicture.network(
+                    // 'https://www.svgrepo.com/download/303552/google-g-2015-logo.svg',
+                    // semanticsLabel: 'A shark?!',
+                    // width: 38,
+                    // placeholderBuilder: (BuildContext context) => Container(
+                    //     padding: const EdgeInsets.all(30.0),
+                    //     child: const CircularProgressIndicator()),
+                    // ),
+
+                    label: Text(
+                      'Mit Apple anmelden',
+                      style: Theme.of(context).textTheme.button?.copyWith(
+                            color: Theme.of(context)
+                                .buttonTheme
+                                .colorScheme
+                                ?.onPrimary,
+                            letterSpacing: -0.07,
+                          ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onBackground,
+                      elevation: 0,
+                      minimumSize: const Size.fromHeight(60),
+                      shadowColor: Colors.transparent,
+                      // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                    ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 260,
-              ),
+              SizedBox(height: 20),
               LocooTextButton(
-                label: 'Erstelle einen Demo Accountd',
+                label: 'Erstelle einen Demo Account',
                 onPressed: () async => controller.createDemoAccount(),
                 icon: Icons.login,
+              ),
+
+              RichText(
+                text: TextSpan(
+                    style:
+                        const TextStyle(color: Colors.black, fontSize: 17),
+                    text: 'No Account? ',
+                    children: [
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = onClicked,
+                          text: 'Sign Up',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ))
+                    ]),
               ),
             ],
           ),

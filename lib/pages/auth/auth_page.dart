@@ -4,6 +4,8 @@ import 'package:locoo/pages/auth/login_page.dart';
 import 'package:locoo/pages/auth/signUp_page.dart';
 import 'package:locoo/pages/auth/auth_controller.dart';
 
+import 'register/sign_up_page.dart';
+
 class AuthPage extends GetView<AuthController> {
   const AuthPage({Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class AuthPage extends GetView<AuthController> {
       () => controller.isLogin
           ? LoginPage(onClicked: controller.toggle)
           : SignUpPage(onClicked: controller.toggle),
+          // : NewSignUpPage(),
     );
   }
 }

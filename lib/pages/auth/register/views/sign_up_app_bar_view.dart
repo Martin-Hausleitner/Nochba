@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:locoo/pages/auth/register/sign_up_controller.dart';
 import 'package:locoo/pages/auth/register/widgets/back_outlined_button.dart';
@@ -11,8 +14,17 @@ import 'package:locoo/shared/views/app_bar_big_view.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
 
-class SignUpEmailView extends StatelessWidget {
-  const SignUpEmailView({super.key});
+class SignUpAppBarView extends StatelessWidget {
+  final String toDotext;
+  final //widget list childeren
+      Widget child;
+  final int step;
+
+  const SignUpAppBarView(
+      {super.key,
+      required this.toDotext,
+      required this.child,
+      required this.step});
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +38,25 @@ class SignUpEmailView extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                CircleStep(1, '1', () {}),
-                ProgressLine(
-                  isFinished: false,
-                ),
-                CircleStep(2, '2', () {}),
-                ProgressLine(
-                  isFinished: false,
-                ),
-                CircleStep(2, '3', () {}),
-                ProgressLine(
-                  isFinished: false,
-                ),
-                CircleStep(2, '4', () {}),
-              ],
-            ),
+            //if step = 1 show red box if step = 2 show green box if step = 3 show yellow box if step = 4 show blue box
+            if (step == 1)
+              Row(
+                children: [
+                  CircleStep(1, '1', () {}),
+                  ProgressLine(
+                    isFinished: false,
+                  ),
+                  CircleStep(2, '2', () {}),
+                  ProgressLine(
+                    isFinished: false,
+                  ),
+                  CircleStep(2, '3', () {}),
+                  ProgressLine(
+                    isFinished: false,
+                  ),
+                  CircleStep(2, '4', () {}),
+                ],
+              ),
             SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
@@ -55,65 +69,16 @@ class SignUpEmailView extends StatelessWidget {
             //tile small Schritt 1 von 3
             SizedBox(height: 2),
             Text(
-              'Schritt 4 von 4',
+              'Schritt ${step} von 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   // fontSize: 18,
                   // fontWeight: FontWeight.w600,
                   // color: Theme.of(context).secondaryHeaderColor,
                   ),
             ),
-            SizedBox(height: 28),
-            LocooTextField(
-              label: 'Email',
+            child,
 
-              // controller: controller.emailController,
-              textInputAction: TextInputAction.next,
-            ),
-            SizedBox(height: 10),
-
-            LocooTextField(
-              label: 'Passwort',
-              textInputAction: TextInputAction.next,
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: // right left 5
-                  EdgeInsets.only(
-                top: 15,
-                left: 7,
-                right: 7,
-              ),
-              child: Row(
-                //spacebetween
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                children: [
-                  Flexible(
-                    child: Text(
-                      'Ich Akzeptiere die Nutzungsbedingungen und Datenschutzbestimmungen',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.color
-                              ?.withOpacity(0.6)),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-
-                  //show a checkbox
-                  Checkbox(
-                    activeColor: Theme.of(context).primaryColor,
-                    value: true,
-                    onChanged: (value) {},
-                  ),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 20),
-
-            BottomNavBar(controller: controller),
+            // BottomNavBar(controller: controller),
           ],
         )
       ],

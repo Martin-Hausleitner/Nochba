@@ -6,6 +6,7 @@ import 'package:locoo/pages/auth/register/sign_up_controller.dart';
 import 'package:locoo/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:locoo/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:locoo/pages/new_post/widgets/progress_line.dart';
+import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
@@ -67,51 +68,35 @@ class SignUpStep3View extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                  child: TextFormField(
+                  child: LocooTextField(
+                    label: 'Sraße',
                     // controller: controller.emailController,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Straße',
-                      border: OutlineInputBorder(),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                    ),
                   ),
                 ),
                 SizedBox(width: 10),
                 Expanded(
-                  child: TextFormField(
+                  child: LocooTextField(
+                    label: 'Nr.',
                     // controller: controller.emailController,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Nr.',
-                      border: OutlineInputBorder(),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 10),
 
-            TextFormField(
+            LocooTextField(
+              label: 'Stadt',
               // controller: controller.emailController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Stadt',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
             ),
             SizedBox(height: 10),
 
-            TextFormField(
+            LocooTextField(
+              label: 'Postleitzahl',
               // controller: controller.emailController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Postleitzahl',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
             ),
 
             SizedBox(height: 20),

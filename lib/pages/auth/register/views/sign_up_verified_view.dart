@@ -8,11 +8,12 @@ import 'package:locoo/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:locoo/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:locoo/pages/new_post/widgets/progress_line.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
 
-class SignUpStep4View extends StatelessWidget {
-  const SignUpStep4View({super.key});
+class SignUpVerifiedView extends StatelessWidget {
+  const SignUpVerifiedView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class SignUpStep4View extends StatelessWidget {
                 ProgressLine(
                   isFinished: true,
                 ),
-                CircleStep(1, '4', () {}),
+                CircleStep(3, '4', () {}),
               ],
             ),
             SizedBox(height: 28),
@@ -71,12 +72,78 @@ class SignUpStep4View extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 28),
+            Container(
+              // color: Colors.red,
+              child: Center(
+                child: Lottie.asset(
+                  'assets/lottie/success.json',
+                  height: 200,
+                  fit: BoxFit.cover,
+                  repeat: false,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                'Erfolgreich Verifiziert',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      // color: Theme.of(context).secondaryHeaderColor,
+                    ),
+              ),
+            ),
+            SizedBox(height: 8),
+            Center(
+              child: Text(
+                'Du hast dich erfolgreich Verifiziert, du kannst jetzt mit deinen Nachbarn connecten!',
+                //align center
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    // fontSize: 18,
+                    // fontWeight: FontWeight.w600,
+                    // color: Theme.of(context).secondaryHeaderColor,
+                    ),
+              ),
+            ),
 
-            ChooserRadio(),
-
-            SizedBox(height: 20),
-
-            BottomNavBar(controller: controller),
+            // Padding(
+            //   padding: const EdgeInsets.all(10.0),
+            //   child: Column(
+            //     children: [
+            //       BackOutlinedButton(
+            //         controller: controller,
+            //         icon: FlutterRemix.pencil_line,
+            //         label: "Post Bearbeiten",
+            //       ),
+            //       SizedBox(height: 5),
+            //       NextElevatedButton(
+            //         onPressed: //controller.addPost() and go to
+            //             () {
+            //           controller.addPost();
+            //           controller.jumpToPage(4);
+            //           // Get.to(PublishedNewPostView());
+            //         },
+            //         controller: controller,
+            //         icon: FlutterRemix.home_2_line,
+            //         label: 'Zurück zum Feed',
+            //       ),
+            //     ],
+            //   ),
+            SizedBox(height: 40),
+            NextElevatedButton(
+              rtl: true,
+              onPressed: //controller.addPost() and go to
+                  () {
+                controller.nextPage();
+                //close keyboard
+                FocusScope.of(context).unfocus();
+                // Get.to(PublishedNewPostView());
+              },
+              controller: controller,
+              icon: Icons.chevron_left_outlined,
+              label: 'Los gehts',
+            ),
           ],
         )
       ],

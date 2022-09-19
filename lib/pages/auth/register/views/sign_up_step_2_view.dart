@@ -1,3 +1,4 @@
+import 'package:colorize_text_avatar/colorize_text_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -7,6 +8,7 @@ import 'package:locoo/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:locoo/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:locoo/pages/new_post/widgets/progress_line.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
@@ -62,18 +64,65 @@ class SignUpStep2View extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 25),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Get.snackbar('title', 'message');
+                },
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    // CircleAvatar(
+                    //   backgroundColor: Colors.black26,
+                    //   radius: 55,
+                    //   backgroundImage: NetworkImage(
+                    //     "https://ui-avatars.com/api/?name=John+Doe",
+                    //   ),
+                    // ),
+                    //create a circle container with i user icon in the center
+                    Container(
+                      height: 110,
+                      width: 110,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.08),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        FlutterRemix.user_fill,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.1),
+                        size: 60,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                      width: 30.0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                        ),
+                        child: Icon(
+                          FlutterRemix.pencil_line,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             // Center(
             //   child: Stack(
-            //     clipBehavior: Clip.none,
             //     alignment: Alignment.bottomRight,
             //     children: [
-            //       // LocooCircularIconButton(
-            //       //   iconData: FlutterRemix.pencil_line,
-            //       //   fillColor: Theme.of(context).primaryColor,
-            //       //   iconColor: Colors.white,
-            //       //   radius: 32,
-            //       //   onPressed: () => Navigator.pop(context),
-            //       // ),
             //       CircleAvatar(
             //         backgroundColor: Colors.black26,
             //         radius: 55,
@@ -81,94 +130,30 @@ class SignUpStep2View extends StatelessWidget {
             //           "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
             //         ),
             //       ),
-            //       SizedBox(
-            //         height: 30.0,
-            //         width: 30.0,
-            //         child: Container(
-            //           decoration: BoxDecoration(
-            //             color: Theme.of(context).primaryColor,
-            //             borderRadius: BorderRadius.all(Radius.circular(100)),
-            //           ),
-            //           child: IconButton(
-            //             color: Theme.of(context).primaryColor,
-            //             padding: EdgeInsets.zero,
-            //             splashRadius: 1,
-            //             iconSize: 30 / 2 + 3,
-            //             icon: Icon(FlutterRemix.pencil_line,
-            //                 color: Theme.of(context).canvasColor),
-            //             // splashColor: Colors.red,
-            //             onPressed: //open image picker
-            //                 () {},
-            //           ),
-            //         ),
+            //       LocooCircularIconButton(
+            //         iconData: FlutterRemix.pencil_line,
+            //         fillColor: Theme.of(context).primaryColor,
+            //         iconColor: Colors.white,
+            //         radius: 32,
+            //         onPressed: () => Navigator.pop(context),
             //       ),
-            //       // Ink(
-            //       //   width: 32,
-            //       //   height: 32,
-            //       //   decoration: ShapeDecoration(
-            //       //     color: Theme.of(context).primaryColor,
-            //       //     shape: CircleBorder(
-            //       //         side: BorderSide(color: Colors.transparent)),
-            //       //   ),
-            //       //   child: IconButton(
-            //       //     color: Theme.of(context).primaryColor,
-            //       //     padding: EdgeInsets.zero,
-            //       //     splashRadius: 32 / 2,
-            //       //     iconSize: 32 / 2 + 3,
-            //       //     icon: Icon(FlutterRemix.pencil_line,
-            //       //         color: Theme.of(context).canvasColor),
-            //       //     splashColor:
-            //       //         Theme.of(context).canvasColor.withOpacity(.4),
-            //       //     onPressed: //open snackbar Get.snackbar('title', 'message');
-            //       //         () {},
-            //       //   ),
-            //       // ),
             //     ],
             //   ),
             // ),
-            Center(
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black26,
-                    radius: 55,
-                    backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-                    ),
-                  ),
-                  LocooCircularIconButton(
-                    iconData: FlutterRemix.pencil_line,
-                    fillColor: Theme.of(context).primaryColor,
-                    iconColor: Colors.white,
-                    radius: 32,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-            ),
 
             SizedBox(height: 28),
 
-            TextFormField(
-              // controller: controller.emailController,
+            LocooTextField(
+              label: 'Vorname',
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Vorname',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
             ),
             SizedBox(height: 10),
 
-            TextFormField(
+            LocooTextField(
+              label: 'Nachname',
+
               // controller: controller.emailController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Nachname',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
             ),
             Padding(
               padding: // right left 5

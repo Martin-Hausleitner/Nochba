@@ -38,10 +38,10 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
         //if focusnoed is active, show a text else a text with no
         // focusnode
 
-        if (_focusNode.hasFocus)
-          Text('focusnode is active')
-        else
-          Text('focusnode is not active'),
+        // if (_focusNode.hasFocus)
+        //   Text('focusnode is active')
+        // else
+        //   Text('focusnode is not active'),
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -60,7 +60,7 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
             },
           ),
         ),
-        Test(),
+        // Test(),
         Padding(
           padding: //left right 20
               const EdgeInsets.symmetric(horizontal: 16),

@@ -7,6 +7,7 @@ import 'package:locoo/pages/auth/register/sign_up_controller.dart';
 import 'package:locoo/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:locoo/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:locoo/pages/new_post/widgets/progress_line.dart';
+import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/views/app_bar_big_view.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
@@ -63,25 +64,17 @@ class SignUpStep1View extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 28),
-            TextFormField(
+            LocooTextField(
+              label: 'Email',
+
               // controller: controller.emailController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
             ),
             SizedBox(height: 10),
 
-            TextFormField(
-              // controller: controller.emailController,
+            LocooTextField(
+              label: 'Passwort',
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Passwort',
-                border: OutlineInputBorder(),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-              ),
             ),
             SizedBox(height: 10),
 
