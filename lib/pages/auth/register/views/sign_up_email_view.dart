@@ -10,16 +10,16 @@ import 'package:locoo/shared/views/app_bar_big_view.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
 
-class SignUpStep3View extends StatelessWidget {
-  const SignUpStep3View({super.key});
+class SignUpEmailView extends StatelessWidget {
+  const SignUpEmailView({super.key});
 
   @override
   Widget build(BuildContext context) {
     SignUpController controller = Get.put(SignUpController());
 
     return AppBarBigView(
-      // showBackButton: false,
       title: 'Registrieren',
+      // showBackButton: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         Column(
@@ -27,15 +27,15 @@ class SignUpStep3View extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleStep(3, '1', () {}),
+                CircleStep(1, '1', () {}),
                 ProgressLine(
-                  isFinished: true,
+                  isFinished: false,
                 ),
-                CircleStep(3, '2', () {}),
+                CircleStep(2, '2', () {}),
                 ProgressLine(
-                  isFinished: true,
+                  isFinished: false,
                 ),
-                CircleStep(1, '3', () {}),
+                CircleStep(2, '3', () {}),
                 ProgressLine(
                   isFinished: false,
                 ),
@@ -45,7 +45,7 @@ class SignUpStep3View extends StatelessWidget {
             SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
-              'Gebe deinen Adresse ein',
+              'Gebe deine Email und Passwort ein',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     // color: Theme.of(context).secondaryHeaderColor,
@@ -54,7 +54,7 @@ class SignUpStep3View extends StatelessWidget {
             //tile small Schritt 1 von 3
             SizedBox(height: 2),
             Text(
-              'Schritt 3 von 4',
+              'Schritt 4 von 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   // fontSize: 18,
                   // fontWeight: FontWeight.w600,
@@ -62,42 +62,11 @@ class SignUpStep3View extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 28),
-
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: TextFormField(
-                    // controller: controller.emailController,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Straße',
-                      border: OutlineInputBorder(),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: TextFormField(
-                    // controller: controller.emailController,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Nr.',
-                      border: OutlineInputBorder(),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-
             TextFormField(
               // controller: controller.emailController,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
-                labelText: 'Stadt',
+                labelText: 'Email',
                 border: OutlineInputBorder(),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
               ),
@@ -108,9 +77,44 @@ class SignUpStep3View extends StatelessWidget {
               // controller: controller.emailController,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
-                labelText: 'Postleitzahl',
+                labelText: 'Passwort',
                 border: OutlineInputBorder(),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: // right left 5
+                  EdgeInsets.only(
+                top: 15,
+                left: 7,
+                right: 7,
+              ),
+              child: Row(
+                //spacebetween
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+                  Flexible(
+                    child: Text(
+                      'Ich Akzeptiere die Nutzungsbedingungen und Datenschutzbestimmungen',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.6)),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+
+                  //show a checkbox
+                  Checkbox(
+                    activeColor: Theme.of(context).primaryColor,
+                    value: true,
+                    onChanged: (value) {},
+                  ),
+                ],
               ),
             ),
 
@@ -145,20 +149,20 @@ class BottomNavBar extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: NextElevatedButton(
-            rtl: true,
-            onPressed: //controller.addPost() and go to
-                () {
-              controller.nextPage();
-              //close keyboard
-              FocusScope.of(context).unfocus();
-              // Get.to(PublishedNewPostView());
-            },
-            controller: controller,
-            icon: Icons.chevron_left_outlined,
-            label: 'Weiter',
-          ),
-        ),
+            child: NextElevatedButton(
+          onPressed: //controller.addPost() and go to
+              () {
+            //first page:
+            controller.goToPage(0);
+            //controller.jumpToPage(4);
+            //close keyboard
+            FocusScope.of(context).unfocus();
+            // Get.to(PublishedNewPostView());
+          },
+          controller: controller,
+          icon: Icons.done_outlined,
+          label: 'Regestrieren',
+        )),
       ],
     );
   }

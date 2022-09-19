@@ -44,6 +44,25 @@ class LocooCircularIconButton extends StatelessWidget {
             onPressed: onPressed as void Function()?,
           ),
         ),
+        // SizedBox(
+        //   height: radius,
+        //   width: radius,
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: fillColor,
+        //       borderRadius: BorderRadius.all(Radius.circular(100)),
+        //     ),
+        //     child: IconButton(
+        //       color: Theme.of(context).primaryColor,
+        //       padding: EdgeInsets.zero,
+        //       splashRadius: radius / 2,
+        //       iconSize: radius / 2 + 3,
+        //       icon: Icon(iconData, color: iconColor),
+        //       // splashColor: Colors.red,
+        //       onPressed: onPressed as void Function()?,
+        //     ),
+        //   ),
+        // ),
         // if (notificationCount != null) ...[
         //   Positioned(
         //     top: radius / -14,

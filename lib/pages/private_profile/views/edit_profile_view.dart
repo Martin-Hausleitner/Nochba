@@ -30,13 +30,6 @@ class EditProfileView extends StatelessWidget {
             child: Stack(
               alignment: Alignment.bottomRight,
               children: [
-                LocooCircularIconButton(
-                  iconData: FlutterRemix.pencil_line,
-                  fillColor: Theme.of(context).primaryColor,
-                  iconColor: Colors.white,
-                  radius: 32,
-                  onPressed: () => Navigator.pop(context),
-                ),
                 CircleAvatar(
                   backgroundColor: Colors.black26,
                   radius: 55,
