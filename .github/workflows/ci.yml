@@ -41,8 +41,12 @@ jobs:
         with:
           channel: "stable"
 
+      
+
       # Install your project's dependencies
+      - run: flutter doctor
       - run: flutter pub get
+    
 
       # Build and sign the ipa using a single flutter command
       - name: Building IPA
