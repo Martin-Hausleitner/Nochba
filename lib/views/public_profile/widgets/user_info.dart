@@ -225,7 +225,7 @@ class UserInfoClip extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
               // color: Colors.transparent,
               width: 1)),
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }
