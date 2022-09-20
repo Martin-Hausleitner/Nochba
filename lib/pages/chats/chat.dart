@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:js';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:locoo/pages/chats/chat_controller.dart';
+import 'package:locoo/pages/chats/image_editor.dart';
 import 'package:mime/mime.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -122,7 +124,7 @@ class ChatPage extends GetView<ChatController> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  _handleImageSelection();
+                  _handleImageSelection(context);
                 },
                 child: const Align(
                   heightFactor: 2.5,
@@ -196,12 +198,25 @@ class ChatPage extends GetView<ChatController> {
     }
   }
 
-  void _handleImageSelection() async {
-    final result = await ImagePicker().pickImage(
+  void _handleImageSelection(BuildContext context) async {
+    /*var result = await ImagePicker().pickImage(
       imageQuality: 70,
       maxWidth: 1440,
       source: ImageSource.gallery,
     );
+
+    final image = await result!.readAsBytes();
+    if(image == null) {
+      Get.snackbar("null", "null");
+    }*/
+    final editedImage = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ImageEditorExample(),
+      ),
+    );
+
+      final result = editedImage;
 
     if (result != null) {
       _setAttachmentUploading(true);
