@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
 import 'package:locoo/pages/auth/login_page.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 import 'package:locoo/shared/ui/cards/action_card.dart';
@@ -10,12 +11,10 @@ import 'package:locoo/shared/ui/cards/action_text_card.dart';
 import 'package:locoo/shared/ui/locoo_text_field.dart';
 import 'package:locoo/shared/views/bottom_sheet_title_close_view.dart';
 
-class ActionBarMore extends StatelessWidget {
-  final String postID;
+class PublicProfileMoreView extends StatelessWidget {
   final String userID;
-  const ActionBarMore({
+  const PublicProfileMoreView({
     Key? key,
-    required this.postID,
     required this.userID,
   }) : super(key: key);
 
@@ -29,7 +28,7 @@ class ActionBarMore extends StatelessWidget {
           child: Column(
             children: [
               ActionCard(
-                title: 'Post melden',
+                title: 'Profil melden',
                 icon: FlutterRemix.flag_line,
                 onTap: () {
                   showModalBottomSheet<dynamic>(
@@ -41,7 +40,7 @@ class ActionBarMore extends StatelessWidget {
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return BottomSheetTitleCloseView(
-                        title: 'Post Melden',
+                        title: 'Profil melden',
                         children: [
                           Padding(
                             padding: //right 15 left 15 bottom 5 top 1
@@ -82,7 +81,7 @@ class ActionBarMore extends StatelessWidget {
                                             : null),
                                 SizedBox(height: 10),
                                 LocooTextButton(
-                                  label: 'Post Melden',
+                                  label: 'Profil Melden',
                                   onPressed: () {},
                                   icon: FlutterRemix.flag_line,
                                 ),
@@ -106,20 +105,22 @@ class ActionBarMore extends StatelessWidget {
                 },
               ),
               ActionCard(
-                title: 'Post bearbeiten',
+                title: 'Profil bearbeiten',
                 icon: FlutterRemix.pencil_line,
+                //open EditProfileView() widget
                 onTap: () {
-                  print('test');
+                  Get.snackbar('LOL',
+                      'Jetzt sollte die EditProfileView geöffent werden');
                 },
               ),
-              ActionCard(
-                title: 'Post löschen',
-                icon: FlutterRemix.delete_bin_line,
-                onTap: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialogDeletePost(),
-                ),
-              ),
+              // ActionCard(
+              //   title: 'Post löschen',
+              //   icon: FlutterRemix.delete_bin_line,
+              //   onTap: () => showDialog<String>(
+              //     context: context,
+              //     builder: (BuildContext context) => AlertDialogDeletePost(),
+              //   ),
+              // ),
             ],
           ),
         ),

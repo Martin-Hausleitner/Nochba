@@ -53,7 +53,7 @@ class ProfileContent extends StatelessWidget {
         views: [
           UserInfo(),
           Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: Theme.of(context).colorScheme.background,
 //
             child: ListView(children: [
               SizedBox(height: 6),

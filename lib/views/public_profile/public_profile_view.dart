@@ -9,6 +9,7 @@ import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 // import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
 import 'widgets/profile_content.dart';
+import 'widgets/public_profile_more_view.dart';
 
 class PublicProfileView extends StatelessWidget {
   final String authorName;
@@ -42,8 +43,7 @@ class PublicProfileView extends StatelessWidget {
         ),
         actions: <Widget>[
           Padding(
-            padding:
-                const EdgeInsets.only( right: 10),
+            padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               splashRadius: 0.001,
 
@@ -53,10 +53,20 @@ class PublicProfileView extends StatelessWidget {
               ),
               //onPress open SettingsPage
               onPressed: () {
-                //opne snackbar
-                Get.snackbar(
-                  "Settings",
-                  "This is a snackbar",
+                showModalBottomSheet<dynamic>(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(25.0))),
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return
+                        // height of the modal bottom sheet
+                        PublicProfileMoreView(
+                      userID: 'lol',
+                    );
+                  },
                 );
               },
             ),

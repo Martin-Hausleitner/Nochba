@@ -5,7 +5,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/views/public_profile/public_profile_page.dart';
+import 'package:locoo/views/public_profile/public_profile_view.dart';
 
 class PostProfile extends StatelessWidget {
   final String authorImage;
