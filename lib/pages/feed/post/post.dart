@@ -153,21 +153,23 @@ class Post extends StatelessWidget {
               // Button
               if (post.user != FirebaseAuth.instance.currentUser!.uid &&
                   (category == CategoryModul.search ||
-                  CategoryModul.subCategoriesOfSearch.contains(category) ||
-                  category == CategoryModul.lending ||
-                  CategoryModul.subCategoriesOfLending.contains(category)))
+                      CategoryModul.subCategoriesOfSearch.contains(category) ||
+                      category == CategoryModul.lending ||
+                      CategoryModul.subCategoriesOfLending.contains(category)))
                 Padding(
                   padding: EdgeInsets.only(top: spacingBetween),
                   child: LocooTextButton(
                     label: 'Anschreiben',
+
+                    borderRadius: 100,
                     height: 48,
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
                     onPressed: () async {
                       bool sent = await dataAccess.sendNotification(
-                        post.user, NotificationType.chatRequest, 
-                        postId: post.id
-                      );
-                      if(sent) Get.snackbar('Sent', 'A request was sent to the user');
+                          post.user, NotificationType.chatRequest,
+                          postId: post.id);
+                      if (sent)
+                        Get.snackbar('Sent', 'A request was sent to the user');
                     },
                   ),
                 ),
