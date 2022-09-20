@@ -107,6 +107,7 @@ class AppBarBigView extends StatelessWidget {
                       children: children,
                     ),
                   ),
+                  
                 ],
               ),
             ),

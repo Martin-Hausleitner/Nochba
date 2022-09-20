@@ -70,36 +70,35 @@ class ChatsPage extends GetView<ChatsController> {
               ),
 
               trailing: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                      transform: Matrix4.translationValues(14, 0, 0),
-                      child: IconButton(
-                        // alignment: Alignment.topRight,
-                        icon: Icon(
-                          FlutterRemix.pencil_line,
-                          size: 24,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                        ),
-                        onPressed: () {
-                          Get.snackbar('title', 'message');
-                        },
-                      )),
-                  Container(
-                    transform: Matrix4.translationValues(14, 0, 0),
-                    child: IconButton(
-                      icon: const Icon(Icons.add, color: Colors.black),
-                      onPressed: () {
-                        /*Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  fullscreenDialog: true,
-                                  builder: (context) => const UsersPage(),
-                                ),
-                              );*/
-                        Get.to(() => const UsersPage());
-                      },
+                  IconButton(
+                    splashRadius: 0.01,
+                    icon: Icon(
+                      Icons.add,
+                      size: 24,
+                      color: Theme.of(context).buttonTheme.colorScheme?.primary,
                     ),
+                    onPressed: () {
+                      Get.to(() => const UsersPage());
+                    },
+                    padding:
+                        EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
+                    alignment: Alignment.centerRight,
+                  ),
+                  IconButton(
+                    splashRadius: 0.01,
+                    icon: Icon(
+                      FlutterRemix.pencil_line,
+                      size: 24,
+                      color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                    ),
+                    onPressed: () {
+                      Get.snackbar('Edit', 'Chat');
+                    },
+                    padding:
+                        EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
+                    alignment: Alignment.centerRight,
                   ),
                 ],
               ),

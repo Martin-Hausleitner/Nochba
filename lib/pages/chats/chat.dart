@@ -14,61 +14,98 @@ import 'package:mime/mime.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
-import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart' as chat;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+    as types;
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
+    as chat;
 import 'package:locoo/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart' as ui;
 
 class ChatPage extends GetView<ChatController> {
   const ChatPage({Key? key, required this.room}) : super(key: key);
-    final types.Room room;
+  final types.Room room;
 
   @override
   Widget build(BuildContext context) {
+    String fullname = "${room.users[0].firstName} ${room.users[0].lastName}";
+
     final controller = Get.find<ChatController>();
     return Scaffold(
-        // ignore: unnecessary_new
-      appBar: new AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 22,
-              backgroundColor: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(1), // Border radius
-                child: ClipOval(child: displayProfileImage()),
-              ),
+      // ignore: unnecessary_new
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.white,
+              offset: Offset(0, 5.0),
+              blurRadius: 5.0,
+            )
+          ]),
+          child: AppBar(
+            shadowColor: Colors.white,
+            elevation: 0,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 22,
+                  backgroundColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(1), // Border radius
+                    child: ClipOval(child: displayProfileImage()),
+                  ),
+                ),
+                Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: room.name == fullname
+                        ? Text(
+                            '${room.users[0].firstName} ${room.users[0].lastName}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  // fontWeight: FontWeight.w600,
+                                ),
+                          )
+                        : Text(
+                            '${room.users[1].firstName} ${room.users[1].lastName}')),
+              ],
             ),
-            Container(
-                padding: const EdgeInsets.all(8.0),
-                child: displayProfileName())
-          ],
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Get.back();
-          },
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).primaryColor,
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
         ),
       ),
       body: StreamBuilder<types.Room>(
         initialData: room,
         stream: chat.FirebaseChatCore.instance.room(room.id),
         builder: (context, snapshot) => StreamBuilder<List<types.Message>>(
-          initialData: const [],
-          stream: chat.FirebaseChatCore.instance.messages(snapshot.data!),
-          builder: (context, snapshot) => Obx(() => ui.Chat(
-            isAttachmentUploading: controller.isAttachmentUploading,
-            messages: snapshot.data ?? [],
-            onAttachmentPressed: () => _handleAtachmentPressed(context),
-            onMessageTap: _handleMessageTap,
-            onPreviewDataFetched: _handlePreviewDataFetched,
-            onSendPressed: _handleSendPressed,
-            user: types.User(
-              id: chat.FirebaseChatCore.instance.firebaseUser?.uid ?? '',
-            ),
-          ),)
-        ),
+            initialData: const [],
+            stream: chat.FirebaseChatCore.instance.messages(snapshot.data!),
+            builder: (context, snapshot) => Obx(
+                  () => ui.Chat(
+                    isAttachmentUploading: controller.isAttachmentUploading,
+                    messages: snapshot.data ?? [],
+                    onAttachmentPressed: () => _handleAtachmentPressed(context),
+                    onMessageTap: _handleMessageTap,
+                    onPreviewDataFetched: _handlePreviewDataFetched,
+                    onSendPressed: _handleSendPressed,
+                    user: types.User(
+                      id: chat.FirebaseChatCore.instance.firebaseUser?.uid ??
+                          '',
+                    ),
+                  ),
+                )),
       ),
     );
   }
@@ -255,8 +292,7 @@ class ChatPage extends GetView<ChatController> {
   }
 
   Image displayProfileImage() {
-    String fullname =
-        "${room.users[0].firstName} ${room.users[0].lastName}";
+    String fullname = "${room.users[0].firstName} ${room.users[0].lastName}";
     if (room.name == fullname) {
       return Image.network('${room.users[0].imageUrl}');
     } else {
@@ -264,21 +300,19 @@ class ChatPage extends GetView<ChatController> {
     }
   }
 
-  Text displayProfileName() {
-    String fullname =
-        "${room.users[0].firstName} ${room.users[0].lastName}";
-    if (room.name == fullname) {
-      return Text(
-        '${room.users[0].firstName} ${room.users[0].lastName}',
-        style: const TextStyle(fontSize: 20),
-      );
-    } else {
-      return Text(
-        '${room.users[1].firstName} ${room.users[1].lastName}',
-        style: const TextStyle(fontSize: 20),
-      );
-    }
-  }
+  // Text displayProfileName() {
+  //   if (room.name == fullname) {
+  //     return Text(
+  //       '${room.users[0].firstName} ${room.users[0].lastName}',
+  //       style: Theme.of(context).textTheme.T,
+  //     );
+  //   } else {
+  //     return Text(
+  //       '${room.users[1].firstName} ${room.users[1].lastName}',
+  //       style: const TextStyle(fontSize: 20),
+  //     );
+  //   }
+  // }
 }
 
 
