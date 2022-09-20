@@ -31,10 +31,32 @@ class PostProfile extends StatelessWidget {
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          CircleAvatar(
-            backgroundImage: NetworkImage(authorImage),
-          ),
+        children: [
+          authorImage.isEmpty
+              ? Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.08),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    FlutterRemix.user_fill,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.1),
+                    size: 20,
+                  ),
+                )
+              : CircleAvatar(
+                  backgroundColor: Colors.black26,
+                  radius: 20,
+                  backgroundImage: NetworkImage(authorImage),
+                ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 10),

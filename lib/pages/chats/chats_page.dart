@@ -126,16 +126,19 @@ class ChatsPage extends GetView<ChatsController> {
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                              .withOpacity(0.06),
+                              .withOpacity(0.1),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Text(
-                          'Keine Chats!',
+                          'Noch keine Nachrichten',
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onSurface
-                                        .withOpacity(0.4),
+                                        .withOpacity(0.15),
                                   ),
                         ),
                       ],

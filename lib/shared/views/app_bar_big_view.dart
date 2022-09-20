@@ -11,13 +11,15 @@ class AppBarBigView extends StatelessWidget {
   final Color? backgroundColor;
   final List<Widget> children;
   final bool showBackButton;
+  final List<Widget>? actions;
 
   const AppBarBigView(
       {super.key,
       required this.title,
       required this.children,
       this.backgroundColor,
-      this.showBackButton = true});
+      this.showBackButton = true,
+      this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,9 @@ class AppBarBigView extends StatelessWidget {
               largeTitle: Text(
                 title,
               ),
+              trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: actions ?? [Container()]),
               // if showBackbutton is true return a container
               leading: showBackButton
                   ? Material(

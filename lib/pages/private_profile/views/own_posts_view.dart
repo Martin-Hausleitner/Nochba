@@ -118,6 +118,44 @@ class OwnPostsView extends StatelessWidget {
                         } else if (snapshot.hasData) {
                           final posts = snapshot.data!;
 
+                          if (posts.isEmpty) {
+                            return Center(
+                              child: Column(
+                                //center
+                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                children: [
+                                  // add a forum icon
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.25,
+                                  ),
+
+                                  Icon(
+                                    Icons.article_outlined,
+                                    size: 100,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.1),
+                                  ),
+                                  Text(
+                                    'Du hast noch keine Posts erstellt',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withOpacity(0.15),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+
                           return ListView.separated(
                             shrinkWrap: true,
                             itemCount: posts.length,

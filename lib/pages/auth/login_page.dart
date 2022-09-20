@@ -199,21 +199,13 @@ class LoginPage extends GetView<AuthController> {
                 ],
               ),
               SizedBox(height: 20),
-              LocooTextButton(
-                label: 'Erstelle einen Demo Account',
-                onPressed: () async => controller.createDemoAccount(),
-                icon: Icons.login,
-              ),
-
               RichText(
                 text: TextSpan(
-                    style:
-                        const TextStyle(color: Colors.black, fontSize: 17),
+                    style: const TextStyle(color: Colors.black, fontSize: 17),
                     text: 'No Account? ',
                     children: [
                       TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = onClicked,
+                          recognizer: TapGestureRecognizer()..onTap = onClicked,
                           text: 'Sign Up',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -223,6 +215,11 @@ class LoginPage extends GetView<AuthController> {
               ),
             ],
           ),
+        LocooTextButton(
+          label: 'Erstelle einen Demo Account',
+          onPressed: () async => controller.createDemoAccount(),
+          icon: Icons.login,
+        ),
       ],
     );
   }
