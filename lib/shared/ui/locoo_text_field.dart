@@ -29,7 +29,7 @@ class LocooTextField extends StatefulWidget {
     this.validator,
     this.autofocus = false,
     this.onFieldSubmitted,
-    this.height = 48,
+    this.height = 50,
   });
 
   // const LocooTextField({
