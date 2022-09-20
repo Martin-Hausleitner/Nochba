@@ -9,13 +9,15 @@ class LocooTextButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;
   final double height;
+  final double borderRadius;
 
   const LocooTextButton(
       {super.key,
       required this.label,
       required this.onPressed,
       required this.icon,
-      this.height = 60});
+      this.height = 60,
+      this.borderRadius = 12});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class LocooTextButton extends StatelessWidget {
         shadowColor: Colors.transparent,
         // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(140),
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       ),
