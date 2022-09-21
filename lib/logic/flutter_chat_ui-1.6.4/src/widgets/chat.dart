@@ -406,16 +406,30 @@ class _ChatState extends State<Chat> {
 
   Widget _emptyStateBuilder() =>
       widget.emptyState ??
-      Container(
-        alignment: Alignment.center,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 24,
-        ),
-        child: Text(
-          widget.l10n.emptyChatPlaceholder,
-          style: widget.theme.emptyChatPlaceholderTextStyle,
-          textAlign: TextAlign.center,
-        ),
+      Column(
+        // show a 180 grad rotation icon
+
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            'Schreibe deine erste Nachricht',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.25),
+                ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 10),
+          RotationTransition(
+            turns: new AlwaysStoppedAnimation(215 / 360),
+            child: Icon(
+              Icons.straight_outlined,
+              size: 40,
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
+            ),
+          ),
+          SizedBox(height: 16),
+        ],
       );
 
   Widget _messageBuilder(Object object, BoxConstraints constraints) {
