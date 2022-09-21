@@ -232,38 +232,40 @@ class _InputState extends State<Input> {
                                 ),
                               ),
                             ),
+                            //chat send button
+                            Visibility(
+                              visible: _sendButtonVisible,
+                              child: GestureDetector(
+                                onTap: _handleSendPressed,
+                                child: Padding(
+                                  padding: // left 9 top 6 right 9 bottom 6
+                                      const EdgeInsets.fromLTRB(0, 6, 6, 6),
+                                  child: SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(100)),
+                                      ),
+                                      child: Icon(
+                                        Icons.send,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
 
                     //create a icon button with a primery background
-                    Visibility(
-                      visible: _sendButtonVisible,
-                      child: GestureDetector(
-                        onTap: _handleSendPressed,
-                        child: Padding(
-                          padding: // left 9 top 6 right 9 bottom 6
-                              const EdgeInsets.fromLTRB(6, 0, 0, 0),
-                          child: SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(100)),
-                              ),
-                              child: Icon(
-                                Icons.send,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // sdsd
                     // LocooCircularIconButton(
                     //   fillColor: Theme.of(context).primaryColor,
                     //   iconColor: Theme.of(context).colorScheme.onPrimary,
