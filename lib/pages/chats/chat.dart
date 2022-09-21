@@ -120,6 +120,7 @@ class ChatPage extends GetView<ChatController> {
             ],
           ),
           leading: IconButton(
+            splashRadius: 0.001,
             icon: Icon(
               Icons.arrow_back,
               color: Theme.of(context).primaryColor,
@@ -258,7 +259,7 @@ class ChatPage extends GetView<ChatController> {
       ),
     );
 
-      final result = editedImage;
+    final result = editedImage;
 
     if (result != null) {
       _setAttachmentUploading(true);

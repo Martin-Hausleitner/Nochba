@@ -27,7 +27,7 @@ class AttachmentButton extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         margin: InheritedChatTheme.of(context).theme.attachmentButtonMargin ??
             const EdgeInsetsDirectional.fromSTEB(
-              8,
+              0,
               0,
               0,
               0,
@@ -39,8 +39,8 @@ class AttachmentButton extends StatelessWidget {
           ),
           icon: isLoading
               ? SizedBox(
-                  height: 20,
-                  width: 20,
+                  height: 40,
+                  width: 40,
                   child: CircularProgressIndicator(
                     backgroundColor: Colors.transparent,
                     strokeWidth: 1.5,
@@ -60,11 +60,11 @@ class AttachmentButton extends StatelessWidget {
                     color: Theme.of(context)
                         .colorScheme
                         .onSurface
-                        .withOpacity(0.2),
+                        .withOpacity(0.3),
                   ),
           onPressed: isLoading ? null : onPressed,
           padding: padding,
-          splashRadius: 24,
+          splashRadius: 0.001,
           tooltip:
               InheritedL10n.of(context).l10n.attachmentButtonAccessibilityLabel,
         ),

@@ -148,13 +148,13 @@ class _InputState extends State<Input> {
             query.viewInsets.bottom + query.padding.bottom,
           );
     final textPadding =
-        EdgeInsets.fromLTRB(0, 18, 10, 18).copyWith(left: 0, right: 0).add(
+        EdgeInsets.fromLTRB(0, 15, 10, 15).copyWith(left: 0, right: 0).add(
               EdgeInsets.fromLTRB(
                 // widget.onAttachmentPressed != null ? 0 : 10,
                 10,
                 0,
                 // _sendButtonVisible ? 0 : 10,
-                10,
+                6,
                 0,
               ),
             );
@@ -184,51 +184,66 @@ class _InputState extends State<Input> {
                         ),
 
                         child: Row(
+                          //alling bottom
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             if (widget.onAttachmentPressed != null)
                               AttachmentButton(
                                 isLoading:
                                     widget.isAttachmentUploading ?? false,
                                 onPressed: widget.onAttachmentPressed,
-                                padding: buttonPadding,
+                                padding: EdgeInsets.fromLTRB(18, 13.5, 5, 13.5),
                               ),
                             Expanded(
                               child: Padding(
                                 padding: // top 20 left 20 right 20 bottom 20
                                     textPadding,
-                                child: TextField(
-                                  controller: _textController,
-                                  cursorColor: InheritedChatTheme.of(context)
-                                      .theme
-                                      .inputTextCursorColor,
-                                  decoration: InheritedChatTheme.of(context)
-                                      .theme
-                                      .inputTextDecoration
-                                      .copyWith(
-                                        hintStyle: InheritedChatTheme.of(
-                                                context)
-                                            .theme
-                                            .inputTextStyle
-                                            .copyWith(
-                                              color:
-                                                  InheritedChatTheme.of(context)
-                                                      .theme
-                                                      .inputTextColor
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      controller: _textController,
+                                      cursorColor:
+                                          InheritedChatTheme.of(context)
+                                              .theme
+                                              .inputTextCursorColor,
+                                      decoration: InheritedChatTheme.of(context)
+                                          .theme
+                                          .inputTextDecoration
+                                          .copyWith(
+                                            contentPadding:
+                                                EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                            hintStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1!
+                                                      .color!
                                                       .withOpacity(0.5),
-                                            ),
-                                        hintText: InheritedL10n.of(context)
-                                            .l10n
-                                            .inputPlaceholder,
-                                      ),
-                                  focusNode: _inputFocusNode,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 5,
-                                  minLines: 1,
-                                  onChanged: widget.options.onTextChanged,
-                                  onTap: widget.options.onTextFieldTap,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
+                                                  fontSize: 15,
+                                                ),
+                                            // hintText: InheritedL10n.of(context)
+                                            //     .l10n
+                                            //     .inputPlaceholder,
+                                            hintText: 'Type a message',
+                                          ),
+                                      focusNode: _inputFocusNode,
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: 5,
+                                      minLines: 1,
+                                      onChanged: widget.options.onTextChanged,
+                                      onTap: widget.options.onTextFieldTap,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -241,8 +256,8 @@ class _InputState extends State<Input> {
                                   padding: // left 9 top 6 right 9 bottom 6
                                       const EdgeInsets.fromLTRB(0, 6, 6, 6),
                                   child: SizedBox(
-                                    height: 50,
-                                    width: 50,
+                                    height: 38.5,
+                                    width: 38.5,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).primaryColor,
