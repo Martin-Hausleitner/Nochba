@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+    as types;
+import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 
 import '../models/input_clear_mode.dart';
 import '../models/send_button_visibility_mode.dart';
@@ -145,96 +147,158 @@ class _InputState extends State<Input> {
             query.padding.right,
             query.viewInsets.bottom + query.padding.bottom,
           );
-    final textPadding = InheritedChatTheme.of(context)
-        .theme
-        .inputPadding
-        .copyWith(left: 0, right: 0)
-        .add(
-          EdgeInsets.fromLTRB(
-            widget.onAttachmentPressed != null ? 0 : 24,
-            0,
-            _sendButtonVisible ? 0 : 24,
-            0,
-          ),
-        );
+    final textPadding =
+        EdgeInsets.fromLTRB(0, 18, 10, 18).copyWith(left: 0, right: 0).add(
+              EdgeInsets.fromLTRB(
+                // widget.onAttachmentPressed != null ? 0 : 10,
+                10,
+                0,
+                // _sendButtonVisible ? 0 : 10,
+                10,
+                0,
+              ),
+            );
 
-    return Focus(
-      autofocus: true,
-      child: Padding(
-        padding: InheritedChatTheme.of(context).theme.inputMargin,
+    return Padding(
+      padding: // left 8 right 8 bottom 8
+          EdgeInsets.fromLTRB(8, 0, 8, 8),
+      child: Focus(
+        autofocus: true,
         child: Material(
-          borderRadius: InheritedChatTheme.of(context).theme.inputBorderRadius,
-          color: InheritedChatTheme.of(context).theme.inputBackgroundColor,
-          child: Container(
-            decoration:
-                InheritedChatTheme.of(context).theme.inputContainerDecoration,
-            padding: safeAreaInsets,
-            child: Row(
-              textDirection: TextDirection.ltr,
-              children: [
-                if (widget.onAttachmentPressed != null)
-                  AttachmentButton(
-                    isLoading: widget.isAttachmentUploading ?? false,
-                    onPressed: widget.onAttachmentPressed,
-                    padding: buttonPadding,
-                  ),
-                Expanded(
-                  child: Padding(
-                    padding: textPadding,
-                    child: TextField(
-                      controller: _textController,
-                      cursorColor: InheritedChatTheme.of(context)
-                          .theme
-                          .inputTextCursorColor,
-                      decoration: InheritedChatTheme.of(context)
-                          .theme
-                          .inputTextDecoration
-                          .copyWith(
-                            hintStyle: InheritedChatTheme.of(context)
-                                .theme
-                                .inputTextStyle
-                                .copyWith(
-                                  color: InheritedChatTheme.of(context)
+          // borderRadius: InheritedChatTheme.of(context).theme.inputBorderRadius,
+          // color: Theme.of(context).scaffoldBackgroundColor,
+          color: Colors.transparent,
+
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        // height: 50,
+                        // round corners
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(28),
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+
+                        child: Row(
+                          children: [
+                            if (widget.onAttachmentPressed != null)
+                              AttachmentButton(
+                                isLoading:
+                                    widget.isAttachmentUploading ?? false,
+                                onPressed: widget.onAttachmentPressed,
+                                padding: buttonPadding,
+                              ),
+                            Expanded(
+                              child: Padding(
+                                padding: // top 20 left 20 right 20 bottom 20
+                                    textPadding,
+                                child: TextField(
+                                  controller: _textController,
+                                  cursorColor: InheritedChatTheme.of(context)
                                       .theme
-                                      .inputTextColor
-                                      .withOpacity(0.5),
+                                      .inputTextCursorColor,
+                                  decoration: InheritedChatTheme.of(context)
+                                      .theme
+                                      .inputTextDecoration
+                                      .copyWith(
+                                        hintStyle: InheritedChatTheme.of(
+                                                context)
+                                            .theme
+                                            .inputTextStyle
+                                            .copyWith(
+                                              color:
+                                                  InheritedChatTheme.of(context)
+                                                      .theme
+                                                      .inputTextColor
+                                                      .withOpacity(0.5),
+                                            ),
+                                        hintText: InheritedL10n.of(context)
+                                            .l10n
+                                            .inputPlaceholder,
+                                      ),
+                                  focusNode: _inputFocusNode,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 5,
+                                  minLines: 1,
+                                  onChanged: widget.options.onTextChanged,
+                                  onTap: widget.options.onTextFieldTap,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
                                 ),
-                            hintText:
-                                InheritedL10n.of(context).l10n.inputPlaceholder,
-                          ),
-                      focusNode: _inputFocusNode,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 5,
-                      minLines: 1,
-                      onChanged: widget.options.onTextChanged,
-                      onTap: widget.options.onTextFieldTap,
-                      style: InheritedChatTheme.of(context)
-                          .theme
-                          .inputTextStyle
-                          .copyWith(
-                            color: InheritedChatTheme.of(context)
-                                .theme
-                                .inputTextColor,
-                          ),
-                      textCapitalization: TextCapitalization.sentences,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: buttonPadding.bottom + buttonPadding.top + 24,
-                  ),
-                  child: Visibility(
-                    visible: _sendButtonVisible,
-                    child: SendButton(
-                      onPressed: _handleSendPressed,
-                      padding: buttonPadding,
+
+                    //create a icon button with a primery background
+                    Visibility(
+                      visible: _sendButtonVisible,
+                      child: GestureDetector(
+                        onTap: _handleSendPressed,
+                        child: Padding(
+                          padding: // left 9 top 6 right 9 bottom 6
+                              const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                          child: SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100)),
+                              ),
+                              child: Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    // LocooCircularIconButton(
+                    //   fillColor: Theme.of(context).primaryColor,
+                    //   iconColor: Theme.of(context).colorScheme.onPrimary,
+
+                    //   iconData: Icons.send,
+                    // ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+          // child: Row(
+          //   textDirection: TextDirection.ltr,
+          //   children: [
+          //     if (widget.onAttachmentPressed != null)
+          //       AttachmentButton(
+          //         isLoading: widget.isAttachmentUploading ?? false,
+          //         onPressed: widget.onAttachmentPressed,
+          //         padding: buttonPadding,
+          //       ),
+
+          //     ConstrainedBox(
+          //       constraints: BoxConstraints(
+          //         minHeight: buttonPadding.bottom + buttonPadding.top + 24,
+          //       ),
+          //       child: Visibility(
+          //         visible: _sendButtonVisible,
+          //         child: SendButton(
+          //           onPressed: _handleSendPressed,
+          //           padding: buttonPadding,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ),
       ),
     );

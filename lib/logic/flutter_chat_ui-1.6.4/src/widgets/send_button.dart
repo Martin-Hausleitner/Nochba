@@ -19,33 +19,43 @@ class SendButton extends StatelessWidget {
   final EdgeInsets padding;
 
   @override
-  Widget build(BuildContext context) => Container(
-        margin: InheritedChatTheme.of(context).theme.sendButtonMargin ??
-            const EdgeInsetsDirectional.fromSTEB(
-              0,
-              0,
-              8,
-              0,
-            ),
-        child: IconButton(
-          constraints: const BoxConstraints(
-            minHeight: 24,
-            minWidth: 24,
-          ),
-          icon: InheritedChatTheme.of(context).theme.sendButtonIcon ??
-              // Image.asset(
-              //   'assets/icon-send.png',
-              //   color: InheritedChatTheme.of(context).theme.inputTextColor,
-              //   package: 'flutter_chat_ui',
-              // ),
-              Icon(
-                Icons.send,
-                color: InheritedChatTheme.of(context).theme.inputTextColor,
+  Widget build(BuildContext context) => ClipRRect(
+    //round   
+        borderRadius: BorderRadius.circular(50),
+        child: Container(
+          margin: InheritedChatTheme.of(context).theme.sendButtonMargin ??
+              const EdgeInsetsDirectional.fromSTEB(
+                0,
+                0,
+                8,
+                0,
               ),
-          onPressed: onPressed,
-          padding: padding,
-          splashRadius: 24,
-          tooltip: InheritedL10n.of(context).l10n.sendButtonAccessibilityLabel,
+          color: Theme.of(context).primaryColor,
+          // round decoration
+
+          // round
+
+          child: IconButton(
+            constraints: const BoxConstraints(
+              minHeight: 24,
+              minWidth: 24,
+            ),
+            icon: InheritedChatTheme.of(context).theme.sendButtonIcon ??
+                // Image.asset(
+                //   'assets/icon-send.png',
+                //   color: InheritedChatTheme.of(context).theme.inputTextColor,
+                //   package: 'flutter_chat_ui',
+                // ),
+                Icon(
+                  Icons.send,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                ),
+            onPressed: onPressed,
+            padding: padding,
+            splashRadius: 24,
+            
+          ),
         ),
       );
 }

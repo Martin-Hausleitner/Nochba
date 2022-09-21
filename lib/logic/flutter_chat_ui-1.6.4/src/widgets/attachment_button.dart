@@ -57,7 +57,10 @@ class AttachmentButton extends StatelessWidget {
                   // ),
                   Icon(
                     FlutterRemix.image_add_line,
-                    color: InheritedChatTheme.of(context).theme.inputTextColor,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.2),
                   ),
           onPressed: isLoading ? null : onPressed,
           padding: padding,

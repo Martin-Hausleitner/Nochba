@@ -309,7 +309,7 @@ class DefaultChatTheme extends ChatTheme {
     ),
     super.inputContainerDecoration,
     super.inputMargin = EdgeInsets.zero,
-    super.inputPadding = const EdgeInsets.fromLTRB(24, 20, 24, 20),
+    super.inputPadding = EdgeInsets.zero,
     super.inputTextColor = neutral7,
     super.inputTextCursorColor,
     super.inputTextDecoration = const InputDecoration(
@@ -442,7 +442,7 @@ class DarkChatTheme extends ChatTheme {
     ),
     super.inputContainerDecoration,
     super.inputMargin = EdgeInsets.zero,
-    super.inputPadding = const EdgeInsets.fromLTRB(24, 20, 24, 20),
+    super.inputPadding = EdgeInsets.zero,
     super.inputTextColor = neutral7,
     super.inputTextCursorColor,
     super.inputTextDecoration = const InputDecoration(
