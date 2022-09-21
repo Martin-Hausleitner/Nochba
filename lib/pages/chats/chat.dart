@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 //import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -30,34 +31,38 @@ class ChatPage extends GetView<ChatController> {
 
     final controller = Get.find<ChatController>();
     return Scaffold(
+      // backgroundColor: Colors.red,
+      // Color(0xffF9F8FD),
+
       // ignore: unnecessary_new
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Colors.white,
-              offset: Offset(0, 5.0),
-              blurRadius: 5.0,
-            )
-          ]),
-          child: AppBar(
-            shadowColor: Colors.white,
-            elevation: 0,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(1), // Border radius
-                    child: ClipOval(child: displayProfileImage()),
-                  ),
+        preferredSize: Size.fromHeight(70.0),
+        child: AppBar(
+          toolbarHeight: 70,
+          shadowColor: Colors.white,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 22,
+                backgroundColor: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(1), // Border radius
+                  child: ClipOval(child: displayProfileImage()),
                 ),
-                Container(
-                    padding: const EdgeInsets.all(8.0),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                //align left
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    // padding: const EdgeInsets.all(8.0),
                     child: room.name == fullname
                         ? Text(
                             '${room.users[0].firstName} ${room.users[0].lastName}',
@@ -67,22 +72,60 @@ class ChatPage extends GetView<ChatController> {
                                 ?.copyWith(
                                   color:
                                       Theme.of(context).colorScheme.onSurface,
+                                  fontWeight: FontWeight.w600,
+
                                   // fontWeight: FontWeight.w600,
                                 ),
                           )
                         : Text(
-                            '${room.users[1].firstName} ${room.users[1].lastName}')),
-              ],
-            ),
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Theme.of(context).primaryColor,
+                            '${room.users[1].firstName} ${room.users[1].lastName}'),
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  Row(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    //center
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 4),
+                        // show this svg:
+                        child: Icon(
+                          FlutterRemix.map_pin_line,
+                          size: 12,
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.5),
+                        ),
+                      ),
+                      Text(
+                        'Auwiesen',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.color
+                                  ?.withOpacity(0.5),
+                              fontSize: 13,
+                            ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              onPressed: () {
-                Get.back();
-              },
+            ],
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).primaryColor,
             ),
+            onPressed: () {
+              Get.back();
+            },
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 
 import 'inherited_chat_theme.dart';
 import 'inherited_l10n.dart';
@@ -49,10 +50,14 @@ class AttachmentButton extends StatelessWidget {
                   ),
                 )
               : InheritedChatTheme.of(context).theme.attachmentButtonIcon ??
-                  Image.asset(
-                    'assets/icon-attachment.png',
+                  // Image.asset(
+                  //   'assets/icon-attachment.png',
+                  //   color: InheritedChatTheme.of(context).theme.inputTextColor,
+                  //   package: 'flutter_chat_ui',
+                  // ),
+                  Icon(
+                    FlutterRemix.image_add_line,
                     color: InheritedChatTheme.of(context).theme.inputTextColor,
-                    package: 'flutter_chat_ui',
                   ),
           onPressed: isLoading ? null : onPressed,
           padding: padding,

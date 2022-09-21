@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart' show PhotoViewComputedScale;
 
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+    as types;
 
 import '../chat_l10n.dart';
 import '../chat_theme.dart';
@@ -343,7 +344,10 @@ class _ChatState extends State<Chat> {
             child: Stack(
               children: [
                 Container(
-                  color: widget.theme.backgroundColor,
+                  color: //color f9f8fd
+                      Theme.of(context).colorScheme.background,
+                  // Color(0xffF9F8FD),
+                  // Theme.of(context).backgroundColor,
                   child: Column(
                     children: [
                       Flexible(
