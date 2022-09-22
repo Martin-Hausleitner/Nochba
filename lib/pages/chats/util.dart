@@ -1,6 +1,8 @@
 import 'dart:ui';
 
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
+
+//lib\logic\flutter_chat_types-3.4.5\src\user.dart
 
 const colors = [
   Color(0xffff6767),

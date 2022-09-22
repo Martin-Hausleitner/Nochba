@@ -35,10 +35,10 @@ const neutral7 = Color(0xffffffff);
 const neutral7WithOpacity = Color(0x80ffffff);
 
 /// Primary.
-const primary = Color.fromARGB(255, 208, 23, 23);
+const primary = Color(0xffdf7956);
 
 /// Secondary.
-const secondary = Color(0xFFA2A2A2);
+const secondary = Color(0xFFFFFFFF);
 
 /// Secondary dark.
 const secondaryDark = Color(0xff2b2250);
