@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_Chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
 
 /// Extension with one [toShortString] method.
 extension RoleToShortString on types.Role {

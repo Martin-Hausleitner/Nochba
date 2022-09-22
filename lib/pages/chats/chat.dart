@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 //import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 //import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:locoo/pages/chats/chat_controller.dart';
 import 'package:locoo/pages/chats/image_editor.dart';
@@ -165,9 +166,72 @@ class ChatPage extends GetView<ChatController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.pop(context);
-                  _handleImageSelection(context);
+                  //_handleImageSelection(context);
+
+                  // var result = await ImagePicker().pickImage(
+                  //   imageQuality: 70,
+                  //   maxWidth: 1440,
+                  //   source: ImageSource.gallery,
+                  // );
+
+                  // var imageData = await result!.readAsBytes();
+
+                  // ignore: use_build_context_synchronously
+                  var editedImage = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageEditorExample(),
+                    ),
+                  );
+
+                  // // replace with edited image
+                  // if (editedImage != null) {
+                  //   // Convert edited image to xfile
+                  //   result = XFile.fromData(editedImage);
+                  // }
+
+                  // if (result != null) {
+                  //   _setAttachmentUploading(true);
+                  //   // save edited image to local storage
+                  //   //final file = await File('storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg').copy(
+                  //   //    'storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg');
+                  //   // convert xfile to file
+
+
+
+
+
+
+                  //   final file = File(result.path);
+                  //   final size = file.lengthSync();
+                  //   final bytes = await result.readAsBytes();
+                  //   final image = await decodeImageFromList(bytes);
+                  //   final name = result.name;
+
+                  //   try {
+                  //     final reference = FirebaseStorage.instance.ref(name);
+                  //     await reference.putFile(file);
+                  //     final uri = await reference.getDownloadURL();
+
+                  //     final message = types.PartialImage(
+                  //       height: image.height.toDouble(),
+                  //       name: name,
+                  //       size: size,
+                  //       uri: uri,
+                  //       width: image.width.toDouble(),
+                  //     );
+
+                  //     chat.FirebaseChatCore.instance.sendMessage(
+                  //       message,
+                  //       room.id,
+                  //     );
+                  //     _setAttachmentUploading(false);
+                  //   } finally {
+                  //     _setAttachmentUploading(false);
+                  //   }
+                  // }
                 },
                 child: const Align(
                   heightFactor: 2.5,

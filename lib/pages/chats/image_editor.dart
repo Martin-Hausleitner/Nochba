@@ -20,7 +20,8 @@ class _ImageEditorExampleState extends State<ImageEditorExample> {
   @override
   void initState() {
     super.initState();
-    loadAsset("D:\\5CHIF\\DA\\Github-Locoo\\Locoo\\lib\\pages\\chats\\image.png");
+    loadAsset(
+        "D:\\5CHIF\\DA\\Github-Locoo\\Locoo\\lib\\pages\\chats\\image.png");
   }
 
   void loadAsset(String name) async {
@@ -44,13 +45,12 @@ class _ImageEditorExampleState extends State<ImageEditorExample> {
             child: const Text("Single image editor"),
             onPressed: () async {
               var result = await ImagePicker().pickImage(
-                    imageQuality: 70,
-                    maxWidth: 1440,
-                    source: ImageSource.gallery,
-                  );
+                imageQuality: 70,
+                maxWidth: 1440,
+                source: ImageSource.gallery,
+              );
 
               var imageData = await result!.readAsBytes();
-
 
               var editedImage = await Navigator.push(
                 context,
@@ -71,6 +71,14 @@ class _ImageEditorExampleState extends State<ImageEditorExample> {
           ElevatedButton(
             child: const Text("Multiple image editor"),
             onPressed: () async {
+              var result = await ImagePicker().pickImage(
+                imageQuality: 70,
+                maxWidth: 1440,
+                source: ImageSource.gallery,
+              );
+
+              var imageData = await result!.readAsBytes();
+
               var editedImage = await Navigator.push(
                 context,
                 MaterialPageRoute(
