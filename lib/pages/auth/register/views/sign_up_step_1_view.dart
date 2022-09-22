@@ -178,11 +178,13 @@ class SignUpStep1View extends StatelessWidget {
                     ),
               ),
               style: ElevatedButton.styleFrom(
-                //backgroundColor: Theme.of(context).colorScheme.onBackground,
+                backgroundColor: Theme.of(context).colorScheme.onBackground,
                 elevation: 0,
                 minimumSize: const Size.fromHeight(60),
                 shadowColor: Colors.transparent,
                 // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
+                //background color red
+
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
