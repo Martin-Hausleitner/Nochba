@@ -442,7 +442,11 @@ class _ChatState extends State<Chat> {
           margin: widget.theme.dateDividerMargin,
           child: Text(
             object.text,
-            style: widget.theme.dateDividerTextStyle,
+            // Date message send
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                ),
+            // style: widget.theme.dateDividerTextStyle,
           ),
         );
       }
