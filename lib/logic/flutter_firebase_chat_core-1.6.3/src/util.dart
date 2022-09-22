@@ -1,6 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_Chat_types.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/room.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/message.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/custom_message.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/file_message.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/image_message.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_custom.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_file.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_image.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_text.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/system_message.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/text_message.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/unsupported_message.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/preview_data.dart';
+
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/preview_data.dart'
+    as types;
+
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/util.dart';
 
 /// Extension with one [toShortString] method.
 extension RoleToShortString on types.Role {

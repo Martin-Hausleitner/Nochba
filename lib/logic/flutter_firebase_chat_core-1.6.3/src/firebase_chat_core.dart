@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/room.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/message.dart' as types;
-import 'package:locoo/logic/flutter_chat_types-3.4.5/src/message.dart';
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/custom_message.dart'
     as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/file_message.dart'
