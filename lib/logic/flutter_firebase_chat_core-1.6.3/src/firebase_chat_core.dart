@@ -3,6 +3,27 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/room.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/message.dart' as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/message.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/custom_message.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/file_message.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/image_message.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_custom.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_file.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_image.dart'
+    as types;
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/partial_text.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/system_message.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/text_message.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/unsupported_message.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/preview_data.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/room.dart';
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart';
+
+import 'package:locoo/logic/flutter_chat_types-3.4.5/src/preview_data.dart'
+    as types;
+
 import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/util.dart';
 
 import 'firebase_chat_core_config.dart';
