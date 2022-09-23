@@ -12,14 +12,17 @@ class AppBarBigView extends StatelessWidget {
   final List<Widget> children;
   final bool showBackButton;
   final List<Widget>? actions;
+  final EdgeInsetsGeometry? contentPadding;
 
-  const AppBarBigView(
-      {super.key,
-      required this.title,
-      required this.children,
-      this.backgroundColor,
-      this.showBackButton = true,
-      this.actions});
+  const AppBarBigView({
+    super.key,
+    required this.title,
+    required this.children,
+    this.backgroundColor,
+    this.showBackButton = true,
+    this.actions,
+    this.contentPadding = const EdgeInsets.only(left: 15, right: 15, top: 18),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -100,14 +103,12 @@ class AppBarBigView extends StatelessWidget {
               delegate: SliverChildListDelegate(
                 [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15, right: 15, top: 18),
+                    padding: contentPadding!,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: children,
                     ),
                   ),
-                  
                 ],
               ),
             ),

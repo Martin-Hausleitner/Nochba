@@ -24,6 +24,7 @@ class NotificationsPage extends GetView<NotificationsController> {
     return AppBarBigView(
       title: 'Benachrichtigungen',
       showBackButton: false,
+      contentPadding: const EdgeInsets.only(left: 0, right: 0, top: 18),
       actions: [
         IconButton(
           splashRadius: 0.01,
@@ -44,6 +45,9 @@ class NotificationsPage extends GetView<NotificationsController> {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            NotificationElementNew(),
+            NotificationElementNew(),
+            NotificationElementNew(),
             StreamBuilder<List<models.Notification>>(
               stream: dataAccess.getNotifications(),
               builder: (context, snapshot) {
@@ -192,6 +196,107 @@ class NotificationsPage extends GetView<NotificationsController> {
   }
 }
 
+class NotificationElementNew extends StatelessWidget {
+  const NotificationElementNew({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //avatar
+            SizedBox(
+              child: CircleAvatar(
+                backgroundColor: Colors.black26,
+                radius: 20,
+                backgroundImage: NetworkImage(
+                    'https://images.unsplash.com/photo-1663908778255-bd560e30d55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+
+            Column(
+              //set left
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Max Mustermann',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      FlutterRemix.time_line,
+                      size: 12,
+                      color: Colors.grey,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 2),
+                      child: Row(
+                        children: [
+                          Text(
+                            'publishDate',
+                            // style: GoogleFonts.inter(
+                            //   fontSize: 12,
+                            //   fontWeight: FontWeight.w400,
+                            //   // add light gray color
+                            //   color: Colors.grey[600],
+                            // ),
+                          ),
+                          Text(
+                            'min',
+                            // style: GoogleFonts.inter(
+                            //   fontSize: 12,
+                            //   fontWeight: FontWeight.w400,
+                            //   // add light gray color
+                            //   color: Colors.grey[600],
+                            // ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                //button
+              ],
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Annehmen',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+          ],
+        ),
+
+        //draw small gray line
+        Row(
+          children: [
+            Container(
+              height: 1,
+              width: 40,
+              color: Colors.transparent,
+            ),
+            Expanded(
+              child: Container(
+                height: 1,
+                color: Colors.grey[300],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class NotificationElement extends StatelessWidget {
   const NotificationElement({Key? key, required this.notification})
       : super(key: key);
@@ -208,7 +313,8 @@ class NotificationElement extends StatelessWidget {
           return Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(22),
-              color: Theme.of(context).colorScheme.onPrimary,
+              // color: Theme.of(context).colorScheme.onPrimary,
+              color: Colors.red,
             ),
             child: Column(
               children: [
