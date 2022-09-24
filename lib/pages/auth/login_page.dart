@@ -183,8 +183,8 @@ class LoginPage extends GetView<AuthController> {
                           ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onBackground,
+                      // backgroundColor:
+                      //     Theme.of(context).colorScheme.onBackground,
                       elevation: 0,
                       minimumSize: const Size.fromHeight(60),
                       shadowColor: Colors.transparent,
