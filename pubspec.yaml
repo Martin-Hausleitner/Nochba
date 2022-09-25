@@ -60,6 +60,7 @@ dependencies:
   flutter_linkify: ^5.0.2
   flutter_awesome_select: ^6.5.0
   material_tag_editor: ^0.1.2
+  firebase_app_check: ^0.0.7+2
 
 
 dev_dependencies:
