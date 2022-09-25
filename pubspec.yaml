@@ -21,12 +21,12 @@ dependencies:
   file_picker: ^5.0.1
   firebase_auth: ^3.5.0
   firebase_core: ^1.20.0
-  firebase_storage: ^10.3.3
+  firebase_storage: ^10.3.9
   contained_tab_bar_view: ^0.8.0
   # flutter_chat_types: ^3.4.3
   # flutter_chat_ui: ^1.6.4
   cloud_firestore: ^3.4.0
-  # flutter_firebase_chat_core: ^1.6.3
+  # flutter_firebase_chat_core: pod repo update^1.6.3
   http: ^0.13.4
   image_picker: ^0.8.5+3
   textfield_tags: ^2.0.2

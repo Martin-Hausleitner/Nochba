@@ -49,6 +49,9 @@ jobs:
       - run: flutter pub get
       - run: flutter clean
 
+      - run: pod repo update
+      - run: pod install
+
     
 
       # Build and sign the ipa using a single flutter command
