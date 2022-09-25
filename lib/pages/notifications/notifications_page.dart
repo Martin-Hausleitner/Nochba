@@ -205,95 +205,162 @@ class NotificationElementNew extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //avatar
-            SizedBox(
-              child: CircleAvatar(
-                backgroundColor: Colors.black26,
-                radius: 20,
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1663908778255-bd560e30d55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
+        Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Row(
+            // top
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 50,
+                width: 50,
+                color: Colors.green,
               ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-
-            Column(
-              //set left
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Max Mustermann',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                Row(
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
+                  //start
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(
-                      FlutterRemix.time_line,
-                      size: 12,
-                      color: Colors.grey,
+                    Row(
+                      //space between
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Name'),
+                        Row(
+                          children: [
+                            const Icon(
+                              FlutterRemix.time_line,
+                              size: 12,
+                              color: Colors.grey,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'publishDate',
+                                    // style: GoogleFonts.inter(
+                                    //   fontSize: 12,
+                                    //   fontWeight: FontWeight.w400,
+                                    //   // add light gray color
+                                    //   color: Colors.grey[600],
+                                    // ),
+                                  ),
+                                  Text(
+                                    'min',
+                                    // style: GoogleFonts.inter(
+                                    //   fontSize: 12,
+                                    //   fontWeight: FontWeight.w400,
+                                    //   // add light gray color
+                                    //   color: Colors.grey[600],
+                                    // ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 2),
-                      child: Row(
-                        children: [
-                          Text(
-                            'publishDate',
-                            // style: GoogleFonts.inter(
-                            //   fontSize: 12,
-                            //   fontWeight: FontWeight.w400,
-                            //   // add light gray color
-                            //   color: Colors.grey[600],
-                            // ),
-                          ),
-                          Text(
-                            'min',
-                            // style: GoogleFonts.inter(
-                            //   fontSize: 12,
-                            //   fontWeight: FontWeight.w400,
-                            //   // add light gray color
-                            //   color: Colors.grey[600],
-                            // ),
-                          ),
-                        ],
-                      ),
+                    SizedBox(
+                      height: 5,
                     ),
+                    Text(
+                      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text('Button'),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        OutlinedButton(
+                          onPressed: () {},
+                          child: Text('Button'),
+                        ),
+                      ],
+                    )
                   ],
                 ),
-                //button
-              ],
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                'Annehmen',
-                style: Theme.of(context).textTheme.bodyText1,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-
-        //draw small gray line
-        Row(
-          children: [
-            Container(
-              height: 1,
-              width: 40,
-              color: Colors.transparent,
-            ),
-            Expanded(
-              child: Container(
-                height: 1,
-                color: Colors.grey[300],
-              ),
-            ),
-          ],
+        Container(
+          height: 1,
+          color: Colors.red,
         ),
       ],
     );
+
+    // return Column(
+    //   children: [
+
+    //     // Row(
+    //     //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     //   children: [
+    //     //     //avatar
+    //     //     SizedBox(
+    //     //       child: CircleAvatar(
+    //     //         backgroundColor: Colors.black26,
+    //     //         radius: 20,
+    //     //         backgroundImage: NetworkImage(
+    //     //             'https://images.unsplash.com/photo-1663908778255-bd560e30d55e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
+    //     //       ),
+    //     //     ),
+    //     //     SizedBox(
+    //     //       width: 10,
+    //     //     ),
+
+    //     //     Column(
+    //     //       //set left
+    //     //       crossAxisAlignment: CrossAxisAlignment.start,
+    //     //       children: [
+    //     //         Text(
+    //     //           'Max Mustermann',
+    //     //           style: Theme.of(context).textTheme.bodyText1,
+    //     //         ),
+
+    //     //         //button
+    //     //       ],
+    //     //     ),
+    //     //     TextButton(
+    //     //       onPressed: () {},
+    //     //       child: Text(
+    //     //         'Annehmen',
+    //     //         style: Theme.of(context).textTheme.bodyText1,
+    //     //       ),
+    //     //     ),
+    //     //   ],
+    //     // ),
+
+    //     //draw small gray line
+    //     Row(
+    //       children: [
+    //         Container(
+    //           height: 1,
+    //           width: 40,
+    //           color: Colors.transparent,
+    //         ),
+    //         Expanded(
+    //           child: Container(
+    //             height: 1,
+    //             color: Colors.grey[300],
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ],
+    // );
   }
 }
 
