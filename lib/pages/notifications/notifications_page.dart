@@ -226,9 +226,17 @@ class NotificationElementNew extends StatelessWidget {
                   children: [
                     Row(
                       //space between
+                      //start
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Name'),
+                        Expanded(
+                          child: Text(
+                            'NameNameNameNameNameNameNaNameNameNameNameNameNameNameme',
+                            maxLines: 2,
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
                         Row(
                           children: [
                             const Icon(
@@ -239,24 +247,12 @@ class NotificationElementNew extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 2),
                               child: Row(
-                                children: [
+                                children: const [
                                   Text(
-                                    'publishDate',
-                                    // style: GoogleFonts.inter(
-                                    //   fontSize: 12,
-                                    //   fontWeight: FontWeight.w400,
-                                    //   // add light gray color
-                                    //   color: Colors.grey[600],
-                                    // ),
+                                    '2',
                                   ),
                                   Text(
                                     'min',
-                                    // style: GoogleFonts.inter(
-                                    //   fontSize: 12,
-                                    //   fontWeight: FontWeight.w400,
-                                    //   // add light gray color
-                                    //   color: Colors.grey[600],
-                                    // ),
                                   ),
                                 ],
                               ),
@@ -296,7 +292,7 @@ class NotificationElementNew extends StatelessWidget {
           ),
         ),
         Container(
-          height: 1,
+          height: 0.5,
           color: Colors.red,
         ),
       ],
