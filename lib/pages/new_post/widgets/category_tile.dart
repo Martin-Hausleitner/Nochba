@@ -49,20 +49,6 @@ class CategoryTile extends StatelessWidget {
               ],
             ),
           ),
-          //icon button information-line
-          // Positioned(
-          //   bottom: 0,
-          //   right: 0,
-          //   child: IconButton(
-          //     splashRadius: 10,
-          //     icon: Icon(
-          //       FlutterRemix.information_line,
-          //       color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-          //       size: 20,
-          //     ),
-          //     onPressed: onPressedInfo,
-          //   ),
-          // ),
         ],
       ),
     );

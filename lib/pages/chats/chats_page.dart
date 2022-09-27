@@ -160,7 +160,10 @@ class ChatsPage extends GetView<ChatsController> {
                               ),
                             ),
                           );*/
-                          Get.to(() => ChatPage(room: room));
+                          Get.to(
+                            () => ChatPage(room: room),
+                            transition: Transition.cupertino,
+                          );
                         },
                         // child: Container(
                         //   padding: const EdgeInsets.symmetric(
@@ -174,13 +177,16 @@ class ChatsPage extends GetView<ChatsController> {
                         //     ],
                         //   ),
                         // ),
-                        child: ChatElement(
-                          roomName: room.name ?? '',
-                          imageUrl: room.imageUrl ?? '',
-                          lastMessage:
-                              'sdssdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsddsdsdsdsd',
-                          time: '',
-                          notificationCount: 9,
+                        child: Ink(
+                          child: ChatElement(
+                            roomName: room.name ?? '',
+                            imageUrl: room.imageUrl ?? '',
+                            lastMessage:
+                                'sdssdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsddsdsdsdsd',
+                            time: '',
+                            notificationCount: 9,
+                          ),
+                          // red Continaer
                         ),
                       );
                     },

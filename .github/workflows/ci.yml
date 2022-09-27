@@ -49,8 +49,8 @@ jobs:
       - run: flutter pub get
       - run: flutter clean
 
-      - run: pod repo update
-      - run: pod install
+      # - run: pod repo update
+      # - run: pod install
 
     
 
