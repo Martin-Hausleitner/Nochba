@@ -51,7 +51,7 @@ class PostProfile extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w600,
-                            letterSpacing: -0.5,
+                            letterSpacing: -0.3,
                           ),
                     ),
                   ),

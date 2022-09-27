@@ -54,7 +54,15 @@ class ChatElement extends StatelessWidget {
                             roomName,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleSmall,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: -0.3,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.88),
+                                    ),
                           ),
                         ),
                         Row(
@@ -102,6 +110,9 @@ class ChatElement extends StatelessWidget {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 2,
+                    ),
 
                     Row(
                       children: [
@@ -116,10 +127,12 @@ class ChatElement extends StatelessWidget {
                                       .colorScheme
                                       .onSurface
                                       .withOpacity(0.6),
-                                  fontSize: 13,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),
                             maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
                           ),
                         ),
                         SizedBox(
@@ -129,7 +142,7 @@ class ChatElement extends StatelessWidget {
                           // if the notification count is larger then 99 show 99+ else show container
                           if (notificationCount! > 99)
                             Container(
-                              height: 22,
+                              height: 20,
                               width: 32,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
@@ -145,7 +158,7 @@ class ChatElement extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSecondary,
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
@@ -153,8 +166,8 @@ class ChatElement extends StatelessWidget {
                             )
                           else
                             Container(
-                              height: 22,
-                              width: 22,
+                              height: 20,
+                              width: 20,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(20),

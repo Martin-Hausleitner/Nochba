@@ -150,7 +150,8 @@ class ChatsPage extends GetView<ChatsController> {
                     itemBuilder: (context, index) {
                       final room = snapshot.data![index];
 
-                      return GestureDetector(
+                      return InkWell(
+                        // splashColor: Colors.red,
                         onTap: () {
                           /*Navigator.of(context).push(
                             MaterialPageRoute(

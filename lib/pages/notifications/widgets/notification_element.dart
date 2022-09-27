@@ -50,11 +50,26 @@ class NotificationElement extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Text(
+                          child:
+                              // Text(
+                              //   authorName,
+                              //   maxLines: 2,
+                              //   overflow: TextOverflow.ellipsis,
+                              //   style: Theme.of(context).textTheme.titleSmall,
+                              // ),
+                              Text(
                             authorName,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleSmall,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: -0.3,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.88),
+                                    ),
                           ),
                         ),
                         Row(
@@ -112,7 +127,7 @@ class NotificationElement extends StatelessWidget {
                                 .colorScheme
                                 .onSurface
                                 .withOpacity(0.6),
-                            fontSize: 13,
+                            fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
                     ),
@@ -203,9 +218,26 @@ class NotificationElement extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          height: 0.8,
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+        Row(
+          children: [
+            Container(
+              height: 0.8,
+              width: 15,
+              color: Colors.transparent,
+            ),
+            Expanded(
+              child: Container(
+                height: 0.8,
+                color:
+                    Theme.of(context).colorScheme.onSurface.withOpacity(0.06),
+              ),
+            ),
+            Container(
+              height: 0.8,
+              width: 15,
+              color: Colors.transparent,
+            ),
+          ],
         ),
       ],
     );
