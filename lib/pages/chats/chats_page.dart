@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/pages/chats/chats_controller.dart';
+import 'package:locoo/pages/chats/widgets/chat_element.dart';
 
 import 'chat.dart';
 import 'firebase_options.dart';
@@ -160,17 +161,25 @@ class ChatsPage extends GetView<ChatsController> {
                           );*/
                           Get.to(() => ChatPage(room: room));
                         },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          child: Row(
-                            children: [
-                              Obx(() => _buildAvatar(room)),
-                              Text(room.name ?? ''),
-                            ],
-                          ),
+                        // child: Container(
+                        //   padding: const EdgeInsets.symmetric(
+                        //     horizontal: 16,
+                        //     vertical: 8,
+                        //   ),
+                        //   child: Row(
+                        //     children: [
+                        //       Obx(() => _buildAvatar(room)),
+                        //       Text(room.name ?? ''),
+                        //     ],
+                        //   ),
+                        // ),
+                        child: ChatElement(
+                          roomName: room.name ?? '',
+                          imageUrl: room.imageUrl ?? '',
+                          lastMessage:
+                              'sdssdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsddsdsdsdsd',
+                          time: '',
+                          notificationCount: 9,
                         ),
                       );
                     },

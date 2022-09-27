@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 
+import 'locoo_circle_avatar.dart';
+
 class EditAvatar extends StatelessWidget {
   final String imageUrl;
   final VoidCallback onTap;
 
   const EditAvatar({
     Key? key,
-    required this.imageUrl, required this.onTap,
+    required this.imageUrl,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -29,31 +32,10 @@ class EditAvatar extends StatelessWidget {
             // ),
             //create a circle container with i user icon in the center
             // when image url is emty show container
-            imageUrl.isEmpty
-                ? Container(
-                    height: 110,
-                    width: 110,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.08),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      FlutterRemix.user_fill,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.1),
-                      size: 60,
-                    ),
-                  )
-                : CircleAvatar(
-                    backgroundColor: Colors.black26,
-                    radius: 55,
-                    backgroundImage: NetworkImage(imageUrl),
-                  ),
+            LocooCircleAvatar(
+              imageUrl: imageUrl,
+              radius: 55,
+            ),
 
             SizedBox(
               height: 30.0,

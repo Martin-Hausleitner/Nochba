@@ -12,6 +12,7 @@ import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/logic/auth_access.dart';
 import 'package:locoo/shared/ui/cards/action_card.dart';
 import 'package:locoo/shared/ui/cards/action_card_title.dart';
+import 'package:locoo/shared/ui/locoo_circle_avatar.dart';
 
 import '../../logic/data_access.dart';
 import 'private_profile_controller.dart';
@@ -86,10 +87,14 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                               return Center(
                                 child: Column(
                                   children: [
-                                    CircleAvatar(
-                                      radius: 50,
-                                      backgroundImage:
-                                          NetworkImage(data.imageUrl),
+                                    // CircleAvatar(
+                                    //   radius: 50,
+                                    //   backgroundImage:
+                                    //       NetworkImage(data.imageUrl),
+                                    // ),
+                                    LocooCircleAvatar(
+                                      imageUrl: data.imageUrl,
+                                      radius: 55,
                                     ),
                                     const SizedBox(
                                       height: 10,

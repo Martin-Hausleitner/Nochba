@@ -5,6 +5,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locoo/shared/ui/locoo_circle_avatar.dart';
 import 'package:locoo/views/public_profile/public_profile_view.dart';
 
 class PostProfile extends StatelessWidget {
@@ -32,31 +33,10 @@ class PostProfile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          authorImage.isEmpty
-              ? Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.08),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    FlutterRemix.user_fill,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.1),
-                    size: 20,
-                  ),
-                )
-              : CircleAvatar(
-                  backgroundColor: Colors.black26,
-                  radius: 20,
-                  backgroundImage: NetworkImage(authorImage),
-                ),
+          LocooCircleAvatar(
+            imageUrl: authorImage,
+            radius: 20,
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 10),

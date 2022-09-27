@@ -13,6 +13,7 @@ import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:locoo/pages/chats/chat_controller.dart';
 import 'package:locoo/pages/chats/image_editor.dart';
+import 'package:locoo/shared/ui/locoo_circle_avatar.dart';
 import 'package:mime/mime.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -48,13 +49,17 @@ class ChatPage extends GetView<ChatController> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(1), // Border radius
-                  child: ClipOval(child: displayProfileImage()),
-                ),
+              // CircleAvatar(
+              //   radius: 22,
+              //   backgroundColor: Colors.white,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(1), // Border radius
+              //     child: ClipOval(child: displayProfileImage()),
+              //   ),
+              // ),
+              LocooCircleAvatar(
+                imageUrl: room.users[1].imageUrl,
+                radius: 20,
               ),
               SizedBox(
                 width: 10,
@@ -198,11 +203,6 @@ class ChatPage extends GetView<ChatController> {
                   //   //final file = await File('storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg').copy(
                   //   //    'storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg');
                   //   // convert xfile to file
-
-
-
-
-
 
                   //   final file = File(result.path);
                   //   final size = file.lengthSync();
