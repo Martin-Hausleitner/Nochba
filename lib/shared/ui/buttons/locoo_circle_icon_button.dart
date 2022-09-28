@@ -3,11 +3,9 @@
 import 'package:flutter/material.dart';
 
 class LocooCircleIconButton extends StatelessWidget {
-  // Icon
   final IconData icon;
   final bool? isPressed;
 
-  // add onPressed
   final VoidCallback? onPressed;
 
   LocooCircleIconButton({
