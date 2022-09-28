@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:locoo/pages/feed/widgets/filter/filter_range_slider.dart';
@@ -74,3 +76,6 @@ class FeedPostFilterView extends StatelessWidget {
     );
   }
 }
+
+//create a class called test silder which show a container when the focusnode is active
+

@@ -21,9 +21,12 @@ class FeedPage extends GetView<FeedController> {
         value: SystemUiOverlayStyle.dark,
         child: Column(
           children: [
+            TestSlider(),
+            // Test2(),
+
             // LocooRangeSlider(),
             ElevatedButton(
-              child: const Text('Filter'),
+              child: const Text('Filter1'),
               // onPressed: () {
               //   showModalBottomSheet<void>(
               //     context: context,
@@ -101,3 +104,203 @@ class FeedPage extends GetView<FeedController> {
     );
   }
 }
+
+//create a gesturedector which triggers a overlayentry
+class TestSlider extends StatefulWidget {
+  const TestSlider({Key? key}) : super(key: key);
+
+  @override
+  _TestSliderState createState() => _TestSliderState();
+}
+
+class _TestSliderState extends State<TestSlider> {
+  final GlobalKey _key = GlobalKey();
+  late OverlayEntry _overlayEntry;
+  double _currentSliderValue = 20;
+  bool _isOverlayVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _overlayEntry = _createOverlayEntry();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      key: _key,
+
+      // onTapDown show _toggleOverlay();
+      onTapDown: (TapDownDetails details) {
+        _toggleOverlay();
+      },
+
+      // onTapUp hide _toggleOverlay();
+
+      onTapUp: (TapUpDetails details) {
+        _toggleOverlay();
+      },
+
+      // onTapCancel: () {
+      //   _toggleOverlay();
+      // },
+
+      child: Slider(
+        value: _currentSliderValue,
+        max: 100,
+        divisions: 5,
+        label: _currentSliderValue.round().toString(),
+        onChanged: (double value) {
+          setState(() {
+            _currentSliderValue = value;
+          });
+        },
+      ),
+    );
+  }
+
+  OverlayEntry _createOverlayEntry() {
+    return OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          width: 200,
+          height: 200,
+          child: Container(
+            color: Colors.blue,
+          ),
+        );
+      },
+    );
+  }
+
+  void _toggleOverlay() {
+    final RenderBox renderBox =
+        _key.currentContext!.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    print(offset);
+    setState(() {
+      _isOverlayVisible = !_isOverlayVisible;
+    });
+    if (_isOverlayVisible) {
+      Overlay.of(context)!.insert(_overlayEntry);
+    } else {
+      _overlayEntry.remove();
+    }
+  }
+}
+
+//create a class stateful test1 which has a blue container with a gesture detector and when onTapDown then pops up a red overlay
+
+// class Test1 extends StatefulWidget {
+//   const Test1({Key? key}) : super(key: key);
+
+//   @override
+//   _Test1State createState() => _Test1State();
+// }
+
+// class _Test1State extends State<Test1> {
+//   bool _showOverlay = false;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // return Stack(
+//     //   children: [
+//     //     Container(
+//     //       color: Colors.blue,
+//     //       child: GestureDetector(
+//   onTapDown: (details) {
+//     setState(() {
+//       _showOverlay = true;
+//       //print test
+//       print('test');
+//     });
+//   },
+//   onTapUp: (details) {
+//     setState(() {
+//       _showOverlay = false;
+//     });
+//   },
+//   onTapCancel: () {
+//     setState(() {
+//       _showOverlay = false;
+//     });
+//   },
+// ),
+//     //     ),
+//     //     if (_showOverlay)
+//     //       Positioned.fill(
+//     //         child: Container(
+//     //           color: Colors.red,
+//     //         ),
+//     //       ),
+//     //   ],
+//     // );
+//   }
+// }
+
+//create testsilder which has a gesture detector and when onTap triggers OverlayEntryWidget
+
+// void showOverlay(BuildContext context) {
+//   OverlayEntry overlayEntry;
+//   overlayEntry = OverlayEntry(
+//     builder: (context) => Positioned(
+//       top: 100,
+//       left: 100,
+//       child: Material(
+//         color: Colors.transparent,
+//         child: Container(
+//           height: 200,
+//           width: 200,
+//           color: Colors.red,
+//           child: Center(
+//             child: Text('Overlay'),
+//           ),
+//         ),
+//       ),
+//     ),
+//   );
+
+//   Overlay.of(context)!.insert(overlayEntry);
+
+//   Future.delayed(Duration(seconds: 1), () {
+//     overlayEntry.remove();
+//   });
+// }
+
+// //create a class which is a slider which onchange triggers a overlay with a text
+// class LocooRangeSlider extends StatefulWidget {
+//   const LocooRangeSlider({Key? key}) : super(key: key);
+
+//   @override
+//   _LocooRangeSliderState createState() => _LocooRangeSliderState();
+// }
+
+// class _LocooRangeSliderState extends State<LocooRangeSlider> {
+//   RangeValues _currentRangeValues = const RangeValues(0, 100);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         RangeSlider(
+//           values: _currentRangeValues,
+//           min: 0,
+//           max: 100,
+//           divisions: 100,
+//           labels: RangeLabels(
+//             _currentRangeValues.start.round().toString(),
+//             _currentRangeValues.end.round().toString(),
+//           ),
+//           onChanged: (RangeValues values) {
+//             setState(() {
+//               _currentRangeValues = values;
+//             });
+//             showOverlay(context);
+//           },
+//         ),
+//         Text(
+//             'Value: ${_currentRangeValues.start.round()} - ${_currentRangeValues.end.round()}'),
+//       ],
+//     );
+//   }
+// }
