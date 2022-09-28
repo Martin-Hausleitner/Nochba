@@ -4,8 +4,8 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/logic/models/post.dart' as models;
 import 'package:locoo/logic/models/user.dart' as models;
-import 'package:locoo/pages/feed/post/widgets/post_card.dart';
 import 'package:locoo/pages/feed/views/feed_post_filter_view.dart';
+import 'package:locoo/pages/feed/widgets/post_card.dart';
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';

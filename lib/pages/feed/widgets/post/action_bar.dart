@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/pages/feed/views/action_bar_more/action_bar_more_view.dart';
-
-import 'package:locoo/shared/ui/buttons/round_icon_button.dart';
+import 'package:locoo/shared/ui/buttons/locoo_circle_icon_button.dart';
+import 'package:locoo/shared/ui/buttons/locoo_circle_state_Icon_button.dart';
 
 import 'package:locoo/logic/models/bookmark.dart';
 import 'package:locoo/logic/data_access.dart';
@@ -25,8 +25,9 @@ class ActionBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
-          RoundIconButton(
+          LocooCircleIconButton(
             icon: Icons.thumb_up,
+            isPressed: false,
             onPressed: () {
               Get.snackbar(
                 "Edit",
@@ -48,7 +49,7 @@ class ActionBar extends StatelessWidget {
           ),
 
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
-          RoundIconButton(
+          LocooCircleIconButton(
             icon: Icons.forum,
             onPressed: () {
               Get.snackbar(
@@ -75,17 +76,20 @@ class ActionBar extends StatelessWidget {
               if (snapshot.hasData) {
                 final bookMark = snapshot.data!;
                 if (bookMark.posts.contains(post.id)) {
-                  return RoundIconButton(
+                  return LocooCircleIconButton(
                     icon: Icons.bookmark,
-                    color: Theme.of(context).colorScheme.primary,
+                    isPressed: true,
+
+                    // color: Theme.of(context).colorScheme.primary,
                     onPressed: () {
                       bookMark.posts.removeWhere((e) => e == post.id);
                       dataAccess.updateBookMark(bookMark);
                     },
                   );
                 } else {
-                  return RoundIconButton(
+                  return LocooCircleIconButton(
                     icon: Icons.bookmark,
+                    // isPressed: false,
                     onPressed: () {
                       bookMark.posts.add(post.id);
                       dataAccess.updateBookMark(bookMark);
@@ -93,13 +97,18 @@ class ActionBar extends StatelessWidget {
                   );
                 }
               } else {
-                return RoundIconButton(
-                    icon: Icons.bookmark, color: Colors.grey, onPressed: () {});
+                return LocooCircleIconButton(
+                  icon: Icons.bookmark,
+                  // isPressed: true,
+                  // color: Colors.grey,
+                  onPressed: () {},
+                );
               }
             }),
           ),
+
           Spacer(),
-          RoundIconButton(
+          LocooCircleIconButton(
             icon: Icons.more_horiz,
             onPressed: () {
               showModalBottomSheet<dynamic>(
@@ -129,3 +138,6 @@ class ActionBar extends StatelessWidget {
     );
   }
 }
+
+//create a round container which changes color when pressed and when its pressed again it changes back to its original color
+
