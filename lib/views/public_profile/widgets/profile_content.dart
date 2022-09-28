@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locoo/logic/models/category.dart';
 import 'package:locoo/logic/data_access.dart';
-import 'package:locoo/pages/feed/post/post.dart';
 import 'package:locoo/logic/models/post.dart' as models;
 import 'package:locoo/logic/models/user.dart' as models;
 
 import 'package:locoo/pages/feed/feed_controller.dart';
+import 'package:locoo/pages/feed/widgets/post_card.dart';
 
 import 'user_info.dart';
 

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/feed/post/post.dart';
 import 'package:locoo/logic/models/post.dart' as models;
 import 'package:locoo/logic/models/user.dart' as models;
-import 'package:locoo/pages/feed/post/views/feed_post_filter_view.dart';
+import 'package:locoo/pages/feed/post/widgets/post_card.dart';
+import 'package:locoo/pages/feed/views/feed_post_filter_view.dart';
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
@@ -53,14 +53,10 @@ class FeedPage extends GetView<FeedController> {
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Center(
-                      child: Text(
-                        'The feeds are not available at the moment',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.w300
-                        )
-                      )
-                    );
+                        child: Text('The feeds are not available at the moment',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.w300)));
                   } else if (snapshot.hasData) {
                     final posts = snapshot.data!;
 

@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/logic/models/post.dart';
 
-import 'package:locoo/pages/feed/post/post.dart' as widget;
+import 'package:locoo/pages/feed/widgets/post_card.dart' as widget;
 import 'package:locoo/logic/models/post.dart' as models;
 import 'package:locoo/logic/models/user.dart' as models;
 

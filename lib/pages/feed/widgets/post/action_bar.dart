@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:locoo/pages/feed/post/views/action_bar_more/action_bar_more_view.dart';
+import 'package:locoo/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 
 import 'package:locoo/shared/ui/buttons/round_icon_button.dart';
 

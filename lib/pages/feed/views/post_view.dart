@@ -11,14 +11,15 @@ import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/pages/chats/chat.dart';
 
 import 'package:flutter/material.dart';
+import 'package:locoo/pages/feed/widgets/post/action_bar.dart';
+import 'package:locoo/pages/feed/widgets/post/category_badge.dart';
+import 'package:locoo/pages/feed/widgets/post/hashtag_badges.dart';
+import 'package:locoo/pages/feed/widgets/post/post_profile.dart';
 import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
 
 import 'package:locoo/logic/models/post.dart' as models;
 
-import '../widgets/action_bar.dart';
-import '../widgets/category_badge.dart';
-import '../widgets/hashtag_badges.dart';
-import '../widgets/post_profile.dart';
+
 
 class PostView extends StatelessWidget {
   final models.Post post;
