@@ -156,12 +156,12 @@ class DataAccess extends GetxService {
     }
   }
 
-  Future<types.User?> getChatUser(String uid) async {
+  Future<models.User?> getChatUser(String uid) async {
     try {
       final snapshot = await userdataCol.doc(uid).get();
 
       if(snapshot.exists) {
-        return types.User.fromJson(snapshot.data()!);
+        return models.User.fromJson(snapshot.data()!);
       } else {
         return null;
       }

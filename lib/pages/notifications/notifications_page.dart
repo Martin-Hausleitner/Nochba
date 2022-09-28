@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:locoo/logic/data_access.dart';
-import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
+import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
 import 'package:locoo/pages/chats/chat.dart';
 import 'package:locoo/pages/notifications/notifications_controller.dart';
@@ -22,7 +22,6 @@ import 'package:locoo/shared/views/app_bar_big_view.dart';
 class NotificationsPage extends GetView<NotificationsController> {
   @override
   Widget build(BuildContext context) {
-    final dataAccess = Get.find<DataAccess>();
     return AppBarBigView(
       title: 'Benachrichtigungen',
       showBackButton: false,
@@ -65,13 +64,13 @@ class NotificationsPage extends GetView<NotificationsController> {
               declineButtonOnPressed: () => Get.snackbar('dd', 'message'),
             ),
             StreamBuilder<List<models.Notification>>(
-              stream: dataAccess.getNotifications(),
+              stream: controller.getNotificationsOfCurrentUser(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return Text(
-                      'Something went wrong: ${snapshot.error.toString()}',
+                  return const Text(
+                      'The notifications are not available at the moment',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 32, fontWeight: FontWeight.w300));
                 } else if (snapshot.hasData) {
                   final notifications = snapshot.data!;
@@ -220,7 +219,7 @@ class NotificationElementOLD extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dataAccess = Get.find<DataAccess>();
-    return FutureBuilder<types.User?>(
+    return FutureBuilder<models.User?>(
       future: FirebaseChatCore.instance.user(notification.fromUser),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {

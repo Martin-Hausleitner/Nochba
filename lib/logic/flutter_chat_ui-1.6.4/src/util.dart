@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
+import 'package:locoo/logic/models/user.dart' as models;
 import 'package:intl/intl.dart';
 
 import './models/date_header.dart';
@@ -30,11 +31,11 @@ String formatBytes(int size, [int fractionDigits = 2]) {
 }
 
 /// Returns user avatar and name color based on the ID.
-Color getUserAvatarNameColor(types.User user, List<Color> colors) =>
+Color getUserAvatarNameColor(models.User user, List<Color> colors) =>
     colors[user.id.hashCode % colors.length];
 
 /// Returns user initials (can have only first letter of firstName/lastName or both).
-String getUserInitials(types.User user) {
+String getUserInitials(models.User user) {
   var initials = '';
 
   if ((user.firstName ?? '').isNotEmpty) {
@@ -49,7 +50,7 @@ String getUserInitials(types.User user) {
 }
 
 /// Returns user name as joined firstName and lastName.
-String getUserName(types.User user) =>
+String getUserName(models.User user) =>
     '${user.firstName ?? ''} ${user.lastName ?? ''}'.trim();
 
 /// Returns formatted date used as a divider between different days in the
@@ -101,7 +102,7 @@ bool isConsistsOfEmojis(
 /// returns them with a gallery
 List<Object> calculateChatMessages(
   List<types.Message> messages,
-  types.User user, {
+  models.User user, {
   String Function(DateTime)? customDateHeaderText,
   DateFormat? dateFormat,
   required int dateHeaderThreshold,

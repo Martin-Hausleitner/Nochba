@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:locoo/logic/interfaces/IModel.dart';
 
-class Post {
+class Post implements IModel {
+  @override
   String id;
   final String user;
   final String title;
@@ -22,6 +24,7 @@ class Post {
       required this.tags,
       required this.liked});
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'user': user,
@@ -34,7 +37,7 @@ class Post {
         'liked': liked,
       };
 
-  static Post fromJson(Map<String, dynamic> json) => Post(
+  factory Post.fromJson(Map<String, dynamic> json) => Post(
         id: json['id'],
         user: json['user'],
         title: json['title'],

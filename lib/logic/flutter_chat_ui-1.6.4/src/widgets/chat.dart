@@ -7,6 +7,7 @@ import 'package:photo_view/photo_view.dart' show PhotoViewComputedScale;
 
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
+import 'package:locoo/logic/models/user.dart' as models;
 
 import '../chat_l10n.dart';
 import '../chat_theme.dart';
@@ -204,7 +205,7 @@ class Chat extends StatefulWidget {
   final VoidCallback? onAttachmentPressed;
 
   /// See [Message.onAvatarTap].
-  final void Function(types.User)? onAvatarTap;
+  final void Function(models.User)? onAvatarTap;
 
   /// Called when user taps on background.
   final VoidCallback? onBackgroundTap;
@@ -283,7 +284,7 @@ class Chat extends StatefulWidget {
   final bool usePreviewData;
 
   /// See [InheritedUser.user].
-  final types.User user;
+  final models.User user;
 
   /// See [Message.userAgent].
   final String? userAgent;

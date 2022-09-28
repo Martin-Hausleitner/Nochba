@@ -1,9 +1,13 @@
-class BookMark {
+import 'package:locoo/logic/interfaces/IModel.dart';
+
+class BookMark implements IModel {
+  @override
   String id;
   final List<String> posts;
 
   BookMark({this.id = '', required this.posts});
 
+  @override
   Map<String, dynamic> toJson() => {
     'id': id,
     'posts': posts,

@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../message.dart';
 import '../preview_data.dart' show PreviewData;
-import '../user.dart' show User;
+import '../../../models/user.dart' show User;
 import 'partial_text.dart';
 
 part 'text_message.g.dart';

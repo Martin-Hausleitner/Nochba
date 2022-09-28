@@ -27,7 +27,6 @@ import 'package:locoo/logic/models/user.dart' as models;
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override
   Widget build(BuildContext context) {
-    final dataAccess = Get.find<DataAccess>();
     final authAccess = Get.find<AuthAccess>();
     return CupertinoPageScaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -79,8 +78,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           height: 20,
                         ),
                         FutureBuilder<models.User?>(
-                          future: dataAccess
-                              .getUser(FirebaseAuth.instance.currentUser!.uid),
+                          future: controller.getCurrentUser(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final data = snapshot.data!;

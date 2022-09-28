@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 import '../message.dart';
-import '../user.dart' show User;
+import '../../../models/user.dart' show User;
 
 part 'unsupported_message.g.dart';
 

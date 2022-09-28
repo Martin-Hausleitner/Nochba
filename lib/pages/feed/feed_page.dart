@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/category.dart';
-import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/pages/feed/post/post.dart';
 import 'package:locoo/logic/models/post.dart' as models;
 import 'package:locoo/logic/models/user.dart' as models;
@@ -13,9 +11,10 @@ import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
 
 class FeedPage extends GetView<FeedController> {
+  const FeedPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final dataAccess = Get.find<DataAccess>();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -50,14 +49,18 @@ class FeedPage extends GetView<FeedController> {
 
             Expanded(
               child: StreamBuilder<List<models.Post>>(
-                stream: dataAccess.getPosts(),
+                stream: controller.getPosts(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return Text(
-                        'Something went wrong: ${snapshot.error.toString()}',
+                    return const Center(
+                      child: Text(
+                        'The feeds are not available at the moment',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.w300));
+                        style: TextStyle(
+                            fontSize: 32, fontWeight: FontWeight.w300
+                        )
+                      )
+                    );
                   } else if (snapshot.hasData) {
                     final posts = snapshot.data!;
 
@@ -68,7 +71,7 @@ class FeedPage extends GetView<FeedController> {
                         final post = posts.elementAt(index);
 
                         return FutureBuilder<models.User?>(
-                          future: dataAccess.getUser(post.user),
+                          future: controller.getUser(post.user),
                           builder: ((context, snapshot) {
                             if (snapshot.hasData) {
                               final user = snapshot.data!;
@@ -76,7 +79,7 @@ class FeedPage extends GetView<FeedController> {
                                 post: post,
                                 postAuthorName:
                                     '${user.firstName} ${user.lastName}',
-                                postAuthorImage: user.imageUrl,
+                                postAuthorImage: user.imageUrl!,
                               );
                             } else {
                               return Container();

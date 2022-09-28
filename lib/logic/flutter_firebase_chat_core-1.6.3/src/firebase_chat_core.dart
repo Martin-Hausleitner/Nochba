@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/room.dart' as types;
-import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
+import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/message.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/messages/custom_message.dart'
     as types;
@@ -79,11 +79,11 @@ class FirebaseChatCore {
   /// a group name. Add an optional [imageUrl] that will be a group avatar
   /// and [metadata] for any additional custom data.
   Future<types.Room> createGroupRoom({
-    types.Role creatorRole = types.Role.admin,
+    models.Role creatorRole = models.Role.admin,
     String? imageUrl,
     Map<String, dynamic>? metadata,
     required String name,
-    required List<types.User> users,
+    required List<models.User> users,
   }) async {
     if (firebaseUser == null) return Future.error('User does not exist');
 
@@ -94,7 +94,7 @@ class FirebaseChatCore {
       role: creatorRole.toShortString(),
     );
 
-    final roomUsers = [types.User.fromJson(currentUser)] + users;
+    final roomUsers = [models.User.fromJson(currentUser)] + users;
 
     final room = await getFirebaseFirestore()
         .collection(config.roomsCollectionName)
@@ -128,7 +128,7 @@ class FirebaseChatCore {
   /// Creates a direct chat for 2 people. Add [metadata] for any additional
   /// custom data.
   Future<types.Room> createRoom(
-    types.User otherUser, {
+    models.User otherUser, {
     Map<String, dynamic>? metadata,
   }) async {
     final fu = firebaseUser;
@@ -189,7 +189,7 @@ class FirebaseChatCore {
       config.usersCollectionName,
     );
 
-    final users = [types.User.fromJson(currentUser), otherUser];
+    final users = [models.User.fromJson(currentUser), otherUser];
 
     // Create new room with sorted user ids array.
     final room = await getFirebaseFirestore()
@@ -215,7 +215,7 @@ class FirebaseChatCore {
 
   /// Creates [types.User] in Firebase to store name and avatar used on
   /// rooms list
-  Future<void> createUserInFirestore(types.User user) async {
+  Future<void> createUserInFirestore(models.User user) async {
     await getFirebaseFirestore()
         .collection(config.usersCollectionName)
         .doc(user.id)
@@ -296,7 +296,7 @@ class FirebaseChatCore {
               final data = doc.data();
               final author = room.users.firstWhere(
                 (u) => u.id == data['authorId'],
-                orElse: () => types.User(id: data['authorId'] as String),
+                orElse: () => models.User(id: data['authorId'] as String),
               );
 
               data['author'] = author.toJson();
@@ -374,25 +374,25 @@ class FirebaseChatCore {
 
     if (partialMessage is types.PartialCustom) {
       message = types.CustomMessage.fromPartial(
-        author: types.User(id: firebaseUser!.uid),
+        author: models.User(id: firebaseUser!.uid),
         id: '',
         partialCustom: partialMessage,
       );
     } else if (partialMessage is types.PartialFile) {
       message = types.FileMessage.fromPartial(
-        author: types.User(id: firebaseUser!.uid),
+        author: models.User(id: firebaseUser!.uid),
         id: '',
         partialFile: partialMessage,
       );
     } else if (partialMessage is types.PartialImage) {
       message = types.ImageMessage.fromPartial(
-        author: types.User(id: firebaseUser!.uid),
+        author: models.User(id: firebaseUser!.uid),
         id: '',
         partialImage: partialMessage,
       );
     } else if (partialMessage is types.PartialText) {
       message = types.TextMessage.fromPartial(
-        author: types.User(id: firebaseUser!.uid),
+        author: models.User(id: firebaseUser!.uid),
         id: '',
         partialText: partialMessage,
       );
@@ -475,13 +475,13 @@ class FirebaseChatCore {
   }
 
   /// Returns a stream of all users from Firebase.
-  Stream<List<types.User>> users() {
+  Stream<List<models.User>> users() {
     if (firebaseUser == null) return const Stream.empty();
     return getFirebaseFirestore()
         .collection(config.usersCollectionName)
         .snapshots()
         .map(
-          (snapshot) => snapshot.docs.fold<List<types.User>>(
+          (snapshot) => snapshot.docs.fold<List<models.User>>(
             [],
             (previousValue, doc) {
               if (firebaseUser!.uid == doc.id) return previousValue;
@@ -493,13 +493,13 @@ class FirebaseChatCore {
               data['lastSeen'] = data['lastSeen'];
               data['updatedAt'] = data['updatedAt'];
 
-              return [...previousValue, types.User.fromJson(data)];
+              return [...previousValue, models.User.fromJson(data)];
             },
           ),
         );
   }
 
-  Future<types.User?> user(String uid) async {
+  Future<models.User?> user(String uid) async {
     if (firebaseUser == null) return null;
 
     try {
@@ -507,10 +507,10 @@ class FirebaseChatCore {
         getFirebaseFirestore(),
         uid,
         config.usersCollectionName,
-        role: types.Role.user.toShortString(),
+        role: models.Role.user.toShortString(),
       );
 
-      return types.User.fromJson(user);
+      return models.User.fromJson(user);
     } on Exception catch (e) {
       return null;
     }

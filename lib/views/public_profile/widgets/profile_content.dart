@@ -85,7 +85,7 @@ class ProfileContent extends StatelessWidget {
                                   post: post,
                                   postAuthorName:
                                       '${user.firstName} ${user.lastName}',
-                                  postAuthorImage: user.imageUrl,
+                                  postAuthorImage: user.imageUrl!,
                                 );
                               } else {
                                 return Container();

@@ -7,7 +7,7 @@ import 'messages/image_message.dart';
 import 'messages/system_message.dart';
 import 'messages/text_message.dart';
 import 'messages/unsupported_message.dart';
-import 'user.dart' show User;
+import '../../models/user.dart' show User;
 
 /// All possible message types.
 enum MessageType { custom, file, image, system, text, unsupported }

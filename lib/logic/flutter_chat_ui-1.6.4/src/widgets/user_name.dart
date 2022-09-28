@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/models/user.dart' as models;
 
 import '../util.dart';
 import 'inherited_chat_theme.dart';
@@ -14,7 +15,7 @@ class UserName extends StatelessWidget {
   });
 
   /// Author to show name from.
-  final types.User author;
+  final models.User author;
 
   @override
   Widget build(BuildContext context) {

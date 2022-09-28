@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:locoo/logic/interfaces/IModel.dart';
 
 enum NotificationType { none, chatRequest, }
 
-class Notification {
+class Notification implements IModel {
+  @override
   String id;
   final String fromUser;
   final String toUser;
@@ -19,6 +21,7 @@ class Notification {
       required this.createdAt,
   });
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'fromUser': fromUser,
@@ -28,7 +31,7 @@ class Notification {
         'createdAt': createdAt,
       };
 
-  static Notification fromJson(Map<String, dynamic> json) => Notification(
+  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
         id: json['id'],
         fromUser: json['fromUser'],
         toUser: json['toUser'],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/models/user.dart' as models;
 
 import '../models/bubble_rtl_alignment.dart';
 import '../models/emoji_enlargement_behavior.dart';
@@ -111,7 +112,7 @@ class Message extends StatelessWidget {
   final Widget Function(String userId)? nameBuilder;
 
   /// See [UserAvatar.onAvatarTap].
-  final void Function(types.User)? onAvatarTap;
+  final void Function(models.User)? onAvatarTap;
 
   /// Called when user double taps on any message.
   final void Function(BuildContext context, types.Message)? onMessageDoubleTap;

@@ -6,6 +6,7 @@ import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_ch
 import 'package:get/get.dart';
 
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/models/bookmark.dart';
 
@@ -38,12 +39,12 @@ class AuthAccess extends GetxService {
       );
       final uid = cred.user!.uid;
       await chat.FirebaseChatCore.instance.createUserInFirestore(
-        types.User(
+        models.User(
           firstName: firstName,
           id: uid,
           imageUrl: 'https://i.pravatar.cc/300?u=$email',
           lastName: lastName,
-          role: types.Role.user,
+          role: models.Role.user,
           metadata: const {'value': ''}
         ),
       );

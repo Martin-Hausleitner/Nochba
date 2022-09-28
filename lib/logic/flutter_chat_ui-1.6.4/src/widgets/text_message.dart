@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
+import 'package:locoo/logic/models/user.dart' as models;
 //import 'package:flutter_link_previewer/flutter_link_previewer.dart'
 //    show LinkPreview, regexEmail, regexLink;
 import 'package:locoo/logic/flutter_link_previewer-3.0.1/flutter_link_previewer.dart'
@@ -98,7 +99,7 @@ class TextMessage extends StatelessWidget {
   }
 
   Widget _linkPreview(
-    types.User user,
+    models.User user,
     double width,
     BuildContext context,
   ) {
@@ -143,7 +144,7 @@ class TextMessage extends StatelessWidget {
   }
 
   Widget _textWidgetBuilder(
-    types.User user,
+    models.User user,
     BuildContext context,
     bool enlargeEmojis,
   ) {

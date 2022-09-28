@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
+import 'package:locoo/logic/models/user.dart' as models;
 
 import 'package:locoo/logic/flutter_chat_types-3.4.5/src/preview_data.dart'
     as types;
@@ -9,7 +10,7 @@ import 'package:locoo/logic/flutter_chat_types-3.4.5/src/preview_data.dart'
 import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/util.dart';
 
 /// Extension with one [toShortString] method.
-extension RoleToShortString on types.Role {
+extension RoleToShortString on models.Role {
   /// Converts enum to the string equal to enum's name.
   String toShortString() => toString().split('.').last;
 }

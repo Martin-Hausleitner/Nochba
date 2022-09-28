@@ -20,6 +20,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
+import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
     as chat;
 import 'package:locoo/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart' as ui;
@@ -151,7 +152,7 @@ class ChatPage extends GetView<ChatController> {
                     onMessageTap: _handleMessageTap,
                     onPreviewDataFetched: _handlePreviewDataFetched,
                     onSendPressed: _handleSendPressed,
-                    user: types.User(
+                    user: models.User(
                       id: chat.FirebaseChatCore.instance.firebaseUser?.uid ??
                           '',
                     ),

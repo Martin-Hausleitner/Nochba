@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'message.dart';
-import 'user.dart';
+import '../../models/user.dart';
 
 part 'room.g.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:locoo/logic/flutter_chat_types-3.4.5/src/user.dart' as types;
+import 'package:locoo/logic/models/user.dart';
 
 //lib\logic\flutter_chat_types-3.4.5\src\user.dart
 
@@ -17,10 +17,10 @@ const colors = [
   Color(0xffc78ae5),
 ];
 
-Color getUserAvatarNameColor(types.User user) {
+Color getUserAvatarNameColor(User user) {
   final index = user.id.hashCode % colors.length;
   return colors[index];
 }
 
-String getUserName(types.User user) =>
+String getUserName(User user) =>
     '${user.firstName ?? ''} ${user.lastName ?? ''}'.trim();
