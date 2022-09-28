@@ -17,6 +17,7 @@ class ManageAccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBarBigView(
       title: 'Konto Verwalten',
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         ActionTextCard(
           title: 'Email',
