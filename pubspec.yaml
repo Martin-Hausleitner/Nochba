@@ -75,6 +75,7 @@ flutter:
     - assets/lottie/
     - assets/appainter_theme.json
     - assets/chat_ui/
+    - assets/images/
   fonts:
     - family: Inter
       fonts:

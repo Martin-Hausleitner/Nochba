@@ -98,17 +98,30 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
     _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         // top: 100,
-        left: 5,
+        left: 15,
         //bottom size of bottomsheet
         bottom: 500,
         child: Container(
           width: //infinity width
               //size width screen
-              MediaQuery.of(context).size.width - 20,
+              MediaQuery.of(context).size.width - 30,
           height: 200,
           //add round corners
+          // color: Colors.white,
+          decoration: BoxDecoration(
+            // color: Colors.white,
+            color: Colors.white,
 
-          color: Colors.red,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          //show as a child a  photo: C:\Users\am\.temp\lol\Locoo\assets\images\range.png with round corners
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              'assets/images/range.png',
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
       ),
     );
