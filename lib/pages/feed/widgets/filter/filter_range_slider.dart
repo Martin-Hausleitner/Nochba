@@ -13,7 +13,7 @@ class FilterRangeSlider extends StatefulWidget {
 
 class _FilterRangeSliderState extends State<FilterRangeSlider> {
   double _currentSliderValue = 20;
-  FocusNode _focusNode = FocusNode();
+  OverlayEntry? _overlayEntry;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,6 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
             value: _currentSliderValue,
             max: 100,
             divisions: 5,
-            focusNode: _focusNode,
             label: _currentSliderValue == 0
                 ? 'eignes Haus'
                 : '${_currentSliderValue.round()}',
@@ -57,6 +56,12 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
               setState(() {
                 _currentSliderValue = value;
               });
+            },
+            onChangeStart: (double value) {
+              showOverlay();
+            },
+            onChangeEnd: (double value) {
+              hideOverlay();
             },
           ),
         ),
@@ -86,9 +91,44 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
       ],
     );
   }
+
+  // create a function showOverlay which creates an overlayEntry and inserts it into the overlay
+
+  void showOverlay() {
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        // top: 100,
+        left: 5,
+        //bottom size of bottomsheet
+        bottom: 500,
+        child: Container(
+          width: //infinity width
+              //size width screen
+              MediaQuery.of(context).size.width - 20,
+          height: 200,
+          //add round corners
+
+          color: Colors.red,
+        ),
+      ),
+    );
+    Overlay.of(context)!.insert(_overlayEntry!);
+  }
+
+  // create a function hideOverlay which removes the overlayEntry from the overlay
+
+  void hideOverlay() {
+    _overlayEntry!.remove();
+    _overlayEntry = null;
+  }
+
+  // create a function toggleOverlay which checks if the overlayEntry is null and if so calls showOverlay, otherwise calls hideOverlay
+
+  void toggleOverlay() {
+    if (_overlayEntry == null) {
+      showOverlay();
+    } else {
+      hideOverlay();
+    }
+  }
 }
-
-// crate a new sate widget slidertest which shows a container when the slider moves
-
-
-
