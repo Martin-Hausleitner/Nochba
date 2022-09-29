@@ -40,6 +40,15 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     }
   }
 
+  Stream<T?> getAsStream(String id, {List<String>? nexus}) {
+    validate(null, AccessMode.get);
+    try {
+      return resource.getAsStream(id, nexus: nexus);
+    } on Exception {
+      rethrow;
+    }
+  }
+
   Future<void> update(T model, {List<String>? nexus}) async {
     validate(model, AccessMode.update);
     try {

@@ -6,6 +6,7 @@ abstract class IResource<T extends IModel> {
     
     Stream<List<T>> getAll({MapEntry<String, bool>? orderFieldDescending});
     Future<T?> get(String id);
+    Stream<T?> getAsStream(String id);
     Future<void> update(T post);
     Future<void> updateFields(String id, Map<String, dynamic> fields);
     Future<void> insert(T post);
