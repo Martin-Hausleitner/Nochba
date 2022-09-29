@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/models/user.dart' as models;
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' as types;
 import 'package:locoo/logic/models/bookmark.dart';
 
 
@@ -34,7 +33,7 @@ class AuthAccess extends GetxService {
     }
     try{
       final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email, 
+        email: email,
         password: password
       );
       final uid = cred.user!.uid;
@@ -68,5 +67,9 @@ class AuthAccess extends GetxService {
 
   Future signOut() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  Stream<User?> authStateChanges() {
+    return FirebaseAuth.instance.authStateChanges();
   }
 }
