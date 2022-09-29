@@ -59,7 +59,7 @@ class ChatPage extends GetView<ChatController> {
               //   ),
               // ),
               LocooCircleAvatar(
-                imageUrl: room.users[1].imageUrl,
+                imageUrl: room.users[0].imageUrl,
                 radius: 20,
               ),
               SizedBox(
