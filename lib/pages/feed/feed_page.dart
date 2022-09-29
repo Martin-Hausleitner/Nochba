@@ -6,7 +6,6 @@ import 'package:locoo/logic/models/post.dart' as models;
 import 'package:locoo/logic/models/user.dart' as models;
 import 'package:locoo/pages/feed/views/feed_post_filter_view.dart';
 import 'package:locoo/pages/feed/widgets/post_card.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
@@ -64,6 +63,7 @@ class FeedPage extends GetView<FeedController> {
                     final posts = snapshot.data!;
 
                     return ListView.separated(
+                      physics: const ClampingScrollPhysics(), 
                       shrinkWrap: true,
                       itemCount: posts.length,
                       itemBuilder: (BuildContext context, int index) {
