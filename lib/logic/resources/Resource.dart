@@ -49,6 +49,21 @@ class Resource<T extends IModel> implements IResource<T> {
   }
 
   @override
+  Stream<T?> getAsStream(String id, {List<String>? nexus}) {
+    return firestoreInstance
+      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+      .doc(id)
+      .snapshots()
+      .map((doc) {
+        if(doc.exists) {
+          return getModelFromJson(doc.data()!);
+        } else {
+          return null;
+        }
+      });
+  }
+
+  @override
   Future<void> update(T model, {List<String>? nexus}) async {
     return await firestoreInstance
       .collection(getCollectionName(typeOf<T>(), nexus: nexus))
@@ -155,5 +170,5 @@ class Resource<T extends IModel> implements IResource<T> {
     
     return query.snapshots()
       .asyncMap((snapshot) => snapshot.docs.map((doc) => getModelFromJson(doc.data())).toList());
-  }
+  }  
 }
