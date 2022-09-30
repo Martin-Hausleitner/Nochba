@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locoo/logic/Resources/ResourceConfig.dart';
 import 'package:locoo/logic/interfaces/IModel.dart';
 
 abstract class IResource<T extends IModel> {
