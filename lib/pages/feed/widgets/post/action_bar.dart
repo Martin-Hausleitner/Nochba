@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:locoo/pages/feed/views/action_bar_more/action_bar_more_view.dart';
+import 'package:locoo/pages/feed/widgets/post/action_bar_controller.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circle_icon_button.dart';
 
 import 'package:locoo/logic/models/bookmark.dart';
-import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/logic/models/post.dart';
 
 //create a ActionBar class which have multiple round icon Buttons
 
-class ActionBar extends StatelessWidget {
+class ActionBar extends GetView<ActionBarController> {
   final Post post;
   const ActionBar({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dataAccess = Get.find<DataAccess>();
-
     // return a row with round icon buttons and a text
     return Container(
       child: Row(
@@ -70,7 +67,7 @@ class ActionBar extends StatelessWidget {
           ),
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
           StreamBuilder<BookMark?>(
-            stream: dataAccess.getBookMarkOfCurrentUser(),
+            stream: controller.getBookMarkOfCurrentUser(),
             builder: ((context, snapshot) {
               if (snapshot.hasData) {
                 final bookMark = snapshot.data!;
@@ -80,19 +77,13 @@ class ActionBar extends StatelessWidget {
                     isPressed: true,
 
                     // color: Theme.of(context).colorScheme.primary,
-                    onPressed: () {
-                      bookMark.posts.removeWhere((e) => e == post.id);
-                      dataAccess.updateBookMark(bookMark);
-                    },
+                    onPressed: () async => await controller.unsavePost(bookMark, post.id)
                   );
                 } else {
                   return LocooCircleIconButton(
                     icon: Icons.bookmark,
                     // isPressed: false,
-                    onPressed: () {
-                      bookMark.posts.add(post.id);
-                      dataAccess.updateBookMark(bookMark);
-                    },
+                    onPressed: () async => await controller.savePost(bookMark, post.id)
                   );
                 }
               } else {
