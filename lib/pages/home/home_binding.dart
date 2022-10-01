@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:locoo/logic/repositories/BookMarkRepository.dart';
+// import 'package:locoo/logic/repositories/BookMarkRepository.dart';
 import 'package:locoo/logic/repositories/NotificationRepository.dart';
 import 'package:locoo/logic/repositories/PostRepository.dart';
 import 'package:locoo/logic/repositories/UserRepository.dart';
@@ -18,6 +20,8 @@ import 'package:locoo/pages/private_profile/private_profile_controller.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
+    Get.put(BookMarkRepository(ResourceContext()));
+
     Get.put(PostRepository(ResourceContext()));
     Get.put(UserRepository(ResourceContext()));
     Get.put(NotificationRepository(ResourceContext()));
@@ -25,7 +29,7 @@ class HomeBinding extends Bindings {
     Get.put(FeedController());
     Get.put(NotificationsController());
     Get.put(PrivateProfileController());
-    
+
     Get.put<DashboardController>(DashboardController());
     // Get.lazyPut<AccountController>(() => AccountController());
     Get.put(DataAccess());
