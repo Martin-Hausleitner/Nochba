@@ -49,9 +49,9 @@ jobs:
       - run: flutter pub get
       - run: flutter clean
 
-      - name: pod update
-      - run: ls
-      - run: cd ios && pod update
+      # - name: pod update
+      # - run: ls
+      # - run: cd ios && pod update
       # - run: pod repo update
       # - run: pod install
 
