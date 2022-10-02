@@ -4,6 +4,7 @@ import 'package:locoo/logic/repositories/BookMarkRepository.dart';
 // import 'package:locoo/logic/repositories/BookMarkRepository.dart';
 import 'package:locoo/logic/repositories/NotificationRepository.dart';
 import 'package:locoo/logic/repositories/PostRepository.dart';
+import 'package:locoo/logic/repositories/UserPublicInfoRepository.dart';
 import 'package:locoo/logic/repositories/UserRepository.dart';
 import 'package:locoo/logic/resources/ResourceContext.dart';
 import 'package:locoo/logic/auth_access.dart';
@@ -30,6 +31,7 @@ class HomeBinding extends Bindings {
 
     Get.put(PostRepository(ResourceContext()));
     Get.put(UserRepository(ResourceContext()));
+    Get.put(UserPublicInfoRepository(ResourceContext()));
     Get.put(NotificationRepository(ResourceContext()));
     Get.put(ActionBarController());
     Get.put(FeedController());

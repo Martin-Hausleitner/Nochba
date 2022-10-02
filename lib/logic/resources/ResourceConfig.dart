@@ -10,6 +10,9 @@ class ResourceConfig {
   /// Property to set users collection name.
   final String usersCollectionName = 'users';
 
+  /// Property to set userPublicInfo collection name.
+  final String userPublicInfoCollectionName = 'userPublicInfo';
+
   /// Property to set posts collection name.
   final String postsCollectionName = 'posts';
 
