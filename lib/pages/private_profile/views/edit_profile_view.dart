@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart';
+import 'package:locoo/logic/models/user.dart';
+import 'package:locoo/pages/private_profile/views/edit_profile_controller.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:locoo/shared/ui/cards/action_card_title.dart';
 import 'package:locoo/shared/ui/cards/action_text_card.dart';
@@ -13,13 +16,14 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../private_profile_page.dart';
 
-class EditProfileView extends StatelessWidget {
+class EditProfileView extends GetView<EditProfileController> {
   const EditProfileView({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return AppBarBigView(
       title: 'Profil Bearbeiten',
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -59,82 +63,96 @@ class EditProfileView extends StatelessWidget {
           height: 30,
         ),
         ActionCardTitle(title: 'Persönliche Daten'),
-        ActionTextCard(
-          title: 'Name',
-          icon: Icon(FlutterRemix.user_line),
-          onTap: () {
-            showModalBottomSheet<void>(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25.0))),
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return BottomSheetCloseSaveView(
-                  children: [
-                    LocooTextField(
-                      label: 'Vorname',
-                      textInputAction: TextInputAction.next,
-                      autofocus: true,
-                      controller: TextEditingController(text: 'Max'),
-                    ),
-                    SizedBox(height: 10),
-                    LocooTextField(
-                      label: 'Nachname',
-                      textInputAction: TextInputAction.done,
-                      controller: TextEditingController(text: 'Mustermann'),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Padding(
-                      padding: // right left 5
-                          EdgeInsets.only(
-                        left: 7,
-                        right: 7,
-                      ),
-                      child: Row(
-                        //spacebetween
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
+        StreamBuilder<User?>(
+          stream: controller.getCurrentUser(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final user = snapshot.data;
+
+              return ActionTextCard(
+                title: 'Name',
+                icon: Icon(FlutterRemix.user_line),
+                onTap: () {
+                  showModalBottomSheet<void>(
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(25.0))),
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return BottomSheetCloseSaveView(
+                        onSave: () async => await controller.updateNameOfCurrentUser(),
                         children: [
-                          Flexible(
-                            child: Text(
-                              'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.color
-                                          ?.withOpacity(0.6)),
+                          LocooTextField(
+                            label: 'Vorname',
+                            textInputAction: TextInputAction.next,
+                            autofocus: true,
+                            controller: controller.firstNameTextController,
+                          ),
+                          SizedBox(height: 10),
+                          LocooTextField(
+                            label: 'Nachname',
+                            textInputAction: TextInputAction.done,
+                            controller: controller.lastNameTextController,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Padding(
+                            padding: // right left 5
+                                EdgeInsets.only(
+                              left: 7,
+                              right: 7,
+                            ),
+                            child: Row(
+                              //spacebetween
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.color
+                                                ?.withOpacity(0.6)),
+                                  ),
+                                ),
+
+                                //tranform  scale 0.8 cupertuon swtich
+                                Transform.scale(
+                                  scale: 0.8,
+                                  child: CupertinoSwitch(
+                                    activeColor: Theme.of(context).primaryColor,
+                                    value: true,
+                                    onChanged: (value) {},
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-
-                          //tranform  scale 0.8 cupertuon swtich
-                          Transform.scale(
-                            scale: 0.8,
-                            child: CupertinoSwitch(
-                              activeColor: Theme.of(context).primaryColor,
-                              value: true,
-                              onChanged: (value) {},
-                            ),
+                          SizedBox(
+                            height: 5,
                           ),
                         ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                );
-              },
-            );
+                      );
+                    },
+                  );
+                },
+                text: '${user?.firstName} ${user?.lastName}',
+              );
+            }
+            else {
+              return Container();
+            }
           },
-          text: 'Martin Hausleitner',
         ),
         ActionTextCard(
           title: 'Geburtstag',
@@ -149,6 +167,7 @@ class EditProfileView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {},
                   children: [
                     Column(
                       children: [
@@ -254,6 +273,7 @@ class EditProfileView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {},
                   children: [
                     SfDateRangePicker(
                       view: DateRangePickerView.decade,
@@ -310,6 +330,7 @@ class EditProfileView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {},
                   children: [
                     LocooTextField(
                       label: 'Beruf',
@@ -341,6 +362,7 @@ class EditProfileView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {},
                   children: [
                     LocooTextField(
                       label: 'Mehr über dich',
@@ -393,6 +415,7 @@ class EditProfileView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {},
                   children: [
                     // ad a counter with + an- buttons
                     Row(

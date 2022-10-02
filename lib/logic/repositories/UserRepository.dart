@@ -12,4 +12,21 @@ class UserRepository extends GenericRepository<User> {
       rethrow;
     }
   }
+
+  Stream<User?> getCurrentUserAsStream() {
+    try {
+      return getAsStream(resourceContext.uid);
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Future updateNameOfCurrentUser(String firstName, String lastName) {
+    try {
+      return updateFields(
+          resourceContext.uid, {"firstName": firstName, "lastName": lastName});
+    } on Exception {
+      rethrow;
+    }
+  }
 }

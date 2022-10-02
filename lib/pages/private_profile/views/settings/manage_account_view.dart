@@ -32,6 +32,7 @@ class ManageAccountView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {  },
                   children: [
                     LocooTextField(
                       label: 'Email',
@@ -62,6 +63,7 @@ class ManageAccountView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {  },
                   children: [
                     LocooTextField(
                       label: 'Passwort',
@@ -92,6 +94,7 @@ class ManageAccountView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
+                  onSave: () {  },
                   children: [
                     LocooTextField(
                       label: 'Straße',

@@ -5,8 +5,9 @@ import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
 class BottomSheetCloseSaveView extends StatelessWidget {
   //children
   final List<Widget> children;
+  final VoidCallback onSave;
 
-  const BottomSheetCloseSaveView({super.key, required this.children});
+  const BottomSheetCloseSaveView({super.key, required this.children, required this.onSave});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,13 @@ class BottomSheetCloseSaveView extends StatelessWidget {
                   //   onPressed: () => Navigator.pop(context),
                   // ),
                   ElevatedButton.icon(
-                    onPressed: () => Navigator.pop(context),
+                    // onPressed triggers onSave and navigation pop
+                    onPressed: () {
+                      onSave();
+                      Navigator.pop(context);
+                    },
+                    
+                    //() => Navigator.pop(context),
                     icon: Icon(
                       FlutterRemix.check_line,
                     ),

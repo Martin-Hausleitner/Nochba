@@ -16,6 +16,7 @@ import 'package:locoo/pages/feed/widgets/post/action_bar_controller.dart';
 import 'package:locoo/pages/new_post/new_post_controller.dart';
 import 'package:locoo/pages/notifications/notifications_controller.dart';
 import 'package:locoo/pages/private_profile/private_profile_controller.dart';
+import 'package:locoo/pages/private_profile/views/edit_profile_controller.dart';
 
 class HomeBinding extends Bindings {
   @override
@@ -29,6 +30,7 @@ class HomeBinding extends Bindings {
     Get.put(FeedController());
     Get.put(NotificationsController());
     Get.put(PrivateProfileController());
+    Get.put(EditProfileController());
 
     Get.put<DashboardController>(DashboardController());
     // Get.lazyPut<AccountController>(() => AccountController());
