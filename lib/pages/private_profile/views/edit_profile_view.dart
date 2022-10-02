@@ -346,7 +346,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     LocooTextField(
                       label: 'Beruf',
                       autofocus: true,
-                      controller: TextEditingController(text: 'Beruf'),
+                      controller: controller.jobTitleTextController,
                     ),
                     SizedBox(height: 10),
                     SizedBox(
