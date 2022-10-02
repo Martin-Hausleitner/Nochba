@@ -56,8 +56,12 @@ class UserPublicInfo extends IModel {
         familyStatus: json['familyStatus'],
         hasChildren: json['hasChildren'],
         hasPets: json['hasPets'],
-        interests: List.castFrom<dynamic, String>(json['interests']),
-        offers: List.castFrom<dynamic, String>(json['offers']),
+        interests: json['interests'] != null
+            ? List.castFrom<dynamic, String>(json['interests'])
+            : null,
+        offers: json['offers'] != null
+            ? List.castFrom<dynamic, String>(json['offers'])
+            : null,
         bio: json['bio'],
       );
 }
