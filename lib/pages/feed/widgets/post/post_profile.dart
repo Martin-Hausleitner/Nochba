@@ -81,11 +81,12 @@ class TimeDistance extends StatelessWidget {
     return Row(
       children: [
         // show a small clock icon
-        const Icon(
+        Icon(
           FlutterRemix.time_line,
           size: 12,
-          color: Colors.grey,
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
         ),
+
         Padding(
           padding: const EdgeInsets.only(left: 2),
           child: Row(
@@ -96,7 +97,8 @@ class TimeDistance extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   // add light gray color
-                  color: Colors.grey[600],
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
               ),
               Text(
@@ -105,20 +107,21 @@ class TimeDistance extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   // add light gray color
-                  color: Colors.grey[600],
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
               ),
             ],
           ),
         ),
         //show a locaiton icon
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 8),
           // show this svg:
           child: Icon(
             FlutterRemix.map_pin_line,
             size: 12,
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
           ),
         ),
         Padding(
@@ -131,7 +134,8 @@ class TimeDistance extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   // add light gray color
-                  color: Colors.grey[600],
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
               ),
               Text(
@@ -140,7 +144,8 @@ class TimeDistance extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   // add light gray color
-                  color: Colors.grey[600],
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
               ),
             ],
