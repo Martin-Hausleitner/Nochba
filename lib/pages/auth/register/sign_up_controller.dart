@@ -41,7 +41,12 @@ class SignUpController extends GetxController {
             'Bitte geben Sie eine gültige Email und ein gültiges Passwort ein');
         return;
       }
-      if (passwordController.text.length < 6) {
+      if (!GetUtils.isEmail(emailController.text.trim())) {
+        Get.snackbar(
+            'Ungültige Email', 'Bitte geben Sie eine gültige Email an');
+        return;
+      }
+      if (passwordController.text.trim().length < 6) {
         Get.snackbar('Schwaches Passwort',
             'Dass Passwort muss länger als 6 Zeichen lang sein');
         return;
@@ -94,6 +99,10 @@ class SignUpController extends GetxController {
       } else if (e.code == 'weak-password') {
         Get.snackbar('Schwaches Passwort',
             'Dass Passwort muss länger als 6 Zeichen lang sein');
+        goToPage(0);
+      } else if (e.code == 'email-already-in-use') {
+        Get.snackbar(
+            'Vergebene Email', 'Die angegebene Email ist schon vergeben');
         goToPage(0);
       } else {
         Get.snackbar('Error', '$e');
