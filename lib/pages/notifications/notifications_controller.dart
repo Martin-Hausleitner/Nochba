@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/Notification.dart';
-import 'package:locoo/logic/repositories/NotificationRepository.dart';
+import 'package:nochba/logic/models/Notification.dart';
+import 'package:nochba/logic/repositories/NotificationRepository.dart';
 
 class NotificationsController extends GetxController {
   final notificationRepository = Get.find<NotificationRepository>();

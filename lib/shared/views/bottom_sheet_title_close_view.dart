@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 
 class BottomSheetTitleCloseView extends StatelessWidget {
   //children

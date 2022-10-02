@@ -1,12 +1,13 @@
-import 'package:locoo/logic/models/user.dart';
-import 'package:locoo/logic/repositories/GenericRepository.dart';
-import 'package:locoo/logic/models/post.dart';
+import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/logic/repositories/GenericRepository.dart';
+import 'package:nochba/logic/models/post.dart';
 
 class PostRepository extends GenericRepository<Post> {
   PostRepository(super.resourceContext);
 
   Stream<List<Post>> getAllPosts(bool orderFieldDescending) {
-    return super.getAll(orderFieldDescending: MapEntry('createdAt', orderFieldDescending));
+    return super.getAll(
+        orderFieldDescending: MapEntry('createdAt', orderFieldDescending));
   }
 
   Future<List<Post>> getSavedPostsOfCurrentUser() async {
@@ -34,5 +35,4 @@ class PostRepository extends GenericRepository<Post> {
       return List.empty();
     }*/
   }
-
 }

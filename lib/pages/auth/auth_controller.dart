@@ -3,7 +3,7 @@ import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/auth_access.dart';
+import 'package:nochba/logic/auth_access.dart';
 
 class AuthController extends GetxController {
   Rx<bool> _isLogin = true.obs;
@@ -21,21 +21,21 @@ class AuthController extends GetxController {
   final birthdayController = TextEditingController();
 
   void toggle() => _isLogin.value = !_isLogin.value;
-  
+
   Future signIn() async {
-    authAccess.signIn(emailController.text.trim(), passwordController.text.trim());
+    authAccess.signIn(
+        emailController.text.trim(), passwordController.text.trim());
   }
 
   Future signUp() async {
     final isValid = formKey.currentState!.validate();
-    if(!isValid) return;
+    if (!isValid) return;
 
     authAccess.signUp(
-      emailController.text.trim(), 
-      passwordController.text.trim(), 
-      firstNameController.text.trim(), 
-      lastNameController.text.trim()
-    );
+        emailController.text.trim(),
+        passwordController.text.trim(),
+        firstNameController.text.trim(),
+        lastNameController.text.trim());
   }
 
   Future createDemoAccount() async {
@@ -46,18 +46,14 @@ class AuthController extends GetxController {
         '${firstName.toLowerCase()}.${lastName.toLowerCase()}@${faker.internet.domainName()}';
     const password = '123456';
 
-    await authAccess.signUp(
-      email, 
-      password, 
-      firstName, 
-      lastName
-    );
+    await authAccess.signUp(email, password, firstName, lastName);
 
     /*emailController.text = email;
     passwordController.text = password;*/
   }
 
-  @override void dispose() {
+  @override
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
     firstNameController.dispose();

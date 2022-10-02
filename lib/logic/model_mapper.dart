@@ -1,11 +1,11 @@
-import 'package:locoo/logic/commonbase/util.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
-import 'package:locoo/logic/interfaces/IModelMapper.dart';
-import 'package:locoo/logic/models/Comment.dart';
-import 'package:locoo/logic/models/Notification.dart';
-import 'package:locoo/logic/models/UserPublicInfo.dart';
-import 'package:locoo/logic/models/post.dart';
-import 'package:locoo/logic/models/user.dart';
+import 'package:nochba/logic/commonbase/util.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/interfaces/IModelMapper.dart';
+import 'package:nochba/logic/models/Comment.dart';
+import 'package:nochba/logic/models/Notification.dart';
+import 'package:nochba/logic/models/UserPublicInfo.dart';
+import 'package:nochba/logic/models/post.dart';
+import 'package:nochba/logic/models/user.dart';
 
 class ModelMapper implements IModelMapper {
   @override

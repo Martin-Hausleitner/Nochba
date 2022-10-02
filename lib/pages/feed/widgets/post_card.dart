@@ -4,20 +4,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:locoo/logic/data_access.dart';
-import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
-import 'package:locoo/logic/models/Notification.dart';
-import 'package:locoo/logic/models/category.dart';
-import 'package:locoo/logic/models/post.dart' as models;
+import 'package:nochba/logic/data_access.dart';
+import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
+import 'package:nochba/logic/models/Notification.dart';
+import 'package:nochba/logic/models/category.dart';
+import 'package:nochba/logic/models/post.dart' as models;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/pages/chats/chat.dart';
-import 'package:locoo/pages/feed/views/post_view.dart';
-import 'package:locoo/pages/feed/widgets/post/action_bar.dart';
-import 'package:locoo/pages/feed/widgets/post/post_profile.dart';
+import 'package:nochba/pages/chats/chat.dart';
+import 'package:nochba/pages/feed/views/post_view.dart';
+import 'package:nochba/pages/feed/widgets/post/action_bar.dart';
+import 'package:nochba/pages/feed/widgets/post/post_profile.dart';
 
-import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 
 import 'post/category_badge.dart';
 import 'post/discription.dart';

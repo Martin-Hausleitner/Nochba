@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
 
-enum NotificationType { none, chatRequest, }
+enum NotificationType {
+  none,
+  chatRequest,
+}
 
 class Notification implements IModel {
   @override
@@ -12,13 +15,13 @@ class Notification implements IModel {
   final String? postId;
   final Timestamp createdAt;
 
-  Notification(
-      {this.id = '',
-      required this.fromUser,
-      required this.toUser,
-      required this.type,
-      required this.postId,
-      required this.createdAt,
+  Notification({
+    this.id = '',
+    required this.fromUser,
+    required this.toUser,
+    required this.type,
+    required this.postId,
+    required this.createdAt,
   });
 
   @override
@@ -41,10 +44,9 @@ class Notification implements IModel {
       );
 
   static NotificationType getNotificationType(String keyword) {
-    if(keyword == NotificationType.chatRequest.name) {
+    if (keyword == NotificationType.chatRequest.name) {
       return NotificationType.chatRequest;
-    }
-    else {
+    } else {
       return NotificationType.none;
     }
   }

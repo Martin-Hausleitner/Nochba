@@ -9,17 +9,17 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/pages/chats/chats_controller.dart';
-import 'package:locoo/pages/chats/widgets/chat_element.dart';
+import 'package:nochba/pages/chats/chats_controller.dart';
+import 'package:nochba/pages/chats/widgets/chat_element.dart';
 
 import 'chat.dart';
 import 'firebase_options.dart';
 import 'users.dart';
 import 'util.dart';
 
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
-import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
+import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
     as chat;
 
 class ChatsPage extends GetView<ChatsController> {

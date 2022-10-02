@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/private_profile/views/own_posts_view.dart';
+import 'package:nochba/pages/private_profile/views/own_posts_view.dart';
 
-import 'package:locoo/logic/models/user.dart' as models;
+import 'package:nochba/logic/models/user.dart' as models;
 
-import 'package:locoo/logic/auth_access.dart';
-import 'package:locoo/shared/ui/cards/action_card.dart';
-import 'package:locoo/shared/ui/cards/action_card_title.dart';
-import 'package:locoo/shared/ui/locoo_circle_avatar.dart';
+import 'package:nochba/logic/auth_access.dart';
+import 'package:nochba/shared/ui/cards/action_card.dart';
+import 'package:nochba/shared/ui/cards/action_card_title.dart';
+import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 
 import '../../logic/data_access.dart';
 import 'private_profile_controller.dart';
@@ -22,7 +22,7 @@ import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import 'package:locoo/logic/models/user.dart' as models;
+import 'package:nochba/logic/models/user.dart' as models;
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override

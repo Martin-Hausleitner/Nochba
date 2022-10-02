@@ -11,19 +11,19 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:locoo/pages/chats/chat_controller.dart';
-import 'package:locoo/pages/chats/image_editor.dart';
-import 'package:locoo/shared/ui/locoo_circle_avatar.dart';
+import 'package:nochba/pages/chats/chat_controller.dart';
+import 'package:nochba/pages/chats/image_editor.dart';
+import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 import 'package:mime/mime.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
-import 'package:locoo/logic/models/user.dart' as models;
-import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
+import 'package:nochba/logic/models/user.dart' as models;
+import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
     as chat;
-import 'package:locoo/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart' as ui;
+import 'package:nochba/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart' as ui;
 
 class ChatPage extends GetView<ChatController> {
   const ChatPage({Key? key, required this.room}) : super(key: key);

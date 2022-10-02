@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locoo/pages/new_post/new_post_controller.dart';
+import 'package:nochba/pages/new_post/new_post_controller.dart';
 
 import '../sign_up_controller.dart';
 

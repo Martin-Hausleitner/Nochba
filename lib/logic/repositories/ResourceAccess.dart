@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
-import 'package:locoo/logic/resources/Resource.dart';
-import 'package:locoo/logic/resources/ResourceContext.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/resources/Resource.dart';
+import 'package:nochba/logic/resources/ResourceContext.dart';
 
 class ResourceAccess extends GetxService {
   ResourceAccess(this.resourceContext);

@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/auth/AuthExceptionHandler.dart';
-import 'package:locoo/logic/auth/AuthResultStatus.dart';
-import 'package:locoo/logic/models/UserPublicInfo.dart';
-import 'package:locoo/logic/models/bookmark.dart';
-import 'package:locoo/logic/repositories/ResourceAccess.dart';
-import 'package:locoo/logic/models/user.dart' as models;
+import 'package:nochba/logic/auth/AuthExceptionHandler.dart';
+import 'package:nochba/logic/auth/AuthResultStatus.dart';
+import 'package:nochba/logic/models/UserPublicInfo.dart';
+import 'package:nochba/logic/models/bookmark.dart';
+import 'package:nochba/logic/repositories/ResourceAccess.dart';
+import 'package:nochba/logic/models/user.dart' as models;
 
 class AuthService extends ResourceAccess {
   AuthService(super.resourceContext);

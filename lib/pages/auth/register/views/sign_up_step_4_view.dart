@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/auth/register/sign_up_controller.dart';
-import 'package:locoo/pages/auth/register/widgets/back_outlined_button.dart';
-import 'package:locoo/pages/auth/register/widgets/next_elevated_button.dart';
-import 'package:locoo/pages/new_post/widgets/progress_line.dart';
-import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:nochba/pages/auth/register/sign_up_controller.dart';
+import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
+import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
+import 'package:nochba/pages/new_post/widgets/progress_line.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
 

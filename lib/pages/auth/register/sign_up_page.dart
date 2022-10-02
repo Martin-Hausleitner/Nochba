@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/auth/register/views/sign_up_app_bar_view.dart';
-import 'package:locoo/pages/auth/register/views/sign_up_verified_view.dart';
-import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:nochba/pages/auth/register/views/sign_up_app_bar_view.dart';
+import 'package:nochba/pages/auth/register/views/sign_up_verified_view.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 import 'sign_up_controller.dart';
 import 'views/sign_up_step_1_view.dart';

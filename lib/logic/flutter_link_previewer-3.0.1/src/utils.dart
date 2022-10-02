@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart' hide Element;
 //import 'package:flutter_chat_types/flutter_chat_types.dart'
 //    show PreviewData, PreviewDataImage;
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     show PreviewData, PreviewDataImage;
 import 'package:html/dom.dart' show Document, Element;
 import 'package:html/parser.dart' as parser show parse;

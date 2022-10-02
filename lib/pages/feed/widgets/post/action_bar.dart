@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/feed/views/action_bar_more/action_bar_more_view.dart';
-import 'package:locoo/pages/feed/widgets/post/action_bar_controller.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circle_icon_button.dart';
+import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
+import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circle_icon_button.dart';
 
-import 'package:locoo/logic/models/bookmark.dart';
-import 'package:locoo/logic/models/post.dart';
+import 'package:nochba/logic/models/bookmark.dart';
+import 'package:nochba/logic/models/post.dart';
 
 //create a ActionBar class which have multiple round icon Buttons
 
@@ -73,18 +73,18 @@ class ActionBar extends GetView<ActionBarController> {
                 final bookMark = snapshot.data!;
                 if (bookMark.posts.contains(post.id)) {
                   return LocooCircleIconButton(
-                    icon: Icons.bookmark,
-                    isPressed: true,
+                      icon: Icons.bookmark,
+                      isPressed: true,
 
-                    // color: Theme.of(context).colorScheme.primary,
-                    onPressed: () async => await controller.unsavePost(bookMark, post.id)
-                  );
+                      // color: Theme.of(context).colorScheme.primary,
+                      onPressed: () async =>
+                          await controller.unsavePost(bookMark, post.id));
                 } else {
                   return LocooCircleIconButton(
-                    icon: Icons.bookmark,
-                    // isPressed: false,
-                    onPressed: () async => await controller.savePost(bookMark, post.id)
-                  );
+                      icon: Icons.bookmark,
+                      // isPressed: false,
+                      onPressed: () async =>
+                          await controller.savePost(bookMark, post.id));
                 }
               } else {
                 return LocooCircleIconButton(

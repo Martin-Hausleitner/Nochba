@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:locoo/pages/auth/register/sign_up_controller.dart';
-import 'package:locoo/pages/new_post/new_post_controller.dart';
+import 'package:nochba/pages/auth/register/sign_up_controller.dart';
+import 'package:nochba/pages/new_post/new_post_controller.dart';
 
 class BackOutlinedButton extends StatelessWidget {
   final String label;

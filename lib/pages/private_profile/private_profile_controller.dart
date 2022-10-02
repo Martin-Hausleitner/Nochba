@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/user.dart';
-import 'package:locoo/logic/repositories/UserRepository.dart';
+import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/logic/repositories/UserRepository.dart';
 
 class PrivateProfileController extends GetxController {
   var counter = 0.obs;
@@ -8,7 +8,7 @@ class PrivateProfileController extends GetxController {
   void increaseCounter() {
     counter.value += 1;
   }
-  
+
   final userRepository = Get.find<UserRepository>();
 
   Future<User?> getCurrentUser() {

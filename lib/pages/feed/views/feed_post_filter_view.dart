@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:locoo/pages/feed/widgets/filter/filter_range_slider.dart';
-import 'package:locoo/pages/feed/widgets/filter/filter_title.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
-import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
-import 'package:locoo/shared/views/bottom_sheet_title_close_view.dart';
+import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
+import 'package:nochba/pages/feed/widgets/filter/filter_title.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 
 class FeedPostFilterView extends StatelessWidget {
   const FeedPostFilterView({super.key});

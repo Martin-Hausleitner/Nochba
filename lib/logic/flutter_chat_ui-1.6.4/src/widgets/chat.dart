@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart' show PhotoViewComputedScale;
 
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
-import 'package:locoo/logic/models/user.dart' as models;
+import 'package:nochba/logic/models/user.dart' as models;
 
 import '../chat_l10n.dart';
 import '../chat_theme.dart';
@@ -445,7 +445,8 @@ class _ChatState extends State<Chat> {
             object.text,
             // Date message send
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                 ),
             // style: widget.theme.dateDividerTextStyle,
           ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 
 class BottomSheetCloseSaveView extends StatelessWidget {
   //children
   final List<Widget> children;
   final VoidCallback onSave;
 
-  const BottomSheetCloseSaveView({super.key, required this.children, required this.onSave});
+  const BottomSheetCloseSaveView(
+      {super.key, required this.children, required this.onSave});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class BottomSheetCloseSaveView extends StatelessWidget {
                       onSave();
                       Navigator.pop(context);
                     },
-                    
+
                     //() => Navigator.pop(context),
                     icon: Icon(
                       FlutterRemix.check_line,

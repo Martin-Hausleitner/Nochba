@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:locoo/pages/private_profile/views/edit_profile_controller.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 
 class TextFieldRemoveTextButton extends StatelessWidget {
   const TextFieldRemoveTextButton({

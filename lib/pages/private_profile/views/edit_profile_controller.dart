@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/user.dart';
-import 'package:locoo/logic/repositories/UserRepository.dart';
+import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/logic/repositories/UserRepository.dart';
 
 class EditProfileController extends GetxController {
-
   TextEditingController firstNameTextController = new TextEditingController();
   TextEditingController lastNameTextController = new TextEditingController();
-
 
   final userRepository = Get.find<UserRepository>();
 
@@ -22,9 +20,8 @@ class EditProfileController extends GetxController {
   Future<void> updateNameOfCurrentUser() async {
     try {
       await userRepository.updateNameOfCurrentUser(
-        firstNameTextController.text.trim(), 
-        lastNameTextController.text.trim()
-        );
+          firstNameTextController.text.trim(),
+          lastNameTextController.text.trim());
     } on Exception {
       return Future.error(Error);
     }

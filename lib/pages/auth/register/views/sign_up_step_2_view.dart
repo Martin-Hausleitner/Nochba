@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/auth/register/sign_up_controller.dart';
-import 'package:locoo/pages/auth/register/widgets/back_outlined_button.dart';
-import 'package:locoo/pages/auth/register/widgets/next_elevated_button.dart';
-import 'package:locoo/pages/new_post/widgets/progress_line.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
-import 'package:locoo/shared/ui/edit_avatar.dart';
-import 'package:locoo/shared/ui/locoo_text_field.dart';
-import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:nochba/pages/auth/register/sign_up_controller.dart';
+import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
+import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
+import 'package:nochba/pages/new_post/widgets/progress_line.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:nochba/shared/ui/edit_avatar.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 import '../../../new_post/widgets/circle_step.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/category.dart';
-import 'package:locoo/pages/feed/widgets/filter/filter_range_slider.dart';
-import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
-import 'package:locoo/shared/ui/locoo_text_field.dart';
+import 'package:nochba/logic/models/category.dart';
+import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:material_tag_editor/tag_editor.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 

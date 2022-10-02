@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locoo/logic/interfaces/IModelMapper.dart';
-import 'package:locoo/logic/interfaces/IResource.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
-import 'package:locoo/logic/commonbase/util.dart';
+import 'package:nochba/logic/interfaces/IModelMapper.dart';
+import 'package:nochba/logic/interfaces/IResource.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/commonbase/util.dart';
 
 class Resource<T extends IModel> implements IResource<T> {
   Resource({required this.getCollectionName, required this.modelMapper});
@@ -13,6 +13,7 @@ class Resource<T extends IModel> implements IResource<T> {
   Map<String, dynamic> getJsonFromModel(T model) {
     return modelMapper.getJsonFromModel<T>(model);
   }
+
   T getModelFromJson(Map<String, dynamic> json) {
     return modelMapper.getModelFromJson<T>(json);
   }
@@ -20,28 +21,33 @@ class Resource<T extends IModel> implements IResource<T> {
   final String Function(Type type, {List<String>? nexus}) getCollectionName;
 
   @override
-  Stream<List<T>> getAll({MapEntry<String, bool>? orderFieldDescending, List<String>? nexus}) {
-    return orderFieldDescending != null ?
-      firestoreInstance
-        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-        .orderBy(orderFieldDescending.key, descending: orderFieldDescending.value)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => getModelFromJson(doc.data())).toList())
-      :
-      firestoreInstance
-        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-        .snapshots()
-        .asyncMap((snapshot) => snapshot.docs.map((doc) => getModelFromJson(doc.data())).toList());
+  Stream<List<T>> getAll(
+      {MapEntry<String, bool>? orderFieldDescending, List<String>? nexus}) {
+    return orderFieldDescending != null
+        ? firestoreInstance
+            .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+            .orderBy(orderFieldDescending.key,
+                descending: orderFieldDescending.value)
+            .snapshots()
+            .map((snapshot) => snapshot.docs
+                .map((doc) => getModelFromJson(doc.data()))
+                .toList())
+        : firestoreInstance
+            .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+            .snapshots()
+            .asyncMap((snapshot) => snapshot.docs
+                .map((doc) => getModelFromJson(doc.data()))
+                .toList());
   }
 
   @override
   Future<T?> get(String id, {List<String>? nexus}) async {
     final snapshot = await firestoreInstance
-      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-      .doc(id)
-      .get();
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc(id)
+        .get();
 
-    if(snapshot.exists) {
+    if (snapshot.exists) {
       return getModelFromJson(snapshot.data()!);
     } else {
       return null;
@@ -51,39 +57,40 @@ class Resource<T extends IModel> implements IResource<T> {
   @override
   Stream<T?> getAsStream(String id, {List<String>? nexus}) {
     return firestoreInstance
-      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-      .doc(id)
-      .snapshots()
-      .map((doc) {
-        if(doc.exists) {
-          return getModelFromJson(doc.data()!);
-        } else {
-          return null;
-        }
-      });
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc(id)
+        .snapshots()
+        .map((doc) {
+      if (doc.exists) {
+        return getModelFromJson(doc.data()!);
+      } else {
+        return null;
+      }
+    });
   }
 
   @override
   Future<void> update(T model, {List<String>? nexus}) async {
     return await firestoreInstance
-      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-      .doc(model.id)
-      .update(getJsonFromModel(model));
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc(model.id)
+        .update(getJsonFromModel(model));
   }
 
   @override
-  Future<void> updateFields(String id, Map<String, dynamic> fields, {List<String>? nexus}) async {
+  Future<void> updateFields(String id, Map<String, dynamic> fields,
+      {List<String>? nexus}) async {
     return await firestoreInstance
-      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-      .doc(id)
-      .update(fields);
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc(id)
+        .update(fields);
   }
 
   @override
   Future<void> insert(T model, {List<String>? nexus}) async {
     final doc = firestoreInstance
-      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-      .doc();
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc();
     model.id = doc.id;
     return await doc.set(getJsonFromModel(model));
   }
@@ -91,13 +98,14 @@ class Resource<T extends IModel> implements IResource<T> {
   @override
   Future<void> delete(String id, {List<String>? nexus}) async {
     return await firestoreInstance
-      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-      .doc(id)
-      .delete();
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc(id)
+        .delete();
   }
-  
+
   @override
-  Stream<List<T>> query(MapEntry<String, bool> orderFieldDescending, {
+  Stream<List<T>> query(
+    MapEntry<String, bool> orderFieldDescending, {
     int? limit,
     int? limitToLast,
     DocumentSnapshot<Object?>? startAtDocument,
@@ -113,8 +121,9 @@ class Resource<T extends IModel> implements IResource<T> {
     List<String>? nexus,
   }) {
     var query = firestoreInstance
-      .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-      .orderBy(orderFieldDescending.key, descending: orderFieldDescending.value);
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .orderBy(orderFieldDescending.key,
+            descending: orderFieldDescending.value);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument);
@@ -137,11 +146,11 @@ class Resource<T extends IModel> implements IResource<T> {
     }
 
     if (startAt != null) {
-      query = query.startAt(startAt); 
+      query = query.startAt(startAt);
     }
 
     if (endAt != null) {
-    query = query.endAt(endAt);
+      query = query.endAt(endAt);
     }
 
     if (endBefore != null) {
@@ -160,15 +169,15 @@ class Resource<T extends IModel> implements IResource<T> {
       }
     }
 
-    if(limit != null) {
+    if (limit != null) {
       query = query.limit(limit);
     }
 
-    if(limitToLast != null) {
+    if (limitToLast != null) {
       query = query.limitToLast(limitToLast);
     }
-    
-    return query.snapshots()
-      .asyncMap((snapshot) => snapshot.docs.map((doc) => getModelFromJson(doc.data())).toList());
-  }  
+
+    return query.snapshots().asyncMap((snapshot) =>
+        snapshot.docs.map((doc) => getModelFromJson(doc.data())).toList());
+  }
 }

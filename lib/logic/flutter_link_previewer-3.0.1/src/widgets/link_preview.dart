@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' show PreviewData;
-import 'package:locoo/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart' show PreviewData;
+import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
+    show PreviewData;
 
 import 'package:flutter_linkify/flutter_linkify.dart' hide UrlLinkifier;
 import 'package:url_launcher/url_launcher.dart';

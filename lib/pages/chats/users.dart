@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:locoo/logic/models/user.dart'
+import 'package:nochba/logic/models/user.dart'
 // C:\Users\am\.temp\Locoo\lib\logic\flutter_chat_types-3.4.5\src\user.dart
     as types;
-import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
+import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
     as chat;
 
 import 'chat.dart';

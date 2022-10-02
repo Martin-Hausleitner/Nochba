@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 //part 'user.g.dart';
 
@@ -128,7 +127,8 @@ class _User extends User {
     dynamic updatedAt = _Unset,
   }) =>
       _User(
-        createdAt: createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
+        createdAt:
+            createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
         firstName: firstName == _Unset ? this.firstName : firstName as String?,
         id: id ?? this.id,
         imageUrl: imageUrl == _Unset ? this.imageUrl : imageUrl as String?,
@@ -138,9 +138,10 @@ class _User extends User {
             ? this.metadata
             : metadata as Map<String, dynamic>?,
         role: role == _Unset ? this.role : role as Role?,
-        updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
+        updatedAt:
+            updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
       );
-      
+
   @override
   set id(String _id) {
     // TODO: implement id

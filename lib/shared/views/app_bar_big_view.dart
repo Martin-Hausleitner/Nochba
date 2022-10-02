@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/pages/auth/auth_page.dart';
-import 'package:locoo/pages/auth/signUp_page.dart';
+import 'package:nochba/pages/auth/auth_page.dart';
+import 'package:nochba/pages/auth/signUp_page.dart';
 
 class AppBarBigView extends StatelessWidget {
   final String title;

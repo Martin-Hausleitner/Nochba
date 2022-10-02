@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/auth/auth_controller.dart';
-import 'package:locoo/shared/ui/locoo_text_field.dart';
+import 'package:nochba/pages/auth/auth_controller.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
 
 import 'register/sign_up_page.dart';
 

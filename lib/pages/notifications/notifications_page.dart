@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/data_access.dart';
-import 'package:locoo/logic/models/user.dart' as models;
-import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
-import 'package:locoo/pages/chats/chat.dart';
-import 'package:locoo/pages/notifications/notifications_controller.dart';
-import 'package:locoo/pages/notifications/widgets/notification_element.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
-import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
-import 'package:locoo/shared/ui/locoo_circle_avatar.dart';
-import 'package:locoo/shared/ui/locoo_text_field.dart';
-import 'package:locoo/shared/ui/pretty_textfield.dart';
-import 'package:locoo/logic/models/user.dart' as models;
-import 'package:locoo/logic/models/Notification.dart' as models;
+import 'package:nochba/logic/data_access.dart';
+import 'package:nochba/logic/models/user.dart' as models;
+import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
+import 'package:nochba/pages/chats/chat.dart';
+import 'package:nochba/pages/notifications/notifications_controller.dart';
+import 'package:nochba/pages/notifications/widgets/notification_element.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
+import 'package:nochba/shared/ui/pretty_textfield.dart';
+import 'package:nochba/logic/models/user.dart' as models;
+import 'package:nochba/logic/models/Notification.dart' as models;
 import 'package:get/get.dart' as getx;
-import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 class NotificationsPage extends GetView<NotificationsController> {
   @override
@@ -70,8 +70,8 @@ class NotificationsPage extends GetView<NotificationsController> {
                   return const Text(
                       'The notifications are not available at the moment',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 32, fontWeight: FontWeight.w300));
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
                 } else if (snapshot.hasData) {
                   final notifications = snapshot.data!;
 

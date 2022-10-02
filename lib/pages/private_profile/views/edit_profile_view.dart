@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart';
-import 'package:locoo/logic/models/user.dart';
-import 'package:locoo/pages/private_profile/views/edit_profile_controller.dart';
-import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
-import 'package:locoo/shared/ui/buttons/text_field_remove_text_button.dart';
-import 'package:locoo/shared/ui/cards/action_card_title.dart';
-import 'package:locoo/shared/ui/cards/action_text_card.dart';
-import 'package:locoo/shared/ui/edit_avatar.dart';
-import 'package:locoo/shared/ui/locoo_text_field.dart';
-import 'package:locoo/shared/views/app_bar_big_view.dart';
-import 'package:locoo/shared/views/bottom_sheet_close_save_view.dart';
+import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart';
+import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:nochba/shared/ui/buttons/text_field_remove_text_button.dart';
+import 'package:nochba/shared/ui/cards/action_card_title.dart';
+import 'package:nochba/shared/ui/cards/action_text_card.dart';
+import 'package:nochba/shared/ui/edit_avatar.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../private_profile_page.dart';
@@ -462,4 +462,3 @@ class EditProfileView extends GetView<EditProfileController> {
     );
   }
 }
-

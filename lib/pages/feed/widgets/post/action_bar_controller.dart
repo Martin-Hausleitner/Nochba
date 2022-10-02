@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/bookmark.dart';
-import 'package:locoo/logic/repositories/BookMarkRepository.dart';
+import 'package:nochba/logic/models/bookmark.dart';
+import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 
 class ActionBarController extends GetxController {
   final bookMarkRepository = Get.find<BookMarkRepository>();

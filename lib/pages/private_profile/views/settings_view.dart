@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/pages/private_profile/private_profile_page.dart';
-import 'package:locoo/shared/ui/cards/action_card.dart';
-import 'package:locoo/shared/ui/cards/action_card_title.dart';
-import 'package:locoo/shared/ui/cards/action_text_card.dart';
-import 'package:locoo/shared/ui/cards/action_text_card_red.dart';
-import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:nochba/pages/private_profile/private_profile_page.dart';
+import 'package:nochba/shared/ui/cards/action_card.dart';
+import 'package:nochba/shared/ui/cards/action_card_title.dart';
+import 'package:nochba/shared/ui/cards/action_text_card.dart';
+import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:math';
 

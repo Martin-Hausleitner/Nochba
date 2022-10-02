@@ -1,31 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
-import 'package:locoo/logic/repositories/RepositoryObject.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/repositories/RepositoryObject.dart';
 
-enum AccessMode {
-  getAll,
-  get,
-  insert,
-  update,
-  delete,
-  query
-}
+enum AccessMode { getAll, get, insert, update, delete, query }
 
 abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   GenericRepository(super.resourceContext);
 
-  void validate(T? model, AccessMode accessMode) {
-    
-  }
+  void validate(T? model, AccessMode accessMode) {}
 
-  void beforeAction(T? model, AccessMode accessMode) {
+  void beforeAction(T? model, AccessMode accessMode) {}
 
-  }
-
-  Stream<List<T>> getAll({MapEntry<String, bool>? orderFieldDescending, List<String>? nexus}) {
+  Stream<List<T>> getAll(
+      {MapEntry<String, bool>? orderFieldDescending, List<String>? nexus}) {
     validate(null, AccessMode.getAll);
     try {
-      return resource.getAll(orderFieldDescending: orderFieldDescending, nexus: nexus);
+      return resource.getAll(
+          orderFieldDescending: orderFieldDescending, nexus: nexus);
     } on Exception {
       rethrow;
     }
@@ -58,7 +49,8 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     }
   }
 
-  Future<void> updateFields(String id, Map<String, dynamic> fields, {List<String>? nexus}) async {
+  Future<void> updateFields(String id, Map<String, dynamic> fields,
+      {List<String>? nexus}) async {
     //validate(model, AccessMode.update);
     try {
       return resource.updateFields(id, fields, nexus: nexus);
@@ -85,7 +77,8 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     }
   }
 
-  Stream<List<T>> query(MapEntry<String, bool> orderFieldDescending, {
+  Stream<List<T>> query(
+    MapEntry<String, bool> orderFieldDescending, {
     int? limit,
     int? limitToLast,
     DocumentSnapshot<Object?>? startAtDocument,
@@ -102,7 +95,8 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   }) {
     validate(null, AccessMode.query);
     try {
-      return resource.query(orderFieldDescending,
+      return resource.query(
+        orderFieldDescending,
         limit: limit,
         limitToLast: limitToLast,
         startAtDocument: startAtDocument,

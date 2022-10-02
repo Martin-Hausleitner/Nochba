@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:locoo/logic/models/user.dart';
+import 'package:nochba/logic/models/user.dart';
 
 //lib\logic\flutter_chat_types-3.4.5\src\user.dart
 

@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/category.dart';
-import 'package:locoo/logic/models/post.dart';
-import 'package:locoo/logic/models/tag.dart';
-import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
-import 'package:locoo/views/new_post/tag_dialog.dart';
+import 'package:nochba/logic/models/category.dart';
+import 'package:nochba/logic/models/post.dart';
+import 'package:nochba/logic/models/tag.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/views/new_post/tag_dialog.dart';
 
 import 'new_post_controller.dart';
 import 'views/new_post_subcategory_selection_view.dart';

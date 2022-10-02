@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
 
 class Post implements IModel {
   @override

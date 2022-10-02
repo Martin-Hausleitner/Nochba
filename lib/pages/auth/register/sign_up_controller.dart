@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locoo/logic/auth/AuthService.dart';
+import 'package:nochba/logic/auth/AuthService.dart';
 
 class SignUpController extends GetxController {
   final emailController = TextEditingController();

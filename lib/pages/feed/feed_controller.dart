@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:locoo/logic/models/user.dart';
-import 'package:locoo/logic/repositories/PostRepository.dart';
-import 'package:locoo/logic/models/post.dart';
-import 'package:locoo/logic/repositories/UserRepository.dart';
+import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/logic/repositories/PostRepository.dart';
+import 'package:nochba/logic/models/post.dart';
+import 'package:nochba/logic/repositories/UserRepository.dart';
 
 class FeedController extends GetxController {
   final postRepository = Get.find<PostRepository>();

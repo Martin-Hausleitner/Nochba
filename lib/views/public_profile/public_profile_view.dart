@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 // import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
 import 'widgets/profile_content.dart';

@@ -3,13 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:locoo/pages/auth/login_page.dart';
-import 'package:locoo/shared/ui/buttons/locoo_text_button.dart';
-import 'package:locoo/shared/ui/cards/action_card.dart';
-import 'package:locoo/shared/ui/cards/action_card_title.dart';
-import 'package:locoo/shared/ui/cards/action_text_card.dart';
-import 'package:locoo/shared/ui/locoo_text_field.dart';
-import 'package:locoo/shared/views/bottom_sheet_title_close_view.dart';
+import 'package:nochba/pages/auth/login_page.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/ui/cards/action_card.dart';
+import 'package:nochba/shared/ui/cards/action_card_title.dart';
+import 'package:nochba/shared/ui/cards/action_text_card.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
+import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 
 class PublicProfileMoreView extends StatelessWidget {
   final String userID;

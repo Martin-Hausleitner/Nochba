@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:locoo/logic/interfaces/IModel.dart';
-import 'package:locoo/logic/model_mapper.dart';
-import 'package:locoo/logic/models/Comment.dart';
-import 'package:locoo/logic/models/Notification.dart';
-import 'package:locoo/logic/models/UserPublicInfo.dart';
-import 'package:locoo/logic/models/bookmark.dart';
-import 'package:locoo/logic/models/post.dart';
-import 'package:locoo/logic/models/user.dart' as models;
-import 'package:locoo/logic/resources/Resource.dart';
-import 'package:locoo/logic/resources/ResourceConfig.dart';
-import 'package:locoo/logic/commonbase/util.dart';
+import 'package:nochba/logic/interfaces/IModel.dart';
+import 'package:nochba/logic/model_mapper.dart';
+import 'package:nochba/logic/models/Comment.dart';
+import 'package:nochba/logic/models/Notification.dart';
+import 'package:nochba/logic/models/UserPublicInfo.dart';
+import 'package:nochba/logic/models/bookmark.dart';
+import 'package:nochba/logic/models/post.dart';
+import 'package:nochba/logic/models/user.dart' as models;
+import 'package:nochba/logic/resources/Resource.dart';
+import 'package:nochba/logic/resources/ResourceConfig.dart';
+import 'package:nochba/logic/commonbase/util.dart';
 
 class ResourceContext {
   ResourceContext() {

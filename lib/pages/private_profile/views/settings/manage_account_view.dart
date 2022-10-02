@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:locoo/shared/ui/cards/action_text_card.dart';
-import 'package:locoo/shared/ui/cards/action_text_card_red.dart';
-import 'package:locoo/shared/ui/locoo_text_field.dart';
-import 'package:locoo/shared/views/app_bar_big_view.dart';
-import 'package:locoo/shared/views/bottom_sheet_close_save_view.dart';
+import 'package:nochba/shared/ui/cards/action_text_card.dart';
+import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 
 class ManageAccountView extends StatelessWidget {
   const ManageAccountView({
@@ -32,7 +32,7 @@ class ManageAccountView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
-                  onSave: () {  },
+                  onSave: () {},
                   children: [
                     LocooTextField(
                       label: 'Email',
@@ -63,7 +63,7 @@ class ManageAccountView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
-                  onSave: () {  },
+                  onSave: () {},
                   children: [
                     LocooTextField(
                       label: 'Passwort',
@@ -94,7 +94,7 @@ class ManageAccountView extends StatelessWidget {
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return BottomSheetCloseSaveView(
-                  onSave: () {  },
+                  onSave: () {},
                   children: [
                     LocooTextField(
                       label: 'Straße',

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:locoo/logic/auth/AuthResultStatus.dart';
+// import 'package:nochba/logic/auth/AuthResultStatus.dart';
+import 'package:nochba/logic/auth/AuthResultStatus.dart';
 
 class AuthExceptionHandler {
   static AuthResultStatus handleException(FirebaseAuthException e) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locoo/shared/views/app_bar_big_view.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 class BookmarkedPostsView extends StatelessWidget {
   const BookmarkedPostsView({

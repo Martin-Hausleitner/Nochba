@@ -1,5 +1,5 @@
-import 'package:locoo/logic/models/UserPublicInfo.dart';
-import 'package:locoo/logic/repositories/GenericRepository.dart';
+import 'package:nochba/logic/models/UserPublicInfo.dart';
+import 'package:nochba/logic/repositories/GenericRepository.dart';
 
 class UserPublicInfoRepository extends GenericRepository<UserPublicInfo> {
   UserPublicInfoRepository(super.resourceContext);

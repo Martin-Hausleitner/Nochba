@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:locoo/shared/ui/locoo_circle_avatar.dart';
+import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 
 class NotificationElement extends StatelessWidget {
   final String? imageUrl;

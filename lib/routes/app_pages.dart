@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:locoo/pages/home/home_binding.dart';
-import 'package:locoo/pages/home/home_page.dart';
+import 'package:nochba/pages/home/home_binding.dart';
+import 'package:nochba/pages/home/home_page.dart';
 
 import '../pages/dashboard/dashboard_binding.dart';
 import '../pages/dashboard/dashboard_page.dart';
