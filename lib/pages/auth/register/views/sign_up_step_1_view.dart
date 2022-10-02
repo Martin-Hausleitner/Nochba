@@ -13,12 +13,12 @@ import 'package:locoo/shared/views/app_bar_big_view.dart';
 import '../../../new_post/widgets/circle_step.dart';
 
 class SignUpStep1View extends StatelessWidget {
-  const SignUpStep1View({super.key});
+  const SignUpStep1View({super.key, required this.controller});
+
+  final SignUpController controller;
 
   @override
   Widget build(BuildContext context) {
-    SignUpController controller = Get.put(SignUpController());
-
     return AppBarBigView(
       title: 'Registrieren',
       // showBackButton: false,
@@ -66,14 +66,14 @@ class SignUpStep1View extends StatelessWidget {
             SizedBox(height: 28),
             LocooTextField(
               label: 'Email',
-
-              // controller: controller.emailController,
+              controller: controller.emailController,
               textInputAction: TextInputAction.next,
             ),
             SizedBox(height: 10),
 
             LocooTextField(
               label: 'Passwort',
+              controller: controller.passwordController,
               textInputAction: TextInputAction.next,
             ),
             SizedBox(height: 10),
@@ -83,7 +83,7 @@ class SignUpStep1View extends StatelessWidget {
               rtl: true,
               onPressed: //controller.addPost() and go to
                   () {
-                controller.goToPage(1);
+                controller.nextPage();
                 FocusScope.of(context).unfocus();
                 // Get.to(PublishedNewPostView());
               },

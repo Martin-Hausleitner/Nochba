@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:locoo/logic/auth/AuthService.dart';
 import 'package:locoo/logic/repositories/BookMarkRepository.dart';
 // import 'package:locoo/logic/repositories/BookMarkRepository.dart';
 import 'package:locoo/logic/repositories/NotificationRepository.dart';
@@ -8,6 +9,7 @@ import 'package:locoo/logic/resources/ResourceContext.dart';
 import 'package:locoo/logic/auth_access.dart';
 import 'package:locoo/logic/data_access.dart';
 import 'package:locoo/pages/auth/auth_controller.dart';
+import 'package:locoo/pages/auth/register/sign_up_controller.dart';
 import 'package:locoo/pages/chats/chat_controller.dart';
 import 'package:locoo/pages/chats/chats_controller.dart';
 import 'package:locoo/pages/dashboard/dashboard_controller.dart';
@@ -21,6 +23,9 @@ import 'package:locoo/pages/private_profile/views/edit_profile_controller.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
+    Get.put(AuthService(ResourceContext()));
+    Get.put(SignUpController());
+
     Get.put(BookMarkRepository(ResourceContext()));
 
     Get.put(PostRepository(ResourceContext()));

@@ -134,8 +134,8 @@ class SignUpVerifiedView extends StatelessWidget {
             NextElevatedButton(
               rtl: true,
               onPressed: //controller.addPost() and go to
-                  () {
-                controller.nextPage();
+                  () async {
+                await controller.signUp();
                 //close keyboard
                 FocusScope.of(context).unfocus();
                 // Get.to(PublishedNewPostView());

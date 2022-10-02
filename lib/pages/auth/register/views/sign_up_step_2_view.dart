@@ -14,12 +14,11 @@ import 'package:locoo/shared/views/app_bar_big_view.dart';
 import '../../../new_post/widgets/circle_step.dart';
 
 class SignUpStep2View extends StatelessWidget {
-  const SignUpStep2View({super.key});
+  const SignUpStep2View({super.key, required this.controller});
+  final SignUpController controller;
 
   @override
   Widget build(BuildContext context) {
-    SignUpController controller = Get.put(SignUpController());
-
     return AppBarBigView(
       title: 'Registrieren',
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -95,14 +94,14 @@ class SignUpStep2View extends StatelessWidget {
 
             LocooTextField(
               label: 'Vorname',
+              controller: controller.firstNameController,
               textInputAction: TextInputAction.next,
             ),
             SizedBox(height: 10),
 
             LocooTextField(
               label: 'Nachname',
-
-              // controller: controller.emailController,
+              controller: controller.lastNameController,
               textInputAction: TextInputAction.next,
             ),
             Padding(
@@ -131,13 +130,14 @@ class SignUpStep2View extends StatelessWidget {
 
                   //tranform  scale 0.8 cupertuon swtich
                   Transform.scale(
-                    scale: 0.8,
-                    child: CupertinoSwitch(
-                      activeColor: Theme.of(context).primaryColor,
-                      value: true,
-                      onChanged: (value) {},
-                    ),
-                  ),
+                      scale: 0.8,
+                      child: Obx(
+                        () => CupertinoSwitch(
+                          activeColor: Theme.of(context).primaryColor,
+                          value: controller.showLastName,
+                          onChanged: controller.setShowLastName,
+                        ),
+                      )),
                 ],
               ),
             ),

@@ -15,8 +15,8 @@ class AuthPage extends GetView<AuthController> {
     return Obx(
       () => controller.isLogin
           ? LoginPage(onClicked: controller.toggle)
-          : SignUpPage(onClicked: controller.toggle),
-          // : NewSignUpPage(),
+          //: SignUpPage(onClicked: controller.toggle),
+          : const NewSignUpPage(),
     );
   }
 }

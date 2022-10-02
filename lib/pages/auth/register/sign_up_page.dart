@@ -15,13 +15,16 @@ class NewSignUpPage extends GetView<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
-    SignUpController controller = Get.put(SignUpController());
     return PageView(
       controller: controller.pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        SignUpStep1View(),
-        SignUpStep2View(),
+        SignUpStep1View(
+          controller: controller,
+        ),
+        SignUpStep2View(
+          controller: controller,
+        ),
         SignUpStep3View(),
         SignUpStep4View(),
         SignUpVerifiedView(),
