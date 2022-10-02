@@ -3,6 +3,7 @@ import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/auth_access.dart';
 
 class AuthController extends GetxController {
@@ -11,6 +12,7 @@ class AuthController extends GetxController {
   bool get isLogin => _isLogin.value;
 
   final authAccess = Get.find<AuthAccess>();
+  final authService = Get.find<AuthService>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -46,7 +48,7 @@ class AuthController extends GetxController {
         '${firstName.toLowerCase()}.${lastName.toLowerCase()}@${faker.internet.domainName()}';
     const password = '123456';
 
-    await authAccess.signUp(email, password, firstName, lastName);
+    await authService.signUp(email, password, firstName, lastName);
 
     /*emailController.text = email;
     passwordController.text = password;*/

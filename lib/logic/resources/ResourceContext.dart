@@ -53,15 +53,15 @@ class ResourceContext {
         } else if (type == typeOf<UserPublicInfo>() &&
             nexus != null &&
             nexus.length == 1) {
-          return '${config.usersCollectionName}/$nexus[0]/${config.userPublicInfoCollectionName}';
+          return '${config.usersCollectionName}/${nexus[0]}/${config.userPublicInfoCollectionName}';
         } else if (type == typeOf<BookMark>() &&
             nexus != null &&
             nexus.length == 1) {
-          return '${config.usersCollectionName}/$nexus[0]/${config.bookMarksCollectionName}';
+          return '${config.usersCollectionName}/${nexus[0]}/${config.bookMarksCollectionName}';
         } else if (type == typeOf<Notification>() &&
             nexus != null &&
             nexus.length == 1) {
-          return '${config.usersCollectionName}/$nexus[0]/${config.notificationsCollectionName}';
+          return '${config.usersCollectionName}/${nexus[0]}/${config.notificationsCollectionName}';
         } else if (type == typeOf<Comment>() &&
             nexus != null &&
             nexus.length == 1) {

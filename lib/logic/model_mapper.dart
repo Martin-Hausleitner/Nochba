@@ -4,6 +4,7 @@ import 'package:nochba/logic/interfaces/IModelMapper.dart';
 import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
+import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/models/user.dart';
 
@@ -16,12 +17,15 @@ class ModelMapper implements IModelMapper {
       return (model as User).toJson();
     } else if (typeOf<T>() == typeOf<UserPublicInfo>()) {
       return (model as UserPublicInfo).toJson();
+    } else if (typeOf<T>() == typeOf<BookMark>()) {
+      return (model as BookMark).toJson();
     } else if (typeOf<T>() == typeOf<Notification>()) {
       return (model as Notification).toJson();
     } else if (typeOf<T>() == typeOf<Comment>()) {
       return (model as Comment).toJson();
     } else {
-      throw const FormatException();
+      throw FormatException(
+          'The type ${typeOf<T>().toString()} cannot be mapped');
     }
   }
 
@@ -33,6 +37,8 @@ class ModelMapper implements IModelMapper {
       return User.fromJson(json) as T;
     } else if (typeOf<T>() == typeOf<UserPublicInfo>()) {
       return UserPublicInfo.fromJson(json) as T;
+    } else if (typeOf<T>() == typeOf<BookMark>()) {
+      return BookMark.fromJson(json) as T;
     } else if (typeOf<T>() == typeOf<Notification>()) {
       return Notification.fromJson(json) as T;
     } else if (typeOf<T>() == typeOf<Comment>()) {

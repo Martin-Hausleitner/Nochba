@@ -200,7 +200,7 @@ class ChatsPage extends GetView<ChatsController> {
     );
   }
 
-  Widget _buildAvatar(types.Room room) {
+  /*Widget _buildAvatar(types.Room room) {
     final controller = Get.find<ChatsController>();
     var color = Colors.transparent;
 
@@ -233,7 +233,7 @@ class ChatsPage extends GetView<ChatsController> {
             : null,
       ),
     );
-  }
+  }*/
 }
 
 /*

@@ -88,10 +88,17 @@ class Resource<T extends IModel> implements IResource<T> {
 
   @override
   Future<void> insert(T model, {List<String>? nexus}) async {
-    final doc = firestoreInstance
-        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
-        .doc();
-    model.id = doc.id;
+    final DocumentReference<Map<String, dynamic>> doc;
+    if (model.id.isEmpty) {
+      doc = firestoreInstance
+          .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+          .doc();
+      model.id = doc.id;
+    } else {
+      doc = firestoreInstance
+          .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+          .doc(model.id);
+    }
     return await doc.set(getJsonFromModel(model));
   }
 

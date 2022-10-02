@@ -51,7 +51,7 @@ class AuthService extends ResourceAccess {
     final uid = cred.user!.uid;
 
     final userResource = loadResource<models.User>();
-    userResource.insert(
+    await userResource.insert(
       models.User(
           id: uid,
           firstName: firstName,
@@ -62,10 +62,10 @@ class AuthService extends ResourceAccess {
     );
 
     final bookMarkResource = loadResource<BookMark>();
-    bookMarkResource.insert(BookMark(id: uid, posts: []), nexus: [uid]);
+    await bookMarkResource.insert(BookMark(id: uid, posts: []), nexus: [uid]);
 
     final userPublicInfoResource = loadResource<UserPublicInfo>();
-    userPublicInfoResource.insert(UserPublicInfo(id: uid));
+    await userPublicInfoResource.insert(UserPublicInfo(id: uid), nexus: [uid]);
 
     return true;
   }
