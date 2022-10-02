@@ -12,58 +12,60 @@ class BottomSheetTitleCloseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: Container(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: //top 10
-                  EdgeInsets.only(
-                top: 15,
-                left: 15,
-                right: 15,
+    return SafeArea(
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Container(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: //top 10
+                    EdgeInsets.only(
+                  top: 15,
+                  left: 15,
+                  right: 15,
+                ),
+                child: Row(
+                  //space between
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 35,
+                    ),
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w800,
+                          ),
+                    ),
+                    LocooCircularIconButton(
+                      iconData: FlutterRemix.close_line,
+                      fillColor: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.05),
+                      iconColor: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.9),
+                      radius: 35,
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                //space between
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 35,
-                  ),
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w800,
-                        ),
-                  ),
-                  LocooCircularIconButton(
-                    iconData: FlutterRemix.close_line,
-                    fillColor: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.05),
-                    iconColor: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.9),
-                    radius: 35,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
+              SizedBox(
+                height: 20,
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Column(
-              //align left
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: children,
-            ),
-          ],
+              Column(
+                //align left
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              ),
+            ],
+          ),
         ),
       ),
     );
