@@ -6,6 +6,7 @@ import 'package:locoo/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_ch
 import 'package:locoo/logic/models/user.dart';
 import 'package:locoo/pages/private_profile/views/edit_profile_controller.dart';
 import 'package:locoo/shared/ui/buttons/locoo_circular_icon_button.dart';
+import 'package:locoo/shared/ui/buttons/text_field_remove_text_button.dart';
 import 'package:locoo/shared/ui/cards/action_card_title.dart';
 import 'package:locoo/shared/ui/cards/action_text_card.dart';
 import 'package:locoo/shared/ui/edit_avatar.dart';
@@ -23,7 +24,6 @@ class EditProfileView extends GetView<EditProfileController> {
 
   @override
   Widget build(BuildContext context) {
-
     return AppBarBigView(
       title: 'Profil Bearbeiten',
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -83,13 +83,25 @@ class EditProfileView extends GetView<EditProfileController> {
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return BottomSheetCloseSaveView(
-                        onSave: () async => await controller.updateNameOfCurrentUser(),
+                        onSave: () async =>
+                            await controller.updateNameOfCurrentUser(),
                         children: [
                           LocooTextField(
                             label: 'Vorname',
                             textInputAction: TextInputAction.next,
                             autofocus: true,
                             controller: controller.firstNameTextController,
+                            // suffixIcon: IconButton(
+                            //   // onPressed: _controller.clear,
+                            //   iconSize: ,
+                            //   onPressed: () =>
+                            //       controller.firstNameTextController.clear(),
+                            //   icon: Icon(Icons.clear),
+                            // ),
+                            suffixIcon: TextFieldRemoveTextButton(
+                              onPressed: () =>
+                                  controller.firstNameTextController.clear(),
+                            ),
                           ),
                           SizedBox(height: 10),
                           LocooTextField(
@@ -148,8 +160,7 @@ class EditProfileView extends GetView<EditProfileController> {
                 },
                 text: '${user?.firstName} ${user?.lastName}',
               );
-            }
-            else {
+            } else {
               return Container();
             }
           },
@@ -451,3 +462,4 @@ class EditProfileView extends GetView<EditProfileController> {
     );
   }
 }
+

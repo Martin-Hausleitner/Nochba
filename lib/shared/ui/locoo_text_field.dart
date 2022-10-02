@@ -15,6 +15,7 @@ class LocooTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool autofocus;
   final void Function(String)? onFieldSubmitted;
+  final Widget? suffixIcon;
 
   const LocooTextField({
     super.key,
@@ -30,6 +31,7 @@ class LocooTextField extends StatefulWidget {
     this.autofocus = false,
     this.onFieldSubmitted,
     this.height = 50,
+    this.suffixIcon,
   });
 
   // const LocooTextField({
@@ -105,6 +107,7 @@ class _LocooTextFieldState extends State<LocooTextField> {
             border: InputBorder.none,
             labelText: widget.label,
             floatingLabelBehavior: FloatingLabelBehavior.always,
+            suffixIcon: widget.suffixIcon,
           ),
         ),
       ],
