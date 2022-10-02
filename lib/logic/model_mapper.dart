@@ -3,44 +3,41 @@ import 'package:locoo/logic/interfaces/IModel.dart';
 import 'package:locoo/logic/interfaces/IModelMapper.dart';
 import 'package:locoo/logic/models/Comment.dart';
 import 'package:locoo/logic/models/Notification.dart';
+import 'package:locoo/logic/models/UserPublicInfo.dart';
 import 'package:locoo/logic/models/post.dart';
 import 'package:locoo/logic/models/user.dart';
 
 class ModelMapper implements IModelMapper {
   @override
   Map<String, dynamic> getJsonFromModel<T extends IModel>(T model) {
-    if(typeOf<T>() == typeOf<Post>()) {
+    if (typeOf<T>() == typeOf<Post>()) {
       return (model as Post).toJson();
-    }
-    else if(typeOf<T>() == typeOf<User>()) {
+    } else if (typeOf<T>() == typeOf<User>()) {
       return (model as User).toJson();
-    }
-    else if(typeOf<T>() == typeOf<Notification>()) {
+    } else if (typeOf<T>() == typeOf<UserPublicInfo>()) {
+      return (model as UserPublicInfo).toJson();
+    } else if (typeOf<T>() == typeOf<Notification>()) {
       return (model as Notification).toJson();
-    }
-    else if(typeOf<T>() == typeOf<Comment>()) {
+    } else if (typeOf<T>() == typeOf<Comment>()) {
       return (model as Comment).toJson();
-    }
-    else {
+    } else {
       throw const FormatException();
     }
   }
 
   @override
   T getModelFromJson<T extends IModel>(Map<String, dynamic> json) {
-    if(typeOf<T>() == typeOf<Post>()) {
+    if (typeOf<T>() == typeOf<Post>()) {
       return Post.fromJson(json) as T;
-    }
-    else if(typeOf<T>() == typeOf<User>()) {
+    } else if (typeOf<T>() == typeOf<User>()) {
       return User.fromJson(json) as T;
-    }
-    else if(typeOf<T>() == typeOf<Notification>()) {
+    } else if (typeOf<T>() == typeOf<UserPublicInfo>()) {
+      return UserPublicInfo.fromJson(json) as T;
+    } else if (typeOf<T>() == typeOf<Notification>()) {
       return Notification.fromJson(json) as T;
-    }
-    else if(typeOf<T>() == typeOf<Comment>()) {
+    } else if (typeOf<T>() == typeOf<Comment>()) {
       return Comment.fromJson(json) as T;
-    }
-    else {
+    } else {
       throw const FormatException();
     }
   }
