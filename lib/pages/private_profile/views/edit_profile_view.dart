@@ -431,74 +431,89 @@ class EditProfileView extends GetView<EditProfileController> {
                         ? userPublicInfo.bio!
                         : '-----',
                   ),
+                  ActionCardTitle(title: 'Mehr'),
+                  ActionTextCard(
+                    title: 'Interessen',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: userPublicInfo.interests != null &&
+                            userPublicInfo.interests!.isNotEmpty
+                        ? userPublicInfo.interests!.fold<String>(
+                            userPublicInfo.interests!.first,
+                            (previousValue, element) =>
+                                '$previousValue, $element')
+                        : '-----',
+                  ),
+                  ActionTextCard(
+                    title: 'Bietet',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: userPublicInfo.offers != null &&
+                            userPublicInfo.offers!.isNotEmpty
+                        ? userPublicInfo.offers!.fold<String>(
+                            userPublicInfo.offers!.first,
+                            (previousValue, element) =>
+                                '$previousValue, $element')
+                        : '-----',
+                  ),
+                  ActionCardTitle(title: 'Familie'),
+                  ActionTextCard(
+                    title: 'Familien Status',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: userPublicInfo.familyStatus != null
+                        ? userPublicInfo.familyStatus!
+                        : '-----',
+                  ),
+                  ActionTextCard(
+                    title: 'Kinder',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {
+                      showModalBottomSheet<void>(
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0))),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return BottomSheetCloseSaveView(
+                            onSave: () {},
+                            children: [
+                              // ad a counter with + an- buttons
+                              Row(
+                                children: [
+                                  Text('0'),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(FlutterRemix.add_line),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(FlutterRemix.subtract_line),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    text: '3',
+                  ),
+                  ActionTextCard(
+                    title: 'Tiere',
+                    icon: Icon(FlutterRemix.user_line),
+                    onTap: () {},
+                    text: 'Hund, Katze',
+                  ),
                 ],
               );
             } else {
               return Container();
             }
           },
-        ),
-        ActionCardTitle(title: 'Mehr'),
-        ActionTextCard(
-          title: 'Interessen',
-          icon: Icon(FlutterRemix.user_line),
-          onTap: () {},
-          text: 'Freunde, Familie, Legobaumeister',
-        ),
-        ActionTextCard(
-          title: 'Bietet',
-          icon: Icon(FlutterRemix.user_line),
-          onTap: () {},
-          text: 'Babysitten, Nachb',
-        ),
-        ActionCardTitle(title: 'Familie'),
-        ActionTextCard(
-          title: 'Familien Status',
-          icon: Icon(FlutterRemix.user_line),
-          onTap: () {},
-          text: 'Verheiratet',
-        ),
-        ActionTextCard(
-          title: 'Kinder',
-          icon: Icon(FlutterRemix.user_line),
-          onTap: () {
-            showModalBottomSheet<void>(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25.0))),
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return BottomSheetCloseSaveView(
-                  onSave: () {},
-                  children: [
-                    // ad a counter with + an- buttons
-                    Row(
-                      children: [
-                        Text('0'),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(FlutterRemix.add_line),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(FlutterRemix.subtract_line),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          text: '3',
-        ),
-        ActionTextCard(
-          title: 'Tiere',
-          icon: Icon(FlutterRemix.user_line),
-          onTap: () {},
-          text: 'Hund, Katze',
         ),
         SizedBox(
           height: 40,
