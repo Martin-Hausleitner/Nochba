@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:394247920474:android:ea629ce2d30187ad453163",
         "android_client_info": {
-          "package_name": "at.locoo.locoo"
+          "package_name": "com.nochba.nochba"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "at.locoo.locoo"
+                "bundle_id": "com.nochba.nochba"
               }
             }
           ]

@@ -67,8 +67,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '394247920474',
     projectId: 'locoo-fa1d1',
     storageBucket: 'locoo-fa1d1.appspot.com',
-    iosClientId: '394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com',
-    iosBundleId: 'at.locoo.locoo',
+    iosClientId:
+        '394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com',
+    iosBundleId: 'com.nochba.nochba',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '394247920474',
     projectId: 'locoo-fa1d1',
     storageBucket: 'locoo-fa1d1.appspot.com',
-    iosClientId: '394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com',
-    iosBundleId: 'at.locoo.locoo',
+    iosClientId:
+        '394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com',
+    iosBundleId: 'com.nochba.nochba',
   );
 }

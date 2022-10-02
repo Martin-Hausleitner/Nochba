@@ -98,7 +98,7 @@ jobs:
         appId: ${{secrets.FIREBASE_APP_ID_IOS}}
         token: ${{secrets.FIREBASE_TOKEN}}
         groups: beta-testers
-        file: locoo.ipa
+        file: nochba.ipa
 
 
   build_android:
