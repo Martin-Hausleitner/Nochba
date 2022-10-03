@@ -3,6 +3,9 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
+import 'package:nochba/pages/feed/widgets/filter/filter_title.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circle_icon_button.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:material_tag_editor/tag_editor.dart';
@@ -11,6 +14,7 @@ import 'package:textfield_tags/textfield_tags.dart';
 import '../new_post_controller.dart';
 import '../widgets/back_outlined_button.dart';
 import '../widgets/circle_step.dart';
+import '../widgets/new_post_title.dart';
 import '../widgets/next_elevated_button.dart';
 import '../widgets/progress_line.dart';
 import 'published_new_post_view.dart';
@@ -65,114 +69,225 @@ class NewPostView extends StatelessWidget {
           child: ListView(
             children: [
               Expanded(
-                child: Padding(
-                  //left right 25
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // SizedBox(height: 28),
-                      //tile small Wähle deien Kategorie
-                      Text(
-                        // show category, and if subcategory is avabile add " - " and ontroller.subcategory.name.toString()
-                        controller.subcategory != CategoryOptions.None
-                            ? "${controller.category.name.toString()} - ${controller.subcategory.name.toString()}"
-                            : controller.category.name.toString(),
+                child: Column(
+                  children: [
+                    Padding(
+                      //left right 25
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // SizedBox(height: 28),
+                          //tile small Wähle deien Kategorie
+                          Text(
+                            // show category, and if subcategory is avabile add " - " and ontroller.subcategory.name.toString()
+                            controller.subcategory != CategoryOptions.None
+                                ? "${controller.category.name.toString()} - ${controller.subcategory.name.toString()}"
+                                : controller.category.name.toString(),
 
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
                                   fontWeight: FontWeight.w600,
                                   // color: Theme.of(context).secondaryHeaderColor,
                                 ),
-                      ),
-                      //tile small Schritt 1 von 3
-                      SizedBox(height: 2),
-                      Text(
-                        'Schritt 2 von 3',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            // fontSize: 18,
-                            // fontWeight: FontWeight.w600,
-                            // color: Theme.of(context).secondaryHeaderColor,
-                            ),
-                      ),
-                      SizedBox(height: 20),
-
-                      LocooTextField(
-                          controller: controller.titleController,
-                          textInputAction: TextInputAction.next,
-                          label: 'Titel',
-                          autovalidateMode: AutovalidateMode.disabled,
-                          validator: (value) => value != null && value.isEmpty
-                              ? 'Enter a title'
-                              : null),
-                      SizedBox(height: 10),
-                      LocooTextField(
-                          maxLines: 10,
-                          height: 220,
-                          controller: controller.descriptionController,
-                          // textInputAction: TextInputAction.next,
-                          label: 'Beschreibung',
-                          autovalidateMode: AutovalidateMode.disabled,
-                          validator: (value) => value != null && value.isEmpty
-                              ? 'Enter a description'
-                              : null),
-                      SizedBox(height: 10),
-                      Center(
-                          child: InkWell(
-                        onTap: () => controller.showTagDialog(context),
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.lightGreen,
                           ),
-                          child: Icon(Icons.add, color: Colors.white),
-                        ),
-                      )),
-                      // TagsEditor(),
-                      Obx(
-                        () => Wrap(
-                          children: controller.tags
-                              .map((e) => Chip(
-                                    deleteIcon: Icon(Icons.close),
-                                    onDeleted: () {
-                                      controller.removeTag(e);
-                                    },
-                                    label: Text('#$e'),
-                                  ))
-                              .toList(),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      GetBuilder<NewPostController>(
-                        builder: (c) => controller.image != null
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        MemoryImage(controller.image!),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.close),
-                                    onPressed: () => controller.deleteImage(),
-                                  )
-                                ],
-                              )
-                            : Center(
-                                child: IconButton(
-                                  icon: const Icon(Icons.upload),
-                                  onPressed: () =>
-                                      controller.selectImage(context),
+                          //tile small Schritt 1 von 3
+                          SizedBox(height: 2),
+                          Text(
+                            'Schritt 2 von 3',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                // fontSize: 18,
+                                // fontWeight: FontWeight.w600,
+                                // color: Theme.of(context).secondaryHeaderColor,
                                 ),
+                          ),
+                          SizedBox(height: 20),
+
+                          LocooTextField(
+                              controller: controller.titleController,
+                              textInputAction: TextInputAction.next,
+                              label: 'Titel',
+                              autovalidateMode: AutovalidateMode.disabled,
+                              validator: (value) =>
+                                  value != null && value.isEmpty
+                                      ? 'Enter a title'
+                                      : null),
+                          SizedBox(height: 10),
+                          LocooTextField(
+                              maxLines: 10,
+                              height: 220,
+                              controller: controller.descriptionController,
+                              // textInputAction: TextInputAction.next,
+                              label: 'Beschreibung',
+                              autovalidateMode: AutovalidateMode.disabled,
+                              validator: (value) =>
+                                  value != null && value.isEmpty
+                                      ? 'Enter a description'
+                                      : null),
+                          // SizedBox(height: 10),
+
+                          // Center(
+                          //     child: InkWell(
+                          //   onTap: () => controller.showTagDialog(context),
+                          //   child: Container(
+                          //     padding: const EdgeInsets.all(8),
+                          //     decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(20),
+                          //       color: Colors.lightGreen,
+                          //     ),
+                          //     child: Icon(Icons.add, color: Colors.white),
+                          //   ),
+                          // )),
+                          // TagsEditor(),
+                          NewPostTitle(label: 'Bild Hinzufügen'),
+                          GetBuilder<NewPostController>(
+                            builder: (c) => controller.image != null
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage:
+                                            MemoryImage(controller.image!),
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.close),
+                                        onPressed: () =>
+                                            controller.deleteImage(),
+                                      )
+                                    ],
+                                  )
+                                : Center(
+                                    child: IconButton(
+                                      icon: const Icon(Icons.upload),
+                                      onPressed: () =>
+                                          controller.selectImage(context),
+                                    ),
+                                  ),
+                          ),
+                          NewPostTitle(label: 'Tags'),
+                          Container(
+                            // round corners and Theme.of(context)
+                            // .colorScheme
+                            // .onSurface
+                            // .withOpacity(0.05),
+                            //width full
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.05),
+                            ),
+
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                //start
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Obx(
+                                    () => Wrap(
+                                      //vertaicla padding
+                                      spacing: 5,
+                                      runSpacing: 5,
+                                      children: controller.tags
+                                          .map((e) => Chip(
+                                                deleteIcon: Icon(
+                                                  Icons.close,
+                                                  size: 16,
+                                                ),
+                                                onDeleted: () {
+                                                  controller.removeTag(e);
+                                                },
+                                                backgroundColor: Colors.white,
+                                                labelStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.copyWith(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer,
+                                                    ),
+                                                label: Text('#$e'),
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ),
+                                  // round elevated button with add icon and no elevation
+                                  ElevatedButton(
+                                    onPressed: () =>
+                                        controller.showTagDialog(context),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Theme.of(context).primaryColor,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.add,
+                                          color: Theme.of(context)
+                                              .buttonTheme
+                                              .colorScheme
+                                              ?.onPrimary,
+                                          size: 18,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(
+                                          'Tag hinzufügen',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button
+                                              ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .buttonTheme
+                                                    .colorScheme
+                                                    ?.onPrimary,
+                                                letterSpacing: -0.07,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  // LocooCircularIconButton(
+                                  //   radius: 30,
+                                  //   iconData: Icons.add_outlined,
+                                  //   onPressed: () =>
+                                  //       controller.showTagDialog(context),
+                                  //   // label: 'Bild hinzufügen',
+                                  //   // fillColor: Theme.of(context)
+                                  //   //     .colorScheme
+                                  //   //     .onSurface
+                                  //   //     .withOpacity(0.05),
+                                  //   fillColor: Theme.of(context).primaryColor,
+                                  //   iconColor:
+                                  //       Theme.of(context).colorScheme.onPrimary,
+                                  // ),
+                                ],
                               ),
+                            ),
+                          ),
+
+                          // Home(),
+                          // const SizedBox(height: 20),
+                        ],
                       ),
-                      Home(),
-                      const SizedBox(height: 20),
-                      FilterRangeSlider(),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: // left 10 righ t10
+                          const EdgeInsets.symmetric(horizontal: 10),
+                      child: FilterRangeSlider(),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -379,7 +494,6 @@ class _HomeState extends State<Home> {
     );
   }
 }
-      
 
 //     return SingleChildScrollView(
 //       // padding: EdgeInsets.all(25),
