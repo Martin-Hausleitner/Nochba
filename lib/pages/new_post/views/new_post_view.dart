@@ -142,140 +142,9 @@ class NewPostView extends StatelessWidget {
                           // )),
                           // TagsEditor(),
                           NewPostTitle(label: 'Bild Hinzufügen'),
-                          GetBuilder<NewPostController>(
-                            builder: (c) => controller.image != null
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundImage:
-                                            MemoryImage(controller.image!),
-                                      ),
-                                      IconButton(
-                                        icon: const Icon(Icons.close),
-                                        onPressed: () =>
-                                            controller.deleteImage(),
-                                      )
-                                    ],
-                                  )
-                                : Center(
-                                    child: IconButton(
-                                      icon: const Icon(Icons.upload),
-                                      onPressed: () =>
-                                          controller.selectImage(context),
-                                    ),
-                                  ),
-                          ),
+                          AddPhotoElement(controller: controller),
                           NewPostTitle(label: 'Tags'),
-                          Container(
-                            // round corners and Theme.of(context)
-                            // .colorScheme
-                            // .onSurface
-                            // .withOpacity(0.05),
-                            //width full
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(0.05),
-                            ),
-
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                //start
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Obx(
-                                    () => Wrap(
-                                      //vertaicla padding
-                                      spacing: 5,
-                                      runSpacing: 5,
-                                      children: controller.tags
-                                          .map((e) => Chip(
-                                                deleteIcon: Icon(
-                                                  Icons.close,
-                                                  size: 16,
-                                                ),
-                                                onDeleted: () {
-                                                  controller.removeTag(e);
-                                                },
-                                                backgroundColor: Colors.white,
-                                                labelStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onSecondaryContainer,
-                                                    ),
-                                                label: Text('#$e'),
-                                              ))
-                                          .toList(),
-                                    ),
-                                  ),
-                                  // round elevated button with add icon and no elevation
-                                  ElevatedButton(
-                                    onPressed: () =>
-                                        controller.showTagDialog(context),
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Theme.of(context).primaryColor,
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          Icons.add,
-                                          color: Theme.of(context)
-                                              .buttonTheme
-                                              .colorScheme
-                                              ?.onPrimary,
-                                          size: 18,
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          'Tag hinzufügen',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .button
-                                              ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .buttonTheme
-                                                    .colorScheme
-                                                    ?.onPrimary,
-                                                letterSpacing: -0.07,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  // LocooCircularIconButton(
-                                  //   radius: 30,
-                                  //   iconData: Icons.add_outlined,
-                                  //   onPressed: () =>
-                                  //       controller.showTagDialog(context),
-                                  //   // label: 'Bild hinzufügen',
-                                  //   // fillColor: Theme.of(context)
-                                  //   //     .colorScheme
-                                  //   //     .onSurface
-                                  //   //     .withOpacity(0.05),
-                                  //   fillColor: Theme.of(context).primaryColor,
-                                  //   iconColor:
-                                  //       Theme.of(context).colorScheme.onPrimary,
-                                  // ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          TagsElement(controller: controller),
 
                           // Home(),
                           // const SizedBox(height: 20),
@@ -287,6 +156,7 @@ class NewPostView extends StatelessWidget {
                           const EdgeInsets.symmetric(horizontal: 10),
                       child: FilterRangeSlider(),
                     ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -295,6 +165,232 @@ class NewPostView extends StatelessWidget {
         ),
         BottomNavBar(controller: controller),
       ],
+    );
+  }
+}
+
+class AddPhotoElement extends StatelessWidget {
+  const AddPhotoElement({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final NewPostController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<NewPostController>(
+      builder: (c) => controller.image != null
+          // show a container width: double.infinity,
+          // height: 80, with the image and a remove button on the top right
+          ? Container(
+              width: double.infinity,
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: MemoryImage(controller.image!),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () => controller.deleteImage(),
+                    child: SizedBox(
+                      height: 30.0,
+                      width: 30.0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+
+          // ? Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       CircleAvatar(
+          //         backgroundImage:
+          //             MemoryImage(controller.image!),
+          //       ),
+          //       IconButton(
+          //         icon: const Icon(
+          //           Icons.close,
+          //         ),
+          //         onPressed: () =>
+          //             controller.deleteImage(),
+          //       )
+          //     ],
+          //   )
+          : GestureDetector(
+              onTap: () => controller.selectImage(context),
+              child: Container(
+                width: double.infinity,
+                height: 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+                ),
+                child: Column(
+                  //center
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+
+                  children: [
+                    Icon(
+                      FlutterRemix.upload_cloud_2_line,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.30),
+                    ),
+                    // text Füge ein Foto hinzu
+                    Text(
+                      'Füge ein Foto hinzu',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.35),
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+    );
+  }
+}
+
+class TagsElement extends StatelessWidget {
+  const TagsElement({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final NewPostController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // round corners and Theme.of(context)
+      // .colorScheme
+      // .onSurface
+      // .withOpacity(0.05),
+      //width full
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+      ),
+
+      child: Padding(
+        padding: // left 8 right 8 bottom 8 top 0
+            const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+        child: Column(
+          //start
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Obx(
+              () => Wrap(
+                //vertaicla padding
+                spacing: 5,
+                runSpacing: 5,
+                children: controller.tags
+                    .map((e) => Padding(
+                          padding: // top 9
+                              const EdgeInsets.only(top: 8),
+                          child: Chip(
+                            deleteIcon: Icon(
+                              Icons.close,
+                              size: 16,
+                            ),
+                            onDeleted: () {
+                              controller.removeTag(e);
+                            },
+                            backgroundColor: Colors.white,
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer,
+                                ),
+                            label: Text('#$e'),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
+            //show sizedbox height 10 when more then 1 tag is in the list
+            SizedBox(height: 8),
+
+            // round elevated button with add icon and no elevation
+            ElevatedButton(
+              onPressed: () => controller.showTagDialog(context),
+              style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).primaryColor,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.add,
+                    color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
+                    size: 18,
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'Tag hinzufügen',
+                    style: Theme.of(context).textTheme.button?.copyWith(
+                          color: Theme.of(context)
+                              .buttonTheme
+                              .colorScheme
+                              ?.onPrimary,
+                          letterSpacing: -0.07,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+
+            // LocooCircularIconButton(
+            //   radius: 30,
+            //   iconData: Icons.add_outlined,
+            //   onPressed: () =>
+            //       controller.showTagDialog(context),
+            //   // label: 'Bild hinzufügen',
+            //   // fillColor: Theme.of(context)
+            //   //     .colorScheme
+            //   //     .onSurface
+            //   //     .withOpacity(0.05),
+            //   fillColor: Theme.of(context).primaryColor,
+            //   iconColor:
+            //       Theme.of(context).colorScheme.onPrimary,
+            // ),
+          ],
+        ),
+      ),
     );
   }
 }
