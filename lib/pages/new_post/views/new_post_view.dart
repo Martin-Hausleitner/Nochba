@@ -115,6 +115,7 @@ class NewPostView extends StatelessWidget {
                                       ? 'Enter a title'
                                       : null),
                           SizedBox(height: 10),
+                          
                           LocooTextField(
                               maxLines: 10,
                               height: 220,
