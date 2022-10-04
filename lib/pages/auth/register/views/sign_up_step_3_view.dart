@@ -71,7 +71,7 @@ class SignUpStep3View extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: LocooTextField(
-                    label: 'Sraße',
+                    label: 'Straße',
                     // controller: controller.emailController,
                     textInputAction: TextInputAction.next,
                   ),
