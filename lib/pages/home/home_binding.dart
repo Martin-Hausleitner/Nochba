@@ -10,6 +10,7 @@ import 'package:nochba/logic/resources/ResourceContext.dart';
 import 'package:nochba/logic/auth_access.dart';
 import 'package:nochba/logic/data_access.dart';
 import 'package:nochba/pages/auth/auth_controller.dart';
+import 'package:nochba/pages/auth/login_controller.dart';
 import 'package:nochba/pages/auth/register/sign_up_controller.dart';
 import 'package:nochba/pages/chats/chat_controller.dart';
 import 'package:nochba/pages/chats/chats_controller.dart';
@@ -26,6 +27,7 @@ class HomeBinding extends Bindings {
   void dependencies() {
     Get.put(AuthService(ResourceContext()));
     Get.put(SignUpController());
+    Get.put(LoginController());
 
     Get.put(BookMarkRepository(ResourceContext()));
 

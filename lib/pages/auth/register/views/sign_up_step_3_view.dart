@@ -12,15 +12,17 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import '../../../new_post/widgets/circle_step.dart';
 
 class SignUpStep3View extends StatelessWidget {
-  const SignUpStep3View({super.key});
+  const SignUpStep3View(
+      {super.key, required this.controller, required this.onPressedBack});
+
+  final SignUpController controller;
+  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
-    SignUpController controller = Get.put(SignUpController());
-
     return AppBarBigView(
-      // showBackButton: false,
       title: 'Registrieren',
+      onPressed: onPressedBack,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         Column(

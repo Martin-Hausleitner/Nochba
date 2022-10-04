@@ -11,7 +11,9 @@ import 'views/sign_up_step_3_view.dart';
 import 'views/sign_up_step_4_view.dart';
 
 class NewSignUpPage extends GetView<SignUpController> {
-  const NewSignUpPage({Key? key}) : super(key: key);
+  const NewSignUpPage({Key? key /*, required this.onClicked*/})
+      : super(key: key);
+  //final VoidCallback onClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +23,24 @@ class NewSignUpPage extends GetView<SignUpController> {
       children: [
         SignUpStep1View(
           controller: controller,
+          onPressedBack: () => controller.getBack(),
         ),
         SignUpStep2View(
           controller: controller,
+          onPressedBack: () => controller.getBack(),
         ),
-        SignUpStep3View(),
-        SignUpStep4View(),
-        SignUpVerifiedView(),
+        SignUpStep3View(
+          controller: controller,
+          onPressedBack: () => controller.getBack(),
+        ),
+        SignUpStep4View(
+          controller: controller,
+          onPressedBack: () => controller.getBack(),
+        ),
+        SignUpVerifiedView(
+          controller: controller,
+          onPressedBack: () => controller.getBack(),
+        ),
 
         // NewPostCategorySelectionView(),
         // NewPostSubcategorySelectionView(),

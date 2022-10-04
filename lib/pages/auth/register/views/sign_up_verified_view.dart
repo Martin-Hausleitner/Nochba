@@ -13,13 +13,14 @@ import 'package:lottie/lottie.dart';
 import '../../../new_post/widgets/circle_step.dart';
 
 class SignUpVerifiedView extends StatelessWidget {
-  const SignUpVerifiedView({super.key});
+  const SignUpVerifiedView(
+      {super.key, required this.controller, required this.onPressedBack});
+
+  final SignUpController controller;
+  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
-    SignUpController controller = Get.put(SignUpController());
-    // a simple usage
-
     List<int> value = [2];
     List<S2Choice<int>> frameworks = [
       S2Choice<int>(value: 1, title: 'Ionic'),
@@ -28,126 +29,125 @@ class SignUpVerifiedView extends StatelessWidget {
     ];
 
     return AppBarBigView(
-      title: 'Registrieren',
-      // showBackButton: false,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleStep(3, '1', () {}),
-                ProgressLine(
-                  isFinished: true,
-                ),
-                CircleStep(3, '2', () {}),
-                ProgressLine(
-                  isFinished: true,
-                ),
-                CircleStep(3, '3', () {}),
-                ProgressLine(
-                  isFinished: true,
-                ),
-                CircleStep(3, '4', () {}),
-              ],
-            ),
-            SizedBox(height: 28),
-            //tile small Wähle deien Kategorie
-            Text(
-              'Wähle deine Authoezierungs Methode aus',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    // color: Theme.of(context).secondaryHeaderColor,
+        title: 'Registrieren',
+        onPressed: onPressedBack,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleStep(3, '1', () {}),
+                  ProgressLine(
+                    isFinished: true,
                   ),
-            ),
-            //tile small Schritt 1 von 3
-            SizedBox(height: 2),
-            Text(
-              'Schritt 4 von 4',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  // fontSize: 18,
-                  // fontWeight: FontWeight.w600,
-                  // color: Theme.of(context).secondaryHeaderColor,
+                  CircleStep(3, '2', () {}),
+                  ProgressLine(
+                    isFinished: true,
                   ),
-            ),
-            SizedBox(height: 28),
-            Container(
-              // color: Colors.red,
-              child: Center(
-                child: Lottie.asset(
-                  'assets/lottie/success.json',
-                  height: 200,
-                  fit: BoxFit.cover,
-                  repeat: false,
-                  alignment: Alignment.topCenter,
-                ),
+                  CircleStep(3, '3', () {}),
+                  ProgressLine(
+                    isFinished: true,
+                  ),
+                  CircleStep(3, '4', () {}),
+                ],
               ),
-            ),
-            Center(
-              child: Text(
-                'Erfolgreich Verifiziert',
+              SizedBox(height: 28),
+              //tile small Wähle deien Kategorie
+              Text(
+                'Wähle deine Authoezierungs Methode aus',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       // color: Theme.of(context).secondaryHeaderColor,
                     ),
               ),
-            ),
-            SizedBox(height: 8),
-            Center(
-              child: Text(
-                'Du hast dich erfolgreich Verifiziert, du kannst jetzt mit deinen Nachbarn connecten!',
-                //align center
-                textAlign: TextAlign.center,
+              //tile small Schritt 1 von 3
+              SizedBox(height: 2),
+              Text(
+                'Schritt 4 von 4',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     // fontSize: 18,
                     // fontWeight: FontWeight.w600,
                     // color: Theme.of(context).secondaryHeaderColor,
                     ),
               ),
-            ),
+              SizedBox(height: 28),
+              Container(
+                // color: Colors.red,
+                child: Center(
+                  child: Lottie.asset(
+                    'assets/lottie/success.json',
+                    height: 200,
+                    fit: BoxFit.cover,
+                    repeat: false,
+                    alignment: Alignment.topCenter,
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  'Erfolgreich Verifiziert',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        // color: Theme.of(context).secondaryHeaderColor,
+                      ),
+                ),
+              ),
+              SizedBox(height: 8),
+              Center(
+                child: Text(
+                  'Du hast dich erfolgreich Verifiziert, du kannst jetzt mit deinen Nachbarn connecten!',
+                  //align center
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      // fontSize: 18,
+                      // fontWeight: FontWeight.w600,
+                      // color: Theme.of(context).secondaryHeaderColor,
+                      ),
+                ),
+              ),
 
-            // Padding(
-            //   padding: const EdgeInsets.all(10.0),
-            //   child: Column(
-            //     children: [
-            //       BackOutlinedButton(
-            //         controller: controller,
-            //         icon: FlutterRemix.pencil_line,
-            //         label: "Post Bearbeiten",
-            //       ),
-            //       SizedBox(height: 5),
-            //       NextElevatedButton(
-            //         onPressed: //controller.addPost() and go to
-            //             () {
-            //           controller.addPost();
-            //           controller.jumpToPage(4);
-            //           // Get.to(PublishedNewPostView());
-            //         },
-            //         controller: controller,
-            //         icon: FlutterRemix.home_2_line,
-            //         label: 'Zurück zum Feed',
-            //       ),
-            //     ],
-            //   ),
-            SizedBox(height: 40),
-            NextElevatedButton(
-              rtl: true,
-              onPressed: //controller.addPost() and go to
-                  () async {
-                await controller.signUp();
-                //close keyboard
-                FocusScope.of(context).unfocus();
-                // Get.to(PublishedNewPostView());
-              },
-              controller: controller,
-              icon: Icons.chevron_left_outlined,
-              label: 'Los gehts',
-            ),
-          ],
-        )
-      ],
-    );
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child: Column(
+              //     children: [
+              //       BackOutlinedButton(
+              //         controller: controller,
+              //         icon: FlutterRemix.pencil_line,
+              //         label: "Post Bearbeiten",
+              //       ),
+              //       SizedBox(height: 5),
+              //       NextElevatedButton(
+              //         onPressed: //controller.addPost() and go to
+              //             () {
+              //           controller.addPost();
+              //           controller.jumpToPage(4);
+              //           // Get.to(PublishedNewPostView());
+              //         },
+              //         controller: controller,
+              //         icon: FlutterRemix.home_2_line,
+              //         label: 'Zurück zum Feed',
+              //       ),
+              //     ],
+              //   ),
+              SizedBox(height: 40),
+              NextElevatedButton(
+                rtl: true,
+                onPressed: //controller.addPost() and go to
+                    () async {
+                  await controller.signUp();
+                  //close keyboard
+                  FocusScope.of(context).unfocus();
+                  // Get.to(PublishedNewPostView());
+                },
+                controller: controller,
+                icon: Icons.chevron_left_outlined,
+                label: 'Los gehts',
+              ),
+            ],
+          )
+        ]);
   }
 }
 

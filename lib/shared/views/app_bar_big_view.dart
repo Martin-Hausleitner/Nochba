@@ -4,13 +4,13 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/pages/auth/auth_page.dart';
-import 'package:nochba/pages/auth/signUp_page.dart';
 
 class AppBarBigView extends StatelessWidget {
   final String title;
   final Color? backgroundColor;
   final List<Widget> children;
   final bool showBackButton;
+  final void Function()? onPressed;
   final List<Widget>? actions;
   final EdgeInsetsGeometry? contentPadding;
 
@@ -20,6 +20,7 @@ class AppBarBigView extends StatelessWidget {
     required this.children,
     this.backgroundColor,
     this.showBackButton = true,
+    this.onPressed,
     this.actions,
     this.contentPadding = const EdgeInsets.only(left: 15, right: 15, top: 18),
   });
@@ -74,7 +75,8 @@ class AppBarBigView extends StatelessWidget {
                               .colorScheme
                               ?.primary,
                         ),
-                        onPressed: () {
+                        onPressed: onPressed,
+                        /*() {
                           // Get.to(
                           //   fullscreenDialog: true,
                           //   transition: Transition.leftToRightWithFade,
@@ -83,7 +85,7 @@ class AppBarBigView extends StatelessWidget {
                           // );
 
                           Get.back();
-                        },
+                        },*/
                         padding: EdgeInsets.zero,
                         alignment: Alignment.centerLeft,
                       ),

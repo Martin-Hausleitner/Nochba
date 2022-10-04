@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/auth/auth_controller.dart';
-import 'package:nochba/pages/auth/signUp_page.dart';
+import 'package:nochba/pages/auth/login_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
-class LoginPage extends GetView<AuthController> {
-  final VoidCallback onClicked;
-  const LoginPage({Key? key, required this.onClicked}) : super(key: key);
+class LoginPage extends GetView<LoginController> {
+  //final VoidCallback onClicked;
+  const LoginPage({Key? key /*, required this.onClicked*/}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<AuthController>();
     return AppBarBigView(
+      onPressed: controller.getBack,
       title: 'Anmelden',
       backgroundColor: Theme.of(context).backgroundColor,
       children: [
@@ -78,7 +78,6 @@ class LoginPage extends GetView<AuthController> {
                     onPressed: controller.signIn,
                     icon: Icons.chevron_left_outlined,
                     label: 'Anmelden',
-                    controller: controller,
                   ),
                   SizedBox(height: 10),
 
@@ -183,8 +182,8 @@ class LoginPage extends GetView<AuthController> {
                           ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onBackground,
+                      //backgroundColor:
+                      //Theme.of(context).colorScheme.onBackground,
                       elevation: 0,
                       minimumSize: const Size.fromHeight(60),
                       shadowColor: Colors.transparent,
@@ -199,7 +198,7 @@ class LoginPage extends GetView<AuthController> {
                 ],
               ),
               SizedBox(height: 20),
-              RichText(
+              /*RichText(
                 text: TextSpan(
                     style: const TextStyle(color: Colors.black, fontSize: 17),
                     text: 'No Account? ',
@@ -212,14 +211,9 @@ class LoginPage extends GetView<AuthController> {
                             color: Theme.of(context).colorScheme.secondary,
                           ))
                     ]),
-              ),
+              ),*/
             ],
           ),
-        LocooTextButton(
-          label: 'Erstelle einen Demo Account',
-          onPressed: () async => controller.createDemoAccount(),
-          icon: Icons.login,
-        ),
       ],
     );
   }
@@ -232,14 +226,14 @@ class NextElevatedButton extends StatelessWidget {
   final bool rtl;
   const NextElevatedButton({
     Key? key,
-    required this.controller,
+    //required this.controller,
     required this.label,
     required this.icon,
     required this.onPressed,
     this.rtl = false,
   }) : super(key: key);
 
-  final AuthController controller;
+  //final AuthController controller;
 
   @override
   Widget build(BuildContext context) {

@@ -14,152 +14,165 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import '../../../new_post/widgets/circle_step.dart';
 
 class SignUpStep2View extends StatelessWidget {
-  const SignUpStep2View({super.key, required this.controller});
+  const SignUpStep2View(
+      {super.key, required this.controller, required this.onPressedBack});
+
   final SignUpController controller;
+  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
-      title: 'Registrieren',
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleStep(3, '1', () {}),
-                ProgressLine(
-                  isFinished: true,
-                ),
-                CircleStep(1, '2', () {}),
-                ProgressLine(
-                  isFinished: false,
-                ),
-                CircleStep(2, '3', () {}),
-                ProgressLine(
-                  isFinished: false,
-                ),
-                CircleStep(2, '4', () {}),
-              ],
-            ),
-            SizedBox(height: 28),
-            //tile small Wähle deien Kategorie
-            Text(
-              'Gebe deinen Namen und ein Profilbild ein',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    // color: Theme.of(context).secondaryHeaderColor,
-                  ),
-            ),
-            //tile small Schritt 1 von 3
-            SizedBox(height: 2),
-            Text(
-              'Schritt 2 von 4',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  // fontSize: 18,
-                  // fontWeight: FontWeight.w600,
-                  // color: Theme.of(context).secondaryHeaderColor,
-                  ),
-            ),
-            SizedBox(height: 25),
-            EditAvatar(
-              imageUrl:
-                  'https://play-lh.googleusercontent.com/03URhAXU-IrK5PB-DiN6lyLGITlp-6xTizXkW5l98AUvpzOxQej6ss_zM4f8zxN0ofEf',
-              onTap: () => Get.snackbar('title', 'message'),
-            ),
-            // Center(
-            //   child: Stack(
-            //     alignment: Alignment.bottomRight,
-            //     children: [
-            //       CircleAvatar(
-            //         backgroundColor: Colors.black26,
-            //         radius: 55,
-            //         backgroundImage: NetworkImage(
-            //           "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-            //         ),
-            //       ),
-            //       LocooCircularIconButton(
-            //         iconData: FlutterRemix.pencil_line,
-            //         fillColor: Theme.of(context).primaryColor,
-            //         iconColor: Colors.white,
-            //         radius: 32,
-            //         onPressed: () => Navigator.pop(context),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            SizedBox(height: 28),
-
-            LocooTextField(
-              label: 'Vorname',
-              controller: controller.firstNameController,
-              textInputAction: TextInputAction.next,
-            ),
-            SizedBox(height: 10),
-
-            LocooTextField(
-              label: 'Nachname',
-              controller: controller.lastNameController,
-              textInputAction: TextInputAction.next,
-            ),
-            Padding(
-              padding: // right left 5
-                  EdgeInsets.only(
-                top: 15,
-                left: 7,
-                right: 7,
-              ),
-              child: Row(
-                //spacebetween
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+        title: 'Registrieren',
+        onPressed: onPressedBack,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Flexible(
-                    child: Text(
-                      'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.color
-                              ?.withOpacity(0.6)),
-                    ),
+                  CircleStep(3, '1', () {}),
+                  ProgressLine(
+                    isFinished: true,
                   ),
-
-                  //tranform  scale 0.8 cupertuon swtich
-                  Transform.scale(
-                      scale: 0.8,
-                      child: Obx(
-                        () => CupertinoSwitch(
-                          activeColor: Theme.of(context).primaryColor,
-                          value: controller.showLastName,
-                          onChanged: controller.setShowLastName,
-                        ),
-                      )),
+                  CircleStep(1, '2', () {}),
+                  ProgressLine(
+                    isFinished: false,
+                  ),
+                  CircleStep(2, '3', () {}),
+                  ProgressLine(
+                    isFinished: false,
+                  ),
+                  CircleStep(2, '4', () {}),
                 ],
               ),
-            ),
-            SizedBox(height: 20),
+              SizedBox(height: 28),
+              //tile small Wähle deien Kategorie
+              Text(
+                'Gebe deinen Namen und ein Profilbild ein',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      // color: Theme.of(context).secondaryHeaderColor,
+                    ),
+              ),
+              //tile small Schritt 1 von 3
+              SizedBox(height: 2),
+              Text(
+                'Schritt 2 von 4',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    // fontSize: 18,
+                    // fontWeight: FontWeight.w600,
+                    // color: Theme.of(context).secondaryHeaderColor,
+                    ),
+              ),
+              SizedBox(height: 25),
+              EditAvatar(
+                imageUrl:
+                    'https://play-lh.googleusercontent.com/03URhAXU-IrK5PB-DiN6lyLGITlp-6xTizXkW5l98AUvpzOxQej6ss_zM4f8zxN0ofEf',
+                onTap: () => Get.snackbar('title', 'message'),
+              ),
+              // Center(
+              //   child: Stack(
+              //     alignment: Alignment.bottomRight,
+              //     children: [
+              //       CircleAvatar(
+              //         backgroundColor: Colors.black26,
+              //         radius: 55,
+              //         backgroundImage: NetworkImage(
+              //           "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+              //         ),
+              //       ),
+              //       LocooCircularIconButton(
+              //         iconData: FlutterRemix.pencil_line,
+              //         fillColor: Theme.of(context).primaryColor,
+              //         iconColor: Colors.white,
+              //         radius: 32,
+              //         onPressed: () => Navigator.pop(context),
+              //       ),
+              //     ],
+              //   ),
+              // ),
 
-            // NextElevatedButton(
-            //   rtl: true,
-            //   onPressed: //controller.addPost() and go to
-            //       () {
-            //     controller.goToPage(1);
-            //     FocusScope.of(context).unfocus();
-            //     // Get.to(PublishedNewPostView());
-            //   },
-            //   controller: controller,
-            //   icon: Icons.chevron_left_outlined,
-            //   label: 'Weiter',
-            // ),
-            BottomNavBar(controller: controller),
-          ],
-        )
-      ],
-    );
+              SizedBox(height: 28),
+
+              Form(
+                  key: controller.formKey2,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  child: Column(
+                    children: [
+                      LocooTextField(
+                        label: 'Vorname',
+                        controller: controller.firstNameController,
+                        validator: controller.validateFirstName,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        textInputAction: TextInputAction.next,
+                      ),
+                      SizedBox(height: 10),
+                      LocooTextField(
+                        label: 'Nachname',
+                        controller: controller.lastNameController,
+                        validator: controller.validateLastName,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        textInputAction: TextInputAction.done,
+                      ),
+                    ],
+                  )),
+              Padding(
+                padding: // right left 5
+                    EdgeInsets.only(
+                  top: 15,
+                  left: 7,
+                  right: 7,
+                ),
+                child: Row(
+                  //spacebetween
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                  children: [
+                    Flexible(
+                      child: Text(
+                        'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.color
+                                ?.withOpacity(0.6)),
+                      ),
+                    ),
+
+                    //tranform  scale 0.8 cupertuon swtich
+                    Transform.scale(
+                        scale: 0.8,
+                        child: Obx(
+                          () => CupertinoSwitch(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: controller.showLastName,
+                            onChanged: controller.setShowLastName,
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // NextElevatedButton(
+              //   rtl: true,
+              //   onPressed: //controller.addPost() and go to
+              //       () {
+              //     controller.goToPage(1);
+              //     FocusScope.of(context).unfocus();
+              //     // Get.to(PublishedNewPostView());
+              //   },
+              //   controller: controller,
+              //   icon: Icons.chevron_left_outlined,
+              //   label: 'Weiter',
+              // ),
+              BottomNavBar(controller: controller),
+            ],
+          )
+        ]);
   }
 }
 

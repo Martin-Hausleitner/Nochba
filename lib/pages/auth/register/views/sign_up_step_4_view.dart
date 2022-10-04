@@ -12,13 +12,14 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import '../../../new_post/widgets/circle_step.dart';
 
 class SignUpStep4View extends StatelessWidget {
-  const SignUpStep4View({super.key});
+  const SignUpStep4View(
+      {super.key, required this.controller, required this.onPressedBack});
+
+  final SignUpController controller;
+  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
-    SignUpController controller = Get.put(SignUpController());
-    // a simple usage
-
     List<int> value = [2];
     List<S2Choice<int>> frameworks = [
       S2Choice<int>(value: 1, title: 'Ionic'),
@@ -28,7 +29,7 @@ class SignUpStep4View extends StatelessWidget {
 
     return AppBarBigView(
       title: 'Registrieren',
-      // showBackButton: false,
+      onPressed: onPressedBack,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         Column(

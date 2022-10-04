@@ -16,6 +16,41 @@ class SignUpController extends GetxController {
   final pageController = PageController(initialPage: 0);
   final currentPage = 0.obs;
 
+  final formKey1 = GlobalKey<FormState>();
+  final formKey2 = GlobalKey<FormState>();
+
+  String? validateEmail(String? email) {
+    return email != null && email.trim().isEmpty
+        ? 'Geben Sie bitte eine Email ein'
+        : email != null && !email.isEmail
+            ? 'Geben Sie bitte eine gültige Email ein'
+            : null;
+  }
+
+  String? validatePassword(String? password) {
+    return password != null && password.trim().isEmpty
+        ? 'Geben Sie bitte ein Password ein'
+        : password != null && password.trim().length < 6
+            ? 'Das Password muss länger als 6 Zeichen sein'
+            : null;
+  }
+
+  String? validateFirstName(String? firstName) {
+    return firstName != null && firstName.trim().isEmpty
+        ? 'Geben Sie bitte einen Vornamen ein'
+        : firstName != null && firstName.trim().length < 2
+            ? 'Der Vorname muss länger als 2 Zeichen sein'
+            : null;
+  }
+
+  String? validateLastName(String? lastName) {
+    return lastName != null && lastName.trim().isEmpty
+        ? 'Geben Sie bitte einen Nachnamen ein'
+        : lastName != null && lastName.trim().length < 2
+            ? 'Der Nachname muss länger als 2 Zeichen sein'
+            : null;
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -36,25 +71,11 @@ class SignUpController extends GetxController {
 
   void nextPage() {
     if (pageController.page == 0) {
-      if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-        Get.snackbar('Falsche Angabe',
-            'Bitte geben Sie eine gültige Email und ein gültiges Passwort ein');
-        return;
-      }
-      if (!GetUtils.isEmail(emailController.text.trim())) {
-        Get.snackbar(
-            'Ungültige Email', 'Bitte geben Sie eine gültige Email an');
-        return;
-      }
-      if (passwordController.text.trim().length < 6) {
-        Get.snackbar('Schwaches Passwort',
-            'Dass Passwort muss länger als 6 Zeichen lang sein');
+      if (!formKey1.currentState!.validate()) {
         return;
       }
     } else if (pageController.page == 1) {
-      if (firstNameController.text.isEmpty || lastNameController.text.isEmpty) {
-        Get.snackbar('Falsche Angabe',
-            'Bitte geben Sie einen gültigen Vor- und Nachnamen ein');
+      if (!formKey2.currentState!.validate()) {
         return;
       }
     }
@@ -91,6 +112,7 @@ class SignUpController extends GetxController {
           passwordController.text.trim(),
           firstNameController.text.trim(),
           lastNameController.text.trim());
+      getBack();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         Get.snackbar(
@@ -108,5 +130,13 @@ class SignUpController extends GetxController {
         Get.snackbar('Error', '$e');
       }
     }
+  }
+
+  void getBack() {
+    emailController.clear();
+    passwordController.clear();
+    firstNameController.clear();
+    lastNameController.clear();
+    Get.back();
   }
 }
