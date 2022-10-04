@@ -172,7 +172,7 @@ class FeedPage extends GetView<FeedController> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Theme.of(context).colorScheme.onPrimary,
-                                fontSize: 15,
+                                fontSize: 13,
                               ),
                             ),
                           ),
@@ -281,7 +281,7 @@ class _CategorieChipState extends State<CategorieChip> {
       },
       child: Container(
         //height 38
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
         decoration: BoxDecoration(
           color: isSelected
               ? Theme.of(context).colorScheme.primary
@@ -295,7 +295,7 @@ class _CategorieChipState extends State<CategorieChip> {
             color: isSelected
                 ? Theme.of(context).colorScheme.onPrimary
                 : Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
-            fontSize: 15,
+            fontSize: 13,
           ),
         ),
       ),
