@@ -77,7 +77,7 @@ class AuthPage extends GetView<AuthController> {
                               fontWeight: FontWeight.w800,
                               fontSize: 30,
                               letterSpacing: -0.4,
-                              color: Theme.of(context).secondaryHeaderColor,
+                              color: Colors.white,
                             ),
                       ),
                     ),
