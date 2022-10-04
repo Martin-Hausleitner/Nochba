@@ -45,7 +45,7 @@ class FeedPage extends GetView<FeedController> {
               // height: 100,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onPrimary,
+                // color: Theme.of(context).colorScheme.onPrimary,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(22),
                   bottomRight: Radius.circular(22),
@@ -93,10 +93,12 @@ class FeedPage extends GetView<FeedController> {
                                 //set padding 0
                                 contentPadding: const EdgeInsets.all(0),
                                 filled: true,
-                                fillColor: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withOpacity(0.04),
+                                // fillColor: Theme.of(context)
+                                //     .colorScheme
+                                //     .onSurface
+                                //     .withOpacity(0.04),
+                                fillColor:
+                                    Theme.of(context).colorScheme.onPrimary,
                                 hintText: 'Suche',
                                 hintStyle: TextStyle(
                                   color: Theme.of(context)
@@ -285,7 +287,8 @@ class _CategorieChipState extends State<CategorieChip> {
         decoration: BoxDecoration(
           color: isSelected
               ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.onSurface.withOpacity(0.04),
+              // : Theme.of(context).colorScheme.onSurface.withOpacity(0.04),
+              : Theme.of(context).colorScheme.onPrimary,
           borderRadius: BorderRadius.circular(25),
         ),
         child: Text(
