@@ -71,14 +71,63 @@ class AuthPage extends GetView<AuthController> {
                     Padding(
                       padding: //top 20 left 12
                           const EdgeInsets.only(top: 70, left: 12, right: 12),
-                      child: Text(
-                        'Willkommen in\ndeiner Nochbaschaft',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 30,
-                              letterSpacing: -0.4,
-                              color: Colors.white,
-                            ),
+                      child: Column(
+                        //align start
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Willkommen in',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 30,
+                                  letterSpacing: -0.4,
+                                  color: Colors.white,
+                                ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'deiner ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 30,
+                                      letterSpacing: -0.4,
+                                      color: Colors.white,
+                                    ),
+                              ),
+                              Text(
+                                'Nochba',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 30,
+                                      letterSpacing: -0.4,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                              ),
+                              Text(
+                                'schaft',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 28,
+                                      letterSpacing: -0.4,
+                                      color: Colors.white,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
