@@ -22,19 +22,45 @@ class FeedPostFilterView extends StatelessWidget {
           padding: //horizontal 15
               const EdgeInsets.symmetric(horizontal: 15),
           child: Wrap(
-            spacing: -5,
+            spacing: 5,
             runSpacing: 5,
             children: [
               //print 10 buton
-              for (var i = 0; i < 10; i++)
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: FilterChip(
-                    label: Text('Kateie $i'),
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                ),
+              FilterChip(
+                label: 'Alle',
+                selected: true,
+              ),
+              //show filterchips with: Mitteilung, Suche, Events, Ausleihen, Frage, Warnung, Empfehlung, Gefunden, Hilfe, Verloren
+              FilterChip(
+                label: 'Mitteilung',
+              ),
+              FilterChip(
+                label: 'Suche',
+              ),
+              FilterChip(
+                label: 'Ausleihen',
+              ),
+              FilterChip(
+                label: 'Events',
+              ),
+              FilterChip(
+                label: 'Frage',
+              ),
+              FilterChip(
+                label: 'Warnung',
+              ),
+              FilterChip(
+                label: 'Empfehlung',
+              ),
+              FilterChip(
+                label: 'Gefunden',
+              ),
+              FilterChip(
+                label: 'Hilfe',
+              ),
+              FilterChip(
+                label: 'Verloren',
+              ),
             ],
           ),
         ),
@@ -42,19 +68,16 @@ class FeedPostFilterView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Wrap(
-            spacing: -5,
+            spacing: 5,
             runSpacing: 5,
             children: [
-              //print 10 buton
-              for (var i = 0; i < 3; i++)
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: FilterChip(
-                    label: Text('Kategorie $i'),
-                    selected: false,
-                    onSelected: (value) {},
-                  ),
-                ),
+              FilterChip(
+                label: 'Neuste',
+                selected: true,
+              ),
+              FilterChip(
+                label: 'Meisten likes',
+              ),
             ],
           ),
         ),
@@ -77,5 +100,54 @@ class FeedPostFilterView extends StatelessWidget {
   }
 }
 
-//create a class called test silder which show a container when the focusnode is active
+//create a filterchip which is around cintainer with a gray border and when cicked the border color changes to primary color and a check icon appears
+class FilterChip extends StatelessWidget {
+  const FilterChip({
+    Key? key,
+    required this.label,
+    this.selected = false,
+  }) : super(key: key);
 
+  final String label;
+
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: selected
+              ? Theme.of(context).primaryColor
+              : Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (selected)
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: Icon(
+                  FlutterRemix.check_line,
+                  color: Theme.of(context).primaryColor,
+                  size: 15,
+                ),
+              ),
+            Text(
+              label,
+              style: TextStyle(
+                color: selected
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
