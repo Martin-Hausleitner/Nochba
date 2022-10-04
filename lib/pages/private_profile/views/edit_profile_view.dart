@@ -65,106 +65,8 @@ class EditProfileView extends GetView<EditProfileController> {
         ),
         ActionCardTitle(title: 'Persönliche Daten'),
 
-        StreamBuilder<User?>(
-          stream: controller.getCurrentUser(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final user = snapshot.data;
-
-              return ActionTextCard(
-                title: 'Name',
-                icon: Icon(FlutterRemix.user_line),
-                onTap: () {
-                  showModalBottomSheet<void>(
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(25.0))),
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return BottomSheetCloseSaveView(
-                        onSave: () async =>
-                            await controller.updateNameOfCurrentUser(),
-                        children: [
-                          LocooTextField(
-                            label: 'Vorname',
-                            textInputAction: TextInputAction.next,
-                            autofocus: true,
-                            controller: controller.firstNameTextController,
-                            // suffixIcon: IconButton(
-                            //   // onPressed: _controller.clear,
-                            //   iconSize: ,
-                            //   onPressed: () =>
-                            //       controller.firstNameTextController.clear(),
-                            //   icon: Icon(Icons.clear),
-                            // ),
-                            suffixIcon: TextFieldRemoveTextButton(
-                              onPressed: () =>
-                                  controller.firstNameTextController.clear(),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          LocooTextField(
-                            label: 'Nachname',
-                            textInputAction: TextInputAction.done,
-                            controller: controller.lastNameTextController,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding: // right left 5
-                                EdgeInsets.only(
-                              left: 7,
-                              right: 7,
-                            ),
-                            child: Row(
-                              //spacebetween
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.color
-                                                ?.withOpacity(0.6)),
-                                  ),
-                                ),
-
-                                //tranform  scale 0.8 cupertuon swtich
-                                Transform.scale(
-                                  scale: 0.8,
-                                  child: CupertinoSwitch(
-                                    activeColor: Theme.of(context).primaryColor,
-                                    value: true,
-                                    onChanged: (value) {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                text: '${user?.firstName} ${user?.lastName}',
-              );
-            } else {
-              return Container();
-            }
-          },
+        NameElement(
+          controller: controller,
         ),
         StreamBuilder<UserPublicInfo?>(
           stream: controller.getPublicInfoOfCurrentUser(),
@@ -183,6 +85,9 @@ class EditProfileView extends GetView<EditProfileController> {
                     userPublicInfo.neighbourhoodMemberSince!.toDate();
               }
               return Column(
+                //align left
+                crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
                   ActionTextCard(
                     title: 'Geburtstag',
@@ -293,7 +198,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     },
                     text: birthday != null
                         ? '${birthday.day}.${birthday.month}.${birthday.year}'
-                        : '-----',
+                        : '',
                   ),
                   ActionTextCard(
                     title: 'In der Nachbarschaft seit',
@@ -358,7 +263,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     },
                     text: neighbourhoodMemberSince != null
                         ? '${neighbourhoodMemberSince.day}.${neighbourhoodMemberSince.month}.${neighbourhoodMemberSince.year}'
-                        : '-----',
+                        : '',
                   ),
                   ActionTextCard(
                     title: 'Beruf',
@@ -392,7 +297,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     },
                     text: userPublicInfo.profession != null
                         ? userPublicInfo.profession!
-                        : '-----',
+                        : '',
                   ),
                   ActionTextCard(
                     title: 'Mehr über dich',
@@ -429,7 +334,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     },
                     text: userPublicInfo.bio != null
                         ? userPublicInfo.bio!
-                        : '-----',
+                        : '',
                   ),
                   ActionCardTitle(title: 'Mehr'),
                   ActionTextCard(
@@ -442,7 +347,7 @@ class EditProfileView extends GetView<EditProfileController> {
                             userPublicInfo.interests!.first,
                             (previousValue, element) =>
                                 '$previousValue, $element')
-                        : '-----',
+                        : '',
                   ),
                   ActionTextCard(
                     title: 'Bietet',
@@ -454,7 +359,7 @@ class EditProfileView extends GetView<EditProfileController> {
                             userPublicInfo.offers!.first,
                             (previousValue, element) =>
                                 '$previousValue, $element')
-                        : '-----',
+                        : '',
                   ),
                   ActionCardTitle(title: 'Familie'),
                   ActionTextCard(
@@ -463,7 +368,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     onTap: () {},
                     text: userPublicInfo.familyStatus != null
                         ? userPublicInfo.familyStatus!
-                        : '-----',
+                        : '',
                   ),
                   ActionTextCard(
                     title: 'Kinder',
@@ -519,6 +424,120 @@ class EditProfileView extends GetView<EditProfileController> {
           height: 40,
         ),
       ],
+    );
+  }
+}
+
+class NameElement extends StatelessWidget {
+  const NameElement({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final EditProfileController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: controller.getCurrentUser(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final user = snapshot.data;
+
+          return ActionTextCard(
+            title: 'Name',
+            icon: Icon(FlutterRemix.user_line),
+            onTap: () {
+              showModalBottomSheet<void>(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25.0))),
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return BottomSheetCloseSaveView(
+                    onSave: () async =>
+                        await controller.updateNameOfCurrentUser(),
+                    children: [
+                      LocooTextField(
+                        label: 'Vorname',
+                        textInputAction: TextInputAction.next,
+                        autofocus: true,
+                        controller: controller.firstNameTextController,
+                        // suffixIcon: IconButton(
+                        //   // onPressed: _controller.clear,
+                        //   iconSize: ,
+                        //   onPressed: () =>
+                        //       controller.firstNameTextController.clear(),
+                        //   icon: Icon(Icons.clear),
+                        // ),
+                        suffixIcon: TextFieldRemoveTextButton(
+                          onPressed: () =>
+                              controller.firstNameTextController.clear(),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      LocooTextField(
+                        label: 'Nachname',
+                        textInputAction: TextInputAction.done,
+                        controller: controller.lastNameTextController,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding: // right left 5
+                            EdgeInsets.only(
+                          left: 7,
+                          right: 7,
+                        ),
+                        child: Row(
+                          //spacebetween
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                          children: [
+                            Flexible(
+                              child: Text(
+                                'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.color
+                                            ?.withOpacity(0.6)),
+                              ),
+                            ),
+
+                            //tranform  scale 0.8 cupertuon swtich
+                            Transform.scale(
+                              scale: 0.8,
+                              child: CupertinoSwitch(
+                                activeColor: Theme.of(context).primaryColor,
+                                value: true,
+                                onChanged: (value) {},
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            text: '${user?.firstName} ${user?.lastName}',
+          );
+        } else {
+          return Container();
+        }
+      },
     );
   }
 }
