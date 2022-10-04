@@ -72,7 +72,7 @@ class AuthPage extends GetView<AuthController> {
                       padding: //top 20 left 12
                           const EdgeInsets.only(top: 70, left: 12, right: 12),
                       child: Text(
-                        'Willkommen in\ndeiner Nachbarschaft',
+                        'Willkommen in\ndeiner Nochbaschaft',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w800,
                               fontSize: 30,
