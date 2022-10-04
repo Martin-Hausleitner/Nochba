@@ -36,8 +36,8 @@ class AuthPage extends GetView<AuthController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    'https://images.unsplash.com/photo-1607554076394-31ddab697f7c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
+                image: AssetImage(
+                    'assets/images/auth_page_background.jpg'), // <-- BACKGROUND IMAGE
                 fit: BoxFit.cover,
               ),
             ),
@@ -93,23 +93,65 @@ class AuthPage extends GetView<AuthController> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        LocooTextButton(
-                          label: 'Anmelden',
-                          icon: Icons.login,
+                        // LocooTextButton(
+                        //   label: 'Anmelden',
+                        //   icon: Icons.login,
+                        //   onPressed: () async =>
+                        //       {await Get.to(() => const LoginPage())},
+                        // ),
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(60),
+                            primary: Theme.of(context).colorScheme.onSurface,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            // splashFactory: InkRipple.splashFactory,
+                            // enableFeedback: true,
+                          ),
+                          child: Text(
+                            'Anmelden',
+                            style: Theme.of(context).textTheme.button?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  letterSpacing: -0.07,
+                                ),
+                          ),
                           onPressed: () async =>
                               {await Get.to(() => const LoginPage())},
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 12,
                         ),
-                        LocooTextButton(
-                          label: 'Regestrieren',
-                          icon: Icons.login,
+                        ElevatedButton(
+                          //right icon posission
                           onPressed: () async =>
                               {await Get.to(() => const NewSignUpPage())},
+
+                          child: Text(
+                            'Regestrieren',
+                            style: Theme.of(context).textTheme.button?.copyWith(
+                                  color: Theme.of(context)
+                                      .buttonTheme
+                                      .colorScheme
+                                      ?.onPrimary,
+                                  letterSpacing: -0.07,
+                                ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            minimumSize: const Size.fromHeight(60),
+                            shadowColor: Colors.transparent,
+                            // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 15),
+                          ),
                         ),
                       ],
                     ),
