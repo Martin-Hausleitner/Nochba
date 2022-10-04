@@ -30,13 +30,37 @@ class ProfileContent extends StatelessWidget {
       // height: height,
       child: ContainedTabBarView(
         tabs: [
-          Text(
-            'Info',
-            // style: Theme.of(context).textTheme.titleMedium,
+          Container(
+            //center
+
+            padding: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: 10,
+            ),
+
+            // height: 40,
+            child: Text(
+              'Info',
+              // style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
-          Text(
-            'Posts',
-            // style: Theme.of(context).textTheme.titleMedium,
+          Container(
+            //center
+
+            padding: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: 10,
+            ),
+
+            // height: 40,
+            child: Text(
+              'Posts',
+              // style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
         ],
         tabBarProperties: TabBarProperties(
@@ -45,6 +69,8 @@ class ProfileContent extends StatelessWidget {
           // padding: EdgeInsets.only(left: 18, right: 18),
           // height: 30,
           // width: 20,
+          height: 50,
+          alignment: TabBarAlignment.center,
           labelColor: Theme.of(context).primaryColor,
           unselectedLabelColor: Theme.of(context).textTheme.bodyMedium?.color,
           labelStyle: Theme.of(context).textTheme.titleMedium,
