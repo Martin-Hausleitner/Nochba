@@ -35,7 +35,7 @@ const neutral7 = Color(0xffffffff);
 const neutral7WithOpacity = Color(0x80ffffff);
 
 /// Primary.
-const primary = Color(0xffdf7956);
+const primary = Color(0xfffe7647);
 
 /// Secondary.
 const secondary = Color(0xFFFFFFFF);

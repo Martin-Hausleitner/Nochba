@@ -115,7 +115,7 @@ class NewPostView extends StatelessWidget {
                                       ? 'Enter a title'
                                       : null),
                           SizedBox(height: 10),
-                          
+
                           LocooTextField(
                               maxLines: 10,
                               height: 220,
@@ -303,39 +303,52 @@ class TagsElement extends StatelessWidget {
         padding: // left 8 right 8 bottom 8 top 0
             const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
         child: Column(
-          //start
           crossAxisAlignment: CrossAxisAlignment.start,
+
+          //start
           children: [
+            //when the tags are not emty whow a sizedbox
+            //height 10
+
             Obx(
-              () => Wrap(
-                //vertaicla padding
-                spacing: 5,
-                runSpacing: 5,
-                children: controller.tags
-                    .map((e) => Padding(
-                          padding: // top 9
-                              const EdgeInsets.only(top: 8),
-                          child: Chip(
-                            deleteIcon: Icon(
-                              Icons.close,
-                              size: 16,
-                            ),
-                            onDeleted: () {
-                              controller.removeTag(e);
-                            },
-                            backgroundColor: Colors.white,
-                            labelStyle: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer,
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (controller.tags.isNotEmpty)
+                    SizedBox(
+                      height: 8,
+                    ),
+                  Padding(
+                    padding: const //top 8
+                        EdgeInsets.only(top: 0),
+                    child: Wrap(
+                      //vertaicla padding
+                      spacing: 4,
+                      runSpacing: 4,
+                      children: controller.tags
+                          .map((e) => Chip(
+                                deleteIcon: Icon(
+                                  Icons.close,
+                                  size: 16,
                                 ),
-                            label: Text('#$e'),
-                          ),
-                        ))
-                    .toList(),
+                                onDeleted: () {
+                                  controller.removeTag(e);
+                                },
+                                backgroundColor: Colors.white,
+                                labelStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer,
+                                    ),
+                                label: Text('#$e'),
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                ],
               ),
             ),
             //show sizedbox height 10 when more then 1 tag is in the list

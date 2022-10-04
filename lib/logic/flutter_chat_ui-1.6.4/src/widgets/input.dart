@@ -204,6 +204,9 @@ class _InputState extends State<Input> {
                                   child: Column(
                                     children: [
                                       TextField(
+                                        autofocus: true,
+                                        //focus the texfield without the keyboard
+                                        focusNode: _inputFocusNode,
                                         controller: _textController,
                                         cursorColor:
                                             InheritedChatTheme.of(context)
@@ -231,10 +234,8 @@ class _InputState extends State<Input> {
                                                   // hintText: InheritedL10n.of(context)
                                                   //     .l10n
                                                   //     .inputPlaceholder,
-                                                  hintText:
-                                                      'Schreibe eine Nachricht',
+                                                  hintText: 'Nachricht',
                                                 ),
-                                        focusNode: _inputFocusNode,
                                         keyboardType: TextInputType.multiline,
                                         maxLines: 5,
                                         minLines: 1,
