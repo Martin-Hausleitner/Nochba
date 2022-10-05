@@ -70,6 +70,48 @@ class Resource<T extends IModel> implements IResource<T> {
   }
 
   @override
+  Future<T?> getWhere(Map<String, dynamic> fields,
+      {List<String>? nexus}) async {
+    if (fields.isNotEmpty) {
+      var query = firestoreInstance
+          .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+          .where(fields.keys.first, isEqualTo: fields.values.first);
+
+      for (int i = 1; i < fields.length; i++) {
+        MapEntry<String, dynamic> field = fields.entries.elementAt(i);
+        query = query.where(field.key, isEqualTo: field.value);
+      }
+      query = query.limit(1);
+
+      final snapshots = await query.get();
+      if (snapshots.docs.isNotEmpty) {
+        return getModelFromJson(snapshots.docs.first.data());
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<List<T>> getAllWhereIn(MapEntry<String, List<Object?>?> whereIn,
+      {List<String>? nexus}) async {
+    var snapshots = await firestoreInstance
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .where(whereIn.key, whereIn: whereIn.value)
+        .get();
+
+    if (snapshots.docs.isNotEmpty) {
+      return snapshots.docs
+          .map((snapshot) => getModelFromJson(snapshot.data()))
+          .toList();
+    } else {
+      return List.empty();
+    }
+  }
+
+  @override
   Future<void> update(T model, {List<String>? nexus}) async {
     return await firestoreInstance
         .collection(getCollectionName(typeOf<T>(), nexus: nexus))
@@ -111,7 +153,7 @@ class Resource<T extends IModel> implements IResource<T> {
   }
 
   @override
-  Stream<List<T>> query(
+  Future<List<T>> query(
     MapEntry<String, bool> orderFieldDescending, {
     int? limit,
     int? limitToLast,
@@ -123,6 +165,103 @@ class Resource<T extends IModel> implements IResource<T> {
     List<Object?>? startAt,
     List<Object?>? endAt,
     List<Object?>? endBefore,
+    MapEntry<String, List<Object?>?>? whereIn,
+    MapEntry<String, List<Object?>?>? whereNotIn,
+    Map<String, dynamic>? whereIsEqualTo,
+    Map<String, dynamic>? whereIsNotEqualTo,
+    List<String>? nexus,
+  }) async {
+    var query = firestoreInstance
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .orderBy(orderFieldDescending.key,
+            descending: orderFieldDescending.value);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument);
+    }
+
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument);
+    }
+
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument);
+    }
+
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument);
+    }
+
+    if (startAfter != null) {
+      query = query.startAfter(startAfter);
+    }
+
+    if (startAt != null) {
+      query = query.startAt(startAt);
+    }
+
+    if (endAt != null) {
+      query = query.endAt(endAt);
+    }
+
+    if (endBefore != null) {
+      query = query.endBefore(endBefore);
+    }
+
+    if (whereIn != null) {
+      if (whereIn.value == null ||
+          (whereIn.value != null && whereIn.value!.isEmpty)) {
+        throw Exception('Query paramtere whereIn requires a non-empty list');
+      }
+      query = query.where(whereIn.key, whereIn: whereIn.value);
+    }
+
+    if (whereNotIn != null) {
+      query = query.where(whereNotIn.key, whereNotIn: whereNotIn.value);
+    }
+
+    if (whereIsEqualTo != null) {
+      for (var entry in whereIsEqualTo.entries) {
+        query = query.where(entry.key, isEqualTo: entry.value);
+      }
+    }
+
+    if (whereIsNotEqualTo != null) {
+      for (var entry in whereIsNotEqualTo.entries) {
+        query = query.where(entry.key, isNotEqualTo: entry.value);
+      }
+    }
+
+    if (limit != null) {
+      query = query.limit(limit);
+    }
+
+    if (limitToLast != null) {
+      query = query.limitToLast(limitToLast);
+    }
+
+    final snapshots = await query.get();
+
+    return snapshots.docs
+        .map((snapshot) => getModelFromJson(snapshot.data()))
+        .toList();
+  }
+
+  @override
+  Stream<List<T>> queryAsStream(
+    MapEntry<String, bool> orderFieldDescending, {
+    int? limit,
+    int? limitToLast,
+    DocumentSnapshot<Object?>? startAtDocument,
+    DocumentSnapshot<Object?>? startAfterDocument,
+    DocumentSnapshot<Object?>? endAtDocument,
+    DocumentSnapshot<Object?>? endBeforeDocument,
+    List<Object?>? startAfter,
+    List<Object?>? startAt,
+    List<Object?>? endAt,
+    List<Object?>? endBefore,
+    MapEntry<String, List<Object?>?>? whereIn,
+    MapEntry<String, List<Object?>?>? whereNotIn,
     Map<String, dynamic>? whereIsEqualTo,
     Map<String, dynamic>? whereIsNotEqualTo,
     List<String>? nexus,
@@ -162,6 +301,14 @@ class Resource<T extends IModel> implements IResource<T> {
 
     if (endBefore != null) {
       query = query.endBefore(endBefore);
+    }
+
+    if (whereIn != null) {
+      query = query.where(whereIn.key, whereIn: whereIn.value);
+    }
+
+    if (whereNotIn != null) {
+      query = query.where(whereNotIn.key, whereNotIn: whereNotIn.value);
     }
 
     if (whereIsEqualTo != null) {

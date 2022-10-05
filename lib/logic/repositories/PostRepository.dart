@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/logic/repositories/GenericRepository.dart';
 import 'package:nochba/logic/models/post.dart';
@@ -10,29 +12,27 @@ class PostRepository extends GenericRepository<Post> {
         orderFieldDescending: MapEntry('createdAt', orderFieldDescending));
   }
 
-  Future<List<Post>> getSavedPostsOfCurrentUser() async {
-    final userRepo = loadResource<User>();
+  Future<String?> getPostTitle(String id) async {
+    final post = await get(id);
+    return post?.title;
+  }
+
+  Future<List<Post>> getPostsOfCurrentUser() async {
+    return await query(const MapEntry('createdAt', true),
+        whereIsEqualTo: {'user': resourceContext.uid});
+  }
+
+  Future<List<Post>> getMarkedPostsOfCurrentUser() async {
+    final bookMarkRepo = loadResource<BookMark>();
+    final uid = resourceContext.uid;
+    final bookMark = await bookMarkRepo.get(uid, nexus: [uid]);
+    if (bookMark != null && bookMark.posts.isNotEmpty) {
+      final postIds = bookMark.posts;
+      final posts = await query(const MapEntry('createdAt', true),
+          whereIn: MapEntry('id', postIds));
+
+      return posts.isNotEmpty ? posts : List.empty();
+    }
     return List.empty();
-    /*try {
-      final uid = FirebaseAuth.instance.currentUser!.uid;
-      final snapshot1 = await userdataCol.doc(uid).collection('bookmarks').doc(uid).get();
-
-      if(snapshot1.exists) {
-
-        final posts = BookMark.fromJson(snapshot1.data()!).posts;
-        final snapshot2 = await postCol.where('id', whereIn: posts).get();
-
-        if(snapshot2.docs.isNotEmpty) {
-          return snapshot2.docs.map((e) => Post.fromJson(e.data())).toList();
-        } else {
-          return List.empty();
-        }
-      } else {
-        return List.empty();
-      }
-    } on Exception catch (e) {
-      print(e);
-      return List.empty();
-    }*/
   }
 }

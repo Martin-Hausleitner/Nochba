@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/data_access.dart';
+import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
+import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/pages/chats/chat.dart';
 import 'package:nochba/pages/notifications/notifications_controller.dart';
 import 'package:nochba/pages/notifications/widgets/notification_element.dart';
@@ -46,7 +48,7 @@ class NotificationsPage extends GetView<NotificationsController> {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            NotificationElement(
+            /*NotificationElement(
               authorName: 'Max Mustermann',
               notificationText: 'hat dich als Freund hinzugefügt',
               time: 'vor 3min',
@@ -62,7 +64,7 @@ class NotificationsPage extends GetView<NotificationsController> {
               time: 'vor 3min',
               acceptButtonOnPressed: () => Get.snackbar('dd', 'message'),
               declineButtonOnPressed: () => Get.snackbar('dd', 'message'),
-            ),
+            ),*/
             StreamBuilder<List<models.Notification>>(
               stream: controller.getNotificationsOfCurrentUser(),
               builder: (context, snapshot) {
@@ -122,8 +124,40 @@ class NotificationsPage extends GetView<NotificationsController> {
                     itemCount: notifications.length,
                     itemBuilder: (BuildContext context, int index) {
                       final notification = notifications.elementAt(index);
+                      return FutureBuilder<User?>(
+                          future: controller.getUser(notification.fromUser),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final user = snapshot.data!;
 
-                      return NotificationElementOLD(notification: notification);
+                              return FutureBuilder<Post?>(
+                                future:
+                                    controller.getPost(notification.postId!),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    final post = snapshot.data!;
+                                    final createdAt = post.createdAt.toDate();
+                                    return NotificationElement(
+                                      authorName:
+                                          '${user.firstName} ${user.lastName}',
+                                      notificationText:
+                                          'möchte dich wegen deinem Post "${post.title}", den du am ${createdAt.day}.${createdAt.month}.${createdAt.year} erstellt hast, anschreiben',
+                                      time: 'vor - min',
+                                      acceptButtonOnPressed: () async =>
+                                          await controller.onAccept(user),
+                                      declineButtonOnPressed: () async =>
+                                          await controller
+                                              .onDecline(notification),
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                },
+                              );
+                            } else {
+                              return Container();
+                            }
+                          });
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(height: 3),

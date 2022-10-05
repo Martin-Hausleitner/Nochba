@@ -8,4 +8,8 @@ class BookMarkRepository extends GenericRepository<BookMark> {
     return resource
         .getAsStream(resourceContext.uid, nexus: [resourceContext.uid]);
   }
+
+  Future updateBookMarkOfCurrentUser(BookMark bookMark) {
+    return update(bookMark, nexus: [resourceContext.uid]);
+  }
 }

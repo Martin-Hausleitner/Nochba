@@ -222,7 +222,9 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                             Get.to(
                               fullscreenDialog: true,
                               transition: Transition.cupertino,
-                              OwnPostsView(),
+                              OwnPostsView(
+                                controller: controller,
+                              ),
                             );
                           },
                         ),
@@ -234,7 +236,9 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                             Get.to(
                               fullscreenDialog: true,
                               transition: Transition.cupertino,
-                              BookmarkedPostsView(),
+                              BookmarkedPostsView(
+                                controller: controller,
+                              ),
                             );
                           },
                         ),

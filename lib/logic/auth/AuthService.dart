@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthExceptionHandler.dart';
 import 'package:nochba/logic/auth/AuthResultStatus.dart';
+import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/repositories/ResourceAccess.dart';
@@ -61,11 +62,11 @@ class AuthService extends ResourceAccess {
           metadata: const {'value': ''}),
     );
 
-    final bookMarkResource = loadResource<BookMark>();
-    await bookMarkResource.insert(BookMark(id: uid, posts: []), nexus: [uid]);
-
     final userPublicInfoResource = loadResource<UserPublicInfo>();
     await userPublicInfoResource.insert(UserPublicInfo(id: uid), nexus: [uid]);
+
+    final bookMarkResource = loadResource<BookMark>();
+    await bookMarkResource.insert(BookMark(id: uid, posts: []), nexus: [uid]);
 
     return true;
   }

@@ -2,12 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nochba/logic/interfaces/IModel.dart';
 import 'package:nochba/logic/repositories/RepositoryObject.dart';
 
-enum AccessMode { getAll, get, insert, update, delete, query }
+enum AccessMode {
+  getAll,
+  get,
+  getWhere,
+  getAllWhereIn,
+  insert,
+  update,
+  updateFields,
+  delete,
+  query
+}
 
 abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   GenericRepository(super.resourceContext);
 
-  void validate(T? model, AccessMode accessMode) {}
+  Future validate(T? model, AccessMode accessMode) async {}
 
   void beforeAction(T? model, AccessMode accessMode) {}
 
@@ -23,7 +33,7 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   }
 
   Future<T?> get(String id, {List<String>? nexus}) async {
-    validate(null, AccessMode.get);
+    await validate(null, AccessMode.get);
     try {
       return resource.get(id, nexus: nexus);
     } on Exception {
@@ -40,8 +50,24 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     }
   }
 
+  Future<T?> getWhere(Map<String, dynamic> fields,
+      {List<String>? nexus}) async {
+    await validate(null, AccessMode.getWhere);
+    try {
+      return resource.getWhere(fields, nexus: nexus);
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Future<List<T>> getAllWhereIn(MapEntry<String, List<Object?>?> whereIn,
+      {List<String>? nexus}) async {
+    validate(null, AccessMode.getAllWhereIn);
+    return resource.getAllWhereIn(whereIn, nexus: nexus);
+  }
+
   Future<void> update(T model, {List<String>? nexus}) async {
-    validate(model, AccessMode.update);
+    await validate(model, AccessMode.update);
     try {
       return resource.update(model, nexus: nexus);
     } on Exception {
@@ -60,7 +86,7 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   }
 
   Future<void> insert(T model, {List<String>? nexus}) async {
-    validate(model, AccessMode.insert);
+    await validate(model, AccessMode.insert);
     try {
       return resource.insert(model, nexus: nexus);
     } on Exception {
@@ -69,7 +95,7 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   }
 
   Future<void> delete(String id, {List<String>? nexus}) async {
-    validate(null, AccessMode.delete);
+    await validate(null, AccessMode.delete);
     try {
       return resource.delete(id, nexus: nexus);
     } on Exception {
@@ -77,7 +103,7 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     }
   }
 
-  Stream<List<T>> query(
+  Future<List<T>> query(
     MapEntry<String, bool> orderFieldDescending, {
     int? limit,
     int? limitToLast,
@@ -89,6 +115,8 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     List<Object?>? startAt,
     List<Object?>? endAt,
     List<Object?>? endBefore,
+    MapEntry<String, List<Object?>?>? whereIn,
+    MapEntry<String, List<Object?>?>? whereNotIn,
     Map<String, dynamic>? whereIsEqualTo,
     Map<String, dynamic>? whereIsNotEqualTo,
     List<String>? nexus,
@@ -107,6 +135,51 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
         startAt: startAt,
         endAt: endAt,
         endBefore: endBefore,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        whereIsEqualTo: whereIsEqualTo,
+        whereIsNotEqualTo: whereIsNotEqualTo,
+        nexus: nexus,
+      );
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Stream<List<T>> queryAsStream(
+    MapEntry<String, bool> orderFieldDescending, {
+    int? limit,
+    int? limitToLast,
+    DocumentSnapshot<Object?>? startAtDocument,
+    DocumentSnapshot<Object?>? startAfterDocument,
+    DocumentSnapshot<Object?>? endAtDocument,
+    DocumentSnapshot<Object?>? endBeforeDocument,
+    List<Object?>? startAfter,
+    List<Object?>? startAt,
+    List<Object?>? endAt,
+    List<Object?>? endBefore,
+    MapEntry<String, List<Object?>?>? whereIn,
+    MapEntry<String, List<Object?>?>? whereNotIn,
+    Map<String, dynamic>? whereIsEqualTo,
+    Map<String, dynamic>? whereIsNotEqualTo,
+    List<String>? nexus,
+  }) {
+    validate(null, AccessMode.query);
+    try {
+      return resource.queryAsStream(
+        orderFieldDescending,
+        limit: limit,
+        limitToLast: limitToLast,
+        startAtDocument: startAtDocument,
+        startAfterDocument: startAfterDocument,
+        endAtDocument: endAtDocument,
+        endBeforeDocument: endBeforeDocument,
+        startAfter: startAfter,
+        startAt: startAt,
+        endAt: endAt,
+        endBefore: endBefore,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
         whereIsEqualTo: whereIsEqualTo,
         whereIsNotEqualTo: whereIsNotEqualTo,
         nexus: nexus,
