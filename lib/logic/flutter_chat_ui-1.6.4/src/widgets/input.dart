@@ -234,7 +234,7 @@ class _InputState extends State<Input> {
                                                   // hintText: InheritedL10n.of(context)
                                                   //     .l10n
                                                   //     .inputPlaceholder,
-                                                  hintText: 'Nachricht',
+                                                  hintText: 'Neue Nachricht',
                                                 ),
                                         keyboardType: TextInputType.multiline,
                                         maxLines: 5,

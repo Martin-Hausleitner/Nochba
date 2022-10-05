@@ -14,10 +14,12 @@ class FilterRangeSlider extends StatefulWidget {
 class _FilterRangeSliderState extends State<FilterRangeSlider> {
   double _currentSliderValue = 20;
   OverlayEntry? _overlayEntry;
+  var bottomSheetKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: bottomSheetKey,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -100,7 +102,8 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
         // top: 100,
         left: 15,
         //bottom size of bottomsheet
-        bottom: 500,
+        bottom: bottomSheetKey.currentContext!.size!.height + 20,
+
         child: Container(
           width: //infinity width
               //size width screen

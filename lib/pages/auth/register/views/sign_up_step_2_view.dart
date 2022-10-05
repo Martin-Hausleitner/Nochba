@@ -23,6 +23,8 @@ class SignUpStep2View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
+        tailingIcon: Icons.close,
+
         title: 'Registrieren',
         onPressed: onPressedBack,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

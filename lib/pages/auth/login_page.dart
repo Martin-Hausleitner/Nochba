@@ -19,6 +19,7 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
+      tailingIcon: Icons.close,
       onPressed: controller.getBack,
       title: 'Anmelden',
       backgroundColor: Theme.of(context).backgroundColor,
@@ -183,7 +184,7 @@ class LoginPage extends GetView<LoginController> {
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                      Theme.of(context).colorScheme.onBackground,
+                          Theme.of(context).colorScheme.onBackground,
                       elevation: 0,
                       minimumSize: const Size.fromHeight(60),
                       shadowColor: Colors.transparent,

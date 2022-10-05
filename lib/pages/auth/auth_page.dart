@@ -174,7 +174,7 @@ class AuthPage extends GetView<AuthController> {
                           onPressed: () async => {
                             await Get.to(
                               () => const LoginPage(),
-                              transition: Transition.leftToRight,
+                              transition: Transition.rightToLeft,
                             )
                           },
                         ),
@@ -185,7 +185,7 @@ class AuthPage extends GetView<AuthController> {
                           onPressed: () async => {
                             await Get.to(
                               () => const NewSignUpPage(),
-                              transition: Transition.rightToLeft,
+                              transition: Transition.leftToRight,
                               // gestureWidth: 100,
                             )
                           },

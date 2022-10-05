@@ -408,28 +408,26 @@ class _ChatState extends State<Chat> {
   Widget _emptyStateBuilder() =>
       widget.emptyState ??
       Column(
-        // show a 180 grad rotation icon
+        //center
+        mainAxisAlignment: MainAxisAlignment.center,
 
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          // add a forum icon
+          Icon(
+            Icons.forum_outlined,
+            size: 100,
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           Text(
-            'Schreibe deine erste Nachricht',
+            'Noch keine Nachrichten',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.25),
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
                 ),
-            textAlign: TextAlign.center,
           ),
-          SizedBox(height: 10),
-          RotationTransition(
-            turns: new AlwaysStoppedAnimation(215 / 360),
-            child: Icon(
-              Icons.straight_outlined,
-              size: 40,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
-            ),
-          ),
-          SizedBox(height: 16),
         ],
       );
 
