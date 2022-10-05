@@ -75,14 +75,13 @@ class ActionBar extends GetView<ActionBarController> {
                   return LocooCircleIconButton(
                       icon: Icons.bookmark,
                       isPressed: true,
-
                       // color: Theme.of(context).colorScheme.primary,
                       onPressed: () async =>
                           await controller.unsavePost(bookMark, post.id));
                 } else {
                   return LocooCircleIconButton(
                       icon: Icons.bookmark,
-                      // isPressed: false,
+                      isPressed: false,
                       onPressed: () async =>
                           await controller.savePost(bookMark, post.id));
                 }

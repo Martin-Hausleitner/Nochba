@@ -10,6 +10,7 @@ import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/pages/feed/widgets/post_card.dart' as widget;
 import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/logic/models/user.dart' as models;
+import 'package:nochba/pages/private_profile/private_profile_controller.dart';
 
 // Text(
 //                 'Settings',
@@ -20,12 +21,12 @@ import 'package:nochba/logic/models/user.dart' as models;
 // create a settings Page which have a list of rounded containers with a text and a icon on the left side with scaffold
 
 class OwnPostsView extends StatelessWidget {
-  const OwnPostsView({Key? key}) : super(key: key);
+  const OwnPostsView({Key? key, required this.controller}) : super(key: key);
+
+  final PrivateProfileController controller;
 
   @override
   Widget build(BuildContext context) {
-    final dataAccess = Get.find<DataAccess>();
-
     return CupertinoTheme(
       data: CupertinoThemeData(
         textTheme: CupertinoTextThemeData(
@@ -105,9 +106,8 @@ class OwnPostsView extends StatelessWidget {
               delegate: SliverChildListDelegate(
                 [
                   Expanded(
-                    child: StreamBuilder<List<models.Post>>(
-                      stream: dataAccess.getPostsOfUser(
-                          FirebaseAuth.instance.currentUser!.uid),
+                    child: FutureBuilder<List<models.Post>>(
+                      future: controller.getPostsOfCurrentUser(),
                       builder: ((context, snapshot) {
                         if (snapshot.hasError) {
                           return Text(
@@ -163,7 +163,7 @@ class OwnPostsView extends StatelessWidget {
                               final post = posts.elementAt(index);
 
                               return FutureBuilder<models.User?>(
-                                future: dataAccess.getUser(post.user),
+                                future: controller.getUser(post.user),
                                 builder: ((context, snapshot) {
                                   if (snapshot.hasData) {
                                     final user = snapshot.data!;

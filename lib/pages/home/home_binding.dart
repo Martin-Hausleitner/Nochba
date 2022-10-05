@@ -17,6 +17,7 @@ import 'package:nochba/pages/chats/chats_controller.dart';
 import 'package:nochba/pages/dashboard/dashboard_controller.dart';
 import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
+import 'package:nochba/pages/feed/widgets/post_card_controller.dart';
 import 'package:nochba/pages/new_post/new_post_controller.dart';
 import 'package:nochba/pages/notifications/notifications_controller.dart';
 import 'package:nochba/pages/private_profile/private_profile_controller.dart';
@@ -36,6 +37,7 @@ class HomeBinding extends Bindings {
     Get.put(UserPublicInfoRepository(ResourceContext()));
     Get.put(NotificationRepository(ResourceContext()));
     Get.put(ActionBarController());
+    Get.put(PostCardController());
     Get.put(FeedController());
     Get.put(NotificationsController());
     Get.put(PrivateProfileController());

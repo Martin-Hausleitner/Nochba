@@ -13,9 +13,11 @@ import 'package:nochba/logic/models/post.dart' as models;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/pages/chats/chat.dart';
+import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/views/post_view.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar.dart';
 import 'package:nochba/pages/feed/widgets/post/post_profile.dart';
+import 'package:nochba/pages/feed/widgets/post_card_controller.dart';
 
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 
@@ -25,7 +27,7 @@ import 'post/hashtag_badges.dart';
 
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
-class Post extends StatelessWidget {
+class Post extends GetView<PostCardController> {
   final String postAuthorImage;
   final String postAuthorName;
 
@@ -45,7 +47,6 @@ class Post extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double spacingBetween = 13;
-    final dataAccess = Get.find<DataAccess>();
 
     return GestureDetector(
       //onTap open postz view
@@ -166,13 +167,8 @@ class Post extends StatelessWidget {
                     borderRadius: 100,
                     height: 48,
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
-                    onPressed: () async {
-                      bool sent = await dataAccess.sendNotification(
-                          post.user, NotificationType.chatRequest,
-                          postId: post.id);
-                      if (sent)
-                        Get.snackbar('Sent', 'A request was sent to the user');
-                    },
+                    onPressed: () async =>
+                        await controller.sendNotification(post.user, post.id),
                   ),
                 ),
 

@@ -206,7 +206,7 @@ class DataAccess extends GetxService {
       fromUser: FirebaseAuth.instance.currentUser!.uid,
       toUser: toUser,
       type: type,
-      postId: postId,
+      postId: postId!,
       createdAt: Timestamp.now(),
     );
 

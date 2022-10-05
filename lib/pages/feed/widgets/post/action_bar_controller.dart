@@ -16,7 +16,7 @@ class ActionBarController extends GetxController {
   Future<void> unsavePost(BookMark bookMark, String postId) async {
     try {
       bookMark.posts.removeWhere((e) => e == postId);
-      return await bookMarkRepository.update(bookMark);
+      return await bookMarkRepository.updateBookMarkOfCurrentUser(bookMark);
     } on Exception {
       return Future.error(Error());
     }
@@ -25,7 +25,7 @@ class ActionBarController extends GetxController {
   Future<void> savePost(BookMark bookMark, String postId) async {
     try {
       bookMark.posts.add(postId);
-      return await bookMarkRepository.update(bookMark);
+      return await bookMarkRepository.updateBookMarkOfCurrentUser(bookMark);
     } on Exception {
       return Future.error(Error());
     }
