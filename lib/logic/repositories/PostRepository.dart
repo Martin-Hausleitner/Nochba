@@ -24,12 +24,11 @@ class PostRepository extends GenericRepository<Post> {
 
   Future<List<Post>> getMarkedPostsOfCurrentUser() async {
     final bookMarkRepo = loadResource<BookMark>();
-    final postRepo = loadResource<Post>();
     final uid = resourceContext.uid;
     final bookMark = await bookMarkRepo.get(uid, nexus: [uid]);
     if (bookMark != null && bookMark.posts.isNotEmpty) {
       final postIds = bookMark.posts;
-      final posts = await postRepo.query(const MapEntry('createdAt', true),
+      final posts = await query(const MapEntry('createdAt', true),
           whereIn: MapEntry('id', postIds));
 
       return posts.isNotEmpty ? posts : List.empty();

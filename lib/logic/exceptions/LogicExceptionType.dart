@@ -1,0 +1,4 @@
+enum LogicExceptionType {
+  dataAccess,
+  query,
+}
