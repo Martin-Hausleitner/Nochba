@@ -114,6 +114,39 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                     SizedBox(
                                       height: 2,
                                     ),
+                                    Row(
+                                      //center
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          FlutterRemix.map_pin_line,
+                                          size: 13,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.color
+                                              ?.withOpacity(0.6),
+                                        ),
+                                        SizedBox(
+                                          width: 3,
+                                        ),
+                                        Text(
+                                          'Auwiesen',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.color
+                                                    ?.withOpacity(0.5),
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+
                                     // GestureDetector(
                                     //   onTap: () =>
                                     //       Get.snackbar('title', 'message'),
