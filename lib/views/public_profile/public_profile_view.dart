@@ -3,6 +3,7 @@
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
@@ -107,27 +108,64 @@ class PublicProfileView extends StatelessWidget {
             //center
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(right: 4),
-                // show this svg:
-                child: Icon(
-                  FlutterRemix.map_pin_line,
-                  size: 12,
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.color
-                      ?.withOpacity(0.6),
-                ),
+              Icon(
+                FlutterRemix.map_pin_line,
+                size: 13,
+                color: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.color
+                    ?.withOpacity(0.6),
+              ),
+              SizedBox(
+                width: 3,
               ),
               Text(
                 'Auwiesen',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.color
-                        ?.withOpacity(0.5)),
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.color
+                          ?.withOpacity(0.5),
+                    ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              SvgPicture.asset(
+                'assets/icons/housing_distance.svg',
+                color:
+                    Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+                height: 16,
+                semanticsLabel: 'A red up arrow',
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Row(
+                children: [
+                  Text(
+                    '200',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.5),
+                        ),
+                  ),
+                  Text(
+                    'm',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.5),
+                        ),
+                  ),
+                ],
               ),
             ],
           ),

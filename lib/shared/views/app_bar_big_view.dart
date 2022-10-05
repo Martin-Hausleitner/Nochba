@@ -13,6 +13,7 @@ class AppBarBigView extends StatelessWidget {
   final void Function()? onPressed;
   final List<Widget>? actions;
   final EdgeInsetsGeometry? contentPadding;
+  final IconData? tailingIcon;
 
   const AppBarBigView({
     super.key,
@@ -23,6 +24,7 @@ class AppBarBigView extends StatelessWidget {
     this.onPressed,
     this.actions,
     this.contentPadding = const EdgeInsets.only(left: 15, right: 15, top: 18),
+    this.tailingIcon,
   });
 
   @override
@@ -68,7 +70,7 @@ class AppBarBigView extends StatelessWidget {
                       child: IconButton(
                         splashRadius: 0.01,
                         icon: Icon(
-                          FlutterRemix.arrow_left_line,
+                          tailingIcon ?? FlutterRemix.arrow_left_line,
                           size: 24,
                           color: Theme.of(context)
                               .buttonTheme

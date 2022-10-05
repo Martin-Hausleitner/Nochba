@@ -114,42 +114,42 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                     SizedBox(
                                       height: 2,
                                     ),
-                                    GestureDetector(
-                                      onTap: () =>
-                                          Get.snackbar('title', 'message'),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Mein Öffentliches Profil',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.color
-                                                      ?.withOpacity(0.6),
-                                                ),
-                                          ),
+                                    // GestureDetector(
+                                    //   onTap: () =>
+                                    //       Get.snackbar('title', 'message'),
+                                    //   child: Row(
+                                    //     mainAxisAlignment:
+                                    //         MainAxisAlignment.center,
+                                    //     children: [
+                                    //       Text(
+                                    //         'Mein Öffentliches Profil',
+                                    //         style: Theme.of(context)
+                                    //             .textTheme
+                                    //             .bodyMedium
+                                    //             ?.copyWith(
+                                    //               color: Theme.of(context)
+                                    //                   .textTheme
+                                    //                   .bodyMedium
+                                    //                   ?.color
+                                    //                   ?.withOpacity(0.6),
+                                    //             ),
+                                    //       ),
 
-                                          // SizedBox(
-                                          //   width: 2,
-                                          // ),
-                                          Icon(
-                                            FlutterRemix.arrow_right_s_line,
-                                            size: 15,
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.color
-                                                ?.withOpacity(0.6),
-                                          ),
-                                        ],
-                                      ),
-                                    )
+                                    //       // SizedBox(
+                                    //       //   width: 2,
+                                    //       // ),
+                                    //       Icon(
+                                    //         FlutterRemix.arrow_right_s_line,
+                                    //         size: 15,
+                                    //         color: Theme.of(context)
+                                    //             .textTheme
+                                    //             .bodyMedium
+                                    //             ?.color
+                                    //             ?.withOpacity(0.6),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                               );
@@ -166,6 +166,17 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         SizedBox(
                           height: 20,
+                        ),
+
+                        ActionCardTitle(
+                          title: 'Dein Profil',
+                        ),
+                        ActionCard(
+                          title: 'Dein Öffentliches Profil',
+                          icon: FlutterRemix.user_line,
+                          onTap: () {
+                            Get.snackbar("Pressed", "Pressed");
+                          },
                         ),
                         ActionCard(
                           title: 'Deine Posts',
@@ -194,16 +205,16 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                             );
                           },
                         ),
-                        ActionCardTitle(
-                          title: 'Nachbarschaft',
-                        ),
-                        ActionCard(
-                          title: 'Veranstaltungen',
-                          icon: FlutterRemix.calendar_event_line,
-                          onTap: () {
-                            Get.snackbar("Pressed", "Pressed");
-                          },
-                        ),
+                        // ActionCardTitle(
+                        //   title: 'Nachbarschaft',
+                        // ),
+                        // ActionCard(
+                        //   title: 'Veranstaltungen',
+                        //   icon: FlutterRemix.calendar_event_line,
+                        //   onTap: () {
+                        //     Get.snackbar("Pressed", "Pressed");
+                        //   },
+                        // ),
                         ActionCardTitle(
                           title: 'Einstellungen',
                         ),

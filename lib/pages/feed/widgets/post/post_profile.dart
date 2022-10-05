@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -114,16 +115,63 @@ class TimeDistance extends StatelessWidget {
             ],
           ),
         ),
-        //show a locaiton icon
+        SizedBox(
+          width: 8,
+        ),
+        Icon(
+          FlutterRemix.map_pin_line,
+          size: 12,
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+        ),
+
         Padding(
-          padding: EdgeInsets.only(left: 8),
-          // show this svg:
-          child: Icon(
-            FlutterRemix.map_pin_line,
-            size: 12,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+          padding: const EdgeInsets.only(left: 2),
+          child: Row(
+            children: [
+              // Text(
+              //   publishDate,
+              //   style: GoogleFonts.inter(
+              //     fontSize: 12,
+              //     fontWeight: FontWeight.w400,
+              //     // add light gray color
+              //     color:
+              //         Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+              //   ),
+              // ),
+              Text(
+                'Auwiesen',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  // add light gray color
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+                ),
+              ),
+            ],
           ),
         ),
+        //show a locaiton icon
+        // Padding(
+        //   padding: EdgeInsets.only(left: 8),
+        //   // show this svg:
+        //   child: Icon(
+        //     FlutterRemix.map_pin_line,
+        //     size: 12,
+        //     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+        //   ),
+        // ),
+        //show svg housing_distance.svg
+        SizedBox(
+          width: 8,
+        ),
+        SvgPicture.asset(
+          'assets/icons/housing_distance.svg',
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+          height: 14,
+          semanticsLabel: 'A red up arrow',
+        ),
+
         Padding(
           padding: const EdgeInsets.only(left: 2),
           child: Row(

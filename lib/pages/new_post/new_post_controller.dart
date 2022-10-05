@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/models/category.dart';
@@ -11,6 +12,7 @@ import 'package:nochba/logic/data_access.dart';
 import 'package:nochba/views/new_post/tag_dialog.dart';
 
 import '../../logic/models/post.dart';
+import '../../shared/views/bottom_sheet_close_save_view.dart';
 
 class NewPostController extends GetxController {
   final pageController = PageController(initialPage: 0);
@@ -123,6 +125,18 @@ class NewPostController extends GetxController {
     addTag(result);
   }
 
+  //ceate a function showTagBottomsheet which opens a  showModalBottomSheet<void>(
+
+  // showTagBottomsheet(BuildContext context) async {
+  //   final String result = await showModalBottomSheet<void>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return TagBottomSheet();
+  //     },
+  //   );
+  //   addTag(result);
+  // }
+
   selectImage(BuildContext context) {
     return showDialog(
         context: context,
@@ -221,3 +235,34 @@ class NewPostController extends GetxController {
     super.dispose();
   }
 }
+
+// class TagBottomSheet extends StatelessWidget {
+//   const TagBottomSheet({
+//     Key? key,
+//   }) : super(key: key);
+//   TextEditingController textController = TextEditingController();
+
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BottomSheetCloseSaveView(
+//                         onSave: () {},
+//                         children: [
+//                           // ad a counter with + an- buttons
+//                           Row(
+//                             children: [
+//                               Text('0'),
+//                               IconButton(
+//                                 onPressed: () {},
+//                                 icon: Icon(FlutterRemix.add_line),
+//                               ),
+//                               IconButton(
+//                                 onPressed: () {},
+//                                 icon: Icon(FlutterRemix.subtract_line),
+//                               ),
+//                             ],
+//                           ),
+//                         ],
+//                       );
+//   }
+// }

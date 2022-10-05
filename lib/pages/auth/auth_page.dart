@@ -169,17 +169,26 @@ class AuthPage extends GetView<AuthController> {
                                   letterSpacing: -0.07,
                                 ),
                           ),
-                          onPressed: () async =>
-                              {await Get.to(() => const LoginPage())},
+                          // onPressed: () async =>
+                          //     {await Get.to(() => const LoginPage())},
+                          onPressed: () async => {
+                            await Get.to(
+                              () => const LoginPage(),
+                              transition: Transition.leftToRight,
+                            )
+                          },
                         ),
                         SizedBox(
                           height: 12,
                         ),
                         ElevatedButton(
-                          //right icon posission
-                          onPressed: () async =>
-                              {await Get.to(() => const NewSignUpPage())},
-
+                          onPressed: () async => {
+                            await Get.to(
+                              () => const NewSignUpPage(),
+                              transition: Transition.rightToLeft,
+                              // gestureWidth: 100,
+                            )
+                          },
                           child: Text(
                             'Regestrieren',
                             style: Theme.of(context).textTheme.button?.copyWith(

@@ -21,6 +21,9 @@ class _TagDialogState extends State<TagDialog> {
         child: Column(
           children: [
             TextField(    
+              // auto focus
+
+              
               controller: textController,          
               textInputAction: TextInputAction.done,
               decoration: InputDecoration(labelText: 'Tag'),

@@ -332,9 +332,7 @@ class EditProfileView extends GetView<EditProfileController> {
                         },
                       );
                     },
-                    text: userPublicInfo.bio != null
-                        ? userPublicInfo.bio!
-                        : '',
+                    text: userPublicInfo.bio != null ? userPublicInfo.bio! : '',
                   ),
                   ActionCardTitle(title: 'Mehr'),
                   ActionTextCard(
