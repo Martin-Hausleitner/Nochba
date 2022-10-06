@@ -41,6 +41,20 @@ Future<Map<String, dynamic>> fetchUser(
   return data;
 }
 
+Future<Map<String, dynamic>?> fetchLastMessage(FirebaseFirestore instance,
+    String roomId, String roomsCollectionName) async {
+  final snapshot = await instance
+      .collection('$roomsCollectionName/$roomId/messages')
+      .orderBy('createdAt', descending: true)
+      .get();
+  if (snapshot.docs.isNotEmpty) {
+    final data = snapshot.docs.first.data();
+    return data;
+  } else {
+    return null;
+  }
+}
+
 /// Returns a list of [types.Room] created from Firebase query.
 /// If room has 2 participants, sets correct room name and image.
 Future<List<types.Room>> processRoomsQuery(
@@ -48,6 +62,7 @@ Future<List<types.Room>> processRoomsQuery(
   FirebaseFirestore instance,
   QuerySnapshot<Map<String, dynamic>> query,
   String usersCollectionName,
+  String roomsCollectionName,
 ) async {
   final futures = query.docs.map(
     (doc) => processRoomDocument(
@@ -55,6 +70,7 @@ Future<List<types.Room>> processRoomsQuery(
       firebaseUser,
       instance,
       usersCollectionName,
+      roomsCollectionName,
     ),
   );
 
@@ -67,6 +83,7 @@ Future<types.Room> processRoomDocument(
   User firebaseUser,
   FirebaseFirestore instance,
   String usersCollectionName,
+  String roomsCollectionName,
 ) async {
   final data = doc.data()!;
 
@@ -109,6 +126,24 @@ Future<types.Room> processRoomDocument(
   data['imageUrl'] = imageUrl;
   data['name'] = name;
   data['users'] = users;
+
+  final lastMessage = await fetchLastMessage(
+    instance,
+    data['id'],
+    roomsCollectionName,
+  );
+
+  if (lastMessage != null) {
+    if (lastMessage['type'] == 'text') {
+      data['lastMessage'] = lastMessage['text'];
+    } else if (lastMessage['type'] == 'image') {
+      data['lastMessage'] = lastMessage['name'];
+    } else if (lastMessage['type'] == 'file') {
+      data['lastMessage'] = lastMessage['name'];
+    }
+  } else {
+    data['lastMessage'] = null;
+  }
 
   if (data['lastMessages'] != null) {
     final lastMessages = data['lastMessages'].map((lm) {

@@ -159,11 +159,13 @@ class NotificationsPage extends GetView<NotificationsController> {
                                     return NotificationElement(
                                       authorName:
                                           '${user.firstName} ${user.lastName}',
+                                      imageUrl: user.imageUrl,
                                       notificationText:
                                           'möchte dich wegen deinem Post "${post.title}", den du am ${createdAt.day}.${createdAt.month}.${createdAt.year} erstellt hast, anschreiben',
                                       time: 'vor - min',
                                       acceptButtonOnPressed: () async =>
-                                          await controller.onAccept(user),
+                                          await controller.onAccept(
+                                              notification, user),
                                       declineButtonOnPressed: () async =>
                                           await controller
                                               .onDecline(notification),

@@ -26,6 +26,7 @@ abstract class Room extends Equatable {
     required this.type,
     this.updatedAt,
     required this.users,
+    this.lastMessage,
   });
 
   const factory Room({
@@ -38,6 +39,7 @@ abstract class Room extends Equatable {
     required RoomType? type,
     Timestamp? updatedAt,
     required List<User> users,
+    String? lastMessage,
   }) = _Room;
 
   /// Creates room from a map (decoded JSON).
@@ -72,6 +74,8 @@ abstract class Room extends Equatable {
   /// List of users which are in the room.
   final List<User> users;
 
+  final String? lastMessage;
+
   /// Equatable props.
   @override
   List<Object?> get props => [
@@ -84,6 +88,7 @@ abstract class Room extends Equatable {
         type,
         updatedAt,
         users,
+        lastMessage,
       ];
 
   /// Creates a copy of the room with an updated data.
@@ -120,6 +125,7 @@ class _Room extends Room {
     required super.type,
     super.updatedAt,
     required super.users,
+    super.lastMessage,
   }) : super._();
 
   @override
@@ -133,9 +139,11 @@ class _Room extends Room {
     dynamic type = _Unset,
     dynamic updatedAt = _Unset,
     List<User>? users,
+    String? lastMessage,
   }) =>
       _Room(
-        createdAt: createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
+        createdAt:
+            createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
         id: id ?? this.id,
         imageUrl: imageUrl == _Unset ? this.imageUrl : imageUrl as String?,
         lastMessages: lastMessages == _Unset
@@ -146,8 +154,10 @@ class _Room extends Room {
             : metadata as Map<String, dynamic>?,
         name: name == _Unset ? this.name : name as String?,
         type: type == _Unset ? this.type : type as RoomType?,
-        updatedAt: updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
+        updatedAt:
+            updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
         users: users ?? this.users,
+        lastMessage: lastMessage ?? this.lastMessage,
       );
 }
 

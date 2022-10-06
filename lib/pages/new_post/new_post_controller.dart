@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/data_access.dart';
+import 'package:nochba/logic/repositories/PostRepository.dart';
 import 'package:nochba/views/new_post/tag_dialog.dart';
 
 import '../../logic/models/post.dart';
@@ -42,26 +43,22 @@ class NewPostController extends GetxController {
   updateCategory(CategoryOptions newCategory) {
     if (newCategory == CategoryModul.message) {
       _category.value = CategoryModul.message;
-      _subcategoriesForDisplay.value =
-          CategoryModul.subCategoriesOfMessage + [CategoryOptions.Other];
+      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfMessage;
 
       pageController.jumpToPage(1);
     } else if (newCategory == CategoryModul.search) {
       _category.value = CategoryModul.search;
-      _subcategoriesForDisplay.value =
-          CategoryModul.subCategoriesOfSearch + [CategoryOptions.Other];
+      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfSearch;
 
       pageController.jumpToPage(1);
     } else if (newCategory == CategoryModul.lending) {
       _category.value = CategoryModul.lending;
-      _subcategoriesForDisplay.value =
-          CategoryModul.subCategoriesOfLending + [CategoryOptions.Other];
+      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfLending;
 
       pageController.jumpToPage(2);
     } else if (newCategory == CategoryModul.event) {
       _category.value = CategoryModul.event;
-      _subcategoriesForDisplay.value =
-          CategoryModul.subCategoriesOfEvent + [CategoryOptions.Other];
+      _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfEvent;
 
       pageController.jumpToPage(2);
     }
@@ -76,6 +73,10 @@ class NewPostController extends GetxController {
   // create JumpToPage which pageController.jumpToPage(2);
   jumpToPage(int page) {
     pageController.jumpToPage(page);
+  }
+
+  jumpToStartPage() {
+    pageController.jumpToPage(0);
   }
 
   updateSubcategory(CategoryOptions newSubcategory) {
@@ -183,6 +184,8 @@ class NewPostController extends GetxController {
     update();
   }
 
+  final postRepository = Get.find<PostRepository>();
+
   addPost() async {
     //final isValid = formKey.currentState!.validate();
     if (/*!isValid ||*/ category == CategoryOptions.None) return;
@@ -205,9 +208,7 @@ class NewPostController extends GetxController {
     );
 
     try {
-      final doc = FirebaseFirestore.instance.collection('posts').doc();
-      post.id = doc.id;
-      doc.set(post.toJson());
+      postRepository.insert(post);
     } on FirebaseAuthException catch (e) {
       print(e);
       Get.snackbar('Error', e.message!);
@@ -223,7 +224,8 @@ class NewPostController extends GetxController {
     _subcategoriesForDisplay.clear();
     update();
 
-    pageController.jumpToPage(0);
+    pageController.nextPage(
+        duration: const Duration(milliseconds: 1), curve: Curves.easeIn);
   }
 
   @override

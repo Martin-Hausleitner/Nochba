@@ -1,4 +1,6 @@
 import 'package:nochba/logic/commonbase/util.dart';
+import 'package:nochba/logic/exceptions/LogicException.dart';
+import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
 import 'package:nochba/logic/interfaces/IModel.dart';
 import 'package:nochba/logic/interfaces/IModelMapper.dart';
 import 'package:nochba/logic/models/Comment.dart';
@@ -24,8 +26,8 @@ class ModelMapper implements IModelMapper {
     } else if (typeOf<T>() == typeOf<Comment>()) {
       return (model as Comment).toJson();
     } else {
-      throw FormatException(
-          'The type ${typeOf<T>().toString()} cannot be mapped');
+      throw LogicException(LogicExceptionType.format,
+          message: 'The type ${typeOf<T>().toString()} cannot be mapped');
     }
   }
 
@@ -44,7 +46,8 @@ class ModelMapper implements IModelMapper {
     } else if (typeOf<T>() == typeOf<Comment>()) {
       return Comment.fromJson(json) as T;
     } else {
-      throw const FormatException();
+      throw LogicException(LogicExceptionType.format,
+          message: 'The type ${typeOf<T>().toString()} cannot be mapped');
     }
   }
 }

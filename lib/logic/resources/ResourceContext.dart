@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nochba/logic/exceptions/LogicException.dart';
+import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
 import 'package:nochba/logic/interfaces/IModel.dart';
 import 'package:nochba/logic/model_mapper.dart';
 import 'package:nochba/logic/models/Comment.dart';
@@ -85,7 +87,8 @@ class ResourceContext {
     } else if (typeOf<T>() == typeOf<Comment>()) {
       return commentResource as Resource<T>;
     } else {
-      throw Exception('Data-Access not available');
+      throw const LogicException(LogicExceptionType.dataAccess,
+          message: 'Data-Access not available');
     }
   }
 }

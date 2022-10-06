@@ -113,7 +113,11 @@ class ChatsPage extends GetView<ChatsController> {
                 stream: chat.FirebaseChatCore.instance.rooms(),
                 initialData: const [],
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return Column(
                       //center
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -181,8 +185,7 @@ class ChatsPage extends GetView<ChatsController> {
                           child: ChatElement(
                             roomName: room.name ?? '',
                             imageUrl: room.imageUrl ?? '',
-                            lastMessage:
-                                'sdssdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsddsdsdsdsd',
+                            lastMessage: room.lastMessage ?? '',
                             time: '',
                             notificationCount: 9,
                           ),

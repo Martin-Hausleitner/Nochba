@@ -27,6 +27,7 @@ class EditProfileView extends GetView<EditProfileController> {
   Widget build(BuildContext context) {
     return AppBarBigView(
       title: 'Profil Bearbeiten',
+      onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         // SizedBox(

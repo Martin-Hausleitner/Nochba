@@ -31,7 +31,7 @@ class ChatPage extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) {
-    String fullname = "${room.users[0].firstName} ${room.users[0].lastName}";
+    //String fullname = "${room.name}";
 
     final controller = Get.find<ChatController>();
     return Scaffold(
@@ -59,7 +59,7 @@ class ChatPage extends GetView<ChatController> {
               //   ),
               // ),
               LocooCircleAvatar(
-                imageUrl: room.users[0].imageUrl,
+                imageUrl: room.imageUrl,
                 radius: 20,
               ),
               SizedBox(
@@ -71,7 +71,17 @@ class ChatPage extends GetView<ChatController> {
                 children: [
                   Container(
                     // padding: const EdgeInsets.all(8.0),
-                    child: room.name == fullname
+                    child: Text(
+                      '${room.name}',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.w600,
+
+                            // fontWeight: FontWeight.w600,
+                          ),
+                    ),
+
+                    /*room.name == fullname
                         ? Text(
                             '${room.users[0].firstName} ${room.users[0].lastName}',
                             style: Theme.of(context)
@@ -86,7 +96,7 @@ class ChatPage extends GetView<ChatController> {
                                 ),
                           )
                         : Text(
-                            '${room.users[1].firstName} ${room.users[1].lastName}'),
+                            '${room.users[1].firstName} ${room.users[1].lastName}'),*/
                   ),
                   SizedBox(
                     height: 2,
@@ -139,26 +149,35 @@ class ChatPage extends GetView<ChatController> {
         ),
       ),
       body: StreamBuilder<types.Room>(
-        initialData: room,
-        stream: chat.FirebaseChatCore.instance.room(room.id),
-        builder: (context, snapshot) => StreamBuilder<List<types.Message>>(
-            initialData: const [],
-            stream: chat.FirebaseChatCore.instance.messages(snapshot.data!),
-            builder: (context, snapshot) => Obx(
-                  () => ui.Chat(
-                    isAttachmentUploading: controller.isAttachmentUploading,
-                    messages: snapshot.data ?? [],
-                    onAttachmentPressed: () => _handleAtachmentPressed(context),
-                    onMessageTap: _handleMessageTap,
-                    onPreviewDataFetched: _handlePreviewDataFetched,
-                    onSendPressed: _handleSendPressed,
-                    user: models.User(
-                      id: chat.FirebaseChatCore.instance.firebaseUser?.uid ??
-                          '',
-                    ),
-                  ),
-                )),
-      ),
+          initialData: room,
+          stream: chat.FirebaseChatCore.instance.room(room.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return StreamBuilder<List<types.Message>>(
+                  initialData: const [],
+                  stream:
+                      chat.FirebaseChatCore.instance.messages(snapshot.data!),
+                  builder: (context, snapshot) => Obx(
+                        () => ui.Chat(
+                          isAttachmentUploading:
+                              controller.isAttachmentUploading,
+                          messages: snapshot.data ?? [],
+                          onAttachmentPressed: () =>
+                              _handleAtachmentPressed(context),
+                          onMessageTap: _handleMessageTap,
+                          onPreviewDataFetched: _handlePreviewDataFetched,
+                          onSendPressed: _handleSendPressed,
+                          user: models.User(
+                            id: chat.FirebaseChatCore.instance.firebaseUser
+                                    ?.uid ??
+                                '',
+                          ),
+                        ),
+                      ));
+            } else {
+              return Container();
+            }
+          }),
     );
   }
 

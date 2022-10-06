@@ -152,11 +152,11 @@ class FirebaseChatCore {
     // Check if room already exist.
     if (roomQuery.docs.isNotEmpty) {
       final room = (await processRoomsQuery(
-        fu,
-        getFirebaseFirestore(),
-        roomQuery,
-        config.usersCollectionName,
-      ))
+              fu,
+              getFirebaseFirestore(),
+              roomQuery,
+              config.usersCollectionName,
+              config.roomsCollectionName))
           .first;
 
       return room;
@@ -178,6 +178,7 @@ class FirebaseChatCore {
         getFirebaseFirestore(),
         oldRoomQuery,
         config.usersCollectionName,
+        config.roomsCollectionName,
       ))
           .first;
 
@@ -327,6 +328,7 @@ class FirebaseChatCore {
             fu,
             getFirebaseFirestore(),
             config.usersCollectionName,
+            config.roomsCollectionName,
           ),
         );
   }
@@ -356,12 +358,8 @@ class FirebaseChatCore {
             .where('userIds', arrayContains: fu.uid);
 
     return collection.snapshots().asyncMap(
-          (query) => processRoomsQuery(
-            fu,
-            getFirebaseFirestore(),
-            query,
-            config.usersCollectionName,
-          ),
+          (query) => processRoomsQuery(fu, getFirebaseFirestore(), query,
+              config.usersCollectionName, config.roomsCollectionName),
         );
   }
 
@@ -413,7 +411,9 @@ class FirebaseChatCore {
       await getFirebaseFirestore()
           .collection(config.roomsCollectionName)
           .doc(roomId)
-          .update({'updatedAt': FieldValue.serverTimestamp()});
+          .update({
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
     }
   }
 

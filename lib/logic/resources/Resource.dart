@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nochba/logic/exceptions/LogicException.dart';
+import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
 import 'package:nochba/logic/interfaces/IModelMapper.dart';
 import 'package:nochba/logic/interfaces/IResource.dart';
 import 'package:nochba/logic/interfaces/IModel.dart';
@@ -211,7 +213,8 @@ class Resource<T extends IModel> implements IResource<T> {
     if (whereIn != null) {
       if (whereIn.value == null ||
           (whereIn.value != null && whereIn.value!.isEmpty)) {
-        throw Exception('Query paramtere whereIn requires a non-empty list');
+        throw const LogicException(LogicExceptionType.query,
+            message: 'Query parameter "whereIn" requires a non-empty list');
       }
       query = query.where(whereIn.key, whereIn: whereIn.value);
     }

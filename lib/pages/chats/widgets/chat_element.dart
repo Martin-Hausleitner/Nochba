@@ -33,7 +33,7 @@ class ChatElement extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 LocooCircleAvatar(
-                  // imageUrl: authorImage,
+                  imageUrl: imageUrl,
                   radius: 20,
                 ),
                 SizedBox(

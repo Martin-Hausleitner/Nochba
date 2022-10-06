@@ -11,12 +11,14 @@ import '../widgets/next_elevated_button.dart';
 import '../widgets/progress_line.dart';
 import 'package:lottie/lottie.dart';
 
-class PublishedNewPostView extends GetView<NewPostController> {
-  const PublishedNewPostView({Key? key}) : super(key: key);
+class PublishedNewPostView extends StatelessWidget {
+  const PublishedNewPostView({Key? key, required this.controller})
+      : super(key: key);
+
+  final NewPostController controller;
 
   @override
   Widget build(BuildContext context) {
-    NewPostController controller = Get.find<NewPostController>();
     return Column(
       children: [
         Expanded(
@@ -123,8 +125,7 @@ class PublishedNewPostView extends GetView<NewPostController> {
               NextElevatedButton(
                 onPressed: //controller.addPost() and go to
                     () {
-                  controller.addPost();
-                  controller.jumpToPage(4);
+                  controller.jumpToStartPage();
                   // Get.to(PublishedNewPostView());
                 },
                 controller: controller,

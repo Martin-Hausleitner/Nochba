@@ -23,7 +23,6 @@ class NewPostPage extends GetView<NewPostController> {
 
   @override
   Widget build(BuildContext context) {
-    NewPostController controller = Get.find<NewPostController>();
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
 
@@ -35,19 +34,22 @@ class NewPostPage extends GetView<NewPostController> {
       body: PageView(
         controller: controller.pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          NewPostCategorySelectionView(),
-          NewPostSubcategorySelectionView(),
-          NewPostView(),
-          // PublishedNewPostView(),
+        children: [
+          NewPostCategorySelectionView(controller: controller),
+          NewPostSubcategorySelectionView(controller: controller),
+          NewPostView(controller: controller),
+          PublishedNewPostView(controller: controller),
         ],
       ),
     );
   }
 }
 
-class NewPostCategorySelectionView extends GetView<NewPostController> {
-  const NewPostCategorySelectionView({Key? key}) : super(key: key);
+class NewPostCategorySelectionView extends StatelessWidget {
+  const NewPostCategorySelectionView({Key? key, required this.controller})
+      : super(key: key);
+
+  final NewPostController controller;
 
   @override
   Widget build(BuildContext context) {

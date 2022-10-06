@@ -21,12 +21,14 @@ import 'published_new_post_view.dart';
 
 class NewPostView extends StatelessWidget {
   final bool hasSubcategories;
-  const NewPostView({Key? key, this.hasSubcategories = true}) : super(key: key);
+  const NewPostView(
+      {Key? key, required this.controller, this.hasSubcategories = true})
+      : super(key: key);
+
+  final NewPostController controller;
 
   @override
   Widget build(BuildContext context) {
-    NewPostController controller = Get.find<NewPostController>();
-
     // create a listview with a fixed bottom bar
     return Column(
       // align start

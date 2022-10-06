@@ -9,8 +9,11 @@ import '../widgets/back_outlined_button.dart';
 import '../widgets/circle_step.dart';
 import '../widgets/progress_line.dart';
 
-class NewPostSubcategorySelectionView extends GetView<NewPostController> {
-  const NewPostSubcategorySelectionView({Key? key}) : super(key: key);
+class NewPostSubcategorySelectionView extends StatelessWidget {
+  const NewPostSubcategorySelectionView({Key? key, required this.controller})
+      : super(key: key);
+
+  final NewPostController controller;
 
   @override
   Widget build(BuildContext context) {

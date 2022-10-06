@@ -45,9 +45,14 @@ class NotificationsController extends GetxController {
     }
   }
 
-  Future<void> onAccept(User user) async {
-    final room = await FirebaseChatCore.instance.createRoom(user);
-    await Get.to(() => ChatPage(room: room));
+  Future<void> onAccept(Notification notification, User user) async {
+    try {
+      final room = await FirebaseChatCore.instance.createRoom(user);
+      notificationRepository.takeNotificationOff(notification.id);
+      await Get.to(() => ChatPage(room: room));
+    } on Exception {
+      return Future.error(Error);
+    }
   }
 
   Future<void> onDecline(Notification notification) async {
