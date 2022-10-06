@@ -115,14 +115,14 @@ class TimeDistance extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-          width: 8,
-        ),
-        Icon(
-          FlutterRemix.map_pin_line,
-          size: 12,
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-        ),
+        // SizedBox(
+        //   width: 8,
+        // ),
+        // Icon(
+        //   FlutterRemix.map_pin_line,
+        //   size: 12,
+        //   color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+        // ),
 
         // Padding(
         //   padding: const EdgeInsets.only(left: 2),
@@ -167,7 +167,7 @@ class TimeDistance extends StatelessWidget {
         ),
         SvgPicture.asset(
           'assets/icons/housing_distance.svg',
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.44),
           height: 14,
           semanticsLabel: 'A red up arrow',
         ),

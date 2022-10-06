@@ -1,1 +1,20 @@
-<svg height="500" viewBox="0 0 500 500" width="500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><clipPath id="a"><path d="m0 0h500v500h-500z"/></clipPath><g clip-path="url(#a)"><path d="m79.579 236.726-77.308-77.307 77.307-77.8 26.265 26.265-33.2 32.707h251.742l-32.707-32.707 25.769-26.265 77.8 77.8-77.8 77.307-25.769-25.769 32.707-33.2h-251.744l33.2 33.2z" transform="translate(51.24 207.274)"/><path d="m3.375 193.985v-127.709l85.057-64.1 85.057 64.1v127.709h-74.7v-67.06h-20.465v67.059zm29.832-29.832h15.285v-67.059h80.126v67.059h15.039v-83.085l-55.225-41.419-55.225 41.419z" transform="translate(50.136 53.825)"/><path d="m3.375 193.985v-127.709l85.057-64.1 85.057 64.1v127.709h-74.7v-67.06h-20.465v67.059zm29.832-29.832h15.285v-67.059h80.126v67.059h15.039v-83.085l-55.225-41.419-55.225 41.419z" transform="translate(273 53.825)"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 500 500">
+  <defs>
+    <clipPath id="clip-Custom_Size_1">
+      <rect width="500" height="500"/>
+    </clipPath>
+  </defs>
+  <g id="Custom_Size_1" data-name="Custom Size – 1" clip-path="url(#clip-Custom_Size_1)">
+    <path id="social_distance_FILL0_wght400_GRAD-25_opsz24_1_" data-name="social_distance_FILL0_wght400_GRAD-25_opsz24 (1)" d="M84.563,246.726,2.271,164.435,84.563,81.616l27.958,27.958L77.177,144.39H345.151l-34.816-34.815,27.43-27.958,82.819,82.819-82.819,82.291-27.43-27.43,34.816-35.343H77.177L112.52,219.3Z" transform="translate(38.572 210.274)"/>
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="170" height="40" transform="translate(41 230)"/>
+    <rect id="Rectangle_4" data-name="Rectangle 4" width="114" height="40" transform="translate(171 270) rotate(-90)"/>
+    <rect id="Rectangle_7" data-name="Rectangle 7" width="114" height="40" transform="translate(41 270) rotate(-90)"/>
+    <rect id="Rectangle_8" data-name="Rectangle 8" width="119.845" height="40" transform="translate(41 156.716) rotate(-45)"/>
+    <rect id="Rectangle_9" data-name="Rectangle 9" width="99" height="40" transform="translate(182.716 185) rotate(-135)"/>
+    <rect id="Rectangle_10" data-name="Rectangle 10" width="170" height="40" transform="translate(289.157 230)"/>
+    <rect id="Rectangle_11" data-name="Rectangle 11" width="114" height="40" transform="translate(419.157 270) rotate(-90)"/>
+    <rect id="Rectangle_12" data-name="Rectangle 12" width="114" height="40" transform="translate(289.157 270) rotate(-90)"/>
+    <rect id="Rectangle_13" data-name="Rectangle 13" width="119.845" height="40" transform="translate(289.157 156.716) rotate(-45)"/>
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="99" height="40" transform="translate(430.872 185) rotate(-135)"/>
+  </g>
+</svg>
