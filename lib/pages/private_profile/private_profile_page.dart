@@ -257,7 +257,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         ActionCard(
                           title: 'Profil Bearbeiten',
-                          icon: FlutterRemix.user_line,
+                          icon: FlutterRemix.user_settings_line,
                           onTap: () {
                             //get open settingfs page
                             Get.to(
