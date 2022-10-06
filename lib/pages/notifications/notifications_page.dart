@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/logic/data_access.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/models/user.dart' as models;
@@ -162,7 +163,8 @@ class NotificationsPage extends GetView<NotificationsController> {
                                       imageUrl: user.imageUrl,
                                       notificationText:
                                           'möchte dich wegen deinem Post "${post.title}", den du am ${createdAt.day}.${createdAt.month}.${createdAt.year} erstellt hast, anschreiben',
-                                      time: 'vor - min',
+                                      time: getTimeAgo(
+                                          notification.createdAt.toDate()),
                                       acceptButtonOnPressed: () async =>
                                           await controller.onAccept(
                                               notification, user),

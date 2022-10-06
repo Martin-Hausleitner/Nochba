@@ -102,7 +102,7 @@ class TimeDistance extends StatelessWidget {
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
               ),
-              Text(
+              /*Text(
                 'min',
                 style: GoogleFonts.inter(
                   fontSize: 12,
@@ -111,7 +111,7 @@ class TimeDistance extends StatelessWidget {
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),

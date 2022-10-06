@@ -9,6 +9,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/pages/chats/chats_controller.dart';
 import 'package:nochba/pages/chats/widgets/chat_element.dart';
 
@@ -186,7 +187,7 @@ class ChatsPage extends GetView<ChatsController> {
                             roomName: room.name ?? '',
                             imageUrl: room.imageUrl ?? '',
                             lastMessage: room.lastMessage ?? '',
-                            time: '',
+                            time: getTimeAgo(room.updatedAt!.toDate()),
                             notificationCount: 9,
                           ),
                           // red Continaer

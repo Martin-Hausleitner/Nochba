@@ -87,7 +87,7 @@ class NotificationElement extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Text(
-                                    '2',
+                                    time,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
@@ -98,7 +98,7 @@ class NotificationElement extends StatelessWidget {
                                               .withOpacity(0.4),
                                         ),
                                   ),
-                                  Text(
+                                  /*Text(
                                     'min',
                                     style: Theme.of(context)
                                         .textTheme
@@ -109,7 +109,7 @@ class NotificationElement extends StatelessWidget {
                                               .onSurface
                                               .withOpacity(0.4),
                                         ),
-                                  ),
+                                  ),*/
                                 ],
                               ),
                             ),

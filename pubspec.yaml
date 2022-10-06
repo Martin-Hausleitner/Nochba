@@ -58,6 +58,8 @@ dependencies:
   material_tag_editor: ^0.1.2
   firebase_app_check: ^0.0.7+2
   syncfusion_flutter_sliders: ^20.2.50
+  get_time_ago: ^1.1.6
+  timeago_flutter: ^1.2.0
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2

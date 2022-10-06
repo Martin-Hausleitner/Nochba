@@ -83,7 +83,7 @@ class ChatElement extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(
-                                      '2',
+                                      time ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall
@@ -94,7 +94,7 @@ class ChatElement extends StatelessWidget {
                                                 .withOpacity(0.4),
                                           ),
                                     ),
-                                    Text(
+                                    /*Text(
                                       'min',
                                       style: Theme.of(context)
                                           .textTheme
@@ -105,7 +105,7 @@ class ChatElement extends StatelessWidget {
                                                 .onSurface
                                                 .withOpacity(0.4),
                                           ),
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                               ),

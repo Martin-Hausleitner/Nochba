@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/logic/data_access.dart';
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
 import 'package:nochba/logic/models/Notification.dart';
@@ -120,7 +121,7 @@ class Post extends GetView<PostCardController> {
               PostProfile(
                 authorImage: postAuthorImage,
                 authorName: postAuthorName,
-                publishDate: '---',
+                publishDate: getTimeAgo(post.createdAt.toDate()),
                 distance: '---',
               ),
 
