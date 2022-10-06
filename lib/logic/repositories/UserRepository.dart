@@ -5,9 +5,9 @@ import 'package:nochba/logic/repositories/GenericRepository.dart';
 class UserRepository extends GenericRepository<User> {
   UserRepository(super.resourceContext);
 
-  Future<User?> getCurrentUser() {
+  Future<User?> getCurrentUser() async {
     try {
-      return get(resourceContext.uid);
+      return await get(resourceContext.uid);
     } on Exception {
       rethrow;
     }
@@ -21,9 +21,10 @@ class UserRepository extends GenericRepository<User> {
     }
   }
 
-  Future updateNameOfCurrentUser(String firstName, String lastName) {
+  Future<void> updateNameOfCurrentUser(
+      String firstName, String lastName) async {
     try {
-      return updateFields(
+      return await updateFields(
           resourceContext.uid, {"firstName": firstName, "lastName": lastName});
     } on Exception {
       rethrow;

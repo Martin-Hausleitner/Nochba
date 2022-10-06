@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
@@ -17,6 +18,7 @@ class ManageAccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBarBigView(
       title: 'Konto Verwalten',
+      onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         ActionTextCard(

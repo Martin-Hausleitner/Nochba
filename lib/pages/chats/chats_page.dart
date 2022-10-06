@@ -111,7 +111,8 @@ class ChatsPage extends GetView<ChatsController> {
             // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
             SliverFillRemaining(
               child: StreamBuilder<List<types.Room>>(
-                stream: chat.FirebaseChatCore.instance.rooms(),
+                stream: chat.FirebaseChatCore.instance
+                    .rooms(orderByUpdatedAt: true),
                 initialData: const [],
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -187,7 +188,9 @@ class ChatsPage extends GetView<ChatsController> {
                             roomName: room.name ?? '',
                             imageUrl: room.imageUrl ?? '',
                             lastMessage: room.lastMessage ?? '',
-                            time: getTimeAgo(room.updatedAt!.toDate()),
+                            time: room.updatedAt != null
+                                ? getTimeAgo(room.updatedAt!.toDate())
+                                : '',
                             notificationCount: null,
                           ),
                           // red Continaer

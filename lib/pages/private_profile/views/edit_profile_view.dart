@@ -35,10 +35,20 @@ class EditProfileView extends GetView<EditProfileController> {
         // ),
         // EditAvatar(),
         // Text('data'),
-        EditAvatar(
-          imageUrl:
-              'https://play-lh.googleusercontent.com/03URhAXU-IrK5PB-DiN6lyLGITlp-6xTizXkW5l98AUvpzOxQej6ss_zM4f8zxN0ofEf',
-          onTap: () => Get.snackbar('title', 'message'),
+        FutureBuilder<User?>(
+          future: controller.getCurrentUser(),
+          builder: ((context, snapshot) {
+            if (snapshot.hasData) {
+              final user = snapshot.data!;
+              return EditAvatar(
+                imageUrl: user.imageUrl ?? '',
+                onTap: () => Get.snackbar(
+                    'Berabeiten des Profilbildes', 'Noch nicht implementiert'),
+              );
+            } else {
+              return Container();
+            }
+          }),
         ),
         // Center(
         //   child: Stack(
@@ -280,12 +290,15 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () {},
+                            onSave: () async => await controller
+                                .updateProfessionOfCurrentUser(),
                             children: [
                               LocooTextField(
                                 label: 'Beruf',
                                 autofocus: true,
-                                controller: controller.jobTitleTextController,
+                                controller:
+                                    controller.getProfessionTextController(
+                                        userPublicInfo.profession),
                               ),
                               SizedBox(height: 10),
                               SizedBox(
@@ -296,9 +309,7 @@ class EditProfileView extends GetView<EditProfileController> {
                         },
                       );
                     },
-                    text: userPublicInfo.profession != null
-                        ? userPublicInfo.profession!
-                        : '',
+                    text: userPublicInfo.profession ?? '',
                   ),
                   ActionTextCard(
                     title: 'Mehr über dich',
@@ -314,12 +325,13 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () {},
+                            onSave: () async =>
+                                controller.updateBioOfCurrentUser(),
                             children: [
                               LocooTextField(
                                 label: 'Mehr über dich',
-                                controller: TextEditingController(
-                                    text: 'Mehr über dich'),
+                                controller: controller
+                                    .getBioTextController(userPublicInfo.bio),
                                 maxLines: 10,
                                 autofocus: true,
                                 keyboardType: TextInputType.multiline,
@@ -333,7 +345,7 @@ class EditProfileView extends GetView<EditProfileController> {
                         },
                       );
                     },
-                    text: userPublicInfo.bio != null ? userPublicInfo.bio! : '',
+                    text: userPublicInfo.bio ?? '',
                   ),
                   ActionCardTitle(title: 'Mehr'),
                   ActionTextCard(
@@ -438,10 +450,10 @@ class NameElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: controller.getCurrentUser(),
+      stream: controller.getCurrentUserAsStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final user = snapshot.data;
+          final user = snapshot.data!;
 
           return ActionTextCard(
             title: 'Name',
@@ -463,7 +475,8 @@ class NameElement extends StatelessWidget {
                         label: 'Vorname',
                         textInputAction: TextInputAction.next,
                         autofocus: true,
-                        controller: controller.firstNameTextController,
+                        controller: controller
+                            .getFirstNameTextController(user.firstName),
                         // suffixIcon: IconButton(
                         //   // onPressed: _controller.clear,
                         //   iconSize: ,
@@ -480,7 +493,8 @@ class NameElement extends StatelessWidget {
                       LocooTextField(
                         label: 'Nachname',
                         textInputAction: TextInputAction.done,
-                        controller: controller.lastNameTextController,
+                        controller:
+                            controller.getLastNameTextController(user.lastName),
                       ),
                       SizedBox(
                         height: 15,
@@ -531,7 +545,7 @@ class NameElement extends StatelessWidget {
                 },
               );
             },
-            text: '${user?.firstName} ${user?.lastName}',
+            text: '${user.firstName} ${user.lastName}',
           );
         } else {
           return Container();

@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_time_ago/get_time_ago.dart';
 
+import 'logic/commonbase/util.dart';
 import 'routes/app_pages.dart';
 import 'routes/app_routes.dart';
 // import 'themes/app_theme.dart';
@@ -23,6 +25,7 @@ Future main() async {
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+  GetTimeAgo.setCustomLocaleMessages('de', DEMessage());
 
   runApp(MyApp(theme: theme));
   // runApp(MyApp());

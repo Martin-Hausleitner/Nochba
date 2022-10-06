@@ -8,4 +8,28 @@ class UserPublicInfoRepository extends GenericRepository<UserPublicInfo> {
     return resource
         .getAsStream(resourceContext.uid, nexus: [resourceContext.uid]);
   }
+
+  Future<void> updateProfessionOfCurrentUser(String profession) async {
+    try {
+      return await updateFields(resourceContext.uid, {
+        "profession": profession,
+      }, nexus: [
+        resourceContext.uid
+      ]);
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Future<void> updateBioOfCurrentUser(String bio) async {
+    try {
+      return await updateFields(resourceContext.uid, {
+        "bio": bio,
+      }, nexus: [
+        resourceContext.uid
+      ]);
+    } on Exception {
+      rethrow;
+    }
+  }
 }
