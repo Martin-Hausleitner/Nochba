@@ -188,7 +188,7 @@ class ChatsPage extends GetView<ChatsController> {
                             imageUrl: room.imageUrl ?? '',
                             lastMessage: room.lastMessage ?? '',
                             time: getTimeAgo(room.updatedAt!.toDate()),
-                            notificationCount: 9,
+                            notificationCount: null,
                           ),
                           // red Continaer
                         ),
