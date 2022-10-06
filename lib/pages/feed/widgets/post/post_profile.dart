@@ -124,33 +124,33 @@ class TimeDistance extends StatelessWidget {
           color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
         ),
 
-        Padding(
-          padding: const EdgeInsets.only(left: 2),
-          child: Row(
-            children: [
-              // Text(
-              //   publishDate,
-              //   style: GoogleFonts.inter(
-              //     fontSize: 12,
-              //     fontWeight: FontWeight.w400,
-              //     // add light gray color
-              //     color:
-              //         Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-              //   ),
-              // ),
-              Text(
-                'Auwiesen',
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  // add light gray color
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 2),
+        //   child: Row(
+        //     children: [
+        //       // Text(
+        //       //   publishDate,
+        //       //   style: GoogleFonts.inter(
+        //       //     fontSize: 12,
+        //       //     fontWeight: FontWeight.w400,
+        //       //     // add light gray color
+        //       //     color:
+        //       //         Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+        //       //   ),
+        //       // ),
+        //       Text(
+        //         'Auwiesen',
+        //         style: GoogleFonts.inter(
+        //           fontSize: 12,
+        //           fontWeight: FontWeight.w400,
+        //           // add light gray color
+        //           color:
+        //               Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
         //show a locaiton icon
         // Padding(
         //   padding: EdgeInsets.only(left: 8),
