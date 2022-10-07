@@ -4,6 +4,10 @@ import 'package:timeago_flutter/timeago_flutter.dart' as timeago;
 
 Type typeOf<X>() => X;
 
+String getCalenderDate(DateTime dateTime) {
+  return '${dateTime.day}.${dateTime.month}.${dateTime.year}';
+}
+
 String getTimeAgo(DateTime dateTime) {
   return GetTimeAgo.parse(dateTime, locale: 'de');
 }

@@ -22,6 +22,7 @@ import 'package:nochba/pages/new_post/new_post_controller.dart';
 import 'package:nochba/pages/notifications/notifications_controller.dart';
 import 'package:nochba/pages/private_profile/private_profile_controller.dart';
 import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
+import 'package:nochba/views/public_profile/public_profile_controller.dart';
 
 class HomeBinding extends Bindings {
   @override
@@ -38,6 +39,7 @@ class HomeBinding extends Bindings {
     Get.put(NotificationRepository(ResourceContext()));
     Get.put(ActionBarController());
     Get.put(PostCardController());
+    Get.put(PublicProfileController());
     Get.put(FeedController());
     Get.put(NotificationsController());
     Get.put(PrivateProfileController());

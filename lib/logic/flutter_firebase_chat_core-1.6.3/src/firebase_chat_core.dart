@@ -209,6 +209,8 @@ class FirebaseChatCore {
 
     return types.Room(
       id: room.id,
+      name: '${otherUser.firstName} ${otherUser.lastName}',
+      imageUrl: otherUser.imageUrl,
       metadata: metadata,
       type: types.RoomType.direct,
       users: users,

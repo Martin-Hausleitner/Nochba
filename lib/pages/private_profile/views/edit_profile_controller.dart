@@ -64,7 +64,7 @@ class EditProfileController extends GetxController {
 
   Stream<UserPublicInfo?> getPublicInfoOfCurrentUser() {
     try {
-      return userPublicInfoRepository.getPublicInfoOfCurrentUser();
+      return userPublicInfoRepository.getPublicInfoOfCurrentUserAsStream();
     } on Exception {
       return Stream.error(Error);
     }

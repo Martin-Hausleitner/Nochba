@@ -193,7 +193,6 @@ class NewPostController extends GetxController {
     final imageUrl = image == null
         ? ''
         : await dataAccess.uploadPostImageToStorage(imageName, image!);
-
     final post = Post(
       user: FirebaseAuth.instance.currentUser!.uid,
       title: titleController.text.trim(),
@@ -203,8 +202,8 @@ class NewPostController extends GetxController {
       category: subcategory != CategoryOptions.None
           ? subcategory.name.toString()
           : category.name.toString(),
-      tags: tags,
-      liked: [],
+      tags: [...tags..sort()],
+      liked: ['moin'],
     );
 
     try {

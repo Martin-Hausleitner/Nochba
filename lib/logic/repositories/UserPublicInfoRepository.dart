@@ -4,9 +4,14 @@ import 'package:nochba/logic/repositories/GenericRepository.dart';
 class UserPublicInfoRepository extends GenericRepository<UserPublicInfo> {
   UserPublicInfoRepository(super.resourceContext);
 
-  Stream<UserPublicInfo?> getPublicInfoOfCurrentUser() {
+  Stream<UserPublicInfo?> getPublicInfoOfCurrentUserAsStream() {
     return resource
         .getAsStream(resourceContext.uid, nexus: [resourceContext.uid]);
+  }
+
+  Future<UserPublicInfo?> getPublicInfoOfCurrentUser() async {
+    return await resource
+        .get(resourceContext.uid, nexus: [resourceContext.uid]);
   }
 
   Future<void> updateProfessionOfCurrentUser(String profession) async {
