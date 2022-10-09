@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -7,6 +6,7 @@ import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/pages/feed/views/feed_post_filter_view.dart';
 import 'package:nochba/pages/feed/widgets/post_card.dart';
+import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 
 import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
@@ -37,6 +37,30 @@ class FeedPage extends GetView<FeedController> {
             //   // },
             //
             // ),
+            //create a button which open a bottomsheet
+            // ElevatedButton(
+            //   child: const Text('Edit Post'),
+            //   onPressed: () {
+            //     showModalBottomSheet<void>(
+            //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius:
+            //               BorderRadius.vertical(top: Radius.circular(25.0))),
+            //       context: context,
+            //       isScrollControlled: true,
+            //       builder: (BuildContext context) {
+            //         return BottomSheetCloseSaveView(
+            //           children: [
+            //             Text('edit post'),
+            //           ],
+            //           onSave: () {
+            //             // controller.filterPosts();
+            //           },
+            //         );
+            //       },
+            //     );
+            //   },
+            // ),
 
             //Create a white container whit round corners on the corners with a coliumn inside with a text "Neues in deiner Nachchbarschaft"
             // above a wor with a search bar and a on the right a primy round button with a filter icon
@@ -57,26 +81,26 @@ class FeedPage extends GetView<FeedController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Neues in deiner',
-                      style: TextStyle(
-                        fontSize: 20,
-                        letterSpacing: -0.5,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    // larger text in primery Nachbarschaft
-                    Text(
-                      'Nachbarschaft',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -0.5,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
+                    // const SizedBox(height: 10),
+                    // const Text(
+                    //   'Neues in deiner',
+                    //   style: TextStyle(
+                    //     fontSize: 20,
+                    //     letterSpacing: -0.5,
+                    //     fontWeight: FontWeight.w800,
+                    //   ),
+                    // ),
+                    // // larger text in primery Nachbarschaft
+                    // Text(
+                    //   'Nachbarschaft',
+                    //   style: TextStyle(
+                    //     fontSize: 25,
+                    //     fontWeight: FontWeight.w800,
+                    //     letterSpacing: -0.5,
+                    //     color: Theme.of(context).primaryColor,
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 30),
                     Row(
                       children: [
                         Expanded(

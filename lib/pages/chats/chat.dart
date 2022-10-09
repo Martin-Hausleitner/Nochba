@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 //import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 //import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_editor_plus/image_editor_plus.dart';
+// import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nochba/pages/chats/chat_controller.dart';
 import 'package:nochba/pages/chats/image_editor.dart';
@@ -295,34 +295,34 @@ class ChatPage extends GetView<ChatController> {
   }
 
   void _handleFileSelection() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
+    // final result = await FilePicker.platform.pickFiles(
+    //   type: FileType.any,
+    // );
 
-    if (result != null && result.files.single.path != null) {
-      _setAttachmentUploading(true);
-      final name = result.files.single.name;
-      final filePath = result.files.single.path!;
-      final file = File(filePath);
+    // if (result != null && result.files.single.path != null) {
+    //   _setAttachmentUploading(true);
+    //   final name = result.files.single.name;
+    //   final filePath = result.files.single.path!;
+    //   final file = File(filePath);
 
-      try {
-        final reference = FirebaseStorage.instance.ref(name);
-        await reference.putFile(file);
-        final uri = await reference.getDownloadURL();
+    //   try {
+    //     final reference = FirebaseStorage.instance.ref(name);
+    //     await reference.putFile(file);
+    //     final uri = await reference.getDownloadURL();
 
-        final message = types.PartialFile(
-          mimeType: lookupMimeType(filePath),
-          name: name,
-          size: result.files.single.size,
-          uri: uri,
-        );
+    //     final message = types.PartialFile(
+    //       mimeType: lookupMimeType(filePath),
+    //       name: name,
+    //       size: result.files.single.size,
+    //       uri: uri,
+    //     );
 
-        chat.FirebaseChatCore.instance.sendMessage(message, room.id);
-        _setAttachmentUploading(false);
-      } finally {
-        _setAttachmentUploading(false);
-      }
-    }
+    //     chat.FirebaseChatCore.instance.sendMessage(message, room.id);
+    //     _setAttachmentUploading(false);
+    //   } finally {
+    //     _setAttachmentUploading(false);
+    //   }
+    // }
   }
 
   void _handleImageSelection(BuildContext context) async {

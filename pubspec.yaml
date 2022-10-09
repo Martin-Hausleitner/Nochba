@@ -42,8 +42,8 @@ dependencies:
   confetti: ^0.7.0
   package_info_plus: ^1.4.3+1
   lottie: ^1.4.2
-  image_editor_plus: ^0.1.4
-  open_file: ^2.1.1
+  image_editor_plus: ^0.0.9
+  # open_file: ^2.1.1
   photo_view: ^0.14.0
   visibility_detector: ^0.3.3
   # flutter_link_previewer: ^3.0.1
@@ -60,7 +60,6 @@ dependencies:
   syncfusion_flutter_sliders: ^20.2.50
   get_time_ago: ^1.1.6
   timeago_flutter: ^1.2.0
-  # permission_handler_android: ^9.0.2
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
