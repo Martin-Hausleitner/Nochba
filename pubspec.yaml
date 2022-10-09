@@ -14,7 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.5
   faker: ^2.0.0
-  file_picker: ^5.0.1
+  # file_picker: ^5.0.1'''
   firebase_auth: ^3.5.0
   firebase_core: ^1.20.0
   firebase_storage: ^10.3.9
@@ -42,7 +42,7 @@ dependencies:
   confetti: ^0.7.0
   package_info_plus: ^1.4.3+1
   lottie: ^1.4.2
-  image_editor_plus: ^0.1.5
+  image_editor_plus: ^0.1.4
   open_file: ^2.1.1
   photo_view: ^0.14.0
   visibility_detector: ^0.3.3
@@ -60,6 +60,7 @@ dependencies:
   syncfusion_flutter_sliders: ^20.2.50
   get_time_ago: ^1.1.6
   timeago_flutter: ^1.2.0
+  # permission_handler_android: ^9.0.2
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
