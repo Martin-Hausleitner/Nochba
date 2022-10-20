@@ -15,13 +15,13 @@ dependencies:
   cupertino_icons: ^1.0.5
   faker: ^2.0.0
   # file_picker: ^5.0.1'''
-  firebase_auth: ^3.5.0
-  firebase_core: ^1.20.0
-  firebase_storage: ^10.3.9
+  firebase_auth: ^4.0.1
+  firebase_core: ^2.0.0
+  firebase_storage: ^11.0.1
   contained_tab_bar_view: ^0.8.0
   # flutter_chat_types: ^3.4.3
   # flutter_chat_ui: ^1.6.4
-  cloud_firestore: ^3.4.0
+  cloud_firestore: ^4.0.1
   # flutter_firebase_chat_core: pod repo update^1.6.3
   http: ^0.13.4
   image_picker: ^0.8.5+3
@@ -40,9 +40,9 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.2.45
   dotted_line: ^3.1.0
   confetti: ^0.7.0
-  package_info_plus: ^1.4.3+1
+  package_info_plus: ^3.0.0
   lottie: ^1.4.2
-  image_editor_plus: ^0.0.9
+  image_editor_plus: ^0.1.5
   # open_file: ^2.1.1
   photo_view: ^0.14.0
   visibility_detector: ^0.3.3
@@ -56,7 +56,7 @@ dependencies:
   flutter_linkify: ^5.0.2
   flutter_awesome_select: ^6.5.0
   material_tag_editor: ^0.1.2
-  firebase_app_check: ^0.0.7+2
+  firebase_app_check: ^0.1.1
   syncfusion_flutter_sliders: ^20.2.50
   get_time_ago: ^1.1.6
   timeago_flutter: ^1.2.0
