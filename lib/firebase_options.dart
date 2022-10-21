@@ -44,42 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBDInPzdEErQ57PrWe8_alNSJXhRwaXqTw',
-    appId: '1:394247920474:web:8eef694b1c83361e453163',
-    messagingSenderId: '394247920474',
-    projectId: 'locoo-fa1d1',
-    authDomain: 'locoo-fa1d1.firebaseapp.com',
-    storageBucket: 'locoo-fa1d1.appspot.com',
-    measurementId: 'G-5F1D7RDCTW',
+    apiKey: 'AIzaSyDGcjlkWrsS8qT3e1Af3uGAz502mHHvvjE',
+    appId: '1:799212549268:web:3e1a2b805133d7142ff081',
+    messagingSenderId: '799212549268',
+    projectId: 'nochba-dev',
+    authDomain: 'nochba-dev.firebaseapp.com',
+    storageBucket: 'nochba-dev.appspot.com',
+    measurementId: 'G-EPK19PRBVX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCDK9CLIYt5arkwcX0wb8BKRRFkf-1aIPI',
-    appId: '1:394247920474:android:ea629ce2d30187ad453163',
-    messagingSenderId: '394247920474',
-    projectId: 'locoo-fa1d1',
-    storageBucket: 'locoo-fa1d1.appspot.com',
+    apiKey: 'AIzaSyB9LO0ep7beTQJCRVCSv8XI7kGfSzD_8PA',
+    appId: '1:799212549268:android:76bbdf0aedd4d0fa2ff081',
+    messagingSenderId: '799212549268',
+    projectId: 'nochba-dev',
+    storageBucket: 'nochba-dev.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDFrXxiaPM0g-j6gw89aQPSqFN38BE60QY',
-    appId: '1:394247920474:ios:81eaa364bde4d029453163',
-    messagingSenderId: '394247920474',
-    projectId: 'locoo-fa1d1',
-    storageBucket: 'locoo-fa1d1.appspot.com',
-    iosClientId:
-        '394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDknVAkdOHsseHaZTF2pvWqYCnDXs93BJ0',
+    appId: '1:799212549268:ios:7ba8ce1ee3578fd32ff081',
+    messagingSenderId: '799212549268',
+    projectId: 'nochba-dev',
+    storageBucket: 'nochba-dev.appspot.com',
+    iosClientId: '799212549268-8vdlp51ealp8jh3i2j5op604ifgatpbh.apps.googleusercontent.com',
     iosBundleId: 'com.nochba.nochba',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDFrXxiaPM0g-j6gw89aQPSqFN38BE60QY',
-    appId: '1:394247920474:ios:81eaa364bde4d029453163',
-    messagingSenderId: '394247920474',
-    projectId: 'locoo-fa1d1',
-    storageBucket: 'locoo-fa1d1.appspot.com',
-    iosClientId:
-        '394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDknVAkdOHsseHaZTF2pvWqYCnDXs93BJ0',
+    appId: '1:799212549268:ios:7ba8ce1ee3578fd32ff081',
+    messagingSenderId: '799212549268',
+    projectId: 'nochba-dev',
+    storageBucket: 'nochba-dev.appspot.com',
+    iosClientId: '799212549268-8vdlp51ealp8jh3i2j5op604ifgatpbh.apps.googleusercontent.com',
     iosBundleId: 'com.nochba.nochba',
   );
 }

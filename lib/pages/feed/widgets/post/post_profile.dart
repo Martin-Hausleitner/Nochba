@@ -6,10 +6,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 import 'package:nochba/views/public_profile/public_profile_view.dart';
 
 class PostProfile extends StatelessWidget {
+  final Post post;
   final String authorImage;
   final String authorName;
   final String publishDate;
@@ -17,10 +19,11 @@ class PostProfile extends StatelessWidget {
 
   const PostProfile({
     Key? key,
-    this.authorImage = 'https://i.pravatar.cc/303',
-    this.authorName = 'John Doe',
-    this.publishDate = '1',
-    this.distance = '1',
+    required this.post,
+    required this.authorImage,
+    required this.authorName,
+    this.publishDate = '---',
+    this.distance = '---',
   }) : super(key: key);
 
   @override
@@ -29,7 +32,7 @@ class PostProfile extends StatelessWidget {
       // create a on tap which open public profile page
       onTap: () {
         Get.to(PublicProfileView(
-            authorName: authorName, authorImage: authorImage));
+            post: post, authorName: authorName, authorImage: authorImage));
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
