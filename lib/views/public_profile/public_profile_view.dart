@@ -6,6 +6,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 // import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
@@ -13,13 +14,15 @@ import 'widgets/profile_content.dart';
 import 'widgets/public_profile_more_view.dart';
 
 class PublicProfileView extends StatelessWidget {
+  final Post post;
   final String authorName;
   final String authorImage;
 
   const PublicProfileView({
     Key? key,
-    this.authorName = 'John Doe',
-    this.authorImage = 'https://i.pravatar.cc/303',
+    required this.post,
+    required this.authorName,
+    required this.authorImage,
   }) : super(key: key);
 
   @override
@@ -192,7 +195,7 @@ class PublicProfileView extends StatelessWidget {
             height: 12,
           ),
 
-          ProfileContent(),
+          ProfileContent(post: post),
 
           // add a tabbarview
 

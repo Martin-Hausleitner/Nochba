@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "394247920474",
-    "project_id": "locoo-fa1d1",
-    "storage_bucket": "locoo-fa1d1.appspot.com"
+    "project_number": "799212549268",
+    "project_id": "nochba-dev",
+    "storage_bucket": "nochba-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:394247920474:android:ea629ce2d30187ad453163",
+        "mobilesdk_app_id": "1:799212549268:android:76bbdf0aedd4d0fa2ff081",
         "android_client_info": {
           "package_name": "com.nochba.nochba"
         }
       },
       "oauth_client": [
         {
-          "client_id": "394247920474-bf6thnsgh04ngn9ngqonh65k3mm0nu3o.apps.googleusercontent.com",
+          "client_id": "799212549268-u21crvs48fp22n3qm4ek9h4spimmacb0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCDK9CLIYt5arkwcX0wb8BKRRFkf-1aIPI"
+          "current_key": "AIzaSyB9LO0ep7beTQJCRVCSv8XI7kGfSzD_8PA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "394247920474-bf6thnsgh04ngn9ngqonh65k3mm0nu3o.apps.googleusercontent.com",
+              "client_id": "799212549268-u21crvs48fp22n3qm4ek9h4spimmacb0.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "394247920474-iu1lqdcmmh1pelt2ackqg76joi5cu43e.apps.googleusercontent.com",
+              "client_id": "799212549268-8vdlp51ealp8jh3i2j5op604ifgatpbh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.nochba.nochba"

@@ -119,6 +119,7 @@ class Post extends GetView<PostCardController> {
 
               // Post Profile
               PostProfile(
+                post: post,
                 authorImage: postAuthorImage,
                 authorName: postAuthorName,
                 publishDate: getTimeAgo(post.createdAt.toDate()),

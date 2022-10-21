@@ -8,7 +8,8 @@ import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/views/public_profile/public_profile_controller.dart';
 
 class UserInfo extends GetView<PublicProfileController> {
-  const UserInfo({Key? key}) : super(key: key);
+  final String userId;
+  const UserInfo({Key? key, required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class UserInfo extends GetView<PublicProfileController> {
                   height: 18,
                 ),
                 FutureBuilder<UserPublicInfo?>(
-                  future: controller.getPublicInfoOfUser(''),
+                  future: controller.getPublicInfoOfUser(userId),
                   builder: ((context, snapshot) {
                     if (snapshot.hasError) {
                       return const Center(

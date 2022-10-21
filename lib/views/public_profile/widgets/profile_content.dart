@@ -17,7 +17,9 @@ import 'user_info.dart';
 //import feed Controller
 
 class ProfileContent extends StatelessWidget {
+  final models.Post post;
   const ProfileContent({
+    required this.post,
     Key? key,
   }) : super(key: key);
 
@@ -77,7 +79,9 @@ class ProfileContent extends StatelessWidget {
           // isScrollable: true,
         ),
         views: [
-          UserInfo(),
+          UserInfo(
+            userId: post.user,
+          ),
           Container(
             color: Theme.of(context).colorScheme.background,
 //
@@ -85,7 +89,7 @@ class ProfileContent extends StatelessWidget {
               SizedBox(height: 6),
               Container(
                 child: StreamBuilder<List<models.Post>>(
-                  stream: dataAccess.getPosts(),
+                  stream: dataAccess.getPostsOfUser(post.user),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Text(

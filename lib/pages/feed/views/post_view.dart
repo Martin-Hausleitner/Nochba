@@ -149,6 +149,7 @@ class PostViewNoImage extends StatelessWidget {
 
                   // Post Profile
                   PostProfile(
+                    post: post,
                     authorImage: postAuthorImage,
                     authorName: postAuthorName,
                     publishDate: '---',
@@ -396,6 +397,7 @@ class _PostViewImageState extends State<PostViewImage> {
 
                         // Post Profile
                         PostProfile(
+                          post: widget.post,
                           authorImage: widget.postAuthorImage,
                           authorName: widget.postAuthorName,
                           publishDate: '---',
