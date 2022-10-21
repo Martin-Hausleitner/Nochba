@@ -11,7 +11,7 @@ import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
@@ -126,9 +126,9 @@ class MadebyAndVersion extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  Future<PackageInfo> _getPackageInfo() {
-    return PackageInfo.fromPlatform();
-  }
+  // Future<PackageInfo> _getPackageInfo() {
+  //   return PackageInfo.fromPlatform();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -162,29 +162,29 @@ class MadebyAndVersion extends StatelessWidget {
             ),
             SizedBox(height: 3),
             //display packageInfo.version in Text
-            FutureBuilder<PackageInfo>(
-              future: _getPackageInfo(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
-                if (snapshot.hasError) {
-                  return const Text('ERROR');
-                } else if (!snapshot.hasData) {
-                  return const Text('Loading...');
-                }
+            // FutureBuilder<PackageInfo>(
+            //   future: _getPackageInfo(),
+            //   builder:
+            //       (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+            //     if (snapshot.hasError) {
+            //       return const Text('ERROR');
+            //     } else if (!snapshot.hasData) {
+            //       return const Text('Loading...');
+            //     }
 
-                final data = snapshot.data!;
+            //     final data = snapshot.data!;
 
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Version: ${data.version} (${data.buildNumber})',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                );
-              },
-            ),
+            //     return Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Text(
+            //           'Version: ${data.version} (${data.buildNumber})',
+            //           style: Theme.of(context).textTheme.bodySmall,
+            //         ),
+            //       ],
+            //     );
+            //   },
+            // ),
 
             // const Text(
             //   'Version 1.0.0',
