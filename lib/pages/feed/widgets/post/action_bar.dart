@@ -111,8 +111,8 @@ class ActionBar extends GetView<ActionBarController> {
                   return
                       // height of the modal bottom sheet
                       ActionBarMore(
-                    postID: post.id,
-                    userID: 'lol',
+                    controller: controller,
+                    post: post,
                   );
                 },
               );

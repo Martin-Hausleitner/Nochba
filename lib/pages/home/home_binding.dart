@@ -9,6 +9,7 @@ import 'package:nochba/logic/repositories/UserRepository.dart';
 import 'package:nochba/logic/resources/ResourceContext.dart';
 import 'package:nochba/logic/auth_access.dart';
 import 'package:nochba/logic/data_access.dart';
+import 'package:nochba/logic/storage/StorageService.dart';
 import 'package:nochba/pages/auth/auth_controller.dart';
 import 'package:nochba/pages/auth/login_controller.dart';
 import 'package:nochba/pages/auth/register/sign_up_controller.dart';
@@ -18,7 +19,8 @@ import 'package:nochba/pages/dashboard/dashboard_controller.dart';
 import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
 import 'package:nochba/pages/feed/widgets/post_card_controller.dart';
-import 'package:nochba/pages/new_post/new_post_controller.dart';
+import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
+import 'package:nochba/pages/inset_post/new_post/new_post_controller.dart';
 import 'package:nochba/pages/notifications/notifications_controller.dart';
 import 'package:nochba/pages/private_profile/private_profile_controller.dart';
 import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
@@ -28,6 +30,7 @@ class HomeBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(AuthService(ResourceContext()));
+    Get.put(StorageService());
     Get.put(SignUpController());
     Get.put(LoginController());
 
@@ -50,6 +53,7 @@ class HomeBinding extends Bindings {
     Get.put(DataAccess());
     Get.put(AuthAccess());
     Get.put(NewPostController());
+    Get.put(EditPostController());
     Get.put(AuthController());
     Get.put(ChatsController());
     Get.put(ChatController());

@@ -156,11 +156,7 @@ class Post extends GetView<PostCardController> {
                   : Container(),
 
               // Button
-              if (post.user != FirebaseAuth.instance.currentUser!.uid &&
-                  (category == CategoryModul.search ||
-                      CategoryModul.subCategoriesOfSearch.contains(category) ||
-                      category == CategoryModul.lending ||
-                      CategoryModul.subCategoriesOfLending.contains(category)))
+              if (controller.shouldShowWriteToButton(post.user, category))
                 Padding(
                   padding: EdgeInsets.only(top: spacingBetween),
                   child: LocooTextButton(

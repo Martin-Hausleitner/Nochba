@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -145,9 +146,18 @@ class NewPostView extends StatelessWidget {
                           // )),
                           // TagsEditor(),
                           NewPostTitle(label: 'Bild Hinzufügen'),
-                          AddPhotoElement(controller: controller),
+                          GetBuilder<NewPostController>(
+                            builder: (c) => AddPhotoElement(
+                                image: controller.image,
+                                selectImage: controller.selectImage,
+                                deleteImage: controller.deleteImage),
+                          ),
                           NewPostTitle(label: 'Tags'),
-                          TagsElement(controller: controller),
+                          TagsElement(
+                            tags: controller.tags,
+                            removeTag: controller.removeTag,
+                            showTagDialog: controller.showTagDialog,
+                          ),
 
                           // Home(),
                           // const SizedBox(height: 20),
@@ -173,119 +183,125 @@ class NewPostView extends StatelessWidget {
 }
 
 class AddPhotoElement extends StatelessWidget {
-  const AddPhotoElement({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
+  const AddPhotoElement(
+      {Key? key,
+      required this.image,
+      required this.selectImage,
+      required this.deleteImage})
+      : super(key: key);
 
-  final NewPostController controller;
+  final Uint8List? image;
+  final Function(BuildContext context) selectImage;
+  final Function deleteImage;
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<NewPostController>(
-      builder: (c) => controller.image != null
-          // show a container width: double.infinity,
-          // height: 80, with the image and a remove button on the top right
-          ? Container(
-              width: double.infinity,
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: MemoryImage(controller.image!),
-                  fit: BoxFit.cover,
-                ),
+    return image != null
+        // show a container width: double.infinity,
+        // height: 80, with the image and a remove button on the top right
+        ? Container(
+            width: double.infinity,
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: MemoryImage(image!),
+                fit: BoxFit.cover,
               ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () => controller.deleteImage(),
-                    child: SizedBox(
-                      height: 30.0,
-                      width: 30.0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.all(Radius.circular(100)),
-                        ),
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 18,
-                        ),
+            ),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () => deleteImage(),
+                  child: SizedBox(
+                    height: 30.0,
+                    width: 30.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 18,
                       ),
                     ),
                   ),
                 ),
               ),
-            )
+            ),
+          )
 
-          // ? Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       CircleAvatar(
-          //         backgroundImage:
-          //             MemoryImage(controller.image!),
-          //       ),
-          //       IconButton(
-          //         icon: const Icon(
-          //           Icons.close,
-          //         ),
-          //         onPressed: () =>
-          //             controller.deleteImage(),
-          //       )
-          //     ],
-          //   )
-          : GestureDetector(
-              onTap: () => controller.selectImage(context),
-              child: Container(
-                width: double.infinity,
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-                ),
-                child: Column(
-                  //center
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+        // ? Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       CircleAvatar(
+        //         backgroundImage:
+        //             MemoryImage(controller.image!),
+        //       ),
+        //       IconButton(
+        //         icon: const Icon(
+        //           Icons.close,
+        //         ),
+        //         onPressed: () =>
+        //             controller.deleteImage(),
+        //       )
+        //     ],
+        //   )
+        : GestureDetector(
+            onTap: () => selectImage(context),
+            child: Container(
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color:
+                    Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+              ),
+              child: Column(
+                //center
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
 
-                  children: [
-                    Icon(
-                      FlutterRemix.upload_cloud_2_line,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.30),
-                    ),
-                    // text Füge ein Foto hinzu
-                    Text(
-                      'Füge ein Foto hinzu',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.35),
-                          ),
-                    ),
-                  ],
-                ),
+                children: [
+                  Icon(
+                    FlutterRemix.upload_cloud_2_line,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.30),
+                  ),
+                  // text Füge ein Foto hinzu
+                  Text(
+                    'Füge ein Foto hinzu',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.35),
+                        ),
+                  ),
+                ],
               ),
             ),
-    );
+          );
   }
 }
 
 class TagsElement extends StatelessWidget {
-  const TagsElement({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
+  const TagsElement(
+      {Key? key,
+      required this.tags,
+      required this.removeTag,
+      required this.showTagDialog})
+      : super(key: key);
 
-  final NewPostController controller;
+  final List<String> tags;
+  final Function(String tag) removeTag;
+  final Function(BuildContext context) showTagDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -316,7 +332,7 @@ class TagsElement extends StatelessWidget {
               () => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (controller.tags.isNotEmpty)
+                  if (tags.isNotEmpty)
                     SizedBox(
                       height: 8,
                     ),
@@ -327,14 +343,14 @@ class TagsElement extends StatelessWidget {
                       //vertaicla padding
                       spacing: 4,
                       runSpacing: 4,
-                      children: controller.tags
+                      children: tags
                           .map((e) => Chip(
                                 deleteIcon: Icon(
                                   Icons.close,
                                   size: 16,
                                 ),
                                 onDeleted: () {
-                                  controller.removeTag(e);
+                                  removeTag(e);
                                 },
                                 backgroundColor: Colors.white,
                                 labelStyle: Theme.of(context)
@@ -358,7 +374,7 @@ class TagsElement extends StatelessWidget {
 
             // round elevated button with add icon and no elevation
             ElevatedButton(
-              onPressed: () => controller.showTagDialog(context),
+              onPressed: () => showTagDialog(context),
               style: ElevatedButton.styleFrom(
                 primary: Theme.of(context).primaryColor,
                 elevation: 0,

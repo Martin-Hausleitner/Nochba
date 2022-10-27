@@ -3,7 +3,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/pages/auth/login_page.dart';
+import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
@@ -12,12 +14,12 @@ import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 
 class ActionBarMore extends StatelessWidget {
-  final String postID;
-  final String userID;
+  final ActionBarController controller;
+  final Post post;
   const ActionBarMore({
     Key? key,
-    required this.postID,
-    required this.userID,
+    required this.controller,
+    required this.post,
   }) : super(key: key);
 
   @override
@@ -106,21 +108,27 @@ class ActionBarMore extends StatelessWidget {
                   );
                 },
               ),
-              ActionCard(
-                title: 'Post bearbeiten',
-                icon: FlutterRemix.pencil_line,
-                onTap: () {
-                  print('test');
-                },
-              ),
-              ActionCard(
-                title: 'Post löschen',
-                icon: FlutterRemix.delete_bin_line,
-                onTap: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialogDeletePost(),
+              if (controller.isThisTheCurrentUser(post.user))
+                Column(
+                  children: [
+                    ActionCard(
+                      title: 'Post bearbeiten',
+                      icon: FlutterRemix.pencil_line,
+                      onTap: () => controller.pushEditPostView(post),
+                    ),
+                    ActionCard(
+                      title: 'Post löschen',
+                      icon: FlutterRemix.delete_bin_line,
+                      onTap: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            AlertDialogDeletePost(
+                          onDelete: () => controller.deletePost(post.id),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
             ],
           ),
         ),
@@ -194,9 +202,10 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 }
 
 class AlertDialogDeletePost extends StatelessWidget {
-  const AlertDialogDeletePost({
-    Key? key,
-  }) : super(key: key);
+  const AlertDialogDeletePost({Key? key, required this.onDelete})
+      : super(key: key);
+
+  final Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +263,10 @@ class AlertDialogDeletePost extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
+                  onPressed: () {
+                    onDelete();
+                    Navigator.pop(context, 'OK');
+                  },
                   child: const Text('Löschen'),
                   //style the button red
                   style: TextButton.styleFrom(

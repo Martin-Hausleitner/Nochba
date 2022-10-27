@@ -9,7 +9,14 @@ import 'package:nochba/logic/repositories/ResourceAccess.dart';
 import 'package:nochba/logic/models/user.dart' as models;
 
 class AuthService extends ResourceAccess {
-  AuthService(super.resourceContext);
+  AuthService(super.resourceContext) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      _firebaseUser = user;
+    });
+  }
+
+  User? _firebaseUser = FirebaseAuth.instance.currentUser;
+  String get uid => _firebaseUser != null ? _firebaseUser!.uid : '';
 
   Future<bool> signIn(String email, String password) async {
     if (email.isEmpty || password.isEmpty) {

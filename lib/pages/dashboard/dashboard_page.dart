@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:nochba/pages/new_post/new_post_page.dart';
+import 'package:nochba/pages/inset_post/new_post/new_post_page.dart';
 import 'package:nochba/pages/notifications/notifications_page.dart';
 
 import '../chats/chats_page.dart';

@@ -1,21 +1,14 @@
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/models/category.dart';
-import 'package:nochba/logic/data_access.dart';
+import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
-import 'package:nochba/views/new_post/tag_dialog.dart';
+import 'package:nochba/logic/storage/StorageService.dart';
+import 'package:nochba/pages/inset_post/Inset_post_controller.dart';
 
-import '../../logic/models/post.dart';
-import '../../shared/views/bottom_sheet_close_save_view.dart';
-
-class NewPostController extends GetxController {
+class NewPostController extends InsetPostController {
   final pageController = PageController(initialPage: 0);
 
   final Rx<CategoryOptions> _category = CategoryOptions.None.obs;
@@ -26,19 +19,6 @@ class NewPostController extends GetxController {
   CategoryOptions get category => _category.value;
   CategoryOptions get subcategory => _subcategory.value;
   List<CategoryOptions> get subcategoriesForDisplay => _subcategoriesForDisplay;
-
-  final formKey = GlobalKey<FormState>();
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
-
-  final RxList<String> _tags = <String>[].obs;
-
-  List<String> get tags => _tags;
-
-  String imageName = '';
-  Uint8List? image;
-
-  final dataAccess = Get.find<DataAccess>();
 
   updateCategory(CategoryOptions newCategory) {
     if (newCategory == CategoryModul.message) {
@@ -99,31 +79,7 @@ class NewPostController extends GetxController {
       pageController.jumpToPage(1);
     }
 
-    titleController.clear();
-    descriptionController.clear();
-    _tags.clear();
-    image = null;
-    imageName = '';
-    update();
-  }
-
-  addTag(String tag) {
-    _tags.add(tag);
-  }
-
-  removeTag(String tag) {
-    _tags.remove(tag);
-  }
-
-  void showTagDialog(BuildContext context) async {
-    final String result = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const TagDialog();
-      },
-    );
-
-    addTag(result);
+    clear();
   }
 
   //ceate a function showTagBottomsheet which opens a  showModalBottomSheet<void>(
@@ -138,86 +94,37 @@ class NewPostController extends GetxController {
   //   addTag(result);
   // }
 
-  selectImage(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return SimpleDialog(
-            title: const Text('Create a post'),
-            children: [
-              SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text('Pick an image'),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  await pickImage(ImageSource.gallery);
-                },
-              ),
-              SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text('Take a photo'),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  await pickImage(ImageSource.camera);
-                },
-              )
-            ],
-          );
-        });
-  }
-
-  pickImage(ImageSource imageSource) async {
-    final imagePicker = ImagePicker();
-
-    XFile? file = await imagePicker.pickImage(source: imageSource);
-
-    if (file != null) {
-      imageName = file.path.split('/').last;
-      image = await file.readAsBytes();
-      update();
-    }
-  }
-
-  deleteImage() {
-    image = null;
-    imageName = '';
-    update();
-  }
-
+  final storageService = Get.find<StorageService>();
   final postRepository = Get.find<PostRepository>();
 
   addPost() async {
     //final isValid = formKey.currentState!.validate();
     if (/*!isValid ||*/ category == CategoryOptions.None) return;
 
-    final imageUrl = image == null
-        ? ''
-        : await dataAccess.uploadPostImageToStorage(imageName, image!);
-    final post = Post(
-      user: FirebaseAuth.instance.currentUser!.uid,
-      title: titleController.text.trim(),
-      description: descriptionController.text.trim(),
-      imageUrl: imageUrl,
-      createdAt: Timestamp.now(),
-      category: subcategory != CategoryOptions.None
-          ? subcategory.name.toString()
-          : category.name.toString(),
-      tags: [...tags..sort()],
-      liked: ['moin'],
-    );
-
     try {
+      final imageUrl = image == null
+          ? ''
+          : await storageService.uploadPostImageToStorage(imageName, image!);
+      final post = Post(
+        user: FirebaseAuth.instance.currentUser!.uid,
+        title: titleController.text.trim(),
+        description: descriptionController.text.trim(),
+        imageUrl: imageUrl,
+        createdAt: Timestamp.now(),
+        category: subcategory != CategoryOptions.None
+            ? subcategory.name.toString()
+            : category.name.toString(),
+        tags: [...tags..sort()],
+        liked: [],
+      );
+
       postRepository.insert(post);
     } on FirebaseAuthException catch (e) {
       print(e);
       Get.snackbar('Error', e.message!);
     }
 
-    titleController.clear();
-    descriptionController.clear();
-    _tags.clear();
-    image = null;
-    imageName = '';
+    clear();
     _category.value = CategoryOptions.None;
     _subcategory.value = CategoryOptions.None;
     _subcategoriesForDisplay.clear();
@@ -230,8 +137,6 @@ class NewPostController extends GetxController {
   @override
   void dispose() {
     pageController.dispose();
-    titleController.dispose();
-    descriptionController.dispose();
 
     super.dispose();
   }
