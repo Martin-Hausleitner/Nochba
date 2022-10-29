@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 
 import '../new_post_controller.dart';
@@ -17,7 +18,6 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NewPostController controller = Get.find<NewPostController>();
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: Column(
@@ -69,7 +69,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                 ),
           ),
           SizedBox(height: 28),
-          Obx(
+          /*Obx(
             () => Expanded(
               child: ListView.separated(
                 itemCount: controller.subcategoriesForDisplay.length,
@@ -102,7 +102,58 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                     const Divider(),
               ),
             ),
-          ),
+          ),*/
+
+          if (controller.category == CategoryOptions.Message)
+            Expanded(
+              child: Column(
+                children: [
+                  ActionCard(
+                    title: CategoryOptions.Question.name,
+                    onTap: () =>
+                        controller.updateSubcategory(CategoryOptions.Question),
+                  ),
+                  ActionCard(
+                    title: CategoryOptions.Appeal.name,
+                    onTap: () =>
+                        controller.updateSubcategory(CategoryOptions.Appeal),
+                  ),
+                  ActionCard(
+                    title: CategoryOptions.Warning.name,
+                    onTap: () =>
+                        controller.updateSubcategory(CategoryOptions.Warning),
+                  ),
+                  ActionCard(
+                    title: CategoryOptions.Recommendation.name,
+                    onTap: () => controller
+                        .updateSubcategory(CategoryOptions.Recommendation),
+                  ),
+                  ActionCard(
+                    title: CategoryOptions.Found.name,
+                    onTap: () =>
+                        controller.updateSubcategory(CategoryOptions.Found),
+                  ),
+                ],
+              ),
+            ),
+
+          if (controller.category == CategoryOptions.Search)
+            Expanded(
+              child: Column(
+                children: [
+                  ActionCard(
+                    title: CategoryOptions.Help.name,
+                    onTap: () =>
+                        controller.updateSubcategory(CategoryOptions.Help),
+                  ),
+                  ActionCard(
+                    title: CategoryOptions.Lost.name,
+                    onTap: () =>
+                        controller.updateSubcategory(CategoryOptions.Lost),
+                  ),
+                ],
+              ),
+            ),
 
           BackOutlinedButton(
             controller: controller,

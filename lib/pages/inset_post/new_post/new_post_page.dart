@@ -53,7 +53,6 @@ class NewPostCategorySelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NewPostController controller = Get.find<NewPostController>();
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: Column(
