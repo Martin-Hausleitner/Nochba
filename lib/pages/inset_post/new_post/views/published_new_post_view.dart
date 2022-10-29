@@ -20,6 +20,8 @@ class PublishedNewPostView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Expanded(
           child: Padding(
