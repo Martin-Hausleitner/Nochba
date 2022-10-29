@@ -74,12 +74,14 @@ class PublishedNewPostView extends StatelessWidget {
                       ),
                 ),
                 SizedBox(height: 28),
-                Container(
+
+                Expanded(
                   // color: Colors.red,
                   child: Center(
                     child: Lottie.asset(
                       'assets/lottie/success.json',
-                      height: 200,
+                      height: //media query
+                          MediaQuery.of(context).size.height * 0.3,
                       fit: BoxFit.cover,
                       repeat: false,
                       alignment: Alignment.topCenter,

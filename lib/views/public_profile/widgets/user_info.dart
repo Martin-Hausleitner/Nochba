@@ -271,7 +271,7 @@ class UserInfo extends GetView<PublicProfileController> {
                                   ),
 
                                   Icon(
-                                    Icons.info,
+                                    FlutterRemix.information_fill,
                                     size: 100,
                                     color: Theme.of(context)
                                         .colorScheme
