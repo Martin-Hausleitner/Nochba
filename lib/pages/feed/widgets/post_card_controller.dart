@@ -8,8 +8,8 @@ class PostCardController extends GetxController {
 
   Future<void> sendNotification(String toUserId, String postId) async {
     try {
-      return await notificationRepository.insertNotificationFromCurrentUser(
-          toUserId, postId);
+      return await notificationRepository
+          .sendPostRequestNotificationFromCurrentUser(toUserId, postId);
     } on Exception {
       return Future.error(Error);
     }

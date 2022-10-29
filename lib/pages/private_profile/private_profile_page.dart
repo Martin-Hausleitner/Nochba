@@ -13,6 +13,7 @@ import 'package:nochba/logic/auth_access.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
+import 'package:nochba/views/public_profile/public_profile_view.dart';
 
 import '../../logic/data_access.dart';
 import 'private_profile_controller.dart';
@@ -200,16 +201,13 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         SizedBox(
                           height: 20,
                         ),
-
                         ActionCardTitle(
                           title: 'Dein Profil',
                         ),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
-                          onTap: () {
-                            Get.snackbar("Pressed", "Pressed");
-                          },
+                          onTap: () => controller.pushPublicProfileView(),
                         ),
                         ActionCard(
                           title: 'Deine Posts',

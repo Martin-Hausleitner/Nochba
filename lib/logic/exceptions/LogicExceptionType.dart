@@ -1,1 +1,1 @@
-enum LogicExceptionType { undefined, dataAccess, format, query }
+enum LogicExceptionType { undefined, dataAccess, format, query, alreadyExists }

@@ -2,12 +2,21 @@ import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/ImageFile.dart';
 
 class StorageService extends GetxService {
+  final authService = Get.find<AuthService>();
+
   Future<String> uploadPostImageToStorage(
       String imageName, Uint8List file) async {
-    Reference ref = FirebaseStorage.instance.ref().child('posts/$imageName');
+    if (authService.uid.isEmpty) {
+      return '';
+    }
+
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('posts/${authService.uid}/$imageName');
     UploadTask uploadTask = ref.putData(file);
 
     TaskSnapshot snap = await uploadTask;
@@ -28,7 +37,25 @@ class StorageService extends GetxService {
     return imageFile;
   }
 
-  Future<String> uploadProfileImageToStorage(Uint8List file) async {
+  Future<String> downloadPostImageNameFromStorage(String imageUrl) async {
+    if (imageUrl.isEmpty) {
+      return '';
+    }
+    Reference ref = FirebaseStorage.instance.refFromURL(imageUrl);
+
+    return ref.name;
+  }
+
+  Future<void> deletePostImageFromStorage(String imageName) async {
+    if (authService.uid.isNotEmpty && imageName.isNotEmpty) {
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('posts/${authService.uid}/$imageName');
+      return await ref.delete();
+    }
+  }
+
+  /*Future<String> uploadProfileImageToStorage(Uint8List file) async {
     Reference ref = FirebaseStorage.instance
         .ref()
         .child('profile/${FirebaseAuth.instance.currentUser!.uid}');
@@ -37,5 +64,5 @@ class StorageService extends GetxService {
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
-  }
+  }*/
 }

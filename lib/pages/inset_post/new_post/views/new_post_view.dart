@@ -84,10 +84,7 @@ class NewPostView extends StatelessWidget {
                           //tile small Wähle deien Kategorie
                           Text(
                             // show category, and if subcategory is avabile add " - " and ontroller.subcategory.name.toString()
-                            controller.subcategory != CategoryOptions.None
-                                ? "${controller.category.name.toString()} - ${controller.subcategory.name.toString()}"
-                                : controller.category.name.toString(),
-
+                            controller.categoryName,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -148,9 +145,11 @@ class NewPostView extends StatelessWidget {
                           NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<NewPostController>(
                             builder: (c) => AddPhotoElement(
-                                image: controller.image,
-                                selectImage: controller.selectImage,
-                                deleteImage: controller.deleteImage),
+                              image: controller.image,
+                              selectImage: controller.selectImage,
+                              deleteImage: controller.deleteImage,
+                              editImage: controller.editImage,
+                            ),
                           ),
                           NewPostTitle(label: 'Tags'),
                           TagsElement(
@@ -187,12 +186,14 @@ class AddPhotoElement extends StatelessWidget {
       {Key? key,
       required this.image,
       required this.selectImage,
-      required this.deleteImage})
+      required this.deleteImage,
+      required this.editImage})
       : super(key: key);
 
   final Uint8List? image;
   final Function(BuildContext context) selectImage;
   final Function deleteImage;
+  final Function(BuildContext context) editImage;
 
   @override
   Widget build(BuildContext context) {
@@ -209,31 +210,60 @@ class AddPhotoElement extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () => deleteImage(),
-                  child: SizedBox(
-                    height: 30.0,
-                    width: 30.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 18,
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () => deleteImage(),
+                      child: SizedBox(
+                        height: 30.0,
+                        width: 30.0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100)),
+                          ),
+                          child: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          )
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () => editImage(context),
+                      child: SizedBox(
+                        height: 30.0,
+                        width: 30.0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100)),
+                          ),
+                          child: const Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ))
 
         // ? Row(
         //     mainAxisAlignment: MainAxisAlignment.center,

@@ -31,8 +31,7 @@ class PostProfile extends StatelessWidget {
     return GestureDetector(
       // create a on tap which open public profile page
       onTap: () {
-        Get.to(PublicProfileView(
-            post: post, authorName: authorName, authorImage: authorImage));
+        Get.to(PublicProfileView(userId: post.user));
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

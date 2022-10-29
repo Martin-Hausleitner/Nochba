@@ -34,206 +34,269 @@ class UserInfo extends GetView<PublicProfileController> {
                 FutureBuilder<UserPublicInfo?>(
                   future: controller.getPublicInfoOfUser(userId),
                   builder: ((context, snapshot) {
-                    if (snapshot.hasError) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
                       return const Center(
                         child: Text(
                             'Die Profilinfos sind derzeit nicht verfügbar'),
                       );
                     } else if (snapshot.hasData) {
                       final userPublicInfo = snapshot.data!;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Interessen',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  //use the font of the theme
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          // create a text with weigh t900
-                          SizedBox(
-                            height: 14,
-                          ),
-                          Wrap(
-                            // space between chips
-                            spacing: 6,
-                            runSpacing: 7,
-                            // list of chips
-                            children: userPublicInfo.interests != null
-                                ? userPublicInfo.interests!
-                                    .map((e) => UserInfoClip(
-                                          text: e,
-                                        ))
-                                    .toList()
-                                : const [
-                                    UserInfoClip(
-                                      text: "",
-                                    )
-                                  ],
-                            /*const [
-                                UserInfoClip(
-                                  text: "Halfsdflooo",
-                                ),
-                                UserInfoClip(
-                                  text: "Hallooo",
-                                ),
-                                UserInfoClip(
-                                  text: "Hallosfddsfoo",
-                                ),
-                                UserInfoClip(
-                                  text: "Hallsfsooo",
-                                ),
-                              ]*/
-                          ),
-                          SizedBox(
-                            height: 18,
-                          ),
+                      bool areInterestsValid =
+                          userPublicInfo.interests != null &&
+                              userPublicInfo.interests!.isNotEmpty;
+                      bool areOffersValid = userPublicInfo.offers != null &&
+                          userPublicInfo.offers!.isNotEmpty;
+                      bool isBirthdayValid = userPublicInfo.birthday != null;
+                      bool isNeighbourhoodMemberSinceValid =
+                          userPublicInfo.neighbourhoodMemberSince != null;
+                      bool isProfessionValid =
+                          userPublicInfo.profession != null &&
+                              userPublicInfo.profession!.isNotEmpty;
+                      bool isFamilyStatusValid =
+                          userPublicInfo.familyStatus != null &&
+                              userPublicInfo.familyStatus!.isNotEmpty;
+                      bool isHasPetsValid = userPublicInfo.hasPets != null &&
+                          userPublicInfo.hasPets!;
+                      bool isBioValid = userPublicInfo.bio != null &&
+                          userPublicInfo.bio!.isNotEmpty;
 
-                          Text(
-                            'Bietet',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          SizedBox(
-                            height: 14,
-                          ),
-                          Wrap(
-                            // space between chips
-                            spacing: 6,
-                            runSpacing: 7,
-                            // list of chips
-                            children: userPublicInfo.offers != null
-                                ? userPublicInfo.offers!
-                                    .map((e) => UserInfoClip(
-                                          text: e,
-                                        ))
-                                    .toList()
-                                : const [
-                                    UserInfoClip(
-                                      text: "",
-                                    )
-                                  ],
+                      bool isSomethingValid = areInterestsValid ||
+                          areOffersValid ||
+                          isBirthdayValid ||
+                          isNeighbourhoodMemberSinceValid ||
+                          isProfessionValid ||
+                          isFamilyStatusValid ||
+                          isHasPetsValid ||
+                          isBioValid;
 
-                            /*const [
-                                UserInfoClip(
-                                  text: "Halfsdflooo",
-                                ),
-                                UserInfoClip(
-                                  text: "Hallooo",
-                                ),
-                                UserInfoClip(
-                                  text: "Hallosfddsfoo",
-                                ),
-                                UserInfoClip(
-                                  text: "Hallsfsooo",
-                                ),
-                              ]*/
-                          ),
-                          SizedBox(
-                            height: 18,
-                          ),
-                          Text(
-                            'Basis Info',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          SizedBox(
-                            height: 14,
-                          ),
-                          // create a row tith a colum with a icon and a text
-                          BaseInfoRow(
-                              data: userPublicInfo.birthday != null
-                                  ? getCalenderDate(
-                                      userPublicInfo.birthday!.toDate())
-                                  : '',
-                              icon: FlutterRemix.cake_2_line,
-                              title: 'Geburtstag: '),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          BaseInfoRow(
-                              data: userPublicInfo.neighbourhoodMemberSince !=
-                                      null
-                                  ? getCalenderDate(userPublicInfo
-                                      .neighbourhoodMemberSince!
-                                      .toDate())
-                                  : '',
-                              icon: FlutterRemix.history_line,
-                              title: 'In der Nachbarschaft seit: '),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          BaseInfoRow(
-                              data: userPublicInfo.profession ?? '',
-                              icon: FlutterRemix.briefcase_4_line,
-                              title: 'Beruf: '),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          BaseInfoRow(
-                              data: userPublicInfo.familyStatus ?? '',
-                              icon: FlutterRemix.group_line,
-                              title: 'Familienstand: '),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          BaseInfoRow(
-                              data: userPublicInfo.hasPets == null
-                                  ? ''
-                                  : userPublicInfo.hasPets!
-                                      ? 'Ja'
-                                      : 'Nein',
-                              icon: Icons.pets_outlined,
-                              title: 'Haustiere: '),
+                      return isSomethingValid
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                areInterestsValid
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            'Interessen',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  //use the font of the theme
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                          // create a text with weigh t900
+                                          const SizedBox(
+                                            height: 14,
+                                          ),
+                                          Wrap(
+                                            // space between chips
+                                            spacing: 6,
+                                            runSpacing: 7,
+                                            // list of chips
+                                            children: userPublicInfo.interests!
+                                                .map((e) => UserInfoClip(
+                                                      text: e,
+                                                    ))
+                                                .toList(),
+                                          ),
+                                          const SizedBox(
+                                            height: 18,
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                                areOffersValid
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            'Bietet',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                          const SizedBox(
+                                            height: 14,
+                                          ),
+                                          Wrap(
+                                            // space between chips
+                                            spacing: 6,
+                                            runSpacing: 7,
+                                            // list of chips
+                                            children: userPublicInfo.offers!
+                                                .map((e) => UserInfoClip(
+                                                      text: e,
+                                                    ))
+                                                .toList(),
+                                          ),
+                                          const SizedBox(
+                                            height: 18,
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                                isBirthdayValid ||
+                                        isNeighbourhoodMemberSinceValid ||
+                                        isProfessionValid ||
+                                        isFamilyStatusValid ||
+                                        isHasPetsValid
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            'Basis Info',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                          SizedBox(
+                                            height: 14,
+                                          ),
+                                          isBirthdayValid
+                                              ? BaseInfoRow(
+                                                  data: getCalenderDate(
+                                                      userPublicInfo.birthday!
+                                                          .toDate()),
+                                                  icon:
+                                                      FlutterRemix.cake_2_line,
+                                                  title: 'Geburtstag: ')
+                                              : Container(),
+                                          const SizedBox(
+                                            height: 2,
+                                          ),
+                                          isNeighbourhoodMemberSinceValid
+                                              ? BaseInfoRow(
+                                                  data: getCalenderDate(
+                                                      userPublicInfo
+                                                          .neighbourhoodMemberSince!
+                                                          .toDate()),
+                                                  icon:
+                                                      FlutterRemix.history_line,
+                                                  title:
+                                                      'In der Nachbarschaft seit: ')
+                                              : Container(),
+                                          const SizedBox(
+                                            height: 2,
+                                          ),
+                                          isProfessionValid
+                                              ? BaseInfoRow(
+                                                  data: userPublicInfo
+                                                      .profession!,
+                                                  icon: FlutterRemix
+                                                      .briefcase_4_line,
+                                                  title: 'Beruf: ')
+                                              : Container(),
+                                          const SizedBox(
+                                            height: 2,
+                                          ),
+                                          isFamilyStatusValid
+                                              ? BaseInfoRow(
+                                                  data: userPublicInfo
+                                                      .familyStatus!,
+                                                  icon: FlutterRemix.group_line,
+                                                  title: 'Familienstand: ')
+                                              : Container(),
+                                          const SizedBox(
+                                            height: 2,
+                                          ),
+                                          isHasPetsValid
+                                              ? BaseInfoRow(
+                                                  data: userPublicInfo.hasPets!
+                                                      ? 'Ja'
+                                                      : 'Nein',
+                                                  icon: Icons.pets_outlined,
+                                                  title: 'Haustiere: ')
+                                              : Container(),
+                                          const SizedBox(
+                                            height: 18,
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                                isBioValid
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            'Mehr über mich',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                          const SizedBox(
+                                            height: 14,
+                                          ),
+                                          Text(
+                                            userPublicInfo.bio!,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    color: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium
+                                                        ?.color
+                                                        ?.withOpacity(0.6)),
+                                          )
+                                        ],
+                                      )
+                                    : Container(),
+                              ],
+                            )
+                          : Center(
+                              child: Column(
+                                //center
+                                mainAxisAlignment: MainAxisAlignment.center,
 
-                          SizedBox(
-                            height: 18,
-                          ),
-                          Text(
-                            'Mehr über mich',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          SizedBox(
-                            height: 14,
-                          ),
-                          Text(
-                            userPublicInfo.bio ?? '',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
+                                children: [
+                                  // add a forum icon
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.25,
+                                  ),
+
+                                  Icon(
+                                    Icons.info,
+                                    size: 100,
                                     color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.1),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    'Es sind keine Informationen vorhanden',
+                                    //align center
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
                                         .textTheme
-                                        .bodyMedium
-                                        ?.color
-                                        ?.withOpacity(0.6)),
-                          ),
-                        ],
-                      );
+                                        .titleMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withOpacity(0.15),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            );
                     } else {
-                      return const Center(child: CircularProgressIndicator());
+                      return Container();
                     }
                   }),
-                ),
-                SizedBox(
-                  height: 18,
                 ),
               ],
             ),

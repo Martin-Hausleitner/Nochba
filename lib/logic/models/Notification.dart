@@ -3,6 +3,7 @@ import 'package:nochba/logic/interfaces/IModel.dart';
 
 enum NotificationType {
   none,
+  postRequest,
   chatRequest,
 }
 
@@ -48,7 +49,9 @@ class Notification implements IModel {
       );
 
   static NotificationType getNotificationType(String keyword) {
-    if (keyword == NotificationType.chatRequest.name) {
+    if (keyword == NotificationType.postRequest.name) {
+      return NotificationType.postRequest;
+    } else if (keyword == NotificationType.chatRequest.name) {
       return NotificationType.chatRequest;
     } else {
       return NotificationType.none;

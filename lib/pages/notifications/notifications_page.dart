@@ -5,6 +5,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/logic/data_access.dart';
+import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
@@ -145,11 +146,28 @@ class NotificationsPage extends GetView<NotificationsController> {
                     itemBuilder: (BuildContext context, int index) {
                       final notification = notifications.elementAt(index);
                       return FutureBuilder<User?>(
-                          future: controller.getUser(notification.fromUser),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final user = snapshot.data!;
+                        future: controller.getUser(notification.fromUser),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final user = snapshot.data!;
 
+                            if (notification.type ==
+                                NotificationType.chatRequest) {
+                              return NotificationElement(
+                                authorName:
+                                    '${user.firstName} ${user.lastName}',
+                                imageUrl: user.imageUrl,
+                                notificationText: 'möchte mit dir schreiben',
+                                time:
+                                    getTimeAgo(notification.createdAt.toDate()),
+                                acceptButtonOnPressed: () async =>
+                                    await controller.onAccept(
+                                        notification, user),
+                                declineButtonOnPressed: () async =>
+                                    await controller.onDecline(notification),
+                              );
+                            } else if (notification.type ==
+                                NotificationType.postRequest) {
                               return FutureBuilder<Post?>(
                                 future:
                                     controller.getPost(notification.postId!),
@@ -180,7 +198,11 @@ class NotificationsPage extends GetView<NotificationsController> {
                             } else {
                               return Container();
                             }
-                          });
+                          } else {
+                            return Container();
+                          }
+                        },
+                      );
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(height: 3),

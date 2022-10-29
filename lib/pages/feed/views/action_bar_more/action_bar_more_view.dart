@@ -123,7 +123,10 @@ class ActionBarMore extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) =>
                             AlertDialogDeletePost(
-                          onDelete: () => controller.deletePost(post.id),
+                          onDelete: () {
+                            controller.deletePost(post.id);
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                     ),

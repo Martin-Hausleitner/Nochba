@@ -39,7 +39,7 @@ class BackOutlinedButton extends StatelessWidget {
             ),
       ),
       onPressed: () {
-        controller.jumpToStartPage();
+        controller.jumpBack();
         HapticFeedback.lightImpact();
         FocusScope.of(context).unfocus();
       },

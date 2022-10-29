@@ -197,7 +197,7 @@ class DataAccess extends GetxService {
     if (toUser.isEmpty) {
       return false;
     }
-    if (type == NotificationType.chatRequest &&
+    if (type == NotificationType.postRequest &&
         (postId == null || postId.isEmpty)) {
       return false;
     }

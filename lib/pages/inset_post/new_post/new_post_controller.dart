@@ -11,38 +11,35 @@ import 'package:nochba/pages/inset_post/Inset_post_controller.dart';
 class NewPostController extends InsetPostController {
   final pageController = PageController(initialPage: 0);
 
-  final Rx<CategoryOptions> _category = CategoryOptions.None.obs;
-  final Rx<CategoryOptions> _subcategory = CategoryOptions.None.obs;
   final RxList<CategoryOptions> _subcategoriesForDisplay =
       <CategoryOptions>[CategoryOptions.Other].obs;
 
-  CategoryOptions get category => _category.value;
-  CategoryOptions get subcategory => _subcategory.value;
   List<CategoryOptions> get subcategoriesForDisplay => _subcategoriesForDisplay;
 
   updateCategory(CategoryOptions newCategory) {
     if (newCategory == CategoryModul.message) {
-      _category.value = CategoryModul.message;
+      setCategory(CategoryModul.message);
       _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfMessage;
 
       pageController.jumpToPage(1);
     } else if (newCategory == CategoryModul.search) {
-      _category.value = CategoryModul.search;
+      setCategory(CategoryModul.search);
       _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfSearch;
 
       pageController.jumpToPage(1);
     } else if (newCategory == CategoryModul.lending) {
-      _category.value = CategoryModul.lending;
+      setCategory(CategoryModul.lending);
       _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfLending;
 
       pageController.jumpToPage(2);
     } else if (newCategory == CategoryModul.event) {
-      _category.value = CategoryModul.event;
+      setCategory(CategoryModul.event);
       _subcategoriesForDisplay.value = CategoryModul.subCategoriesOfEvent;
 
       pageController.jumpToPage(2);
     }
 
+    refreshCategoryName();
     /*pageController.animateToPage(
                         1,
                         duration: const Duration(milliseconds: 400),
@@ -60,26 +57,27 @@ class NewPostController extends InsetPostController {
   }
 
   updateSubcategory(CategoryOptions newSubcategory) {
-    if (CategoryModul.subCategories.contains(newSubcategory) ||
-        newSubcategory == CategoryOptions.Other) {
-      _subcategory.value =
-          newSubcategory == CategoryOptions.Other ? category : newSubcategory;
+    if (CategoryModul.subCategories.contains(newSubcategory)) {
+      setSubCategory(newSubcategory);
 
+      refreshCategoryName();
       pageController.jumpToPage(2);
     }
   }
 
   jumpBack() {
-    if (_subcategory.value == CategoryOptions.None) {
-      _category.value = CategoryOptions.None;
+    if (subCategory == CategoryOptions.None) {
+      setCategory(CategoryOptions.None);
+
       pageController.jumpToPage(0);
     } else {
-      _subcategory.value = CategoryOptions.None;
+      setSubCategory(CategoryOptions.None);
 
       pageController.jumpToPage(1);
     }
 
-    clear();
+    clear(alsoCategory: false);
+    refreshCategoryName();
   }
 
   //ceate a function showTagBottomsheet which opens a  showModalBottomSheet<void>(
@@ -111,8 +109,8 @@ class NewPostController extends InsetPostController {
         description: descriptionController.text.trim(),
         imageUrl: imageUrl,
         createdAt: Timestamp.now(),
-        category: subcategory != CategoryOptions.None
-            ? subcategory.name.toString()
+        category: subCategory != CategoryOptions.None
+            ? subCategory.name.toString()
             : category.name.toString(),
         tags: [...tags..sort()],
         liked: [],
@@ -125,10 +123,7 @@ class NewPostController extends InsetPostController {
     }
 
     clear();
-    _category.value = CategoryOptions.None;
-    _subcategory.value = CategoryOptions.None;
     _subcategoriesForDisplay.clear();
-    update();
 
     pageController.nextPage(
         duration: const Duration(milliseconds: 1), curve: Curves.easeIn);

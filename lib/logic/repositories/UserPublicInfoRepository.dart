@@ -14,6 +14,10 @@ class UserPublicInfoRepository extends GenericRepository<UserPublicInfo> {
         .get(resourceContext.uid, nexus: [resourceContext.uid]);
   }
 
+  Future<UserPublicInfo?> getPublicInfoOfUser(String id) async {
+    return await get(id, nexus: [id]);
+  }
+
   Future<void> updateProfessionOfCurrentUser(String profession) async {
     try {
       return await updateFields(resourceContext.uid, {

@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
 import 'package:nochba/logic/repositories/UserRepository.dart';
+import 'package:nochba/views/public_profile/public_profile_view.dart';
 
 class PrivateProfileController extends GetxController {
   var counter = 0.obs;
@@ -13,6 +15,11 @@ class PrivateProfileController extends GetxController {
 
   final userRepository = Get.find<UserRepository>();
   final postRepository = Get.find<PostRepository>();
+  final authService = Get.find<AuthService>();
+
+  pushPublicProfileView() {
+    Get.to(() => PublicProfileView(userId: authService.uid));
+  }
 
   Future<User?> getCurrentUser() {
     try {

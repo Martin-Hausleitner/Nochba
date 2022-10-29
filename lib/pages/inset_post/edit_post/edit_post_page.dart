@@ -179,9 +179,11 @@ class EditPostView extends StatelessWidget {
                           NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<EditPostController>(
                             builder: (c) => AddPhotoElement(
-                                image: controller.image,
-                                selectImage: controller.selectImage,
-                                deleteImage: controller.deleteImage),
+                              image: controller.image,
+                              selectImage: controller.selectImage,
+                              deleteImage: controller.deleteImage,
+                              editImage: controller.editImage,
+                            ),
                           ),
                           NewPostTitle(label: 'Tags'),
                           TagsElement(

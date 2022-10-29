@@ -19,14 +19,20 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
 
   Future validate(T? model, AccessMode accessMode) async {}
 
-  void beforeAction(T? model, AccessMode accessMode) {}
+  Future beforeAction(AccessMode accessMode, {T? model, String? id}) async {}
+  Future afterAction(AccessMode accessMode, {T? model, String? id}) async {}
 
   Stream<List<T>> getAll(
       {MapEntry<String, bool>? orderFieldDescending, List<String>? nexus}) {
     validate(null, AccessMode.getAll);
     try {
-      return resource.getAll(
+      beforeAction(AccessMode.getAll);
+
+      final result = resource.getAll(
           orderFieldDescending: orderFieldDescending, nexus: nexus);
+
+      afterAction(AccessMode.getAll);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -35,7 +41,12 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   Future<T?> get(String id, {List<String>? nexus}) async {
     await validate(null, AccessMode.get);
     try {
-      return resource.get(id, nexus: nexus);
+      await beforeAction(AccessMode.get, id: id);
+
+      final result = resource.get(id, nexus: nexus);
+
+      await afterAction(AccessMode.get, id: id);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -44,7 +55,12 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   Stream<T?> getAsStream(String id, {List<String>? nexus}) {
     validate(null, AccessMode.get);
     try {
-      return resource.getAsStream(id, nexus: nexus);
+      beforeAction(AccessMode.get, id: id);
+
+      final result = resource.getAsStream(id, nexus: nexus);
+
+      afterAction(AccessMode.get, id: id);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -54,7 +70,12 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
       {List<String>? nexus}) async {
     await validate(null, AccessMode.getWhere);
     try {
-      return resource.getWhere(fields, nexus: nexus);
+      await beforeAction(AccessMode.getWhere);
+
+      final result = resource.getWhere(fields, nexus: nexus);
+
+      await afterAction(AccessMode.getWhere);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -62,14 +83,25 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
 
   Future<List<T>> getAllWhereIn(MapEntry<String, List<Object?>?> whereIn,
       {List<String>? nexus}) async {
-    validate(null, AccessMode.getAllWhereIn);
-    return resource.getAllWhereIn(whereIn, nexus: nexus);
+    await validate(null, AccessMode.getAllWhereIn);
+
+    await beforeAction(AccessMode.getAllWhereIn);
+
+    final result = resource.getAllWhereIn(whereIn, nexus: nexus);
+
+    await afterAction(AccessMode.getAllWhereIn);
+    return result;
   }
 
   Future<void> update(T model, {List<String>? nexus}) async {
     await validate(model, AccessMode.update);
     try {
-      return resource.update(model, nexus: nexus);
+      await beforeAction(AccessMode.update, model: model);
+
+      final result = resource.update(model, nexus: nexus);
+
+      await afterAction(AccessMode.update, model: model);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -77,9 +109,14 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
 
   Future<void> updateFields(String id, Map<String, dynamic> fields,
       {List<String>? nexus}) async {
-    //validate(model, AccessMode.update);
+    await validate(null, AccessMode.updateFields);
     try {
-      return resource.updateFields(id, fields, nexus: nexus);
+      await beforeAction(AccessMode.updateFields, id: id);
+
+      final result = resource.updateFields(id, fields, nexus: nexus);
+
+      await afterAction(AccessMode.updateFields, id: id);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -88,7 +125,12 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   Future<void> insert(T model, {List<String>? nexus}) async {
     await validate(model, AccessMode.insert);
     try {
-      return resource.insert(model, nexus: nexus);
+      await beforeAction(AccessMode.insert, model: model);
+
+      final result = resource.insert(model, nexus: nexus);
+
+      await afterAction(AccessMode.insert, model: model);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -97,7 +139,12 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   Future<void> delete(String id, {List<String>? nexus}) async {
     await validate(null, AccessMode.delete);
     try {
-      return resource.delete(id, nexus: nexus);
+      await beforeAction(AccessMode.delete, id: id);
+
+      final result = resource.delete(id, nexus: nexus);
+
+      await afterAction(AccessMode.delete, id: id);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -120,10 +167,12 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     Map<String, dynamic>? whereIsEqualTo,
     Map<String, dynamic>? whereIsNotEqualTo,
     List<String>? nexus,
-  }) {
-    validate(null, AccessMode.query);
+  }) async {
+    await validate(null, AccessMode.query);
     try {
-      return resource.query(
+      await beforeAction(AccessMode.query);
+
+      final result = resource.query(
         orderFieldDescending,
         limit: limit,
         limitToLast: limitToLast,
@@ -141,6 +190,9 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
         whereIsNotEqualTo: whereIsNotEqualTo,
         nexus: nexus,
       );
+
+      await afterAction(AccessMode.query);
+      return result;
     } on Exception {
       rethrow;
     }
@@ -166,7 +218,9 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
   }) {
     validate(null, AccessMode.query);
     try {
-      return resource.queryAsStream(
+      beforeAction(AccessMode.query);
+
+      final result = resource.queryAsStream(
         orderFieldDescending,
         limit: limit,
         limitToLast: limitToLast,
@@ -184,6 +238,9 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
         whereIsNotEqualTo: whereIsNotEqualTo,
         nexus: nexus,
       );
+
+      afterAction(AccessMode.query);
+      return result;
     } on Exception {
       rethrow;
     }

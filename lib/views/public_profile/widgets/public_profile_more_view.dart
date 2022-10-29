@@ -10,13 +10,17 @@ import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
+import 'package:nochba/views/public_profile/public_profile_controller.dart';
 
 class PublicProfileMoreView extends StatelessWidget {
-  final String userID;
   const PublicProfileMoreView({
     Key? key,
-    required this.userID,
+    required this.controller,
+    required this.userId,
   }) : super(key: key);
+
+  final PublicProfileController controller;
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -104,15 +108,13 @@ class PublicProfileMoreView extends StatelessWidget {
                   );
                 },
               ),
-              ActionCard(
-                title: 'Profil bearbeiten',
-                icon: FlutterRemix.pencil_line,
-                //open EditProfileView() widget
-                onTap: () {
-                  Get.snackbar('LOL',
-                      'Jetzt sollte die EditProfileView geöffent werden');
-                },
-              ),
+              if (controller.shouldShowEditProfileButton(userId))
+                ActionCard(
+                  title: 'Profil bearbeiten',
+                  icon: FlutterRemix.pencil_line,
+                  //open EditProfileView() widget
+                  onTap: () => controller.pushEditProfileView(),
+                ),
               // ActionCard(
               //   title: 'Post löschen',
               //   icon: FlutterRemix.delete_bin_line,

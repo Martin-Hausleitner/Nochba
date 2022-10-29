@@ -2,14 +2,40 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/models/ImageFile.dart';
+import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/views/new_post/tag_dialog.dart';
 
 class InsetPostController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+
+  final Rx<CategoryOptions> _category = CategoryOptions.None.obs;
+  final Rx<CategoryOptions> _subCategory = CategoryOptions.None.obs;
+
+  CategoryOptions get category => _category.value;
+  CategoryOptions get subCategory => _subCategory.value;
+
+  void setCategory(CategoryOptions categoryOption) {
+    _category.value = categoryOption;
+  }
+
+  void setSubCategory(CategoryOptions categoryOption) {
+    _subCategory.value = categoryOption;
+  }
+
+  final Rx<String> _categoryName = ''.obs;
+  String get categoryName => _categoryName.value;
+
+  void refreshCategoryName() =>
+      _categoryName.value = category == CategoryOptions.None
+          ? ''
+          : subCategory == CategoryOptions.None
+              ? category.name.toString()
+              : "${category.name.toString()} - ${subCategory.name.toString()}";
 
   final RxList<String> _tags = <String>[].obs;
 
@@ -22,7 +48,8 @@ class InsetPostController extends GetxController {
   ImageFile get imageFile => _imageFile.value;
 
   void setImageFile(ImageFile imageFile) {
-    _imageFile.value = imageFile;
+    _imageFile.value.name = imageFile.name;
+    _imageFile.value.file = imageFile.file;
   }
 
   String get imageName => imageFile.name;
@@ -79,6 +106,22 @@ class InsetPostController extends GetxController {
         });
   }
 
+  editImage(BuildContext context) async {
+    Uint8List? editedImage = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ImageEditor(
+          image: _imageFile.value.file,
+        ),
+      ),
+    );
+
+    if (editedImage != null) {
+      _imageFile.value.file = editedImage;
+      update();
+    }
+  }
+
   pickImage(ImageSource imageSource) async {
     final imagePicker = ImagePicker();
 
@@ -105,9 +148,14 @@ class InsetPostController extends GetxController {
     update();
   }
 
-  clear() {
+  clear({bool alsoCategory = true}) {
     titleController.clear();
     descriptionController.clear();
+    if (alsoCategory) {
+      _category.value = CategoryOptions.None;
+    }
+    _subCategory.value = CategoryOptions.None;
+    refreshCategoryName();
     _tags.clear();
     //image = null;
     //imageName = '';
