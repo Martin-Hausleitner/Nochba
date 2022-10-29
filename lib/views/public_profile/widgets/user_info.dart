@@ -147,6 +147,9 @@ class UserInfo extends GetView<PublicProfileController> {
                                         isFamilyStatusValid ||
                                         isHasPetsValid
                                     ? Column(
+                                        //set left align
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Basis Info',
@@ -223,6 +226,8 @@ class UserInfo extends GetView<PublicProfileController> {
                                     : Container(),
                                 isBioValid
                                     ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Mehr über mich',
@@ -262,7 +267,7 @@ class UserInfo extends GetView<PublicProfileController> {
                                   // add a forum icon
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
-                                        0.25,
+                                        0.1,
                                   ),
 
                                   Icon(

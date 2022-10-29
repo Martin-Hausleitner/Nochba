@@ -171,7 +171,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                       children: [
                                         Flexible(
                                           child: Text(
-                                            'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                                            'Zeige nur den ersten Buchstaben deines Nachnahmen an',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium
@@ -295,6 +295,11 @@ class EditProfileView extends GetView<EditProfileController> {
                             children: [
                               LocooTextField(
                                 label: 'Beruf',
+                                suffixIcon: TextFieldRemoveTextButton(
+                                  onPressed: () => controller
+                                      .firstNameTextController
+                                      .clear(),
+                                ),
                                 autofocus: true,
                                 controller:
                                     controller.getProfessionTextController(
@@ -329,6 +334,9 @@ class EditProfileView extends GetView<EditProfileController> {
                                 controller.updateBioOfCurrentUser(),
                             children: [
                               LocooTextField(
+                     
+                                height: //size of media query
+                                    MediaQuery.of(context).size.height * 0.3,
                                 label: 'Mehr über dich',
                                 controller: controller
                                     .getBioTextController(userPublicInfo.bio),
@@ -337,9 +345,6 @@ class EditProfileView extends GetView<EditProfileController> {
                                 keyboardType: TextInputType.multiline,
                               ),
                               SizedBox(height: 10),
-                              SizedBox(
-                                height: 15,
-                              ),
                             ],
                           );
                         },
@@ -495,6 +500,10 @@ class NameElement extends StatelessWidget {
                         textInputAction: TextInputAction.done,
                         controller:
                             controller.getLastNameTextController(user.lastName),
+                        suffixIcon: TextFieldRemoveTextButton(
+                          onPressed: () =>
+                              controller.firstNameTextController.clear(),
+                        ),
                       ),
                       SizedBox(
                         height: 15,
