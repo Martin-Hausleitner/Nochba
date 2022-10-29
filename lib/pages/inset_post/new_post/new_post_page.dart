@@ -24,6 +24,7 @@ class NewPostPage extends GetView<NewPostController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
 
       // appBar: AppBar(
