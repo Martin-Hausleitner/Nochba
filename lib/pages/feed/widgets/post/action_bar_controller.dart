@@ -41,9 +41,9 @@ class ActionBarController extends GetxController {
     return uid == _authService.uid;
   }
 
-  pushEditPostView(post) {
+  pushEditPostView(String postId) {
     Get.to(() => EditPostPage(
-          post: post,
+          postId: postId,
         ));
   }
 

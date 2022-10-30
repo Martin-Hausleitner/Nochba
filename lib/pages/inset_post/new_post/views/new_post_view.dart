@@ -157,6 +157,7 @@ class NewPostView extends StatelessWidget {
                             tags: controller.tags,
                             removeTag: controller.removeTag,
                             showTagDialog: controller.showTagDialog,
+                            addTag: controller.addTag,
                           ),
 
                           // Home(),
@@ -329,12 +330,14 @@ class TagsElement extends StatelessWidget {
       {Key? key,
       required this.tags,
       required this.removeTag,
-      required this.showTagDialog})
+      required this.showTagDialog,
+      required this.addTag})
       : super(key: key);
 
   final List<String> tags;
   final Function(String tag) removeTag;
   final Function(BuildContext context) showTagDialog;
+  final Function(String tag) addTag;
 
   @override
   Widget build(BuildContext context) {
@@ -405,7 +408,7 @@ class TagsElement extends StatelessWidget {
             //show sizedbox height 10 when more then 1 tag is in the list
             SizedBox(height: 8),
 
-            ButtonTextField(),
+            ButtonTextField(onPressAdd: addTag),
 
             // ElevatedButton(
             //   onPressed: () => showTagDialog(context),
@@ -480,6 +483,7 @@ class BottomNavBar extends StatelessWidget {
               controller: controller,
               icon: FlutterRemix.arrow_left_s_line,
               label: 'Zurück',
+              onPress: () => controller.jumpBack(),
             ),
           ),
           const SizedBox(width: 8),
@@ -649,7 +653,9 @@ class _HomeState extends State<Home> {
 }
 
 class ButtonTextField extends StatefulWidget {
-  const ButtonTextField({super.key});
+  const ButtonTextField({super.key, required this.onPressAdd});
+
+  final Function(String tag) onPressAdd;
 
   @override
   State<ButtonTextField> createState() => _ButtonTextFieldState();
@@ -659,6 +665,7 @@ class ButtonTextField extends StatefulWidget {
 
 class _ButtonTextFieldState extends State<ButtonTextField> {
   bool isButton = true;
+  TextEditingController tagController = TextEditingController();
 
   //rerender when isButton changes
 
@@ -671,6 +678,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
               //show text field
               setState(() {
                 isButton = false;
+                tagController.clear();
                 print(isButton);
               });
             },
@@ -727,9 +735,12 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                     contentPadding: EdgeInsets.zero,
                   ),
                   autofocus: true,
+                  controller: tagController,
                   onEditingComplete: () {
                     //show button
                     setState(() {
+                      widget.onPressAdd(tagController.text);
+                      tagController.clear();
                       isButton = true;
                       print(isButton);
                     });
@@ -752,6 +763,8 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                 onPressed: () {
                   //show text field
                   setState(() {
+                    widget.onPressAdd(tagController.text);
+                    tagController.clear();
                     isButton = true;
                     print(isButton);
                   });

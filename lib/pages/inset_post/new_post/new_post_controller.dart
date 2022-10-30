@@ -7,6 +7,7 @@ import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
 import 'package:nochba/logic/storage/StorageService.dart';
 import 'package:nochba/pages/inset_post/Inset_post_controller.dart';
+import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 
 class NewPostController extends InsetPostController {
   final pageController = PageController(initialPage: 0);
@@ -116,7 +117,8 @@ class NewPostController extends InsetPostController {
         liked: [],
       );
 
-      postRepository.insert(post);
+      await postRepository.insert(post);
+      postId = post.id;
     } on FirebaseAuthException catch (e) {
       print(e);
       Get.snackbar('Error', e.message!);
@@ -127,6 +129,21 @@ class NewPostController extends InsetPostController {
 
     pageController.nextPage(
         duration: const Duration(milliseconds: 1), curve: Curves.easeIn);
+  }
+
+  String? postId;
+  void pushEditPostView() {
+    if (postId != null) {
+      Get.to(() => EditPostPage(
+            postId: postId!,
+          ));
+    }
+  }
+
+  void jumpBackToStartPage() {
+    postId = null;
+    clear();
+    jumpToStartPage();
   }
 
   @override

@@ -6,14 +6,16 @@ import 'package:nochba/pages/inset_post/new_post/new_post_controller.dart';
 class BackOutlinedButton extends StatelessWidget {
   final String label;
   final IconData icon;
-  const BackOutlinedButton({
-    Key? key,
-    required this.controller,
-    required this.label,
-    required this.icon,
-  }) : super(key: key);
+  const BackOutlinedButton(
+      {Key? key,
+      required this.controller,
+      required this.label,
+      required this.icon,
+      required this.onPress})
+      : super(key: key);
 
   final NewPostController controller;
+  final Function() onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class BackOutlinedButton extends StatelessWidget {
             ),
       ),
       onPressed: () {
-        controller.jumpBack();
+        onPress();
         HapticFeedback.lightImpact();
         FocusScope.of(context).unfocus();
       },

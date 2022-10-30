@@ -114,7 +114,7 @@ class ActionBarMore extends StatelessWidget {
                     ActionCard(
                       title: 'Post bearbeiten',
                       icon: FlutterRemix.pencil_line,
-                      onTap: () => controller.pushEditPostView(post),
+                      onTap: () => controller.pushEditPostView(post.id),
                     ),
                     ActionCard(
                       title: 'Post löschen',

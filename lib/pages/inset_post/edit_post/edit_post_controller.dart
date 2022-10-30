@@ -12,27 +12,31 @@ class EditPostController extends InsetPostController {
   ImageFile? imageFileOfOldPost;
 
   final storageService = Get.find<StorageService>();
+  final postRepository = Get.find<PostRepository>();
 
-  Future<bool> initializePage(Post post) async {
+  Future<bool> initializePage(String postId) async {
     clear();
 
-    oldPost = post;
+    oldPost = await postRepository.get(postId);
 
-    titleController.text = post.title;
-    descriptionController.text = post.description;
+    titleController.text = oldPost!.title;
+    descriptionController.text = oldPost!.description;
 
-    CategoryOptions tmp = CategoryModul.getCategoryOptionByName(post.category);
+    CategoryOptions tmp =
+        CategoryModul.getCategoryOptionByName(oldPost!.category);
     if (CategoryModul.isMainCategory(tmp)) {
       setCategory(tmp);
     } else if (CategoryModul.isSubCategory(tmp)) {
-      setSubCategory(tmp);
       setCategory(CategoryModul.getMainCategoryOfSubCategory(tmp));
+      setSubCategory(tmp);
     }
+    //Get.snackbar(category.name, subCategory.name);
+
     refreshCategoryName();
-    addTags(post.tags);
+    addTags(oldPost!.tags);
 
     imageFileOfOldPost =
-        await storageService.downloadPostImageFromStorage(post.imageUrl);
+        await storageService.downloadPostImageFromStorage(oldPost!.imageUrl);
     if (imageFileOfOldPost != null) {
       setImageFile(imageFileOfOldPost!);
     }
@@ -62,8 +66,6 @@ class EditPostController extends InsetPostController {
   bool isSubCategorySelected(CategoryOptions value) =>
       (CategoryModul.isSubCategory(value) && value == subCategory);
 
-  final postRepository = Get.find<PostRepository>();
-
   updatePost() async {
     //final isValid = formKey.currentState!.validate();
     if (/*!isValid ||*/ category == CategoryOptions.None || oldPost == null) {
@@ -80,8 +82,8 @@ class EditPostController extends InsetPostController {
       final imageUrl = image == null
           ? ''
           : (imageFileOfOldPost != null &&
-                      imageName.isNotEmpty &&
-                      imageFileOfOldPost!.name != imageName) ||
+                      image != null &&
+                      imageFileOfOldPost!.file != image) ||
                   (imageFileOfOldPost == null && image != null)
               ? await storageService.uploadPostImageToStorage(imageName, image!)
               : oldPost!.imageUrl;

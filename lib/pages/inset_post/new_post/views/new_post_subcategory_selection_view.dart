@@ -159,6 +159,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
             controller: controller,
             icon: FlutterRemix.arrow_left_s_line,
             label: "Zurück",
+            onPress: () => controller.jumpBack(),
           ),
         ],
       ),

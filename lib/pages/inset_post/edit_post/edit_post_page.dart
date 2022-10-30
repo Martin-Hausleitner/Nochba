@@ -11,11 +11,9 @@ import 'package:nochba/pages/inset_post/new_post/widgets/new_post_title.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 
 class EditPostPage extends GetView<EditPostController> {
-  EditPostPage({super.key, required this.post}) {
-    //controller.initializePage(post);
-  }
+  const EditPostPage({super.key, required this.postId});
 
-  final Post post;
+  final String postId;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +33,7 @@ class EditPostPage extends GetView<EditPostController> {
               icon: const Icon(Icons.arrow_back), onPressed: () => Get.back()),
         ),
         body: FutureBuilder<bool>(
-          future: controller.initializePage(post),
+          future: controller.initializePage(postId),
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -190,6 +188,7 @@ class EditPostView extends StatelessWidget {
                             tags: controller.tags,
                             removeTag: controller.removeTag,
                             showTagDialog: controller.showTagDialog,
+                            addTag: controller.addTag,
                           ),
                         ],
                       ),

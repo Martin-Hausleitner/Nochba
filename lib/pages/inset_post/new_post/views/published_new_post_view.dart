@@ -124,14 +124,12 @@ class PublishedNewPostView extends StatelessWidget {
                 controller: controller,
                 icon: FlutterRemix.pencil_line,
                 label: "Post Bearbeiten",
+                onPress: () => controller.pushEditPostView(),
               ),
               SizedBox(height: 5),
               NextElevatedButton(
                 onPressed: //controller.addPost() and go to
-                    () {
-                  controller.jumpToStartPage();
-                  // Get.to(PublishedNewPostView());
-                },
+                    () => controller.jumpBackToStartPage(),
                 controller: controller,
                 icon: FlutterRemix.home_2_line,
                 label: 'Zurück zum Feed',

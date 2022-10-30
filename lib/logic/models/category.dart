@@ -54,14 +54,14 @@ class CategoryModul {
   }
 
   static CategoryOptions getMainCategoryOfSubCategory(
-      CategoryOptions categoryOptions) {
-    if (subCategoriesOfSearch.contains(categoryOptions)) {
+      CategoryOptions categoryOption) {
+    if (subCategoriesOfSearch.contains(categoryOption)) {
       return CategoryModul.search;
-    } else if (subCategoriesOfMessage.contains(categoryOptions)) {
+    } else if (subCategoriesOfMessage.contains(categoryOption)) {
       return CategoryModul.message;
-    } else if (subCategoriesOfEvent.contains(categoryOptions)) {
+    } else if (subCategoriesOfEvent.contains(categoryOption)) {
       return CategoryModul.event;
-    } else if (subCategoriesOfLending.contains(categoryOptions)) {
+    } else if (subCategoriesOfLending.contains(categoryOption)) {
       return CategoryModul.lending;
     } else {
       return CategoryOptions.None;
@@ -84,27 +84,27 @@ class CategoryModul {
   }
 
   static CategoryOptions getCategoryOptionByName(String category) {
-    if (CategoryOptions.Message.name.toString() == category) {
+    if (CategoryOptions.Message.name == category) {
       return CategoryOptions.Message;
-    } else if (CategoryOptions.Question.name.toString() == category) {
+    } else if (CategoryOptions.Question.name == category) {
       return CategoryOptions.Question;
-    } else if (CategoryOptions.Appeal.name.toString() == category) {
+    } else if (CategoryOptions.Appeal.name == category) {
       return CategoryOptions.Appeal;
-    } else if (CategoryOptions.Warning.name.toString() == category) {
+    } else if (CategoryOptions.Warning.name == category) {
       return CategoryOptions.Warning;
-    } else if (CategoryOptions.Recommendation.name.toString() == category) {
+    } else if (CategoryOptions.Recommendation.name == category) {
       return CategoryOptions.Recommendation;
-    } else if (CategoryOptions.Found.name.toString() == category) {
+    } else if (CategoryOptions.Found.name == category) {
       return CategoryOptions.Found;
-    } else if (CategoryOptions.Search.name.toString() == category) {
+    } else if (CategoryOptions.Search.name == category) {
       return CategoryOptions.Search;
-    } else if (CategoryOptions.Help.name.toString() == category) {
+    } else if (CategoryOptions.Help.name == category) {
       return CategoryOptions.Help;
-    } else if (CategoryOptions.Lost.name.toString() == category) {
+    } else if (CategoryOptions.Lost.name == category) {
       return CategoryOptions.Lost;
-    } else if (CategoryOptions.Lending.name.toString() == category) {
+    } else if (CategoryOptions.Lending.name == category) {
       return CategoryOptions.Lending;
-    } else if (CategoryOptions.Event.name.toString() == category) {
+    } else if (CategoryOptions.Event.name == category) {
       return CategoryOptions.Event;
     } else {
       return CategoryOptions.None;

@@ -20,16 +20,17 @@ class PostRepository extends GenericRepository<Post> {
     } else if (accessMode == AccessMode.update && model != null) {
       final postBeforeDelete = await get(model.id);
 
-      final oldImageName = await _storageService
-          .downloadPostImageNameFromStorage(postBeforeDelete!.imageUrl);
-      final newImageName = await _storageService
-          .downloadPostImageNameFromStorage(model.imageUrl);
+      final oldImage = await _storageService
+          .downloadPostImageFromStorage(postBeforeDelete!.imageUrl);
+      final newImage =
+          await _storageService.downloadPostImageFromStorage(model.imageUrl);
 
-      if ((oldImageName.isNotEmpty &&
-              newImageName.isNotEmpty &&
-              oldImageName != newImageName) ||
-          (oldImageName.isNotEmpty && newImageName.isEmpty)) {
-        _storageService.deletePostImageFromStorage(oldImageName);
+      if ((oldImage != null &&
+              newImage != null &&
+              oldImage.file != newImage.file &&
+              oldImage.name != newImage.name) ||
+          (oldImage != null && newImage == null)) {
+        _storageService.deletePostImageFromStorage(oldImage.name);
       }
     }
   }
