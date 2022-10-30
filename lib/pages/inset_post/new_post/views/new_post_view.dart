@@ -402,39 +402,40 @@ class TagsElement extends StatelessWidget {
             //show sizedbox height 10 when more then 1 tag is in the list
             SizedBox(height: 8),
 
-            // round elevated button with add icon and no elevation
-            ElevatedButton(
-              onPressed: () => showTagDialog(context),
-              style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).primaryColor,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.add,
-                    color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
-                    size: 18,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    'Tag hinzufügen',
-                    style: Theme.of(context).textTheme.button?.copyWith(
-                          color: Theme.of(context)
-                              .buttonTheme
-                              .colorScheme
-                              ?.onPrimary,
-                          letterSpacing: -0.07,
-                        ),
-                  ),
-                ],
-              ),
-            ),
+            ButtonTextField(),
+
+            // ElevatedButton(
+            //   onPressed: () => showTagDialog(context),
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Theme.of(context).primaryColor,
+            //     elevation: 0,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(40),
+            //     ),
+            //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            //   ),
+            //   child: Row(
+            //     mainAxisSize: MainAxisSize.min,
+            //     children: [
+            //       Icon(
+            //         Icons.add,
+            //         color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
+            //         size: 18,
+            //       ),
+            //       SizedBox(width: 5),
+            //       Text(
+            //         'Tag hinzufügen',
+            //         style: Theme.of(context).textTheme.button?.copyWith(
+            //               color: Theme.of(context)
+            //                   .buttonTheme
+            //                   .colorScheme
+            //                   ?.onPrimary,
+            //               letterSpacing: -0.07,
+            //             ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             // LocooCircularIconButton(
             //   radius: 30,
@@ -672,6 +673,152 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+class ButtonTextField extends StatefulWidget {
+  const ButtonTextField({super.key});
+
+  @override
+  State<ButtonTextField> createState() => _ButtonTextFieldState();
+}
+
+//create a setState for isButton which is true when the button is shown and false when the text field is shown
+
+class _ButtonTextFieldState extends State<ButtonTextField> {
+  bool isButton = true;
+
+  //rerender when isButton changes
+
+  @override
+  Widget build(BuildContext context) {
+    return isButton
+        ? ElevatedButton(
+            // onPressed: () => showTagDialog(context),
+            onPressed: () {
+              //show text field
+              setState(() {
+                isButton = false;
+                print(isButton);
+              });
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).primaryColor,
+              elevation: 0,
+              shadowColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.add,
+                  color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
+                  size: 18,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'Tag hinzufügen',
+                  style: Theme.of(context).textTheme.button?.copyWith(
+                        color: Theme.of(context)
+                            .buttonTheme
+                            .colorScheme
+                            ?.onPrimary,
+                        letterSpacing: -0.07,
+                      ),
+                ),
+              ],
+            ),
+          )
+
+        // ? OutlinedButton(
+        //     onPressed: () {
+        //       //show text field
+        //       setState(() {
+        //         isButton = false;
+        //         print(isButton);
+        //       });
+        //     },
+        //     child: const Text('Show Text Field1'),
+        //   )
+        : Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  // no border 1 padding
+                  decoration: InputDecoration(
+                    isDense: true,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                  autofocus: true,
+                  onEditingComplete: () {
+                    //show button
+                    setState(() {
+                      isButton = true;
+                      print(isButton);
+                    });
+                  },
+                ),
+              ),
+              // OutlinedButton(
+              //   onPressed: () {
+              //     //show text field
+              //     setState(() {
+              //       isButton = true;
+              //       print(isButton);
+              //     });
+              //   },
+              //   child: const Text('Speichern'),
+              // )
+              SizedBox(width: 10),
+              ElevatedButton(
+                // onPressed: () => showTagDialog(context),
+                onPressed: () {
+                  //show text field
+                  setState(() {
+                    isButton = true;
+                    print(isButton);
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).primaryColor,
+                  elevation: 0,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      FlutterRemix.check_fill,
+                      color:
+                          Theme.of(context).buttonTheme.colorScheme?.onPrimary,
+                      size: 18,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      'Add',
+                      style: Theme.of(context).textTheme.button?.copyWith(
+                            color: Theme.of(context)
+                                .buttonTheme
+                                .colorScheme
+                                ?.onPrimary,
+                            letterSpacing: -0.07,
+                          ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          );
+  }
+}
+
 
 //     return SingleChildScrollView(
 //       // padding: EdgeInsets.all(25),

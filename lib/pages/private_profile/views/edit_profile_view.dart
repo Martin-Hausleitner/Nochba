@@ -306,9 +306,6 @@ class EditProfileView extends GetView<EditProfileController> {
                                         userPublicInfo.profession),
                               ),
                               SizedBox(height: 10),
-                              SizedBox(
-                                height: 15,
-                              ),
                             ],
                           );
                         },
@@ -334,7 +331,6 @@ class EditProfileView extends GetView<EditProfileController> {
                                 controller.updateBioOfCurrentUser(),
                             children: [
                               LocooTextField(
-                     
                                 height: //size of media query
                                     MediaQuery.of(context).size.height * 0.3,
                                 label: 'Mehr über dich',
