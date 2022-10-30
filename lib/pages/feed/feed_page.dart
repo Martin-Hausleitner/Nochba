@@ -245,7 +245,9 @@ class FeedPage extends GetView<FeedController> {
               child: StreamBuilder<List<models.Post>>(
                 stream: controller.getPosts(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasError) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
                     return const Center(
                         child: Text('The feeds are not available at the moment',
                             textAlign: TextAlign.center,
@@ -264,7 +266,10 @@ class FeedPage extends GetView<FeedController> {
                         return FutureBuilder<models.User?>(
                           future: controller.getUser(post.user),
                           builder: ((context, snapshot) {
-                            if (snapshot.hasData) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Container();
+                            } else if (snapshot.hasData) {
                               final user = snapshot.data!;
                               return Padding(
                                 padding: // top 3
@@ -286,7 +291,7 @@ class FeedPage extends GetView<FeedController> {
                           const SizedBox(height: 0),
                     );
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return Container();
                     // return const Text('There are no posts in the moment',
                     //   textAlign: TextAlign.center,
                     //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
