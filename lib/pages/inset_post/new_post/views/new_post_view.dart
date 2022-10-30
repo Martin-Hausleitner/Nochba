@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_title.dart';
+import 'package:nochba/pages/inset_post/new_post/widgets/publish_button.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circle_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
@@ -483,40 +484,9 @@ class BottomNavBar extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: ElevatedButton.icon(
-              onPressed: //controller.addPost() and go to
-                  () {
-                controller.addPost();
-                // controller.pageController.nextPage(
-                //     duration: const Duration(milliseconds: 1),
-                //     curve: Curves.easeInOut);
-                //controller.jumpToPage(4);
-                //close keyboard
-                FocusScope.of(context).unfocus();
-                // Get.to(PublishedNewPostView());
-              },
-              icon: Icon(
-                Icons.done_outlined,
-              ),
-              label: Text(
-                'Veröffenlichen',
-                style: Theme.of(context).textTheme.button?.copyWith(
-                      color:
-                          Theme.of(context).buttonTheme.colorScheme?.onPrimary,
-                      letterSpacing: -0.07,
-                    ),
-              ),
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                minimumSize: const Size.fromHeight(60),
-                shadowColor: Colors.transparent,
-                // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
-              ),
+            child: PublishButton(
+              controller: controller,
+              isPublishing: false,
             ),
           ),
         ],
@@ -524,6 +494,8 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 }
+
+//crete a state widget PublishButton
 
 class Home extends StatefulWidget {
   const Home({super.key});
