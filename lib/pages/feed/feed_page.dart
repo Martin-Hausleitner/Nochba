@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
+
 import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/pages/feed/views/feed_post_filter_view.dart';
@@ -22,48 +24,6 @@ class FeedPage extends GetView<FeedController> {
         value: SystemUiOverlayStyle.dark,
         child: Column(
           children: [
-            // TestSlider(),
-            // Test2(),
-
-            // ElevatedButton(
-            //   child: const Text('Filter1'),
-            //   // onPressed: () {
-            //   //   showModalBottomSheet<void>(
-            //   //     context: context,
-            //   //     builder: (BuildContext context) {
-            //   //       return FeedPostFilterView();
-            //   //     },
-            //   //   );
-            //   // },
-            //
-            // ),
-            //create a button which open a bottomsheet
-            // ElevatedButton(
-            //   child: const Text('Edit Post'),
-            //   onPressed: () {
-            //     showModalBottomSheet<void>(
-            //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius:
-            //               BorderRadius.vertical(top: Radius.circular(25.0))),
-            //       context: context,
-            //       isScrollControlled: true,
-            //       builder: (BuildContext context) {
-            //         return BottomSheetCloseSaveView(
-            //           children: [
-            //             Text('edit post'),
-            //           ],
-            //           onSave: () {
-            //             // controller.filterPosts();
-            //           },
-            //         );
-            //       },
-            //     );
-            //   },
-            // ),
-
-            //Create a white container whit round corners on the corners with a coliumn inside with a text "Neues in deiner Nachchbarschaft"
-            // above a wor with a search bar and a on the right a primy round button with a filter icon
             Container(
               // height: 100,
               width: double.infinity,
@@ -237,7 +197,6 @@ class FeedPage extends GetView<FeedController> {
                 ],
               ),
             ),
-
             Expanded(
               child: StreamBuilder<List<models.Post>>(
                 stream: controller.getPosts(),
