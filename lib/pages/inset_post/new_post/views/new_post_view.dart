@@ -486,7 +486,7 @@ class BottomNavBar extends StatelessWidget {
           Expanded(
             child: PublishButton(
               controller: controller,
-              isPublishing: true,
+              isPublishing: false,
             ),
           ),
         ],
