@@ -227,12 +227,9 @@ class FeedPage extends GetView<FeedController> {
                           ),
                           SizedBox(width: 06),
                           CategorieChip(
-                            categorie: 'Event',
+                            categorie: 'Ausleihen',
                           ),
-                          SizedBox(width: 06),
-                          CategorieChip(
-                            categorie: 'Event',
-                          ),
+                          SizedBox(width: 14),
                         ],
                       ),
                     ),
