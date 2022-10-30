@@ -240,7 +240,8 @@ class AddPhotoElement extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: //left 8
+                        const EdgeInsets.only(right: 8.0),
                     child: GestureDetector(
                       onTap: () => editImage(context),
                       child: SizedBox(
@@ -263,7 +264,8 @@ class AddPhotoElement extends StatelessWidget {
                   ),
                 ),
               ],
-            ))
+            ),
+          )
 
         // ? Row(
         //     mainAxisAlignment: MainAxisAlignment.center,
@@ -818,7 +820,6 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
           );
   }
 }
-
 
 //     return SingleChildScrollView(
 //       // padding: EdgeInsets.all(25),
