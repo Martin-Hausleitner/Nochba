@@ -74,116 +74,128 @@ class FeedPage extends GetView<FeedController> {
                   bottomRight: Radius.circular(22),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Column(
-                  //align start
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: // top left right 14
+                        const EdgeInsets.only(top: 14, left: 14, right: 14),
+                    child: Column(
+                      //align start
+                      crossAxisAlignment: CrossAxisAlignment.start,
 
-                  children: [
-                    // const SizedBox(height: 10),
-                    // const Text(
-                    //   'Neues in deiner',
-                    //   style: TextStyle(
-                    //     fontSize: 20,
-                    //     letterSpacing: -0.5,
-                    //     fontWeight: FontWeight.w800,
-                    //   ),
-                    // ),
-                    // // larger text in primery Nachbarschaft
-                    // Text(
-                    //   'Nachbarschaft',
-                    //   style: TextStyle(
-                    //     fontSize: 25,
-                    //     fontWeight: FontWeight.w800,
-                    //     letterSpacing: -0.5,
-                    //     color: Theme.of(context).primaryColor,
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 30),
-                    Row(
                       children: [
-                        Expanded(
-                          //color Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-                          // round corners
-                          // height: 30,
-                          // child: Container(),
-                          //create a textfield with a gray background and a search icon on the left with field of height 38
-                          child: SizedBox(
-                            height: 38,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                //set padding 0
-                                contentPadding: const EdgeInsets.all(0),
-                                filled: true,
-                                // fillColor: Theme.of(context)
-                                //     .colorScheme
-                                //     .onSurface
-                                //     .withOpacity(0.04),
-                                fillColor:
-                                    Theme.of(context).colorScheme.onPrimary,
-                                hintText: 'Suche',
-                                hintStyle: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.5),
-                                  fontSize: 15,
-                                ),
-                                prefixIcon: Icon(
-                                  FlutterRemix.search_2_line,
-                                  size: 22,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.9),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                  borderSide: BorderSide.none,
+                        // const SizedBox(height: 10),
+                        // const Text(
+                        //   'Neues in deiner',
+                        //   style: TextStyle(
+                        //     fontSize: 20,
+                        //     letterSpacing: -0.5,
+                        //     fontWeight: FontWeight.w800,
+                        //   ),
+                        // ),
+                        // // larger text in primery Nachbarschaft
+                        // Text(
+                        //   'Nachbarschaft',
+                        //   style: TextStyle(
+                        //     fontSize: 25,
+                        //     fontWeight: FontWeight.w800,
+                        //     letterSpacing: -0.5,
+                        //     color: Theme.of(context).primaryColor,
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 30),
+                        Row(
+                          children: [
+                            Expanded(
+                              //color Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+                              // round corners
+                              // height: 30,
+                              // child: Container(),
+                              //create a textfield with a gray background and a search icon on the left with field of height 38
+                              child: SizedBox(
+                                height: 38,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    //set padding 0
+                                    contentPadding: const EdgeInsets.all(0),
+                                    filled: true,
+                                    // fillColor: Theme.of(context)
+                                    //     .colorScheme
+                                    //     .onSurface
+                                    //     .withOpacity(0.04),
+                                    fillColor:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    hintText: 'Suche',
+                                    hintStyle: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.5),
+                                      fontSize: 15,
+                                    ),
+                                    prefixIcon: Icon(
+                                      FlutterRemix.search_2_line,
+                                      size: 22,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.9),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet<void>(
-                              backgroundColor:
-                                  Theme.of(context).scaffoldBackgroundColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(25.0))),
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (BuildContext context) {
-                                return FeedPostFilterView();
+                            SizedBox(width: 10),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet<void>(
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0))),
+                                  context: context,
+                                  isScrollControlled: true,
+                                  builder: (BuildContext context) {
+                                    return FeedPostFilterView();
+                                  },
+                                );
                               },
-                            );
-                          },
-                          child: Container(
-                            height: 38,
-                            width: 38,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              borderRadius: BorderRadius.circular(25),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: const Icon(
+                                  FlutterRemix.filter_3_line,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
-                            child: const Icon(
-                              FlutterRemix.filter_3_line,
-                              color: Colors.white,
-                            ),
-                          ),
+                          ],
                         ),
+                        SizedBox(height: 10),
+
+                        //Create a SingleChildScrollView with a row  of chips which can be selected. when seclected the color of the chip changes to primery
                       ],
                     ),
-                    SizedBox(height: 10),
-
-                    //Create a SingleChildScrollView with a row  of chips which can be selected. when seclected the color of the chip changes to primery
-                    SingleChildScrollView(
+                  ),
+                  Padding(
+                    padding: //left 14
+                        const EdgeInsets.only(bottom: 10),
+                    child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
+                        // align left
                         children: [
+                          SizedBox(width: 14),
                           Container(
                             //height 38
                             padding: const EdgeInsets.symmetric(
@@ -213,11 +225,19 @@ class FeedPage extends GetView<FeedController> {
                           CategorieChip(
                             categorie: 'Event',
                           ),
+                          SizedBox(width: 06),
+                          CategorieChip(
+                            categorie: 'Event',
+                          ),
+                          SizedBox(width: 06),
+                          CategorieChip(
+                            categorie: 'Event',
+                          ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
 

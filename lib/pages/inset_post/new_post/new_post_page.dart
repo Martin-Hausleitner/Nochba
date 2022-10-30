@@ -36,9 +36,9 @@ class NewPostPage extends GetView<NewPostController> {
         controller: controller.pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          NewPostView(controller: controller),
           NewPostCategorySelectionView(controller: controller),
           NewPostSubcategorySelectionView(controller: controller),
+          NewPostView(controller: controller),
           PublishedNewPostView(controller: controller),
         ],
       ),
