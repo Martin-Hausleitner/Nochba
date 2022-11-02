@@ -26,7 +26,7 @@ class AppBarSmallView extends StatelessWidget {
               color: Colors.transparent,
               child: IconButton(
                 icon: Icon(
-                  FlutterRemix.arrow_left_line,
+                  Icons.arrow_back_rounded,
                   size: 24,
                   color: Theme.of(context).buttonTheme.colorScheme?.primary,
                 ),

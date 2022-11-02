@@ -34,7 +34,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
           leading: IconButton(
             splashRadius: 0.001,
             icon: Icon(
-              FlutterRemix.arrow_left_line,
+              Icons.close_rounded,
               color: Theme.of(context).colorScheme.onSurface,
             ),
             //onPress open SettingsPage
