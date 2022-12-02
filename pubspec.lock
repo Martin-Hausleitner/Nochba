@@ -309,6 +309,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  feedback:
+    dependency: "direct main"
+    description:
+      name: feedback
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.5.0"
   ffi:
     dependency: transitive
     description:
@@ -440,6 +447,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_parsed_text:
     dependency: "direct main"
     description:
