@@ -21,6 +21,8 @@ dependencies:
   firebase_core: ^2.0.0
   firebase_storage: ^11.0.1
   contained_tab_bar_view: ^0.8.0
+  geolocator: ^9.0.2
+  url_launcher: 6.1.7
   # flutter_chat_types: ^3.4.3
   # flutter_chat_ui: ^1.6.4
   cloud_firestore: ^4.0.1
@@ -51,7 +53,6 @@ dependencies:
   visibility_detector: ^0.3.3
   # flutter_link_previewer: ^3.0.1
   flutter_parsed_text: ^2.2.1
-  url_launcher: ^6.1.5
   diffutil_dart: ^3.0.0
   equatable: ^2.0.5
   json_annotation: ^4.6.0

@@ -6,12 +6,14 @@ import FlutterMacOS
 import Foundation
 
 import cloud_firestore
-import connectivity_plus_macos
+import connectivity_plus
 import firebase_app_check
 import firebase_auth
 import firebase_core
 import firebase_storage
-import image_editor
+import geolocator_apple
+import image_compression_flutter
+import image_editor_common
 import nb_utils
 import path_provider_macos
 import shared_preferences_macos
@@ -24,6 +26,8 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
   FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
   FLTFirebaseStoragePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseStoragePlugin"))
+  GeolocatorPlugin.register(with: registry.registrar(forPlugin: "GeolocatorPlugin"))
+  ImageCompressionFlutterPlugin.register(with: registry.registrar(forPlugin: "ImageCompressionFlutterPlugin"))
   ImageEditorPlugin.register(with: registry.registrar(forPlugin: "ImageEditorPlugin"))
   NbUtilsPlugin.register(with: registry.registrar(forPlugin: "NbUtilsPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))

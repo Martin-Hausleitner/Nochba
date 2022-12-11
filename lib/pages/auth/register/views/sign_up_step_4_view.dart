@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/register/get_location_data.dart';
 import 'package:nochba/pages/auth/register/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 import '../../../inset_post/new_post/widgets/circle_step.dart';
@@ -73,6 +76,7 @@ class SignUpStep4View extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 28),
+            TestLocation(),
 
             ChooserRadio(),
 
@@ -110,11 +114,15 @@ class BottomNavBar extends StatelessWidget {
           child: NextElevatedButton(
             rtl: true,
             onPressed: //controller.addPost() and go to
-                () {
+                () async {
               controller.nextPage();
               //close keyboard
               FocusScope.of(context).unfocus();
               // Get.to(PublishedNewPostView());
+              // print getLocationData()
+              // Position position = await getLocationData();
+              // print(position.latitude);
+              // print(position.longitude);
             },
             controller: controller,
             icon: Icons.chevron_left_outlined,
@@ -122,6 +130,21 @@ class BottomNavBar extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class TestLocation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextButton(
+      label: 'Test',
+      icon: FlutterRemix.arrow_left_s_line,
+      onPressed: () async {
+        Position position = await getLocationData();
+        print(position.latitude);
+        print(position.longitude);
+      },
     );
   }
 }
