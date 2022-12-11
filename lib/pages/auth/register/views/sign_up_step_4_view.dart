@@ -12,6 +12,7 @@ import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
+import '../../../../logic/register/check_if_safe_device.dart';
 import '../../../inset_post/new_post/widgets/circle_step.dart';
 
 class SignUpStep4View extends StatelessWidget {
@@ -77,6 +78,7 @@ class SignUpStep4View extends StatelessWidget {
             ),
             SizedBox(height: 28),
             TestLocation(),
+            TestSafeDevice(),
 
             ChooserRadio(),
 
@@ -138,12 +140,26 @@ class TestLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
-      label: 'Test',
+      label: 'Test Location',
       icon: FlutterRemix.arrow_left_s_line,
       onPressed: () async {
         Position position = await getLocationData();
         print(position.latitude);
         print(position.longitude);
+      },
+    );
+  }
+}
+
+class TestSafeDevice extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextButton(
+      label: 'Test Safe Device',
+      icon: FlutterRemix.arrow_left_s_line,
+      onPressed: () async {
+        bool isSafe = await checkIfSafeDevice();
+        print('Device is safe: $isSafe');
       },
     );
   }

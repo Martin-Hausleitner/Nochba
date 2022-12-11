@@ -48,6 +48,7 @@ dependencies:
   # package_info_plus: ^3.0.0
   lottie: ^1.4.2
   image_editor_plus: ^0.1.5
+  safe_device: ^1.1.2
   # open_file: ^2.1.1
   photo_view: ^0.14.0
   visibility_detector: ^0.3.3
