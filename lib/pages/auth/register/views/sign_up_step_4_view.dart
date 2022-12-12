@@ -11,6 +11,7 @@ import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../../../logic/register/check_if_safe_device.dart';
 import '../../../inset_post/new_post/widgets/circle_step.dart';
@@ -79,6 +80,7 @@ class SignUpStep4View extends StatelessWidget {
             SizedBox(height: 28),
             TestLocation(),
             TestSafeDevice(),
+            TestCloudFunction(),
 
             ChooserRadio(),
 
@@ -150,6 +152,67 @@ class TestLocation extends StatelessWidget {
     );
   }
 }
+
+//create a button which runs the emulated firebase cloud function http://127.0.0.1:5001/nochba-dev/us-central1/checkAddress
+class TestCloudFunction extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextButton(
+      label: 'Test Cloud Function',
+      icon: FlutterRemix.arrow_left_s_line,
+      onPressed: () async {
+        HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+          'checkAddress',
+          options: HttpsCallableOptions(
+            timeout: const Duration(seconds: 5),
+          ),
+        );
+        try {
+          // final send result address, deviceLongitudeCoordinate, deviceLatitudeCoordinate
+          final HttpsCallableResult result =
+              await callable.call(<String, dynamic>{
+            'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
+            'deviceLongitudeCoordinate': 0.0,
+            'deviceLatitudeCoordinate': 0.0,
+          });
+          // final HttpsCallableResult result =
+          //     await callable.call(<String, dynamic>{
+          //   'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
+          // });
+          print(result.data);
+        } catch (e) {
+          print(e);
+        }
+      },
+    );
+  }
+}
+// class TestCloudFunction extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return LocooTextButton(
+//       label: 'Test Cloud Function',
+//       icon: FlutterRemix.arrow_left_s_line,
+//       onPressed: () async {
+//         HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+//           'checkAddress',
+//           options: HttpsCallableOptions(
+//             timeout: const Duration(seconds: 5),
+//           ),
+//         );
+//         try {
+//           final HttpsCallableResult result =
+//               await callable.call(<String, dynamic>{
+//             'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
+//           });
+//           print(result.data);
+//         } catch (e) {
+//           print(e);
+//         }
+//       },
+//     );
+//   }
+// }
 
 class TestSafeDevice extends StatelessWidget {
   @override

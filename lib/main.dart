@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,8 @@ Future main() async {
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
   GetTimeAgo.setCustomLocaleMessages('de', DEMessage());
+  FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
+  // FirebaseFunctions.instance.useFunctionsEmulator('
 
   runApp(MyApp(theme: theme));
   // runApp(MyApp());

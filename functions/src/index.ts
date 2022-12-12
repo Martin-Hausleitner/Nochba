@@ -11,93 +11,129 @@ import { Client, GeocodeResponse } from "@googlemaps/google-maps-services-js";
 
 const client = new Client({});
 
-export const checkAddress = functions.https.onCall(async (data) => {
-  const { address, deviceLongitudeCoordinate, deviceLatitudeCoordinate } = data;
+export const checkAddress = functions
+  .runWith({
+    enforceAppCheck: true, // Requests without valid App Check tokens will be rejected.
+  })
+  .https.onCall(async (data) => {
+    const { address, deviceLongitudeCoordinate, deviceLatitudeCoordinate } =
+      data;
 
-  interface Coordinates {
-    longitude: number;
-    latitude: number;
-  }
+    interface Coordinates {
+      longitude: number;
+      latitude: number;
+    }
 
-  //   const addressCoordinates = await getCoordinatesFromAddress(address); use try catch
-  let addressCoordinates: Coordinates | undefined;
-  try {
-    addressCoordinates = await getCoordinatesFromAddress(address);
-  } catch (err: any) {
-    return {
-      success: false,
-      error: err.toString(),
-    };
-  }
-
-  //delcare distance as number
-  let distance: number = 0;
-  if (addressCoordinates != null) {
-    distance = getDistanceFromLatLonInMeters(
-      deviceLatitudeCoordinate,
-      deviceLongitudeCoordinate,
-      addressCoordinates.latitude,
-      addressCoordinates.longitude
-    );
-    console.log(distance);
-    if (distance < 40) {
+    //   const addressCoordinates = await getCoordinatesFromAddress(address); use try catch
+    let addressCoordinates: Coordinates | undefined;
+    try {
+      addressCoordinates = await getCoordinatesFromAddress(address);
+    } catch (err: any) {
       return {
-        success: true,
+        success: false,
+        error: err.toString(),
       };
     }
-  } else {
+
+    //delcare distance as number
+    let distance: number = 0;
+    if (addressCoordinates != null) {
+      distance = getDistanceFromLatLonInMeters(
+        deviceLatitudeCoordinate,
+        deviceLongitudeCoordinate,
+        addressCoordinates.latitude,
+        addressCoordinates.longitude
+      );
+      console.log(distance);
+      if (distance < 40) {
+        return {
+          success: true,
+          // return distance
+          distance: distance,
+        };
+      }
+    } else {
+      return {
+        success: false,
+        // return error that it is not it the radius of 40m show the variable distance
+        error:
+          "Address is not in the radius of 40m Distance: " + distance + "m",
+      };
+    }
+    // return undefined; error
     return {
       success: false,
-      // return error that it is not it the radius of 40m show the variable distance
-      error: "Address is not in the radius of 40m Distance: " + distance + "m",
-    };
-  }
-  // return undefined; error
-  return {
-    success: false,
-    error: "I Dont Know",
-  };
-
-  //create interface addressCoordinates
-
-  //write a function which calls the google maps api and returns the coordinates of the address
-  async function getCoordinatesFromAddress(
-    address: string
-  ): Promise<Coordinates | undefined> {
-    const geocodeResponse: GeocodeResponse = await client.geocode({
-      params: {
-        address,
-        key: functions.config().googlemaps.key,
-      },
-    });
-
-    const location = geocodeResponse.data.results[0].geometry.location;
-    const addressCoordinates = {
-      longitude: location.lng,
-      latitude: location.lat,
+      error: "I Dont Know",
     };
 
-    return addressCoordinates;
-  }
+    //create interface addressCoordinates
 
-  function getDistanceFromLatLonInMeters(
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number
-  ): number {
-    const R = 6371e3; // radius of Earth in meters
-    const φ1 = lat1 * (Math.PI / 180); // convert lat1 to radians
-    const φ2 = lat2 * (Math.PI / 180); // convert lat2 to radians
-    const Δφ = (lat2 - lat1) * (Math.PI / 180); // difference in latitudes, converted to radians
-    const Δλ = (lon2 - lon1) * (Math.PI / 180); // difference in longitudes, converted to radians
+    //write a function which calls the google maps api and returns the coordinates of the address
+    async function getCoordinatesFromAddress(
+      address: string
+    ): Promise<Coordinates | undefined> {
+      const geocodeResponse: GeocodeResponse = await client.geocode({
+        params: {
+          address,
+          key: "",
+        },
+      });
 
-    const a =
-      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const location = geocodeResponse.data.results[0].geometry.location;
+      const addressCoordinates = {
+        longitude: location.lng,
+        latitude: location.lat,
+      };
 
-    const d = R * c; // distance in meters
-    return d;
-  }
-});
+      return addressCoordinates;
+
+      //   return {
+      //     longitude: 0,
+      //     latitude: 0,
+      //   };
+      // const key = "AIzaSyBDInPzdEErQ57PrWe8_alNSJXhRwaXqTw";
+
+      // // Construct the URL for the Google Maps API
+      // const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+      //   address
+      // )}&key=${key}`;
+
+      // // Make a GET request to the URL
+      // const response = await fetch(url);
+
+      // // Parse the response as JSON
+      // const data = await response.json();
+
+      // // Check if the request was successful
+      // if (data.status !== "OK") {
+      //   return undefined;
+      // }
+
+      // // Extract the coordinates from the response
+      // const { lat, lng } = data.results[0].geometry.location;
+
+      // // Return the coordinates as a Coordinates object
+      // return { latitude: lat, longitude: lng };
+    }
+
+    function getDistanceFromLatLonInMeters(
+      lat1: number,
+      lon1: number,
+      lat2: number,
+      lon2: number
+    ): number {
+      const R = 6371e3; // radius of Earth in meters
+      const φ1 = lat1 * (Math.PI / 180); // convert lat1 to radians
+      const φ2 = lat2 * (Math.PI / 180); // convert lat2 to radians
+      const Δφ = (lat2 - lat1) * (Math.PI / 180); // difference in latitudes, converted to radians
+      const Δλ = (lon2 - lon1) * (Math.PI / 180); // difference in longitudes, converted to radians
+
+      const a =
+        Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      const d = R * c; // distance in meters
+      return d;
+    }
+  });

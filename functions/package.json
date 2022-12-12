@@ -16,7 +16,7 @@
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.16",
     "firebase-admin": "^10.2.0",
-    "firebase-functions": "^3.21.0"
+    "firebase-functions": "^4.1.1"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
