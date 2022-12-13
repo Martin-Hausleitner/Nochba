@@ -1,17 +1,19 @@
 import * as functions from "firebase-functions";
 import { Client, GeocodeResponse } from "@googlemaps/google-maps-services-js";
 
+//firebase emulators:start
+
 // // Start writing functions
 // // https://firebase.google.com/docs/functions/typescript
 //
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const helloWorld = functions.https.onRequest((request, response) => {
+  functions.logger.info("Hello logs!", { structuredData: true });
+  response.send("Hello from Firebase!");
+});
 
 const client = new Client({});
 
-export const checkAddress = functions
+export const checkAddressWithDeviceLocation = functions
   .runWith({
     enforceAppCheck: true, // Requests without valid App Check tokens will be rejected.
   })
@@ -36,7 +38,7 @@ export const checkAddress = functions
     }
 
     //delcare distance as number
-    let distance: number = 0;
+    let distance: number = 50;
     if (addressCoordinates != null) {
       distance = getDistanceFromLatLonInMeters(
         deviceLatitudeCoordinate,
@@ -44,10 +46,10 @@ export const checkAddress = functions
         addressCoordinates.latitude,
         addressCoordinates.longitude
       );
-      console.log(distance);
+      console.log("Distance:" + distance);
       if (distance < 40) {
         return {
-          success: true,
+          //   success: true,
           // return distance
           distance: distance,
         };

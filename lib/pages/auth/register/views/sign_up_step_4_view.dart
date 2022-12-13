@@ -162,7 +162,7 @@ class TestCloudFunction extends StatelessWidget {
       icon: FlutterRemix.arrow_left_s_line,
       onPressed: () async {
         HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-          'checkAddress',
+          'checkAddressWithDeviceLocation',
           options: HttpsCallableOptions(
             timeout: const Duration(seconds: 5),
           ),
