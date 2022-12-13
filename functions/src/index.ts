@@ -49,7 +49,7 @@ export const checkAddressWithDeviceLocation = functions
       console.log("Distance:" + distance);
       if (distance < 40) {
         return {
-          //   success: true,
+          success: true,
           // return distance
           distance: distance,
         };

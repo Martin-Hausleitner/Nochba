@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
@@ -161,6 +162,7 @@ class TestCloudFunction extends StatelessWidget {
       label: 'Test Cloud Function',
       icon: FlutterRemix.arrow_left_s_line,
       onPressed: () async {
+        print(FirebaseAuth.instance.currentUser);
         HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
           'checkAddressWithDeviceLocation',
           options: HttpsCallableOptions(
