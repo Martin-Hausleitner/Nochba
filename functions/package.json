@@ -21,9 +21,5 @@
   "devDependencies": {
     "typescript": "^4.6.4"
   },
-  "private": true,
-  "version": "1.0.0",
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "private": true
 }

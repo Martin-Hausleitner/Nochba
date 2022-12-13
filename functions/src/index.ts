@@ -76,8 +76,7 @@ function generateRandomVerificationCode(): string {
 
 const client = new Client({});
 
-export const checkAddressWithDeviceLocation = functions.https.onCall(
-  async (data) => {
+export const checkAddressWithDeviceLocation = functions.https.onCall(async (data) => {
     const { address, deviceLongitudeCoordinate, deviceLatitudeCoordinate } =
       data;
 
@@ -118,8 +117,7 @@ export const checkAddressWithDeviceLocation = functions.https.onCall(
       success: false,
       error: "I Dont Know",
     };
-  }
-);
+  });
 
 export const generateVerificationCode = functions.https.onCall(
   async (data, context) => {
@@ -161,7 +159,7 @@ export const generateVerificationCode = functions.https.onCall(
     ) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "6The user does not have a valid address coordinate."
+        "5The user does not have a valid address coordinate."
       );
     }
 
