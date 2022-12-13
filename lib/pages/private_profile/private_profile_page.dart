@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,20 +9,16 @@ import 'package:nochba/pages/private_profile/views/own_posts_view.dart';
 import 'package:nochba/logic/models/user.dart' as models;
 
 import 'package:nochba/logic/auth_access.dart';
+import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
-import 'package:nochba/views/public_profile/public_profile_view.dart';
 
-import '../../logic/data_access.dart';
 import 'private_profile_controller.dart';
 import 'views/bookmarked_posts_view.dart';
 import 'views/edit_profile_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-
-import 'package:nochba/logic/models/user.dart' as models;
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override
@@ -204,6 +199,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ActionCardTitle(
                           title: 'Dein Profil',
                         ),
+                        TestCloudFunction(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
@@ -298,6 +294,39 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class TestCloudFunction extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextButton(
+      label: 'Test Cloud Function',
+      icon: FlutterRemix.arrow_left_s_line,
+      onPressed: () async {
+        if (FirebaseAuth.instance.currentUser != null) {
+          // The user is signed in.
+          print(FirebaseAuth.instance.currentUser);
+        } else {
+          // The user is not signed in.
+          print("The user is not signed in.");
+        }
+        HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+          'generateVerificationCode',
+          options: HttpsCallableOptions(
+            timeout: const Duration(seconds: 5),
+          ),
+        );
+        try {
+          final result = await callable.call(<String, dynamic>{
+            
+          });
+          print('Verification code: ${result.data}');
+        } catch (error) {
+          print('Error generating verification code: $error');
+        }
+      },
     );
   }
 }
