@@ -1,13 +1,14 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
+import { getNearestDistance } from "../functions/getNearestDistance";
 
 const db = admin.firestore();
 
 export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
   async (data, context) => {
-    const userId = data.userId;
-    const postId = data.postId;
+    const userId: string = data.userId;
+    const postId: string = data.postId;
     const currentUserId = context.auth?.uid;
 
     if (!userId || !currentUserId) {
@@ -89,10 +90,17 @@ export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
     if (distance > postRange) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "The specified user is out of range:" + postRange + "m" + " Distance: " + distance + "m"
+        "The specified user is out of range:" +
+          postRange +
+          "m" +
+          " Distance: " +
+          distance +
+          "m"
       );
     }
 
-    return { distance };
+    // getNearestDistance
+
+    return getNearestDistance(distance);
   }
 );

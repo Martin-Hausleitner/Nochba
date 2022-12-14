@@ -1,10 +1,8 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
-
 // firebase emulators:start --only functions
 // cd functions/ && tsc -w
-
 
 // Initialize Firebase app
 admin.initializeApp();
@@ -12,6 +10,7 @@ admin.initializeApp();
 export { generateVerificationCode } from "./cloudFunctions/generateVerificationCode";
 export { checkAddressWithDeviceLocation } from "./cloudFunctions/checkAddressWithDeviceLocation";
 export { getDistanceFromTwoUsersInMeters } from "./cloudFunctions/getDistanceFromTwoUsersInMeters";
+// export { checkVerificationCode } from "./cloudFunctions/cheeckVerificationCod";
 // Get a reference to the Firestore database
 //firebase emulators:start
 // // Start writing functions

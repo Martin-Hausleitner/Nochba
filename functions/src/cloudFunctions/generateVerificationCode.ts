@@ -93,6 +93,7 @@ export const generateVerificationCode = functions.https.onCall(
       uid: context.auth.uid,
       active: true,
       addressCoordinate: coordinates,
+      rangeInMeters: 50,
       // timestamp: admin.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -102,6 +103,6 @@ export const generateVerificationCode = functions.https.onCall(
     await userPublicInfoReff.set({ verificationCodeRef: codeRef });
 
     // Return the verification code to the client
-    return { verificationCode };
+    return verificationCode;
   }
 );

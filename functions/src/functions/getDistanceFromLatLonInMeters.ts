@@ -3,18 +3,21 @@ export function getDistanceFromLatLonInMeters(
   lon1: number,
   lat2: number,
   lon2: number
-): number {
-  const R = 6371e3; // radius of Earth in meters
-  const φ1 = lat1 * (Math.PI / 180); // convert lat1 to radians
-  const φ2 = lat2 * (Math.PI / 180); // convert lat2 to radians
-  const Δφ = (lat2 - lat1) * (Math.PI / 180); // difference in latitudes, converted to radians
-  const Δλ = (lon2 - lon1) * (Math.PI / 180); // difference in longitudes, converted to radians
-
+) {
+  const R = 6371; // Radius der Erde in km
+  const dLat = deg2rad(lat2 - lat1); // deg2rad unten
+  const dLon = deg2rad(lon2 - lon1);
   const a =
-    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  const d = R * c; // distance in meters
+  const d = R * c * 1000; // Distanz in Metern
   return d;
+}
+
+function deg2rad(deg: number) {
+  return deg * (Math.PI / 180);
 }

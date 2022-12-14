@@ -339,8 +339,8 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
       label: 'getDistanceFromLatLonInMeters',
       icon: FlutterRemix.arrow_left_s_line,
       onPressed: () async {
-        final userId = 'sf5NR8JECFPlSrxi4cXMBMsDpD32';
-        final postId = '6aHBwqdfnKfmWpVJyVrS';
+        const userId = 'sf5NR8JECFPlSrxi4cXMBMsDpD32';
+        const postId = '6aHBwqdfnKfmWpVJyVrS';
 
         if (FirebaseAuth.instance.currentUser != null) {
           // The user is signed in.
@@ -356,21 +356,21 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
           ),
         );
         try {
-          final result = await callable.call(
-            <String, dynamic>{
-              'userId': userId,
-              'postId': postId,
-            },
-          );
+          // rsult ist a string
+          final result = await callable.call(<String, dynamic>{
+            'userId': userId,
+            'postId': postId,
+          });
 
-          final distance = result.data['distance'];
-
-          // Use the distance value as needed
-          print('The distance between the users is: $distance meters');
-          // show the code in a snaokbar
+          // // Use the distance value as needed
+          // print('The distance between the users is: $distance meters');
+          // // show the code in a snaokbar
+          // print('The distance between the users is: ${result['data']} meters');
+          // Get.snackbar('Meters', result.data);
+          print('Distance: ${result.data}');
           Get.snackbar('Verification code', result.data.toString());
         } catch (error) {
-          print('Error generating verification code: $error');
+          print('Error Flutter: $error');
         }
       },
     );
