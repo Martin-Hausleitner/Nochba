@@ -13,6 +13,7 @@ export const generateVerificationCode = functions.https.onCall(
         "The request is not authenticated."
       );
     }
+
     const userId = context.auth.uid;
 
     const userRef = db.collection("users").doc(userId);
@@ -34,10 +35,6 @@ export const generateVerificationCode = functions.https.onCall(
         return { verificationCode };
       }
     }
-
-    // If no code exists, generate a
-
-    // Check if a verification code has already been generated
 
     // Generate a random verification code
     const verificationCode = await generateRandomVerificationCode();
@@ -81,8 +78,6 @@ export const generateVerificationCode = functions.https.onCall(
     const userPublicInfoReff = userRef.collection("userPublicInfo").doc(userId);
 
     await userPublicInfoReff.set({ verificationCodeRef: codeRef });
-
-    //check if this ref already exists in the database if yes return the code
 
     // Return the verification code to the client
     return { verificationCode };
