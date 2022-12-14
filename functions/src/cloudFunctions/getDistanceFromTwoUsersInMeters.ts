@@ -7,6 +7,7 @@ const db = admin.firestore();
 export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
   async (data, context) => {
     const userId = data.userId;
+    const postId = data.postId;
     const currentUserId = context.auth?.uid;
 
     if (!userId || !currentUserId) {
@@ -15,6 +16,25 @@ export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
         "userId and currentUserId are required"
       );
     }
+
+    // query under posts / postid / range to get the range
+    const postSnapshot = await db.collection("posts").doc(postId).get();
+    if (!postSnapshot.exists) {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "The specified post could not be found"
+      );
+    }
+    const postData = postSnapshot.data();
+
+    //check if post range is set
+    if (!postData?.range) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Post range is required"
+      );
+    }
+    const postRange = postData?.range;
 
     const userSnapshot = await db.collection("users").doc(userId).get();
     const currentUserSnapshot = await db
@@ -29,26 +49,49 @@ export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
       );
     }
 
-    const userData = userSnapshot.data();
-    const currentUserData = currentUserSnapshot.data();
+    const snapshot = await admin
+      .firestore()
+      .doc(`/users/${userId}/userInternInfo/${userId}`)
+      .get();
+    const userAddressCoordinates = snapshot.data()?.addressCoordinates;
 
-    const userCoords = userData?.userInternInfo?.[userId]?.add;
-    const currentUserCoords =
-      currentUserData?.userInternInfo?.[currentUserId]?.add;
+    const snapshot2 = await admin
+      .firestore()
+      .doc(`/users/${currentUserId}/userInternInfo/${currentUserId}`)
+      .get();
+    const currentUserAddressCoordinates = snapshot2.data()?.addressCoordinates;
+    //
 
-    if (!userCoords || !currentUserCoords) {
+    // const userData = userSnapshot.data();
+    // const currentUserData = currentUserSnapshot.data();
+
+    // const userAddressCoordinates = userData?.userInternInfo.addressCoordinates;
+    // const currentUserAddressCoordinates =
+    //   currentUserData?.userInternInfo.addressCoordinates;
+
+    if (!userAddressCoordinates || !currentUserAddressCoordinates) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "Coordinates for both users are required"
+        "Coordinates for both users are required: " +
+          userAddressCoordinates +
+          " " +
+          currentUserAddressCoordinates
       );
     }
 
     const distance = getDistanceFromLatLonInMeters(
-      userCoords.lat,
-      userCoords.lng,
-      currentUserCoords.lat,
-      currentUserCoords.lng
+      userAddressCoordinates.latitude,
+      userAddressCoordinates.longitude,
+      currentUserAddressCoordinates.latitude,
+      currentUserAddressCoordinates.longitude
     );
+
+    if (distance > postRange) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "The specified user is out of range:" + postRange + "m"
+      );
+    }
 
     return { distance };
   }

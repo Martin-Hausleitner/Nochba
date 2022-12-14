@@ -200,6 +200,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           title: 'Dein Profil',
                         ),
                         GenerateVerificationCode(),
+                        GetDistanceFromLatLonInMeters(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
@@ -319,10 +320,53 @@ class GenerateVerificationCode extends StatelessWidget {
           ),
         );
         try {
-          final result = await callable.call(<String, dynamic>{
-            
-          });
+          final result = await callable.call(<String, dynamic>{});
           print('Verification code: ${result.data}');
+          // show the code in a snaokbar
+          Get.snackbar('Verification code', result.data.toString());
+        } catch (error) {
+          print('Error generating verification code: $error');
+        }
+      },
+    );
+  }
+}
+
+class GetDistanceFromLatLonInMeters extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextButton(
+      label: 'getDistanceFromLatLonInMeters',
+      icon: FlutterRemix.arrow_left_s_line,
+      onPressed: () async {
+        final userId = 'sf5NR8JECFPlSrxi4cXMBMsDpD32';
+        final postId = '6aHBwqdfnKfmWpVJyVrS';
+
+        if (FirebaseAuth.instance.currentUser != null) {
+          // The user is signed in.
+          print(FirebaseAuth.instance.currentUser);
+        } else {
+          // The user is not signed in.
+          print("The user is not signed in.");
+        }
+        HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+          'getDistanceFromTwoUsersInMeters',
+          options: HttpsCallableOptions(
+            timeout: const Duration(seconds: 5),
+          ),
+        );
+        try {
+          final result = await callable.call(
+            <String, dynamic>{
+              'userId': userId,
+              'postId': postId,
+            },
+          );
+
+          final distance = result.data['distance'];
+
+          // Use the distance value as needed
+          print('The distance between the users is: $distance meters');
           // show the code in a snaokbar
           Get.snackbar('Verification code', result.data.toString());
         } catch (error) {

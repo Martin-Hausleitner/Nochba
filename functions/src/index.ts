@@ -11,7 +11,7 @@ admin.initializeApp();
 
 export { generateVerificationCode } from "./cloudFunctions/generateVerificationCode";
 export { checkAddressWithDeviceLocation } from "./cloudFunctions/checkAddressWithDeviceLocation";
-
+export { getDistanceFromTwoUsersInMeters } from "./cloudFunctions/getDistanceFromTwoUsersInMeters";
 // Get a reference to the Firestore database
 //firebase emulators:start
 // // Start writing functions
