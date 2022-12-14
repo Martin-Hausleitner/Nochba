@@ -2,8 +2,8 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
 
-// cd functions/ && firebase emulators:start --only function 
-// tsc -w
+// firebase emulators:start --only functions
+// cd functions/ && tsc -w
 
 
 // Initialize Firebase app
@@ -19,5 +19,5 @@ export { checkAddressWithDeviceLocation } from "./cloudFunctions/checkAddressWit
 //
 export const helloWorld = functions.https.onRequest((request, response) => {
   functions.logger.info("Hello logs!", { structuredData: true });
-  response.send("Hello from Firebaseddd!tthhh");
+  response.send("Hello from Firebasedddrrrr!tthhh");
 });

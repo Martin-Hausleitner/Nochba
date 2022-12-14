@@ -1,4 +1,4 @@
-export function generateRandomVerificationCode(): string {
+export async function generateRandomVerificationCode(): Promise<string> {
   const characters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
