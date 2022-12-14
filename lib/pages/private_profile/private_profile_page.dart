@@ -199,7 +199,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ActionCardTitle(
                           title: 'Dein Profil',
                         ),
-                        TestCloudFunction(),
+                        GenerateVerificationCode(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
@@ -298,11 +298,11 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
   }
 }
 
-class TestCloudFunction extends StatelessWidget {
+class GenerateVerificationCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
-      label: 'Test Cloud Function',
+      label: 'Generate Verification Code',
       icon: FlutterRemix.arrow_left_s_line,
       onPressed: () async {
         if (FirebaseAuth.instance.currentUser != null) {
@@ -323,6 +323,8 @@ class TestCloudFunction extends StatelessWidget {
             
           });
           print('Verification code: ${result.data}');
+          // show the code in a snaokbar
+          Get.snackbar('Verification code', result.data.toString());
         } catch (error) {
           print('Error generating verification code: $error');
         }

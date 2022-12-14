@@ -15,39 +15,46 @@ export const generateVerificationCode = functions.https.onCall(
     }
 
     const userId = context.auth.uid;
-
     const userRef = db.collection("users").doc(userId);
 
     // Check if a code already exists for the user
     const userPublicInfoRef = userRef.collection("userPublicInfo").doc(userId);
     const userPublicInfoSnapshot = await userPublicInfoRef.get();
-    if (
-      userPublicInfoSnapshot.exists &&
-      userPublicInfoSnapshot.get("verificationCodeRef")
-    ) {
-      // A code already exists, so retrieve it from the referenced document
-      const verificationCodeRef = userPublicInfoSnapshot.get(
-        "verificationCodeRef"
-      );
-      const verificationCodeSnapshot = await verificationCodeRef.get();
-      if (verificationCodeSnapshot.exists) {
-        const verificationCode = verificationCodeSnapshot.get("code");
-        return { verificationCode };
+    if (userPublicInfoSnapshot.exists) {
+      const codeRef = userPublicInfoSnapshot.get("verificationCodeRef");
+      if (codeRef) {
+        const codeSnapshot = await codeRef.get();
+        if (codeSnapshot.exists) {
+          const code = codeSnapshot.id;
+          return { verificationCode: code };
+        }
       }
     }
 
     // Generate a random verification code
-    const verificationCode = await generateRandomVerificationCode();
-
-    // Check if the code already exists in the database
-    const codeRef = db.collection("verificationCodes").doc(verificationCode);
-    const codeSnapshot = await codeRef.get();
-    if (codeSnapshot.exists) {
-      throw new functions.https.HttpsError(
-        "already-exists",
-        "The verification code already exists."
-      );
+    // const verificationCode = await generateRandomVerificationCode();
+    // Generate a random verification code
+    let verificationCode;
+    while (true) {
+      verificationCode = await generateRandomVerificationCode();
+      // Check if the code already exists in the database
+      const codeRef = db.collection("verificationCodes").doc(verificationCode);
+      const codeSnapshot = await codeRef.get();
+      if (!codeSnapshot.exists) {
+        // Break out of the loop if the code doesn't exist
+        break;
+      }
     }
+    // Check if the code already exists in the database
+    // const codeRef = db.collection("verificationCodes").doc(verificationCode);
+    // const codeSnapshot = await codeRef.get();
+    // if (codeSnapshot.exists) {
+    //   throw new functions.https.HttpsError(
+    //     "already-exists",
+    //     "The verification code already exists."
+    //   );
+    //   //now rerun the function
+    // }
 
     const userDoc = await userRef.get();
     if (!userDoc.exists) {
@@ -60,10 +67,12 @@ export const generateVerificationCode = functions.https.onCall(
     const userInternInfoRef = userRef.collection("userInternInfo").doc(userId);
     const userInternInfoDoc = await userInternInfoRef.get();
     if (!userInternInfoDoc.exists) {
-      throw new functions.https.HttpsError(
-        "not-found",
-        "The specified user intern info does not exist."
-      );
+      // throw new functions.https.HttpsError(
+      //   "not-found",
+      //   "The specified user does not have intern info."
+      // );
+      //then create a new userInternInfo document
+      await userInternInfoRef.set({});
     }
 
     const coordinates = userInternInfoDoc.get("addressCoordinates");
@@ -72,7 +81,20 @@ export const generateVerificationCode = functions.https.onCall(
         "not-found",
         "The specified user does not have coordinates."
       );
+      //then create a new userInternInfo document
+      // await userInternInfoRef.set({
+      //   addressCoordinates: new admin.firestore.GeoPoint(0, 0),
+      // });
     }
+
+    // Save the code in the database
+    const codeRef = db.collection("verificationCodes").doc(verificationCode);
+    await codeRef.set({
+      uid: context.auth.uid,
+      active: true,
+      addressCoordinate: coordinates,
+      // timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    });
 
     // // Save a ref of the new code in the users collection in userPublicInfo
     const userPublicInfoReff = userRef.collection("userPublicInfo").doc(userId);
