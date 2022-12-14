@@ -89,7 +89,7 @@ export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
     if (distance > postRange) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "The specified user is out of range:" + postRange + "m"
+        "The specified user is out of range:" + postRange + "m" + " Distance: " + distance + "m"
       );
     }
 
