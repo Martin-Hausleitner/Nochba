@@ -90,7 +90,7 @@ export const generateVerificationCode = functions.https.onCall(
     // Save the code in the database
     const codeRef = db.collection("verificationCodes").doc(verificationCode);
     await codeRef.set({
-      uid: context.auth.uid,
+      userId: context.auth.uid,
       active: true,
       addressCoordinate: coordinates,
       rangeInMeters: 50,

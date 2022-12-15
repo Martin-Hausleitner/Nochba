@@ -5,7 +5,7 @@ import { getNearestDistance } from "../functions/getNearestDistance";
 
 const db = admin.firestore();
 
-export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
+export const getDistanceFromTwoUsers = functions.https.onCall(
   async (data, context) => {
     const userId: string = data.userId;
     const postId: string = data.postId;
@@ -50,15 +50,19 @@ export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
       );
     }
 
-    const snapshot = await admin
-      .firestore()
-      .doc(`/users/${userId}/userInternInfo/${userId}`)
+    const snapshot = await db
+      .collection("users")
+      .doc(userId)
+      .collection("userInternInfo")
+      .doc(userId)
       .get();
     const userAddressCoordinates = snapshot.data()?.addressCoordinates;
 
-    const snapshot2 = await admin
-      .firestore()
-      .doc(`/users/${currentUserId}/userInternInfo/${currentUserId}`)
+    const snapshot2 = await db
+      .collection("users")
+      .doc(currentUserId)
+      .collection("userInternInfo")
+      .doc(currentUserId)
       .get();
     const currentUserAddressCoordinates = snapshot2.data()?.addressCoordinates;
     //
@@ -74,9 +78,9 @@ export const getDistanceFromTwoUsersInMeters = functions.https.onCall(
       throw new functions.https.HttpsError(
         "invalid-argument",
         "Coordinates for both users are required: " +
-          userAddressCoordinates +
+          userId +
           " " +
-          currentUserAddressCoordinates
+          currentUserId
       );
     }
 

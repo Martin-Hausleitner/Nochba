@@ -201,6 +201,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ),
                         GenerateVerificationCode(),
                         GetDistanceFromLatLonInMeters(),
+                        VerifyButton(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
@@ -350,7 +351,7 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
           print("The user is not signed in.");
         }
         HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-          'getDistanceFromTwoUsersInMeters',
+          'getDistanceFromTwoUsers',
           options: HttpsCallableOptions(
             timeout: const Duration(seconds: 5),
           ),
@@ -371,6 +372,38 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
           Get.snackbar('Verification code', result.data.toString());
         } catch (error) {
           print('Error Flutter: $error');
+        }
+      },
+    );
+  }
+}
+
+class VerifyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final String verificationCode = 'R0VAb60nbw';
+    final String address = "111";
+    return LocooTextButton(
+      label: 'Verify',
+      icon: FlutterRemix.arrow_left_s_line,
+      onPressed: () async {
+        // Call the verifyVerificationCode function
+        final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+          'checkVerificationCode',
+          options: HttpsCallableOptions(
+            timeout: const Duration(seconds: 5),
+          ),
+        );
+        try {
+          final response = await callable.call({
+            'verificationCode': verificationCode,
+            'address': address,
+          });
+          // Handle successful response
+          print(response.data);
+        } catch (e) {
+          // Handle error
+          print(e);
         }
       },
     );
