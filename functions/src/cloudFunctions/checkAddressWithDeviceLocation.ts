@@ -3,9 +3,11 @@ import { getCoordinatesFromAddress } from "../functions/getCoordinatesFromAddres
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 
 interface Coordinates {
-    longitude: number;
-    latitude: number;
-  }
+  longitude: number;
+  latitude: number;
+}
+
+const MAX_DISTANCE_METERS = 50;
 
 export const checkAddressWithDeviceLocation = functions
   .runWith({
@@ -18,7 +20,7 @@ export const checkAddressWithDeviceLocation = functions
     let addressCoordinates: Coordinates | undefined;
     try {
       addressCoordinates = await getCoordinatesFromAddress(address);
-    } catch (err: any) {
+    } catch (err) {
       return {
         success: false,
         error: err.toString(),
@@ -33,11 +35,22 @@ export const checkAddressWithDeviceLocation = functions
         addressCoordinates.latitude,
         addressCoordinates.longitude
       );
-      console.log("Distance:" + distance);
-      if (distance < 40) {
+      if (distance > 50) {
+        return {
+          success: false,
+          error:
+            "Bitte schalten deinen Standort in den Einstellungen > Standort > Genauen Standort verwenden um die Adresse zu bestätigen.",
+        };
+      }
+      if (distance <= 50) {
         return {
           success: true,
-          distance: distance,
+        };
+      } else {
+        return {
+          success: false,
+          error:
+            "Deine Addresse ist zu weit von deinem Standort entfernt. Bitte versuche es erneut.",
         };
       }
     } else {
@@ -47,9 +60,4 @@ export const checkAddressWithDeviceLocation = functions
           "Address is not in the radius of 40m Distance: " + distance + "m",
       };
     }
-
-    return {
-      success: false,
-      error: "I Dont Know",
-    };
   });
