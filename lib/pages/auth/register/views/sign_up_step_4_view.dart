@@ -81,7 +81,6 @@ class SignUpStep4View extends StatelessWidget {
             SizedBox(height: 28),
             TestLocation(),
             TestSafeDevice(),
-            TestCloudFunction(),
 
             ChooserRadio(),
 
@@ -155,40 +154,7 @@ class TestLocation extends StatelessWidget {
 }
 
 //create a button which runs the emulated firebase cloud function http://127.0.0.1:5001/nochba-dev/us-central1/checkAddress
-class TestCloudFunction extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return LocooTextButton(
-      label: 'Test Cloud Function',
-      icon: FlutterRemix.arrow_left_s_line,
-      onPressed: () async {
-        print(FirebaseAuth.instance.currentUser);
-        HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-          'checkAddressWithDeviceLocation',
-          options: HttpsCallableOptions(
-            timeout: const Duration(seconds: 5),
-          ),
-        );
-        try {
-          // final send result address, deviceLongitudeCoordinate, deviceLatitudeCoordinate
-          final HttpsCallableResult result =
-              await callable.call(<String, dynamic>{
-            'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
-            'deviceLongitudeCoordinate': 0.0,
-            'deviceLatitudeCoordinate': 0.0,
-          });
-          // final HttpsCallableResult result =
-          //     await callable.call(<String, dynamic>{
-          //   'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
-          // });
-          print(result.data);
-        } catch (e) {
-          print(e);
-        }
-      },
-    );
-  }
-}
+
 // class TestCloudFunction extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {

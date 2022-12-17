@@ -11,7 +11,7 @@ const MAX_DISTANCE_METERS = 50;
 
 export const checkAddressWithDeviceLocation = functions
   .runWith({
-    enforceAppCheck: true, // Requests without valid App Check tokens will be rejected.
+    enforceAppCheck: false, // Requests without valid App Check tokens will be rejected.
   })
   .https.onCall(async (data) => {
     const { address, deviceLongitudeCoordinate, deviceLatitudeCoordinate } =
@@ -19,7 +19,8 @@ export const checkAddressWithDeviceLocation = functions
 
     let addressCoordinates: Coordinates | undefined;
     try {
-      addressCoordinates = await getCoordinatesFromAddress(address);
+      // addressCoordinates = await getCoordinatesFromAddress(address);
+      addressCoordinates = { longitude: 0, latitude: 0 };
     } catch (err) {
       return {
         success: false,
@@ -45,6 +46,11 @@ export const checkAddressWithDeviceLocation = functions
       if (distance <= 50) {
         return {
           success: true,
+          distance: distance,
+          deviceLatitudeCoordinate: deviceLatitudeCoordinate,
+          deviceLongitudeCoordinate: deviceLongitudeCoordinate,
+          addressCoordinatesLatitude: addressCoordinates.latitude,
+          addressCoordinatesLongitude: addressCoordinates.longitude,
         };
       } else {
         return {

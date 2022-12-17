@@ -37,7 +37,7 @@ class NewSignUpPage extends GetView<SignUpController> {
           controller: controller,
           onPressedBack: () => controller.getBack(),
         ),
-
+        
         SignUpVerifiedView(
           controller: controller,
           onPressedBack: () => controller.getBack(),

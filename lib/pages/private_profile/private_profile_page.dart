@@ -202,6 +202,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         GenerateVerificationCode(),
                         GetDistanceFromLatLonInMeters(),
                         VerifyButton(),
+                        CheckAddressWithDeviceLocation(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
@@ -300,6 +301,41 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
   }
 }
 
+class CheckAddressWithDeviceLocation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextButton(
+      label: 'CheckAddressWithDeviceLocation',
+      icon: FlutterRemix.arrow_left_s_line,
+      onPressed: () async {
+        print(FirebaseAuth.instance.currentUser);
+        HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+          'checkAddressWithDeviceLocation',
+          options: HttpsCallableOptions(
+            timeout: const Duration(seconds: 5),
+          ),
+        );
+        try {
+          // final send result address, deviceLongitudeCoordinate, deviceLatitudeCoordinate
+          final HttpsCallableResult result =
+              await callable.call(<String, dynamic>{
+            'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
+            'deviceLongitudeCoordinate': 0.0,
+            'deviceLatitudeCoordinate': 0.0,
+          });
+          // final HttpsCallableResult result =
+          //     await callable.call(<String, dynamic>{
+          //   'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
+          // });
+          print(result.data);
+        } catch (e) {
+          print(e);
+        }
+      },
+    );
+  }
+}
+
 class GenerateVerificationCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -340,7 +376,7 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
       label: 'getDistanceFromLatLonInMeters',
       icon: FlutterRemix.arrow_left_s_line,
       onPressed: () async {
-        const userId = 'sf5NR8JECFPlSrxi4cXMBMsDpD32';
+        const userId = 'n884z248BjU3PcTRefOGSfBX5eJ2';
         const postId = '6aHBwqdfnKfmWpVJyVrS';
 
         if (FirebaseAuth.instance.currentUser != null) {

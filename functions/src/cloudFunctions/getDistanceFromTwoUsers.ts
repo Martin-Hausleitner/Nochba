@@ -80,7 +80,9 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
         "Coordinates for both users are required: " +
           userId +
           " " +
-          currentUserId
+          currentUserId +
+          currentUserAddressCoordinates +
+          userAddressCoordinates
       );
     }
 

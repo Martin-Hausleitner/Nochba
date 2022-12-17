@@ -4,6 +4,7 @@ export function getDistanceFromLatLonInMeters(
   lat2: number,
   lon2: number
 ) {
+  //TODO: quelle
   const R = 6371; // Radius der Erde in km
   const dLat = deg2rad(lat2 - lat1); // deg2rad unten
   const dLon = deg2rad(lon2 - lon1);
