@@ -417,8 +417,8 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
 class VerifyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String verificationCode = 'R0VAb60nbw';
-    final String address = "111";
+    final String verificationCode = '4ZzMrljnKk';
+    final String address = "Wüstenrotstrasse 1, 4020 Linz, Austria";
     return LocooTextButton(
       label: 'Verify',
       icon: FlutterRemix.arrow_left_s_line,

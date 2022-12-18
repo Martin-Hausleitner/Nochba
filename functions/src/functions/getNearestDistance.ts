@@ -1,5 +1,5 @@
 export function getNearestDistance(distance: number): string {
-  const options = [200, 400, 1000, 2000, 5000, 10000, 15000];
+  const options = [100, 200, 500, 1000, 5000, 10000, 15000];
 
   // Find the nearest distance in the options array
   let nearest = options[0];

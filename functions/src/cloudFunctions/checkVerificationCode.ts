@@ -47,7 +47,7 @@ export const checkVerificationCode = functions.https.onCall(
     if (userDoc.exists && userDoc.data()?.addressCoordinates) {
       throw new functions.https.HttpsError(
         "failed-precondition",
-        "Address coordinates have already been written!"
+        "The user has already been verified."
       );
     }
 
@@ -59,7 +59,7 @@ export const checkVerificationCode = functions.https.onCall(
     } catch (error) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "Error getting coordinates from address. Error: " + error.massage
+        "Can't get coordinates from address!"
       );
     }
 
@@ -105,12 +105,19 @@ export const checkVerificationCode = functions.https.onCall(
       });
 
     // Update the user's document to include the verification code
-    await db
-      .collection("users")
-      .doc(uid)
-      .collection("userInternInfo")
-      .doc(uid)
-      .update({ usedVerificationCode: verificationCode });
+
+    try {
+      await userRef.set({
+        addressCoordinates: addressCoordinates,
+        distanceOfDeviceAndAddressInMeter: distance,
+        usedVerificationCode: verificationCode,
+      });
+    } catch (error) {
+      throw new functions.https.HttpsError(
+        "internal",
+        "Error updating user document. Please try again Error: " + error
+      );
+    }
 
     return true;
   }
