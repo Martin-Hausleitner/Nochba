@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import { getCoordinatesFromAddress } from "../functions/getCoordinatesFromAddress";
+import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFromAddress";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 import * as admin from "firebase-admin";
 import { GeoPoint } from "firebase-admin/firestore";
@@ -48,7 +49,8 @@ export const checkAddressWithDeviceLocation = functions
     // try addressCoordinates
     let addressCoordinates;
     try {
-      addressCoordinates = await getCoordinatesFromAddress(address);
+      addressCoordinates = await getOSMCoordinatesFromAddress(address);
+      // addressCoordinates = await getCoordinatesFromAddress(address);
     } catch (error) {
       throw new functions.https.HttpsError(
         "invalid-argument",

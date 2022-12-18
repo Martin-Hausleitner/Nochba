@@ -38,6 +38,16 @@ export const checkVerificationCode = functions.https.onCall(
     }
     const uid = context.auth?.uid;
 
+    const codeRef = db.collection("verificationCodes").doc(verificationCode);
+    //TODO: test if in teh doc verificationCode the boolean isVerified is false then throw error
+    const codeDoc = await codeRef.get();
+    if (codeDoc.data()?.isActive == false) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "The Verification Code is deactivated!"
+      );
+    }
+
     const userRef = db
       .collection("users")
       .doc(uid)
@@ -62,12 +72,28 @@ export const checkVerificationCode = functions.https.onCall(
         "Can't get coordinates from address!"
       );
     }
+    //check if addressCoordinates is not null
+    if (!addressCoordinates) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Can't get coordinates from address!"
+      );
+    }
 
     // Get a reference to the verification code document in the database
-    const codeRef = db.collection("verificationCodes").doc(verificationCode);
 
     // Get the data for the verification code document
-    const codeSnap = await codeRef.get();
+    let codeSnap;
+    try {
+      codeSnap = await codeRef.get();
+    } catch (error) {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "The verification code was not found."
+      );
+    }
+
+    // return codeSnap;
     if (!codeSnap.exists) {
       // If the verification code document does not exist, throw an error
       throw new functions.https.HttpsError(
@@ -76,6 +102,7 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
     const codeData = codeSnap.data();
+    // return codeData;
 
     // const addressCoordinates = { latitude: 0, longitude: 0 };
 
@@ -87,6 +114,7 @@ export const checkVerificationCode = functions.https.onCall(
       codeData.addressCoordinate.lat,
       codeData.addressCoordinate.lng
     );
+    return distance.toString();
 
     if (distance > codeData.rangeInMeters) {
       // If the distance is greater than the allowed range, throw an error
@@ -119,6 +147,15 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    return true;
+    return {
+      message: "Verification successful!",
+      addressCoordinatesLatitude: addressCoordinates.latitude,
+      addressCoordinatesLongitude: addressCoordinates.longitude,
+      // distanceOfDeviceAndAddressInMeter: distance,
+      // codeData.addressCoordinate.lat,
+      // codeData.addressCoordinate.lat,
+      codeDataAddressCoordinateLat: codeData.addressCoordinate.lat,
+      codeDataAddressCoordinateLng: codeData.addressCoordinate.lng,
+    };
   }
 );
