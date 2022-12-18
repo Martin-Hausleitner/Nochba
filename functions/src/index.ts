@@ -4,6 +4,8 @@ import * as admin from "firebase-admin";
 // firebase emulators:start --only functions
 // cd functions/ && tsc -w
 
+// firebase functions:secrets:set GOOGLE_MAPS_API_KEY
+
 // Initialize Firebase app
 admin.initializeApp();
 

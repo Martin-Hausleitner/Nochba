@@ -2,7 +2,7 @@
 // from the Firestore library
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { FieldValue } from "firebase-admin/firestore";
+import { FieldValue, GeoPoint } from "firebase-admin/firestore";
 
 // Import some helper functions for getting coordinates from an address and
 // calculating the distance between two sets of coordinates
@@ -11,6 +11,7 @@ import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLo
 
 // Import a function for verifying a verification code
 import { verifyVerificationCode } from "../functions/verifyVerificationCode";
+import { isCoordinates } from "../functions/isCoordinate";
 
 // Initialize the Firestore database
 const db = admin.firestore();
@@ -41,8 +42,34 @@ export const checkVerificationCode = functions.https.onCall(
     const codeData = codeSnap.data();
 
     // Get the coordinates for the given address
-    // const addressCoordinates = await getCoordinatesFromAddress(address);
-    const addressCoordinates = { latitude: 0, longitude: 0 };
+    let addressCoordinates: Coordinates | CoordinatesError;
+    try {
+      addressCoordinates = await getCoordinatesFromAddress(address);
+    } catch (err) {
+      return {
+        success: false,
+        error: err.toString(),
+      };
+    }
+    // set addressCoordinates with dummy data
+    // addressCoordinates = {
+    //   longitude: 14.3035941,
+    //   latitude: 48.3010965,
+    // };
+
+    if (isCoordinates(addressCoordinates)) {
+      // addressCoordinates is a Coordinates object, so you can access its properties here
+      addressCoordinates.longitude = addressCoordinates.longitude;
+      addressCoordinates.latitude = addressCoordinates.latitude;
+      // ...
+    } else {
+      // addressCoordinates is a CoordinatesError object, so you can handle the error here
+      return {
+        success: false,
+        error: addressCoordinates.error,
+      };
+    }
+    // const addressCoordinates = { latitude: 0, longitude: 0 };
 
     // Calculate the distance between the given address and the address associated
     // with the verification code

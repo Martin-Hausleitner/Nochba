@@ -319,9 +319,9 @@ class CheckAddressWithDeviceLocation extends StatelessWidget {
           // final send result address, deviceLongitudeCoordinate, deviceLatitudeCoordinate
           final HttpsCallableResult result =
               await callable.call(<String, dynamic>{
-            'address': '0x8d1b9c1c5f0f5f0f5f0f5f0f5f0f5f0f5f0f5f0f',
-            'deviceLongitudeCoordinate': 0.0,
-            'deviceLatitudeCoordinate': 0.0,
+            'address': 'Wüstenrotstrasse 11, 4020 Linz, Austria',
+            'deviceLongitudeCoordinate': 14.3029918272796,
+            'deviceLatitudeCoordinate': 48.30083402501781,
           });
           // final HttpsCallableResult result =
           //     await callable.call(<String, dynamic>{
