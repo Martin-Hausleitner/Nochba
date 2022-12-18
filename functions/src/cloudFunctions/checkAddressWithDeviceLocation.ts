@@ -88,7 +88,5 @@ export const checkAddressWithDeviceLocation = functions
       );
     }
 
-    return {
-      success: true,
-    };
+    return true;
   });

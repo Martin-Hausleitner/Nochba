@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { generateRandomVerificationCode } from "../functions/generateRandomVerificationCode";
+import { FieldValue, GeoPoint, Timestamp } from "firebase-admin/firestore";
 
 const db = admin.firestore();
 
@@ -13,23 +14,38 @@ export const generateVerificationCode = functions.https.onCall(
         "The request is not authenticated."
       );
     }
+    const uid = context.auth.uid;
 
-    const userId = context.auth.uid;
-    const userRef = db.collection("users").doc(userId);
+    const userRef = db.collection("users").doc(uid);
+    const userInternInfoRef = userRef.collection("userInternInfo").doc(uid);
+    const userInternInfoDoc = await userInternInfoRef.get();
+    const userPrivateInfoRef = userRef.collection("userPrivateInfo").doc(uid);
+    const userPrivateInfoDoc = await userPrivateInfoRef.get();
 
-    // Check if a code already exists for the user
-    const userPublicInfoRef = userRef.collection("userPublicInfo").doc(userId);
-    const userPublicInfoSnapshot = await userPublicInfoRef.get();
-    if (userPublicInfoSnapshot.exists) {
-      const codeRef = userPublicInfoSnapshot.get("verificationCodeRef");
-      if (codeRef) {
-        const codeSnapshot = await codeRef.get();
-        if (codeSnapshot.exists) {
-          const code = codeSnapshot.id;
-          return { verificationCode: code };
+    if (userPrivateInfoDoc.exists) {
+      // Check if the user has generated a verification code in the past 24 hours
+      const generatedVerificationCodes = userPrivateInfoDoc.get(
+        "generatedVerificationCodes"
+      );
+      const currentTimestamp = Date.now();
+      if (generatedVerificationCodes) {
+        //get the last generated verification code
+        const lastGeneratedVerificationCode =
+          generatedVerificationCodes[generatedVerificationCodes.length - 1];
+        const lastGeneratedVerificationCodeTimestamp =
+          lastGeneratedVerificationCode.timestamp;
+        const timeDifference =
+          currentTimestamp - lastGeneratedVerificationCodeTimestamp;
+        if (timeDifference < 86400000) {
+          return {
+            verificationCode: lastGeneratedVerificationCode.verificationCode,
+            timeLeft: 86400000 - timeDifference,
+          };
         }
       }
     }
+
+    //TODO: check if the  userPrivateInfoRef has generatedVerificationCodes if yes go on if not check if the user hasnt generated a code 1 day ago generatedVerificationCodes
 
     // Generate a random verification code
     // const verificationCode = await generateRandomVerificationCode();
@@ -64,8 +80,6 @@ export const generateVerificationCode = functions.https.onCall(
       );
     }
 
-    const userInternInfoRef = userRef.collection("userInternInfo").doc(userId);
-    const userInternInfoDoc = await userInternInfoRef.get();
     if (!userInternInfoDoc.exists) {
       // throw new functions.https.HttpsError(
       //   "not-found",
@@ -93,14 +107,24 @@ export const generateVerificationCode = functions.https.onCall(
       userId: context.auth.uid,
       active: true,
       addressCoordinate: coordinates,
-      rangeInMeters: 50,
+      rangeInMeters: 1000,
+      creationDate: FieldValue.serverTimestamp(),
       // timestamp: admin.firestore.FieldValue.serverTimestamp(),
     });
 
     // // Save a ref of the new code in the users collection in userPublicInfo
-    const userPublicInfoReff = userRef.collection("userPublicInfo").doc(userId);
 
-    await userPublicInfoReff.set({ verificationCodeRef: codeRef });
+    //if generatedVerification doesent exist create a new userPrivateInfo document generatedVerificationC
+    // userPrivateInfoRef dosen't exist then create a new document
+    if (!userPrivateInfoDoc.exists) {
+      await userPrivateInfoRef.set({
+        generatedVerificationCodes: [verificationCode],
+      });
+    } else {
+      await userPrivateInfoRef.update({
+        generatedVerificationCodes: FieldValue.arrayUnion(uid),
+      });
+    }
 
     // Return the verification code to the client
     return verificationCode;

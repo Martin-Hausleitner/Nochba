@@ -11,7 +11,6 @@ import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLo
 
 // Import a function for verifying a verification code
 import { verifyVerificationCode } from "../functions/verifyVerificationCode";
-import { isCoordinates } from "../functions/isCoordinate";
 
 // Initialize the Firestore database
 const db = admin.firestore();
@@ -22,13 +21,34 @@ export const checkVerificationCode = functions.https.onCall(
   async (data, context) => {
     // Destructure the verification code and address from the request data
     const verificationCode = data.verificationCode;
-  
     try {
       await verifyVerificationCode(verificationCode);
     } catch (error) {
-      // If the verification code is invalid, throw an error
-      return {
-        error: "The verification code is invalid. Error: " + error.message,
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "The verification code is invalid"
+      );
+    }
+
+    if (!context.auth || !context.auth.uid) {
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        "Missing or invalid context. Please ensure that the request is properly authenticated."
+      );
+    }
+    const uid = context.auth?.uid;
+
+    const userRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("userInternInfo")
+      .doc(uid);
+    const userDoc = await userRef.get();
+    if (userDoc.exists && userDoc.data()?.addressCoordinates) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "Address coordinates have already been written!"
+      );
     }
 
     const address = data.address;
@@ -37,12 +57,11 @@ export const checkVerificationCode = functions.https.onCall(
     try {
       addressCoordinates = await getCoordinatesFromAddress(address);
     } catch (error) {
-      return {
-        error:
-          "Error getting coordinates from address. Error: " + error.massage,
-      };
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Error getting coordinates from address. Error: " + error.massage
+      );
     }
-
 
     // Get a reference to the verification code document in the database
     const codeRef = db.collection("verificationCodes").doc(verificationCode);
@@ -77,30 +96,20 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    // Get the user's ID from the request context
-    const userId = context.auth?.uid;
-    // If the user is not logged in, throw an error
-    if (!userId) {
-      throw new functions.https.HttpsError(
-        "unauthenticated",
-        "User must be logged in to call this function"
-      );
-    }
-
     // Update the verification code document to include the user's ID
     await db
       .collection("verificationCodes")
       .doc(verificationCode)
       .update({
-        usedForVerification: FieldValue.arrayUnion(userId),
+        usedForVerification: FieldValue.arrayUnion(uid),
       });
 
     // Update the user's document to include the verification code
     await db
       .collection("users")
-      .doc(userId)
+      .doc(uid)
       .collection("userInternInfo")
-      .doc(userId)
+      .doc(uid)
       .update({ usedVerificationCode: verificationCode });
 
     return true;
