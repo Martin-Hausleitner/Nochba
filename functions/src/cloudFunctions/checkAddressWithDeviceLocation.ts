@@ -4,8 +4,6 @@ import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLo
 import * as admin from "firebase-admin";
 import { GeoPoint } from "firebase-admin/firestore";
 
-
-
 const db = admin.firestore();
 
 const MAX_DISTANCE_METERS = 44440;
@@ -19,89 +17,78 @@ export const checkAddressWithDeviceLocation = functions
     const { address, deviceLongitudeCoordinate, deviceLatitudeCoordinate } =
       data;
 
-    let addressCoordinates: Coordinates | CoordinatesError;
+    if (!address || !deviceLongitudeCoordinate || !deviceLatitudeCoordinate) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Missing required data. Please provide a valid address and device coordinates."
+      );
+    }
+
+    if (!context.auth || !context.auth.uid) {
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        "Missing or invalid context. Please ensure that the request is properly authenticated."
+      );
+    }
+    const uid = context.auth?.uid;
+
+    const userRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("userInternInfo")
+      .doc(uid);
+    const userDoc = await userRef.get();
+    if (userDoc.exists && userDoc.data()?.addressCoordinates) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "Address coordinates have already been written!"
+      );
+    }
+
+    // try addressCoordinates
+    let addressCoordinates;
     try {
       addressCoordinates = await getCoordinatesFromAddress(address);
-    } catch (err) {
-      return {
-        success: false,
-        error: err.toString(),
-      };
-    }
-    // set addressCoordinates with dummy data
-    // addressCoordinates = {
-    //   longitude: 14.3035941,
-    //   latitude: 48.3010965,
-    // };
-
-    if (isCoordinates(addressCoordinates)) {
-      // addressCoordinates is a Coordinates object, so you can access its properties here
-      addressCoordinates.longitude = addressCoordinates.longitude;
-      addressCoordinates.latitude = addressCoordinates.latitude;
-      // ...
-    } else {
-      // addressCoordinates is a CoordinatesError object, so you can handle the error here
-      return {
-        success: false,
-        error: addressCoordinates.error,
-      };
-    }
-    let distance;
-
-    // let distance: number = 50;
-    if (addressCoordinates != null) {
-      distance = getDistanceFromLatLonInMeters(
-        deviceLatitudeCoordinate,
-        deviceLongitudeCoordinate,
-        addressCoordinates.latitude,
-        addressCoordinates.longitude
+    } catch (error) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Error getting coordinates from address. Error: " + error.massage
       );
-      if (distance > MAX_DISTANCE_METERS) {
-        return {
-          success: false,
-          error:
-            "Bitte schalten deinen Standort in den Einstellungen > Standort > Genauen Standort verwenden um die Adresse zu bestätigen.",
-        };
-      }
-      const uid = context.auth?.uid;
-      if (distance <= MAX_DISTANCE_METERS) {
-        const coordinates = new GeoPoint(
-          addressCoordinates.latitude,
-          addressCoordinates.longitude
-        );
-        const deviceCoordinates = new GeoPoint(
-          deviceLatitudeCoordinate,
-          deviceLongitudeCoordinate
-        );
-
-        const userRef = db
-          .collection("users")
-          .doc(uid)
-          .collection("userInternInfo")
-          .doc(uid);
-
-        await userRef.set({
-          addressCoordinates: coordinates,
-          deviceCoordinates: deviceCoordinates,
-          distanceOfDeviceAndAddressInMeter: distance,
-        });
-
-        return {
-          success: true,
-        };
-      } else {
-        return {
-          success: false,
-          error:
-            "Deine Addresse ist zu weit von deinem Standort entfernt. Bitte versuche es erneut.",
-        };
-      }
-    } else {
-      return {
-        success: false,
-        error:
-          "Address is not in the radius of 40m Distance: " + distance + "m",
-      };
     }
-  });
 
+    const distance = getDistanceFromLatLonInMeters(
+      deviceLatitudeCoordinate,
+      deviceLongitudeCoordinate,
+      addressCoordinates.latitude,
+      addressCoordinates.longitude
+    );
+
+    if (distance < 0 || distance > MAX_DISTANCE_METERS) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Bitte schalten deinen Standort in den Einstellungen > Standort > Genauen Standort verwenden um die Adresse zu bestätigen."
+      );
+    }
+
+    const deviceCoordinates = new GeoPoint(
+      deviceLatitudeCoordinate,
+      deviceLongitudeCoordinate
+    );
+
+    try {
+      await userRef.set({
+        addressCoordinates: addressCoordinates,
+        deviceCoordinates: deviceCoordinates,
+        distanceOfDeviceAndAddressInMeter: distance,
+      });
+    } catch (error) {
+      throw new functions.https.HttpsError(
+        "internal",
+        "Error updating user document. Please try again Error: " + error
+      );
+    }
+
+    return {
+      success: true,
+    };
+  });

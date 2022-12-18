@@ -22,10 +22,27 @@ export const checkVerificationCode = functions.https.onCall(
   async (data, context) => {
     // Destructure the verification code and address from the request data
     const verificationCode = data.verificationCode;
-    const address = data.address;
+  
+    try {
+      await verifyVerificationCode(verificationCode);
+    } catch (error) {
+      // If the verification code is invalid, throw an error
+      return {
+        error: "The verification code is invalid. Error: " + error.message,
+    }
 
-    // Verify the verification code
-    await verifyVerificationCode(verificationCode);
+    const address = data.address;
+    //check if address is not null
+    let addressCoordinates;
+    try {
+      addressCoordinates = await getCoordinatesFromAddress(address);
+    } catch (error) {
+      return {
+        error:
+          "Error getting coordinates from address. Error: " + error.massage,
+      };
+    }
+
 
     // Get a reference to the verification code document in the database
     const codeRef = db.collection("verificationCodes").doc(verificationCode);
@@ -41,34 +58,6 @@ export const checkVerificationCode = functions.https.onCall(
     }
     const codeData = codeSnap.data();
 
-    // Get the coordinates for the given address
-    let addressCoordinates: Coordinates | CoordinatesError;
-    try {
-      addressCoordinates = await getCoordinatesFromAddress(address);
-    } catch (err) {
-      return {
-        success: false,
-        error: err.toString(),
-      };
-    }
-    // set addressCoordinates with dummy data
-    // addressCoordinates = {
-    //   longitude: 14.3035941,
-    //   latitude: 48.3010965,
-    // };
-
-    if (isCoordinates(addressCoordinates)) {
-      // addressCoordinates is a Coordinates object, so you can access its properties here
-      addressCoordinates.longitude = addressCoordinates.longitude;
-      addressCoordinates.latitude = addressCoordinates.latitude;
-      // ...
-    } else {
-      // addressCoordinates is a CoordinatesError object, so you can handle the error here
-      return {
-        success: false,
-        error: addressCoordinates.error,
-      };
-    }
     // const addressCoordinates = { latitude: 0, longitude: 0 };
 
     // Calculate the distance between the given address and the address associated

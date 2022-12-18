@@ -1,24 +1,16 @@
 import { Client, GeocodeResponse } from "@googlemaps/google-maps-services-js";
 import * as functions from "firebase-functions";
+import { GeoPoint } from "firebase-admin/firestore";
+
 // import const { defineInt, defineString } = require('firebase-functions/params');
 //convert google maps api key to string
 
 const client = new Client({});
 
-interface Coordinates {
-  longitude: number;
-  latitude: number;
-}
-
-interface CoordinatesError {
-  success: boolean;
-  error: string;
-}
-
 export async function getCoordinatesFromAddress(
   address: string
   //google map api key
-): Promise<Coordinates | CoordinatesError> {
+): Promise<GeoPoint> {
   try {
     const geocodeResponse: GeocodeResponse = await client.geocode({
       params: {
@@ -26,26 +18,16 @@ export async function getCoordinatesFromAddress(
         key: process.env.GOOGLE_MAPS_API_KEY,
       },
     });
-
-    // Check if the response has any results
-    if (geocodeResponse.data.results.length === 0) {
-      return {
-        success: false,
-        error: "No results found for the given address",
-      };
-    }
-
-    const location = geocodeResponse.data.results[0].geometry.location;
-    const addressCoordinates = {
-      longitude: location.lng,
-      latitude: location.lat,
-    };
-
-    return { success: true, ...addressCoordinates };
+    return new GeoPoint(
+      geocodeResponse.data.results[0].geometry.location.lat,
+      geocodeResponse.data.results[0].geometry.location.lng
+    );
   } catch (error) {
-    return {
-      success: false,
-      error: error.message + "fuction" + functions.config(),
-    };
+    console.error(error);
+    throw new functions.https.HttpsError(
+      "internal",
+      "There was an error while trying to retrieve coordinates from the provided address:" +
+        error
+    );
   }
 }
