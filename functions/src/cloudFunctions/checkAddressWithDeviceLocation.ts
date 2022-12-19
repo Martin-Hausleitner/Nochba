@@ -4,6 +4,7 @@ import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFrom
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 import * as admin from "firebase-admin";
 import { GeoPoint } from "firebase-admin/firestore";
+import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";
 
 const db = admin.firestore();
 
@@ -49,7 +50,7 @@ export const checkAddressWithDeviceLocation = functions
     // try addressCoordinates
     let addressCoordinates;
     try {
-      addressCoordinates = await getOSMCoordinatesFromAddress(address);
+      addressCoordinates = await getCoordinatesFromAddress(address);
       // addressCoordinates = await getCoordinatesFromAddress(address);
     } catch (error) {
       throw new functions.https.HttpsError(
@@ -82,6 +83,27 @@ export const checkAddressWithDeviceLocation = functions
         addressCoordinates: addressCoordinates,
         deviceCoordinates: deviceCoordinates,
         distanceOfDeviceAndAddressInMeter: distance,
+      });
+    } catch (error) {
+      throw new functions.https.HttpsError(
+        "internal",
+        "Error updating user document. Please try again Error: " + error
+      );
+    }
+
+    const subUrb = await getOSMSuburbFromCoords(
+      addressCoordinates.latitude,
+      addressCoordinates.longitude
+    );
+
+    const userPublicInfpRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("userPublicInfo")
+      .doc(uid);
+    try {
+      await userPublicInfpRef.update({
+        subUrb: subUrb,
       });
     } catch (error) {
       throw new functions.https.HttpsError(

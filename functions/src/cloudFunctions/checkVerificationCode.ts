@@ -101,20 +101,20 @@ export const checkVerificationCode = functions.https.onCall(
         "The verification code was not found."
       );
     }
-    const codeData = codeSnap.data();
+    const codeData = await codeSnap.data();
     // return codeData;
 
     // const addressCoordinates = { latitude: 0, longitude: 0 };
 
     // Calculate the distance between the given address and the address associated
     // with the verification code
-    const distance = getDistanceFromLatLonInMeters(
+    const distance = await getDistanceFromLatLonInMeters(
       addressCoordinates.latitude,
       addressCoordinates.longitude,
       codeData.addressCoordinate.lat,
       codeData.addressCoordinate.lng
     );
-    return distance.toString();
+    // return distance.toString();
 
     if (distance > codeData.rangeInMeters) {
       // If the distance is greater than the allowed range, throw an error
