@@ -16,7 +16,8 @@ import { verifyVerificationCode } from "../functions/verifyVerificationCode";
 const db = admin.firestore();
 
 // Export the checkVerificationCode function as a Cloud Function that can be
-// called by a client via HTTPS
+// called by a client via HTTPSms
+
 export const checkVerificationCode = functions.https.onCall(
   async (data, context) => {
     // Destructure the verification code and address from the request data
