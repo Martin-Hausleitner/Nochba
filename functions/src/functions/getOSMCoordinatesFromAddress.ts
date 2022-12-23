@@ -1,3 +1,6 @@
+//import node fetch
+import fetch from "node-fetch";
+
 export async function getOSMCoordinatesFromAddress(
   address: string
 ): Promise<[number, number]> {

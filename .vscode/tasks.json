@@ -3,7 +3,7 @@
   "tasks": [
     {
       "type": "shell",
-      "command": "npm tsc -p functions/tsconfig.json --watch",
+      "command": "tsc -p functions/tsconfig.json --watch",
       "problemMatcher": "$tsc-watch",
       "group": "build",
       "label": "tsc: watch - functions/tsconfig.json"
@@ -21,22 +21,33 @@
       "label": "firebase emulators: start"
     },
     {
-      "label": "Open URL",
+      "label": "Open Firbase Emulator UI",
       "command": "start",
       "args": ["http://127.0.0.1:4002/functions"],
       "type": "shell",
       "problemMatcher": []
     },
     {
+      "label": "Open Firebase Console",
+      "type": "shell",
+      "command": "start",
+      "args": [
+        "https://console.firebase.google.com/u/0/project/nochba-dev/firestore/data"
+      ],
+      "problemMatcher": []
+    },
+
+    {
       "type": "process",
       "dependsOn": [
         "tsc: watch",
         "flutter: run",
         "firebase emulators: start",
-        "Open URL"
+        "Open Firebase Console",
+        "Open Firbase Emulator UI"
       ],
       "group": "build",
-      "label": "run all"
+      "label": "Firebase Function Enviroment Setup"
     }
   ]
 }

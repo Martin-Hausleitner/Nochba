@@ -11,6 +11,7 @@ import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLo
 
 // Import a function for verifying a verification code
 import { verifyVerificationCode } from "../functions/verifyVerificationCode";
+import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFromAddress";
 
 // Initialize the Firestore database
 const db = admin.firestore();
@@ -66,11 +67,11 @@ export const checkVerificationCode = functions.https.onCall(
     //check if address is not null
     let addressCoordinates;
     try {
-      addressCoordinates = await getCoordinatesFromAddress(address);
+      addressCoordinates = await getOSMCoordinatesFromAddress(address);
     } catch (error) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "Can't get coordinates from address!"
+        "Can't get coordinates from address!" + error
       );
     }
     //check if addressCoordinates is not null

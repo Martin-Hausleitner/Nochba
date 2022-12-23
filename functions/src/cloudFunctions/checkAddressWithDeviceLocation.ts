@@ -102,9 +102,12 @@ export const checkAddressWithDeviceLocation = functions
       .collection("userPublicInfo")
       .doc(uid);
     try {
-      await userPublicInfpRef.update({
-        subUrb: subUrb,
-      });
+      await userPublicInfpRef.set(
+        {
+          subUrb: subUrb,
+        },
+        { merge: true }
+      );
     } catch (error) {
       throw new functions.https.HttpsError(
         "internal",
