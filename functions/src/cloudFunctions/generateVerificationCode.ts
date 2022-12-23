@@ -4,6 +4,7 @@ import { generateRandomVerificationCode } from "../functions/generateRandomVerif
 import { FieldValue, GeoPoint, Timestamp } from "firebase-admin/firestore";
 
 const GENERATION_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
+
 const db = admin.firestore();
 
 export const generateVerificationCode = functions.https.onCall(

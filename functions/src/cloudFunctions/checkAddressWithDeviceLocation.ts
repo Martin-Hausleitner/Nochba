@@ -6,9 +6,9 @@ import * as admin from "firebase-admin";
 import { GeoPoint } from "firebase-admin/firestore";
 import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";
 
-const db = admin.firestore();
-
 const MAX_DISTANCE_METERS = 44440;
+
+const db = admin.firestore();
 
 export const checkAddressWithDeviceLocation = functions
   .runWith({

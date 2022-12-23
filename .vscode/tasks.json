@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "npm tsc -p functions/tsconfig.json --watch",
+      "problemMatcher": "$tsc-watch",
+      "group": "build",
+      "label": "tsc: watch - functions/tsconfig.json"
+    },
+    {
+      "type": "shell",
+      "command": "flutter run -d chrome --hot",
+      "group": "build",
+      "label": "flutter: run"
+    },
+    {
+      "type": "shell",
+      "command": "cd functions && firebase emulators:start --only functions",
+      "group": "build",
+      "label": "firebase emulators: start"
+    },
+    {
+      "label": "Open URL",
+      "command": "start",
+      "args": ["http://127.0.0.1:4002/functions"],
+      "type": "shell",
+      "problemMatcher": []
+    },
+    {
+      "type": "process",
+      "dependsOn": [
+        "tsc: watch",
+        "flutter: run",
+        "firebase emulators: start",
+        "Open URL"
+      ],
+      "group": "build",
+      "label": "run all"
+    }
+  ]
+}

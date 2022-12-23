@@ -9,6 +9,7 @@ import * as admin from "firebase-admin";
 // Initialize Firebase app
 admin.initializeApp();
 
+
 export { generateVerificationCode } from "./cloudFunctions/generateVerificationCode";
 export { checkAddressWithDeviceLocation } from "./cloudFunctions/checkAddressWithDeviceLocation";
 export { getDistanceFromTwoUsers } from "./cloudFunctions/getDistanceFromTwoUsers";

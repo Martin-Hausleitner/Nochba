@@ -21,6 +21,7 @@ class AuthController extends GetxController {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final birthdayController = TextEditingController();
+  
 
   void toggle() => _isLogin.value = !_isLogin.value;
 
