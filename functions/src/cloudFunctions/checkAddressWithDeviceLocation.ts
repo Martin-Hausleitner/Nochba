@@ -26,7 +26,7 @@ export const checkAddressWithDeviceLocation = functions
       );
     }
 
-    if (!context.auth || !context.auth.uid) {
+    if (!context.auth.uid) {
       throw new functions.https.HttpsError(
         "permission-denied",
         "Missing or invalid context. Please ensure that the request is properly authenticated."

@@ -2,6 +2,8 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { generateRandomVerificationCode } from "../functions/generateRandomVerificationCode";
 import { FieldValue, GeoPoint, Timestamp } from "firebase-admin/firestore";
+import * as logger from "firebase-functions/logger";
+
 
 const GENERATION_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -22,6 +24,9 @@ export const generateVerificationCode = functions.https.onCall(
     const userInternInfoDoc = await userInternInfoRef.get();
     const userPrivateInfoRef = userRef.collection("userPrivateInfo").doc(uid);
     const userPrivateInfoDoc = await userPrivateInfoRef.get();
+    const coordinates = userInternInfoDoc.get("addressCoordinates");
+    logger.info(`User: ${uid} coordinates: ${coordinates}`);
+
 
     let generatedVerificationCodes;
     if (userPrivateInfoDoc.exists) {
@@ -76,7 +81,7 @@ export const generateVerificationCode = functions.https.onCall(
       await userInternInfoRef.set({});
     }
 
-    const coordinates = userInternInfoDoc.get("addressCoordinates");
+   
     if (!coordinates) {
       throw new functions.https.HttpsError(
         "not-found",
@@ -98,15 +103,12 @@ export const generateVerificationCode = functions.https.onCall(
 
     // // Save a ref of the new code in the users collection in userPublicInfo
 
-    if (!userPrivateInfoDoc.exists) {
-      await userPrivateInfoRef.set({
-        generatedVerificationCodes: [verificationCode],
-      });
-    } else {
-      await userPrivateInfoRef.update({
+    await userPrivateInfoRef.set(
+      {
         generatedVerificationCodes: FieldValue.arrayUnion(verificationCode),
-      });
-    }
+      },
+      { merge: true }
+    );
 
     return verificationCode;
   }

@@ -22,9 +22,15 @@ const db = admin.firestore();
 
 export const checkVerificationCode = functions.https.onCall(
   async (data, context) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError(
+        "unauthenticated",
+        "The request is not authenticated."
+      );
+    }
+    const uid = context.auth.uid;
     // Destructure the verification code and address from the request data
     const verificationCode = data.verificationCode;
-    const uid = context.auth?.uid;
 
     logger.info(`User: ${uid} VerificationCode: ${verificationCode}`);
 
