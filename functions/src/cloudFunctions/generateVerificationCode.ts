@@ -90,7 +90,7 @@ export const generateVerificationCode = functions.https.onCall(
       userId: context.auth.uid,
       isActive: true,
       addressCoordinate: coordinates,
-      rangeInMeters: 1000,
+      rangeInMeter: 1000,
       generationDate: FieldValue.serverTimestamp(),
     });
 

@@ -426,9 +426,9 @@ class VerifyButton extends StatelessWidget {
         // Call the verifyVerificationCode function
         final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
           'checkVerificationCode',
-          options: HttpsCallableOptions(
-            timeout: const Duration(seconds: 5),
-          ),
+          // options: HttpsCallableOptions(
+          //   timeout: const Duration(seconds: 5),
+          // ),
         );
         try {
           final response = await callable.call({

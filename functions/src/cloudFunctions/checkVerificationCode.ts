@@ -3,6 +3,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { FieldValue, GeoPoint } from "firebase-admin/firestore";
+import * as logger from "firebase-functions/logger";
 
 // Import some helper functions for getting coordinates from an address and
 // calculating the distance between two sets of coordinates
@@ -23,27 +24,34 @@ export const checkVerificationCode = functions.https.onCall(
   async (data, context) => {
     // Destructure the verification code and address from the request data
     const verificationCode = data.verificationCode;
+    const uid = context.auth?.uid;
+
+    logger.info(`User: ${uid} VerificationCode: ${verificationCode}`);
+
+    if (!context.auth || !context.auth.uid) {
+      logger.error("Missing or invalid context.auth.uid");
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        "Missing or invalid context. Please ensure that the request is properly authenticated."
+      );
+    }
+
     try {
       await verifyVerificationCode(verificationCode);
     } catch (error) {
+      logger.error(
+        `The verification code does not have the correct format! Error: ${error}`
+      );
       throw new functions.https.HttpsError(
         "invalid-argument",
         "The verification code is invalid"
       );
     }
 
-    if (!context.auth || !context.auth.uid) {
-      throw new functions.https.HttpsError(
-        "permission-denied",
-        "Missing or invalid context. Please ensure that the request is properly authenticated."
-      );
-    }
-    const uid = context.auth?.uid;
-
     const codeRef = db.collection("verificationCodes").doc(verificationCode);
-    //TODO: test if in teh doc verificationCode the boolean isVerified is false then throw error
     const codeDoc = await codeRef.get();
     if (codeDoc.data()?.isActive == false) {
+      logger.error("The Verification Code is deactivated!");
       throw new functions.https.HttpsError(
         "failed-precondition",
         "The Verification Code is deactivated!"
@@ -57,100 +65,72 @@ export const checkVerificationCode = functions.https.onCall(
       .doc(uid);
     const userDoc = await userRef.get();
     if (userDoc.exists && userDoc.data()?.addressCoordinates) {
+      logger.error("The user has already addressCoordinates in the Database!");
       throw new functions.https.HttpsError(
         "failed-precondition",
-        "The user has already been verified."
+        "You are already been verified."
       );
     }
     const address = data.address;
 
-    let addressCoordinates = new GeoPoint(0, 0);
-    //check if address is not null
+    let addressCoordinates: GeoPoint;
     try {
       addressCoordinates = await getOSMCoordinatesFromAddress(address);
     } catch (error) {
-      throw new functions.https.HttpsError(
-        "invalid-argument",
-        "Can't get coordinates from address!" + error
+      logger.error(
+        `An error occurred while attempting to retrieve coordinates from the given address with the API. Error: ${error} `
       );
-    }
-    //check if addressCoordinates is not null
-    if (!addressCoordinates) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "Can't get coordinates from address!"
+        "Can't get coordinates from your address!"
       );
     }
 
-    // // Get a reference to the verification code document in the database
-
-    // Get the data for the verification code document
     let codeData;
     try {
       codeData = await codeRef.get();
     } catch (error) {
+      logger.error(
+        `The provided verification code was not found in the database. Error: ${error}`
+      );
       throw new functions.https.HttpsError(
         "not-found",
-        "The verification code was not found."
+        "The verification code does not exist."
       );
     }
+    const { addressCoordinate } = codeData.data();
+    let codeAddressCoordinates = new GeoPoint(
+      Number(addressCoordinate._latitude),
+      Number(addressCoordinate._longitude)
+    );
 
-    // return codeSnap;
-    if (!codeData.addressCoordinate || !codeData.addressCoordinate.lat || !codeData.addressCoordinate.lng) {
-      throw new functions.https.HttpsError(
-        "invalid-argument",
-        "The verification code does not have a valid address coordinate."
-      );
-    }
-    
-    if (typeof codeData.addressCoordinate.lat !== "number" || typeof codeData.addressCoordinate.lng !== "number") {
-      throw new functions.https.HttpsError(
-        "invalid-argument",
-        "The address coordinate of the verification code is not a valid number."
-      );
-    }
-    
-    try {
-      let codeAddressCoordinates = new GeoPoint(
-        codeData.addressCoordinate.lat,
-        codeData.addressCoordinate.lng
-      );
-      // Do something with the codeAddressCoordinates object
-    } catch (error) {
-      if (error.message === "The verification code does not have a valid address coordinate.") {
-        // Handle the error and provide a helpful message to the user
-      } else {
-        // Rethrow the error if it's not one that we're expecting
-        throw error;
-      }
-    }
-
-    // const addressCoordinates = { latitude: 0, longitude: 0 };
-
-    // Calculate the distance between the given address and the address associated
-    // with the verification code
-    let distance = 1;
+    let distance = null;
     try {
       distance = await getDistanceFromLatLonInMeters(
         addressCoordinates.latitude,
         addressCoordinates.longitude,
-        codeData.addressCoordinate.lat,
-        codeData.addressCoordinate.lng
+        codeAddressCoordinates.latitude,
+        codeAddressCoordinates.longitude
       );
     } catch (error) {
+      logger.error(
+        `The distance between the address and the verification code could not be calculated. Distance: ${distance} Error: ${error}`
+      );
       throw new functions.https.HttpsError(
         "failed-precondition",
-        "Error: getDistanceFromLatLonInMeters" + error
+        "The distance between the address and the verification code could not be calculated."
       );
     }
 
-    // return distance.toString();
+    const { rangeInMeter } = codeData.data();
 
-    if (distance > codeData.rangeInMeters) {
-      // If the distance is greater than the allowed range, throw an error
+    if (distance > rangeInMeter) {
+      logger.error(
+        `The address is not within the allowed range. ${distance} > ${rangeInMeter}`
+      );
       throw new functions.https.HttpsError(
         "out-of-range",
-        "The given address is out of range."
+        "The address you provided is not within the allowed range of the verification code."
       );
     }
 
@@ -167,25 +147,20 @@ export const checkVerificationCode = functions.https.onCall(
     try {
       await userRef.set({
         addressCoordinates: addressCoordinates,
-        distance: distance,
+        distanceInMeter: distance,
         usedVerificationCode: verificationCode,
       });
     } catch (error) {
+      logger.error(`Error updating user document. Error: ${error}`);
       throw new functions.https.HttpsError(
         "internal",
-        "Error updating user document. Please try again Error: " + error
+        "An internal error occurred while attempting to save your address coordinates."
       );
     }
 
-    return {
-      message: "Verification successful!",
-      addressCoordinatesLatitude: addressCoordinates.latitude,
-      addressCoordinatesLongitude: addressCoordinates.longitude,
-      distance: distance,
-      // codeData.addressCoordinate.lat,
-      // codeData.addressCoordinate.lat,
-      // codeDataAddressCoordinateLat: codeData.addressCoordinate.lat,
-      // codeDataAddressCoordinateLng: codeData.addressCoordinate.lng,
-    };
+    logger.info(
+      `User: ${uid} has been verified with the verification code: ${verificationCode}.`
+    );
+    return true;
   }
 );
