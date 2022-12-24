@@ -7,7 +7,8 @@ import * as admin from "firebase-admin";
 // firebase functions:secrets:set GOOGLE_MAPS_API_KEY
 
 // Initialize Firebase app
-admin.initializeApp();
+  admin.initializeApp();
+
 
 
 export { generateVerificationCode } from "./cloudFunctions/generateVerificationCode";

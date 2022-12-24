@@ -23,7 +23,7 @@
     {
       "label": "Open Firbase Emulator UI",
       "command": "start",
-      "args": ["http://127.0.0.1:4002/functions"],
+      "args": ["http://127.0.0.1:4000/functions"],
       "type": "shell",
       "problemMatcher": []
     },
@@ -36,11 +36,10 @@
       ],
       "problemMatcher": []
     },
-
     {
       "type": "process",
       "dependsOn": [
-        "tsc: watch",
+        "tsc: watch - functions/tsconfig.json",
         "flutter: run",
         "firebase emulators: start",
         "Open Firebase Console",

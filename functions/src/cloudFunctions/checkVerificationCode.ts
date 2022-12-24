@@ -62,10 +62,10 @@ export const checkVerificationCode = functions.https.onCall(
         "The user has already been verified."
       );
     }
-
     const address = data.address;
+
+    let addressCoordinates = new GeoPoint(0, 0);
     //check if address is not null
-    let addressCoordinates;
     try {
       addressCoordinates = await getOSMCoordinatesFromAddress(address);
     } catch (error) {
@@ -82,12 +82,12 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    // Get a reference to the verification code document in the database
+    // // Get a reference to the verification code document in the database
 
     // Get the data for the verification code document
-    let codeSnap;
+    let codeData;
     try {
-      codeSnap = await codeRef.get();
+      codeData = await codeRef.get();
     } catch (error) {
       throw new functions.https.HttpsError(
         "not-found",
@@ -96,26 +96,54 @@ export const checkVerificationCode = functions.https.onCall(
     }
 
     // return codeSnap;
-    if (!codeSnap.exists) {
-      // If the verification code document does not exist, throw an error
+    if (!codeData.addressCoordinate || !codeData.addressCoordinate.lat || !codeData.addressCoordinate.lng) {
       throw new functions.https.HttpsError(
-        "not-found",
-        "The verification code was not found."
+        "invalid-argument",
+        "The verification code does not have a valid address coordinate."
       );
     }
-    const codeData = await codeSnap.data();
-    // return codeData;
+    
+    if (typeof codeData.addressCoordinate.lat !== "number" || typeof codeData.addressCoordinate.lng !== "number") {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "The address coordinate of the verification code is not a valid number."
+      );
+    }
+    
+    try {
+      let codeAddressCoordinates = new GeoPoint(
+        codeData.addressCoordinate.lat,
+        codeData.addressCoordinate.lng
+      );
+      // Do something with the codeAddressCoordinates object
+    } catch (error) {
+      if (error.message === "The verification code does not have a valid address coordinate.") {
+        // Handle the error and provide a helpful message to the user
+      } else {
+        // Rethrow the error if it's not one that we're expecting
+        throw error;
+      }
+    }
 
     // const addressCoordinates = { latitude: 0, longitude: 0 };
 
     // Calculate the distance between the given address and the address associated
     // with the verification code
-    const distance = await getDistanceFromLatLonInMeters(
-      addressCoordinates.latitude,
-      addressCoordinates.longitude,
-      codeData.addressCoordinate.lat,
-      codeData.addressCoordinate.lng
-    );
+    let distance = 1;
+    try {
+      distance = await getDistanceFromLatLonInMeters(
+        addressCoordinates.latitude,
+        addressCoordinates.longitude,
+        codeData.addressCoordinate.lat,
+        codeData.addressCoordinate.lng
+      );
+    } catch (error) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "Error: getDistanceFromLatLonInMeters" + error
+      );
+    }
+
     // return distance.toString();
 
     if (distance > codeData.rangeInMeters) {
@@ -139,7 +167,7 @@ export const checkVerificationCode = functions.https.onCall(
     try {
       await userRef.set({
         addressCoordinates: addressCoordinates,
-        distanceOfDeviceAndAddressInMeter: distance,
+        distance: distance,
         usedVerificationCode: verificationCode,
       });
     } catch (error) {
@@ -153,11 +181,11 @@ export const checkVerificationCode = functions.https.onCall(
       message: "Verification successful!",
       addressCoordinatesLatitude: addressCoordinates.latitude,
       addressCoordinatesLongitude: addressCoordinates.longitude,
-      // distanceOfDeviceAndAddressInMeter: distance,
+      distance: distance,
       // codeData.addressCoordinate.lat,
       // codeData.addressCoordinate.lat,
-      codeDataAddressCoordinateLat: codeData.addressCoordinate.lat,
-      codeDataAddressCoordinateLng: codeData.addressCoordinate.lng,
+      // codeDataAddressCoordinateLat: codeData.addressCoordinate.lat,
+      // codeDataAddressCoordinateLng: codeData.addressCoordinate.lng,
     };
   }
 );
