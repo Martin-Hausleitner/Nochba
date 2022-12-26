@@ -60,11 +60,13 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    //check if the usedCodeCount is under the maxCodeLimit 
+    //check if the usedCodeCount is under the maxCodeLimit
     const { maxCodeLimit } = codeDoc.data();
     const { usedCodeCount } = codeDoc.data();
     if (usedCodeCount >= maxCodeLimit) {
-      logger.error(`The Verification Code has the maximum number of uses reached: ${usedCodeCount} >= ${maxCodeLimit}}`);
+      logger.error(
+        `The Verification Code has the maximum number of uses reached: ${usedCodeCount} >= ${maxCodeLimit}}`
+      );
       throw new functions.https.HttpsError(
         "failed-precondition",
         "The Verification Code has the maximum number of uses reached"
@@ -176,21 +178,41 @@ export const checkVerificationCode = functions.https.onCall(
       .doc(uid);
     await userPublicInfpRef.set({ subUrb }, { merge: true });
 
-    await db
-      .collection("verificationCodes")
-      .doc(verificationCode)
-      .collection("usedForVerification")
-      .doc(uid)
-      .set({});
+    // await db
+    //   .collection("verificationCodes")
+    //   .doc(verificationCode)
+    //   .collection("usedForVerification")
+    //   .doc(uid)
+    //   .set({});
 
-    //TODO: check if the maxCodeLimit: MAX_CODE_LIMIT is reached the current count is stored in usedCodeCount when its note the maxiumun it should add 1 to the count
-    await db
-      .collection("verificationCodes")
-      .doc(verificationCode)
-      .set(
-        { usedCodeCount: admin.firestore.FieldValue.increment(1) },
-        { merge: true }
+    // await db
+    //   .collection("verificationCodes")
+    //   .doc(verificationCode)
+    //   .set({ usedCodeCount: FieldValue.increment(1) }, { merge: true });
+
+    try {
+      // Code that performs operations on Firebase
+      await db
+        .collection("verificationCodes")
+        .doc(verificationCode)
+        .collection("usedForVerification")
+        .doc(uid)
+        .set({});
+
+      await db
+        .collection("verificationCodes")
+        .doc(verificationCode)
+        .set({ usedCodeCount: FieldValue.increment(1) }, { merge: true });
+    } catch (error) {
+      // Log the error message
+      logger.error(error.message);
+
+      // Throw an HttpsError with a custom error message
+      throw new functions.https.HttpsError(
+        "internal",
+        "An error occurred while saving the verification code"
       );
+    }
 
     logger.info(`✅ User: ${uid} verified with code: ${verificationCode}.`);
     return true;

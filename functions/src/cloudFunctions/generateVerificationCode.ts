@@ -91,6 +91,8 @@ export const generateVerificationCode = functions.https.onCall(
       { merge: true }
     );
 
+    logger.info(`User: ${uid} generated verification code: ${verificationCode}`);
+
     return verificationCode;
   }
 );

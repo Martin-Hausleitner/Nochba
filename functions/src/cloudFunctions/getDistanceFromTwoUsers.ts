@@ -2,25 +2,25 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 import { getNearestDistance } from "../functions/getNearestDistance";
+import * as logger from "firebase-functions/logger";
 
 const db = admin.firestore();
 
 export const getDistanceFromTwoUsers = functions.https.onCall(
   async (data, context) => {
-    const userId: string = data.userId;
-    const postId: string = data.postId;
-    const currentUserId = context.auth?.uid;
-
-    if (!userId || !currentUserId) {
+    if (!context.auth) {
       throw new functions.https.HttpsError(
-        "invalid-argument",
-        "userId and currentUserId are required"
+        "unauthenticated",
+        "The request is not authenticated."
       );
     }
+    const uid = context.auth.uid;
+    const postId: string = data.postId;
 
     // query under posts / postid / range to get the range
     const postSnapshot = await db.collection("posts").doc(postId).get();
     if (!postSnapshot.exists) {
+      logger.error("The specified post could not be found: " + postId);
       throw new functions.https.HttpsError(
         "not-found",
         "The specified post could not be found"
@@ -28,8 +28,19 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     }
     const postData = postSnapshot.data();
 
+    //if postdata user is null throw error else save the user id as post user id
+    if (!postData?.user) {
+      logger.error("Post user is required");
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Post user is required"
+      );
+    }
+    const postUserId = postData?.user;
+
     //check if post range is set
     if (!postData?.range) {
+      logger.error("Post range is required" + postData?.range);
       throw new functions.https.HttpsError(
         "invalid-argument",
         "Post range is required"
@@ -37,13 +48,23 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     }
     const postRange = postData?.range;
 
-    const userSnapshot = await db.collection("users").doc(userId).get();
-    const currentUserSnapshot = await db
+    const postUserSnapshot = await db
       .collection("users")
-      .doc(currentUserId)
+      .doc(postUserId)
+      .collection("userInternInfo")
+      .doc(postUserId)
+      .get();
+    const userSnapshot = await db
+      .collection("users")
+      .doc(uid)
+      .collection("userInternInfo")
+      .doc(uid)
       .get();
 
-    if (!userSnapshot.exists || !currentUserSnapshot.exists) {
+    if (!postUserSnapshot.exists || !userSnapshot.exists) {
+      logger.error(
+        `The specified user could not be found: ${postUserSnapshot.exists} ${postUserId} ${userSnapshot.exists} ${uid} `
+      );
       throw new functions.https.HttpsError(
         "not-found",
         "The specified user could not be found"
@@ -52,37 +73,33 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
 
     const snapshot = await db
       .collection("users")
-      .doc(userId)
+      .doc(postUserId)
       .collection("userInternInfo")
-      .doc(userId)
+      .doc(postUserId)
       .get();
     const userAddressCoordinates = snapshot.data()?.addressCoordinates;
 
     const snapshot2 = await db
       .collection("users")
-      .doc(currentUserId)
+      .doc(uid)
       .collection("userInternInfo")
-      .doc(currentUserId)
+      .doc(uid)
       .get();
     const currentUserAddressCoordinates = snapshot2.data()?.addressCoordinates;
-    //
-
-    // const userData = userSnapshot.data();
-    // const currentUserData = currentUserSnapshot.data();
-
-    // const userAddressCoordinates = userData?.userInternInfo.addressCoordinates;
-    // const currentUserAddressCoordinates =
-    //   currentUserData?.userInternInfo.addressCoordinates;
 
     if (!userAddressCoordinates || !currentUserAddressCoordinates) {
-      throw new functions.https.HttpsError(
-        "invalid-argument",
+      logger.error(
         "Coordinates for both users are required: " +
-          userId +
+          postUserId +
           " " +
-          currentUserId +
+          uid +
           currentUserAddressCoordinates +
           userAddressCoordinates
+      );
+
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Error: while getting coordinates for both users"
       );
     }
 
@@ -94,18 +111,15 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     );
 
     if (distance > postRange) {
+      logger.error(
+        `The specified user is out of range: ${distance} > ${postRange}`
+      );
       throw new functions.https.HttpsError(
         "invalid-argument",
-        "The specified user is out of range:" +
-          postRange +
-          "m" +
-          " Distance: " +
-          distance +
-          "m"
+        "The specified user is out of range"
       );
     }
-
-    // getNearestDistance
+    logger.info(`User: ${uid} got the range of post: ${postId}`);
 
     return getNearestDistance(distance);
   }

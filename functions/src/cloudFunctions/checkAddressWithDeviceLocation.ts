@@ -52,7 +52,7 @@ export const checkAddressWithDeviceLocation = functions
       logger.error("Address coordinates have already been written!");
       throw new functions.https.HttpsError(
         "failed-precondition",
-        "Address coordinates have already been written!"
+        "You are already been verified."
       );
     }
 
@@ -87,7 +87,7 @@ export const checkAddressWithDeviceLocation = functions
     }
 
     // Check if distance is null
-    if ((distance == null)) {
+    if (distance == null) {
       logger.error(
         `NULL Exeption: The distance between the address and the verification code could not be calculated. Distance: ${distance}`
       );
@@ -98,7 +98,9 @@ export const checkAddressWithDeviceLocation = functions
     }
 
     if (distance < 0 || distance > MAX_DISTANCE_METERS) {
-      logger.error(`The distance between the address and the verification code is too large. Distance: ${distance} > ${MAX_DISTANCE_METERS}`);
+      logger.error(
+        `The distance between the address and the verification code is too large. Distance: ${distance} > ${MAX_DISTANCE_METERS}`
+      );
       throw new functions.https.HttpsError(
         "invalid-argument",
         "Bitte schalten deinen Standort in den Einstellungen > Standort > Genauen Standort verwenden um die Adresse zu bestätigen."
@@ -127,8 +129,6 @@ export const checkAddressWithDeviceLocation = functions
       .collection("userPublicInfo")
       .doc(uid);
     await userPublicInfpRef.set({ subUrb }, { merge: true });
-    logger.info(
-      `✅ User: ${uid} verified with Location.`
-    );
+    logger.info(`✅ User: ${uid} verified with Location.`);
     return true;
   });

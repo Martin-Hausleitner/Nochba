@@ -376,8 +376,7 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
       label: 'getDistanceFromLatLonInMeters',
       icon: FlutterRemix.arrow_left_s_line,
       onPressed: () async {
-        const userId = 'n884z248BjU3PcTRefOGSfBX5eJ2';
-        const postId = '6aHBwqdfnKfmWpVJyVrS';
+        const postId = 'hNZr1vDPmzTSA5oomzRi';
 
         if (FirebaseAuth.instance.currentUser != null) {
           // The user is signed in.
@@ -395,7 +394,6 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
         try {
           // rsult ist a string
           final result = await callable.call(<String, dynamic>{
-            'userId': userId,
             'postId': postId,
           });
 
@@ -417,7 +415,7 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
 class VerifyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String verificationCode = 'SdgJn9XGH0';
+    final String verificationCode = 'I484Ojr92W';
     final String address = "Wüstenrotstrasse 1, 4020 Linz, Austria";
     return LocooTextButton(
       label: 'Verify',
