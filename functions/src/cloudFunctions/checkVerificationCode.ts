@@ -52,6 +52,15 @@ export const checkVerificationCode = functions.https.onCall(
 
     const codeRef = db.collection("verificationCodes").doc(verificationCode);
     const codeDoc = await codeRef.get();
+
+    if (!codeDoc.exists) {
+      logger.error("The Verification Code does not exist!");
+      throw new functions.https.HttpsError(
+        "not-found",
+        "The Verification Code does not exist!"
+      );
+    }
+
     if (codeDoc.data()?.isActive == false) {
       logger.error("The Verification Code is deactivated!");
       throw new functions.https.HttpsError(

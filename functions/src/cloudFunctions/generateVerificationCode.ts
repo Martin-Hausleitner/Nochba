@@ -15,6 +15,7 @@ const db = admin.firestore();
 export const generateVerificationCode = functions.https.onCall(
   async (data, context) => {
     if (!context.auth) {
+      logger.error("The request is not authenticated.");
       throw new functions.https.HttpsError(
         "unauthenticated",
         "The request is not authenticated."
@@ -28,31 +29,23 @@ export const generateVerificationCode = functions.https.onCall(
     const userPrivateInfoRef = userRef.collection("userPrivateInfo").doc(uid);
     const userPrivateInfoDoc = await userPrivateInfoRef.get();
     const coordinates = userInternInfoDoc.get("addressCoordinates");
-    logger.info(`User: ${uid} coordinates: ${coordinates}`);
+    logger.info(`User: ${uid} generating verification code.`);
 
-    let generatedVerificationCodes;
-    if (userPrivateInfoDoc.exists) {
-      generatedVerificationCodes = userPrivateInfoDoc.get(
-        "generatedVerificationCodes"
-      );
-
+    // get /users/Hs7OuEPhToXg6qPw1ejjuTOFgDo1/userPrivateInfo/Hs7OuEPhToXg6qPw1ejjuTOFgDo1/ lastGeneratedCode
+    const lastGeneratedCodeDate = userPrivateInfoDoc.get(
+      "lastGeneratedCodeDate"
+    );
+    if (lastGeneratedCodeDate && lastGeneratedCodeDate !== null) {
       const currentTimestamp = Timestamp.fromDate(new Date());
-      if (generatedVerificationCodes) {
-        const lastGeneratedVerificationCode =
-          generatedVerificationCodes[generatedVerificationCodes.length - 1];
-        const codeRef = db
-          .collection("verificationCodes")
-          .doc(lastGeneratedVerificationCode);
-        const codeSnapshot = await codeRef.get();
-        if (codeSnapshot.exists) {
-          const generationDate = codeSnapshot.get("generationDate");
-          if (
-            currentTimestamp.toMillis() - generationDate.toMillis() <
-            GENERATION_INTERVAL
-          ) {
-            return lastGeneratedVerificationCode;
-          }
-        }
+      if (
+        currentTimestamp.toMillis() - lastGeneratedCodeDate.toMillis() <
+        GENERATION_INTERVAL
+      ) {
+        const lastGeneratedCode = userPrivateInfoDoc.get("lastGeneratedCode");
+        logger.info(
+          `User: ${uid} got last verification code: ${lastGeneratedCode}`
+        );
+        return lastGeneratedCode;
       }
     }
 
@@ -67,9 +60,10 @@ export const generateVerificationCode = functions.https.onCall(
     }
 
     if (!coordinates) {
+      logger.error(`User: ${uid} has no coordinates`);
       throw new functions.https.HttpsError(
         "not-found",
-        "The specified user does not have coordinates."
+        "You are not verified yet."
       );
     }
 
@@ -83,15 +77,22 @@ export const generateVerificationCode = functions.https.onCall(
       maxCodeLimit: MAX_CODE_LIMIT,
     });
 
+    await userPrivateInfoRef
+      .collection("generatedVerificationCodes")
+      .doc(verificationCode)
+      .set({});
 
     await userPrivateInfoRef.set(
       {
-        generatedVerificationCodes: FieldValue.arrayUnion(verificationCode),
+        lastGeneratedCodeDate: FieldValue.serverTimestamp(),
+        lastGeneratedCode: verificationCode,
       },
       { merge: true }
     );
 
-    logger.info(`User: ${uid} generated verification code: ${verificationCode}`);
+    logger.info(
+      `User: ${uid} generated verification code: ${verificationCode}`
+    );
 
     return verificationCode;
   }
