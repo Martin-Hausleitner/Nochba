@@ -13,12 +13,9 @@ import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLo
 // Import a function for verifying a verification code
 import { verifyVerificationCode } from "../functions/verifyVerificationCode";
 import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFromAddress";
+import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";
 
-// Initialize the Firestore database
 const db = admin.firestore();
-
-// Export the checkVerificationCode function as a Cloud Function that can be
-// called by a client via HTTPSms
 
 export const checkVerificationCode = functions.https.onCall(
   async (data, context) => {
@@ -29,7 +26,6 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
     const uid = context.auth.uid;
-    // Destructure the verification code and address from the request data
     const verificationCode = data.verificationCode;
 
     logger.info(`User: ${uid} VerificationCode: ${verificationCode}`);
@@ -61,6 +57,17 @@ export const checkVerificationCode = functions.https.onCall(
       throw new functions.https.HttpsError(
         "failed-precondition",
         "The Verification Code is deactivated!"
+      );
+    }
+
+    //check if the usedCodeCount is under the maxCodeLimit 
+    const { maxCodeLimit } = codeDoc.data();
+    const { usedCodeCount } = codeDoc.data();
+    if (usedCodeCount >= maxCodeLimit) {
+      logger.error(`The Verification Code has the maximum number of uses reached: ${usedCodeCount} >= ${maxCodeLimit}}`);
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "The Verification Code has the maximum number of uses reached"
       );
     }
 
@@ -128,6 +135,17 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
+    // Check if distance is null
+    if (distance == null) {
+      logger.error(
+        `NULL Exeption: The distance between the address and the verification code could not be calculated. Distance: ${distance}`
+      );
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "The distance between the address and the verification code could not be calculated."
+      );
+    }
+
     const { rangeInMeter } = codeData.data();
 
     if (distance > rangeInMeter) {
@@ -140,33 +158,41 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    // Update the verification code document to include the user's ID
+    await userRef.set({
+      addressCoordinates: addressCoordinates,
+      distanceInMeter: distance,
+      usedVerificationCode: verificationCode,
+    });
+
+    const subUrb = await getOSMSuburbFromCoords(
+      addressCoordinates.latitude,
+      addressCoordinates.longitude
+    );
+
+    const userPublicInfpRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("userPublicInfo")
+      .doc(uid);
+    await userPublicInfpRef.set({ subUrb }, { merge: true });
+
     await db
       .collection("verificationCodes")
       .doc(verificationCode)
-      .update({
-        usedForVerification: FieldValue.arrayUnion(uid),
-      });
+      .collection("usedForVerification")
+      .doc(uid)
+      .set({});
 
-    // Update the user's document to include the verification code
-
-    try {
-      await userRef.set({
-        addressCoordinates: addressCoordinates,
-        distanceInMeter: distance,
-        usedVerificationCode: verificationCode,
-      });
-    } catch (error) {
-      logger.error(`Error updating user document. Error: ${error}`);
-      throw new functions.https.HttpsError(
-        "internal",
-        "An internal error occurred while attempting to save your address coordinates."
+    //TODO: check if the maxCodeLimit: MAX_CODE_LIMIT is reached the current count is stored in usedCodeCount when its note the maxiumun it should add 1 to the count
+    await db
+      .collection("verificationCodes")
+      .doc(verificationCode)
+      .set(
+        { usedCodeCount: admin.firestore.FieldValue.increment(1) },
+        { merge: true }
       );
-    }
 
-    logger.info(
-      `User: ${uid} has been verified with the verification code: ${verificationCode}.`
-    );
+    logger.info(`✅ User: ${uid} verified with code: ${verificationCode}.`);
     return true;
   }
 );

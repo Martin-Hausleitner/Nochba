@@ -50,6 +50,7 @@ class LoginPage extends GetView<LoginController> {
             ],
           ),
 
+
         // if (kIsWeb) show a button to open the web version
         if (!kIsWeb)
           Column(
