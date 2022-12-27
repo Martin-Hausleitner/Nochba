@@ -199,6 +199,10 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         ActionCardTitle(
                           title: 'Dein Profil',
                         ),
+                        TextButton(
+                          onPressed: () => throw Exception(),
+                          child: const Text("Throw Test Exception"),
+                        ),
                         GenerateVerificationCode(),
                         GetDistanceFromLatLonInMeters(),
                         VerifyButton(),
@@ -415,7 +419,7 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
 class VerifyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String verificationCode = 'I484Ojr92W';
+    final String verificationCode = '6lmf4e0yaG';
     final String address = "Wüstenrotstrasse 1, 4020 Linz, Austria";
     return LocooTextButton(
       label: 'Verify',

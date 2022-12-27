@@ -187,17 +187,7 @@ export const checkVerificationCode = functions.https.onCall(
       .doc(uid);
     await userPublicInfpRef.set({ subUrb }, { merge: true });
 
-    // await db
-    //   .collection("verificationCodes")
-    //   .doc(verificationCode)
-    //   .collection("usedForVerification")
-    //   .doc(uid)
-    //   .set({});
 
-    // await db
-    //   .collection("verificationCodes")
-    //   .doc(verificationCode)
-    //   .set({ usedCodeCount: FieldValue.increment(1) }, { merge: true });
 
     try {
       // Code that performs operations on Firebase

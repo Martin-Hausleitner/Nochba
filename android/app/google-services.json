@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "799212549268",
+    "firebase_url": "https://nochba-dev-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "nochba-dev",
     "storage_bucket": "nochba-dev.appspot.com"
   },

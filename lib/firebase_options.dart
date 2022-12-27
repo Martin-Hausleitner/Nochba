@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '799212549268',
     projectId: 'nochba-dev',
     authDomain: 'nochba-dev.firebaseapp.com',
+    databaseURL: 'https://nochba-dev-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'nochba-dev.appspot.com',
     measurementId: 'G-EPK19PRBVX',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:799212549268:android:76bbdf0aedd4d0fa2ff081',
     messagingSenderId: '799212549268',
     projectId: 'nochba-dev',
+    databaseURL: 'https://nochba-dev-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'nochba-dev.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:799212549268:ios:7ba8ce1ee3578fd32ff081',
     messagingSenderId: '799212549268',
     projectId: 'nochba-dev',
+    databaseURL: 'https://nochba-dev-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'nochba-dev.appspot.com',
     iosClientId: '799212549268-8vdlp51ealp8jh3i2j5op604ifgatpbh.apps.googleusercontent.com',
     iosBundleId: 'com.nochba.nochba',
@@ -76,6 +79,7 @@ class DefaultFirebaseOptions {
     appId: '1:799212549268:ios:7ba8ce1ee3578fd32ff081',
     messagingSenderId: '799212549268',
     projectId: 'nochba-dev',
+    databaseURL: 'https://nochba-dev-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'nochba-dev.appspot.com',
     iosClientId: '799212549268-8vdlp51ealp8jh3i2j5op604ifgatpbh.apps.googleusercontent.com',
     iosBundleId: 'com.nochba.nochba',
