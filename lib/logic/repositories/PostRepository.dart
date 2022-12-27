@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:nochba/logic/models/PostFilter.dart';
 import 'package:nochba/logic/models/bookmark.dart';
+import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/logic/repositories/GenericRepository.dart';
 import 'package:nochba/logic/models/post.dart';
@@ -40,9 +42,46 @@ class PostRepository extends GenericRepository<Post> {
         orderFieldDescending: MapEntry('createdAt', orderFieldDescending));
   }
 
+  Stream<List<Post>> queryPosts(PostFilter postFilter) {
+    final orderFieldDescending = MapEntry(
+        postFilter.postFilterSortBy == PostFilterSortBy.date
+            ? 'createdAt'
+            : postFilter.postFilterSortBy == PostFilterSortBy.likes
+                ? 'likes'
+                : '',
+        postFilter.isOrderDescending);
+
+    return postFilter.categories.isNotEmpty
+        ? super.queryAsStream(orderFieldDescending,
+            whereIn: MapEntry(
+                'category',
+                postFilter.categories
+                    .fold<List<CategoryOptions>>(
+                        [],
+                        (previousValue, element) => CategoryModul
+                                    .isMainCategory(element) &&
+                                CategoryModul.getSubCategoriesOfMainCategory(
+                                        element)
+                                    .isNotEmpty
+                            ? [
+                                ...previousValue,
+                                ...CategoryModul.getSubCategoriesOfMainCategory(
+                                    element)
+                              ]
+                            : [...previousValue, element])
+                    .map((c) => c.name)
+                    .toList()))
+        : super.queryAsStream(orderFieldDescending);
+  }
+
   Future<String?> getPostTitle(String id) async {
     final post = await get(id);
     return post?.title;
+  }
+
+  Future<int?> getLikesOfPost(String id) async {
+    final post = await get(id);
+    return post?.likes;
   }
 
   Future<List<Post>> getPostsOfCurrentUser() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nochba/pages/comments/comment_page.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circle_icon_button.dart';
@@ -32,38 +33,55 @@ class ActionBar extends GetView<ActionBarController> {
             },
           ),
           // add a gray Text
-          Padding(
-            padding: EdgeInsets.only(left: 8, right: 18),
-            child: Text(
-              '14',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey,
-              ),
-            ),
+          FutureBuilder<int?>(
+            future: controller.getLikesOfPost(post.id),
+            builder: (context, snapshot) {
+              int? data;
+              if (snapshot.hasData) {
+                data = snapshot.data;
+              }
+
+              return Padding(
+                padding: EdgeInsets.only(left: 8, right: 18),
+                child: Text(
+                  data != null ? '${data}' : '-',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                ),
+              );
+            },
           ),
 
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
           LocooCircleIconButton(
             icon: Icons.forum,
             onPressed: () {
-              Get.snackbar(
-                "Edit",
-                "Edit your profile",
-              );
+              Get.to(CommentPage(postId: post.id));
             },
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 8, right: 18),
-            child: Text(
-              '14',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey,
-              ),
-            ),
+          FutureBuilder<int>(
+            future: controller.getCommentCountOfPost(post.id),
+            builder: (context, snapshot) {
+              int? data;
+              if (snapshot.hasData) {
+                data = snapshot.data;
+              }
+
+              return Padding(
+                padding: EdgeInsets.only(left: 8, right: 18),
+                child: Text(
+                  data != null ? '${data}' : '-',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                ),
+              );
+            },
           ),
           // return a round icon button with a icon of Icons.favorite and a color of Colors.red
           StreamBuilder<BookMark?>(

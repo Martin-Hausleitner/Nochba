@@ -1,26 +1,24 @@
-//import dart:ui
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:nochba/logic/models/post.dart';
-import 'package:nochba/pages/auth/login_page.dart';
+import 'package:get/get.dart';
+import 'package:nochba/logic/models/Comment.dart';
+import 'package:nochba/pages/comments/comment_controller.dart';
+import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/alert_dialog_delete.dart';
-import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/ui/buttons/text_field_remove_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
-import 'package:nochba/shared/ui/cards/action_card_title.dart';
-import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
+import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 
 class ActionBarMore extends StatelessWidget {
-  final ActionBarController controller;
-  final Post post;
+  final Comment comment;
+  final CommentController controller;
   const ActionBarMore({
     Key? key,
+    required this.comment,
     required this.controller,
-    required this.post,
   }) : super(key: key);
 
   @override
@@ -33,7 +31,7 @@ class ActionBarMore extends StatelessWidget {
           child: Column(
             children: [
               ActionCard(
-                title: 'Post melden',
+                title: 'Kommentar melden',
                 icon: FlutterRemix.flag_line,
                 onTap: () {
                   showModalBottomSheet<dynamic>(
@@ -45,7 +43,7 @@ class ActionBarMore extends StatelessWidget {
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return BottomSheetTitleCloseView(
-                        title: 'Post Melden',
+                        title: 'Kommentar Melden',
                         children: [
                           Padding(
                             padding: //right 15 left 15 bottom 5 top 1
@@ -109,23 +107,53 @@ class ActionBarMore extends StatelessWidget {
                   );
                 },
               ),
-              if (controller.isThisTheCurrentUser(post.user))
+              if (controller.isThisTheCurrentUser(comment.user))
                 Column(
                   children: [
                     ActionCard(
-                      title: 'Post bearbeiten',
+                      title: 'Kommentar bearbeiten',
                       icon: FlutterRemix.pencil_line,
-                      onTap: () => controller.pushEditPostView(post.id),
+                      onTap: () => {
+                        showModalBottomSheet<void>(
+                          backgroundColor:
+                              Theme.of(context).scaffoldBackgroundColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(25.0))),
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (BuildContext context) {
+                            return BottomSheetCloseSaveView(
+                              onSave: () async =>
+                                  await controller.updateTextOfComment(
+                                      comment.post, comment.id),
+                              children: [
+                                LocooTextField(
+                                  label: 'Text',
+                                  suffixIcon: TextFieldRemoveTextButton(
+                                    onPressed: () =>
+                                        controller.updateTextController.clear(),
+                                  ),
+                                  autofocus: true,
+                                  controller: controller
+                                      .getTextController(comment.text),
+                                ),
+                                SizedBox(height: 10),
+                              ],
+                            );
+                          },
+                        )
+                      },
                     ),
                     ActionCard(
-                      title: 'Post löschen',
+                      title: 'Kommentar löschen',
                       icon: FlutterRemix.delete_bin_line,
                       onTap: () => showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialogDelete(
-                          label: 'Post',
+                          label: 'Kommentar',
                           onDelete: () {
-                            controller.deletePost(post.id);
+                            controller.deleteComment(comment.post, comment.id);
                             Navigator.pop(context);
                           },
                         ),
@@ -145,62 +173,6 @@ class ActionBarMore extends StatelessWidget {
         //       print('test');
         //     }),
       ],
-    );
-  }
-}
-
-const List<String> list = <String>['Spam', 'Nicht jugendfrei', 'Gewalt'];
-
-class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
-
-  @override
-  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
-}
-
-class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  String dropdownValue = list.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        // border: Border.all(color: _borderColor, width: 1.5),
-        borderRadius: BorderRadius.circular(12),
-        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-      ),
-      child: Padding(
-        padding: // left right 5 top 5 bottom 5
-            const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 2),
-        child: DropdownButton<String>(
-          value: dropdownValue,
-          isExpanded: true,
-          icon: const Icon(
-            Icons.expand_more_outlined,
-          ),
-          // elevation: 16,
-          style: TextStyle(
-            // color: Theme.of(context).primaryColor,
-            color: Theme.of(context).textTheme.bodyText1!.color,
-          ),
-          underline: Container(
-            height: 0,
-            // color: Theme.of(context).primaryColor,
-          ),
-          onChanged: (String? value) {
-            // This is called when the user selects an item.
-            setState(() {
-              dropdownValue = value!;
-            });
-          },
-          items: list.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
     );
   }
 }

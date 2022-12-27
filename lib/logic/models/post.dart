@@ -11,7 +11,7 @@ class Post implements IModel {
   final Timestamp createdAt;
   final String category;
   final List<String> tags;
-  final List<String> liked;
+  final int likes;
 
   Post(
       {this.id = '',
@@ -22,7 +22,7 @@ class Post implements IModel {
       required this.createdAt,
       required this.category,
       required this.tags,
-      required this.liked});
+      required this.likes});
 
   @override
   Map<String, dynamic> toJson() => {
@@ -34,7 +34,7 @@ class Post implements IModel {
         'createdAt': createdAt,
         'category': category,
         'tags': tags,
-        'liked': liked,
+        'likes': likes,
       };
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
@@ -47,6 +47,6 @@ class Post implements IModel {
         category: json['category'],
         tags: List.castFrom<dynamic, String>(json[
             'tags']) /*tags: json['tags'] == null ? [] : json['tags'].map<String>((e) => e as String).toList()*/,
-        liked: List.castFrom<dynamic, String>(json['liked']),
+        likes: json['likes'] /*List.castFrom<dynamic, String>(json['liked'])*/,
       );
 }

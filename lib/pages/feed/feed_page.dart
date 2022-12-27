@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/models/category.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:nochba/logic/models/post.dart' as models;
@@ -113,6 +114,7 @@ class FeedPage extends GetView<FeedController> {
                             SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
+                                controller.updateExtendedPostFilter();
                                 showModalBottomSheet<void>(
                                   backgroundColor:
                                       Theme.of(context).scaffoldBackgroundColor,
@@ -122,7 +124,9 @@ class FeedPage extends GetView<FeedController> {
                                   context: context,
                                   isScrollControlled: true,
                                   builder: (BuildContext context) {
-                                    return FeedPostFilterView();
+                                    return FeedPostFilterView(
+                                      controller: controller,
+                                    );
                                   },
                                 );
                               },
@@ -153,43 +157,51 @@ class FeedPage extends GetView<FeedController> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        // align left
                         children: [
                           SizedBox(width: 14),
-                          Container(
-                            //height 38
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Text(
-                              'Alle',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 06),
                           CategorieChip(
-                            categorie: 'Mitteilungen',
+                            label: 'Alle',
+                            category: CategoryOptions.None,
+                            isSelected: controller.isCategoryChipSelected,
+                            onTap: controller.selectCategoryChip,
                           ),
-                          SizedBox(width: 06),
+                          const SizedBox(width: 06),
                           CategorieChip(
-                            categorie: 'Suche',
+                            label: 'Mitteilung',
+                            category: CategoryOptions.Message,
+                            isSelected: controller.isCategoryChipSelected,
+                            isIncluded:
+                                controller.isCategoryChipAsMainCategoryIncluded,
+                            onTap: controller.selectCategoryChip,
                           ),
-                          SizedBox(width: 06),
+                          const SizedBox(width: 06),
                           CategorieChip(
-                            categorie: 'Event',
+                            label: 'Suche',
+                            category: CategoryOptions.Search,
+                            isSelected: controller.isCategoryChipSelected,
+                            isIncluded:
+                                controller.isCategoryChipAsMainCategoryIncluded,
+                            onTap: controller.selectCategoryChip,
                           ),
-                          SizedBox(width: 06),
+                          const SizedBox(width: 06),
                           CategorieChip(
-                            categorie: 'Ausleihen',
+                            label: 'Ausleihen',
+                            category: CategoryOptions.Lending,
+                            isSelected: controller.isCategoryChipSelected,
+                            isIncluded:
+                                controller.isCategoryChipAsMainCategoryIncluded,
+                            onTap: controller.selectCategoryChip,
                           ),
-                          SizedBox(width: 14),
+                          CategorieChip(
+                            label: 'Event',
+                            category: CategoryOptions.Event,
+                            isSelected: controller.isCategoryChipSelected,
+                            isIncluded:
+                                controller.isCategoryChipAsMainCategoryIncluded,
+                            onTap: controller.selectCategoryChip,
+                          ),
+                          const SizedBox(width: 06),
+                          const SizedBox(width: 14),
                         ],
                       ),
                     ),
@@ -198,61 +210,64 @@ class FeedPage extends GetView<FeedController> {
               ),
             ),
             Expanded(
-              child: StreamBuilder<List<models.Post>>(
-                stream: controller.getPosts(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(
-                        child: Text('The feeds are not available at the moment',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.w300)));
-                  } else if (snapshot.hasData) {
-                    final posts = snapshot.data!;
+              child: GetBuilder<FeedController>(
+                builder: (c) => StreamBuilder<List<models.Post>>(
+                  stream: controller.getPosts(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return const Center(
+                          child: Text(
+                              'The feeds are not available at the moment',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 32, fontWeight: FontWeight.w300)));
+                    } else if (snapshot.hasData) {
+                      final posts = snapshot.data!;
 
-                    return ListView.separated(
-                      physics: const ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: posts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final post = posts.elementAt(index);
+                      return ListView.separated(
+                        physics: const ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: posts.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final post = posts.elementAt(index);
 
-                        return FutureBuilder<models.User?>(
-                          future: controller.getUser(post.user),
-                          builder: ((context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Container();
-                            } else if (snapshot.hasData) {
-                              final user = snapshot.data!;
-                              return Padding(
-                                padding: // top 3
-                                    const EdgeInsets.only(top: 3),
-                                child: Post(
-                                  post: post,
-                                  postAuthorName:
-                                      '${user.firstName} ${user.lastName}',
-                                  postAuthorImage: user.imageUrl!,
-                                ),
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(height: 0),
-                    );
-                  } else {
-                    return Container();
-                    // return const Text('There are no posts in the moment',
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
-                  }
-                },
+                          return FutureBuilder<models.User?>(
+                            future: controller.getUser(post.user),
+                            builder: ((context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Container();
+                              } else if (snapshot.hasData) {
+                                final user = snapshot.data!;
+                                return Padding(
+                                  padding: // top 3
+                                      const EdgeInsets.only(top: 3),
+                                  child: Post(
+                                    post: post,
+                                    postAuthorName:
+                                        '${user.firstName} ${user.lastName}',
+                                    postAuthorImage: user.imageUrl!,
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            }),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(height: 0),
+                      );
+                    } else {
+                      return Container();
+                      // return const Text('There are no posts in the moment',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+                    }
+                  },
+                ),
               ),
             ),
           ],
@@ -262,50 +277,60 @@ class FeedPage extends GetView<FeedController> {
   }
 }
 
-//create a state class ButtonShowsOverlay with a buttom that triggers a function showOverlay
+class CategorieChip extends StatelessWidget {
+  const CategorieChip(
+      {Key? key,
+      required this.label,
+      required this.category,
+      required this.isSelected,
+      this.isIncluded = emptyFunction,
+      required this.onTap})
+      : super(key: key);
 
-//Create a class Categorie Chip with a stateful widget that has a bool isSelected and a String categorie. when seclected it chnages to primery color
+  final String label;
+  final CategoryOptions category;
+  final bool Function(CategoryOptions) isSelected;
+  final bool Function(CategoryOptions) isIncluded;
+  final Function(CategoryOptions) onTap;
 
-class CategorieChip extends StatefulWidget {
-  final String categorie;
-  const CategorieChip({Key? key, required this.categorie}) : super(key: key);
-
-  @override
-  _CategorieChipState createState() => _CategorieChipState();
-}
-
-class _CategorieChipState extends State<CategorieChip> {
-  bool isSelected = false;
+  static bool emptyFunction(CategoryOptions categoryOptions) => false;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isSelected = !isSelected;
-        });
-      },
-      child: Container(
-        //height 38
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Theme.of(context).colorScheme.primary
-              // : Theme.of(context).colorScheme.onSurface.withOpacity(0.04),
-              : Theme.of(context).colorScheme.onPrimary,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Text(
-          widget.categorie,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: isSelected
-                ? Theme.of(context).colorScheme.onPrimary
-                : Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
-            fontSize: 13,
-          ),
-        ),
-      ),
-    );
+    return GetBuilder<FeedController>(
+        builder: (c) => GestureDetector(
+              onTap: () => onTap(category),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+                decoration: BoxDecoration(
+                  color: isSelected(category)
+                      ? Theme.of(context).colorScheme.primary
+                      : isIncluded(category)
+                          ? Theme.of(context).colorScheme.surface
+                          : Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.2),
+                  //: Theme.of(context).colorScheme.onPrimary,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: isSelected(category)
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : isIncluded(category)
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.9),
+                    fontSize: 13,
+                  ),
+                ),
+              ),
+            ));
   }
 }

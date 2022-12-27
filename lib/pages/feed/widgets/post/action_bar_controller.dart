@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
+import 'package:nochba/logic/repositories/CommentRepository.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
@@ -35,6 +36,16 @@ class ActionBarController extends GetxController {
     }
   }
 
+  final commentRepository = Get.find<CommentRepository>();
+
+  Future<int> getCommentCountOfPost(String postId) {
+    try {
+      return commentRepository.getCommentCountOfPost(postId);
+    } on Exception {
+      return Future.error(Error);
+    }
+  }
+
   final _authService = Get.find<AuthService>();
 
   bool isThisTheCurrentUser(String uid) {
@@ -48,6 +59,14 @@ class ActionBarController extends GetxController {
   }
 
   final _postRepository = Get.find<PostRepository>();
+
+  Future<int?> getLikesOfPost(String postId) async {
+    try {
+      return await _postRepository.getLikesOfPost(postId);
+    } on Exception {
+      return Future.error(Error);
+    }
+  }
 
   deletePost(String postId) {
     try {

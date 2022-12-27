@@ -107,6 +107,16 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     }
   }
 
+  Future<int> getSize({List<String>? nexus}) async {
+    try {
+      final result = resource.getSize(nexus: nexus);
+
+      return result;
+    } on Exception {
+      rethrow;
+    }
+  }
+
   Future<void> updateFields(String id, Map<String, dynamic> fields,
       {List<String>? nexus}) async {
     await validate(null, AccessMode.updateFields);

@@ -114,7 +114,7 @@ class NewPostController extends InsetPostController {
             ? subCategory.name.toString()
             : category.name.toString(),
         tags: [...tags..sort()],
-        liked: [],
+        likes: 0,
       );
 
       await postRepository.insert(post);

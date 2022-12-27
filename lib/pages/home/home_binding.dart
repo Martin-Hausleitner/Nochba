@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
+import 'package:nochba/logic/repositories/CommentRepository.dart';
 // import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/NotificationRepository.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
@@ -15,6 +16,7 @@ import 'package:nochba/pages/auth/login_controller.dart';
 import 'package:nochba/pages/auth/register/sign_up_controller.dart';
 import 'package:nochba/pages/chats/chat_controller.dart';
 import 'package:nochba/pages/chats/chats_controller.dart';
+import 'package:nochba/pages/comments/comment_controller.dart';
 import 'package:nochba/pages/dashboard/dashboard_controller.dart';
 import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
@@ -35,11 +37,14 @@ class HomeBinding extends Bindings {
     Get.put(LoginController());
 
     Get.put(BookMarkRepository(ResourceContext()));
+    Get.put(CommentRepository(ResourceContext()));
 
     Get.put(PostRepository(ResourceContext()));
     Get.put(UserRepository(ResourceContext()));
     Get.put(UserPublicInfoRepository(ResourceContext()));
     Get.put(NotificationRepository(ResourceContext()));
+
+    Get.put(CommentController());
     Get.put(ActionBarController());
     Get.put(PostCardController());
     Get.put(PublicProfileController());

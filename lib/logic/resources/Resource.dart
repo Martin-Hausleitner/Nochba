@@ -114,6 +114,19 @@ class Resource<T extends IModel> implements IResource<T> {
   }
 
   @override
+  Future<int> getSize({List<String>? nexus}) async {
+    var snapshots = await firestoreInstance
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .get();
+
+    if (snapshots.docs.isNotEmpty) {
+      return snapshots.size;
+    } else {
+      return 0;
+    }
+  }
+
+  @override
   Future<void> update(T model, {List<String>? nexus}) async {
     return await firestoreInstance
         .collection(getCollectionName(typeOf<T>(), nexus: nexus))

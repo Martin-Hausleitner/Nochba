@@ -2,152 +2,197 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
+import 'package:nochba/logic/models/PostFilter.dart';
+import 'package:nochba/logic/models/category.dart';
+import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
+import 'package:nochba/pages/feed/widgets/filter/filter_chip.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_title.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 
 class FeedPostFilterView extends StatelessWidget {
-  const FeedPostFilterView({super.key});
+  const FeedPostFilterView({super.key, required this.controller});
+
+  final FeedController controller;
 
   @override
   Widget build(BuildContext context) {
-    return BottomSheetTitleCloseView(
-      title: 'Filter',
-      children: [
-        FilterRangeSlider(),
-        FilterTitle(label: 'Filtern nach Kategorie'),
-        Padding(
-          padding: //horizontal 15
-              const EdgeInsets.symmetric(horizontal: 15),
-          child: Wrap(
+    return BottomSheetTitleCloseView(title: 'Filter', children: [
+      //FilterRangeSlider(),
+      FilterTitle(label: 'Filtern nach Kategorie'),
+      Padding(
+        padding: //horizontal 15
+            const EdgeInsets.symmetric(horizontal: 15),
+        child: GetBuilder<FeedController>(
+          builder: (c) => Wrap(
             spacing: 5,
             runSpacing: 5,
             children: [
               //print 10 buton
-              FilterChip(
+              FilterLabelChip(
                 label: 'Alle',
-                selected: true,
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.None),
+                onTap: () => controller.selectFilterChip(CategoryOptions.None),
               ),
-              //show filterchips with: Mitteilung, Suche, Events, Ausleihen, Frage, Warnung, Empfehlung, Gefunden, Hilfe, Verloren
-              FilterChip(
+              const Divider(),
+              FilterLabelChip(
                 label: 'Mitteilung',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Message),
+                isIncluded: () => controller.isFilterChipAsMainCategoryIncluded(
+                    CategoryOptions.Message),
+                onTap: () =>
+                    controller.selectFilterChip(CategoryOptions.Message),
               ),
-              FilterChip(
-                label: 'Suche',
-              ),
-              FilterChip(
-                label: 'Ausleihen',
-              ),
-              FilterChip(
-                label: 'Events',
-              ),
-              FilterChip(
+              const SizedBox(width: 10),
+              FilterLabelChip(
                 label: 'Frage',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Question),
+                onTap: () =>
+                    controller.selectFilterChip(CategoryOptions.Question),
               ),
-              FilterChip(
+              FilterLabelChip(
+                label: 'Appell',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Appeal),
+                onTap: () =>
+                    controller.selectFilterChip(CategoryOptions.Appeal),
+              ),
+              FilterLabelChip(
                 label: 'Warnung',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Warning),
+                onTap: () =>
+                    controller.selectFilterChip(CategoryOptions.Warning),
               ),
-              FilterChip(
+              FilterLabelChip(
                 label: 'Empfehlung',
+                isSelected: () => controller
+                    .isFilterChipSelected(CategoryOptions.Recommendation),
+                onTap: () =>
+                    controller.selectFilterChip(CategoryOptions.Recommendation),
               ),
-              FilterChip(
+              FilterLabelChip(
                 label: 'Gefunden',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Found),
+                onTap: () => controller.selectFilterChip(CategoryOptions.Found),
               ),
-              FilterChip(
+              const Divider(),
+              FilterLabelChip(
+                label: 'Suche',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Search),
+                isIncluded: () => controller
+                    .isFilterChipAsMainCategoryIncluded(CategoryOptions.Search),
+                onTap: () =>
+                    controller.selectFilterChip(CategoryOptions.Search),
+              ),
+              const SizedBox(width: 10),
+              FilterLabelChip(
                 label: 'Hilfe',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Help),
+                onTap: () => controller.selectFilterChip(CategoryOptions.Help),
               ),
-              FilterChip(
+
+              FilterLabelChip(
                 label: 'Verloren',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Lost),
+                onTap: () => controller.selectFilterChip(CategoryOptions.Lost),
+              ),
+              const Divider(),
+              FilterLabelChip(
+                label: 'Ausleihen',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Lending),
+                isIncluded: () => controller.isFilterChipAsMainCategoryIncluded(
+                    CategoryOptions.Lending),
+                onTap: () =>
+                    controller.selectFilterChip(CategoryOptions.Lending),
+              ),
+              const Divider(),
+              FilterLabelChip(
+                label: 'Events',
+                isSelected: () =>
+                    controller.isFilterChipSelected(CategoryOptions.Event),
+                isIncluded: () => controller
+                    .isFilterChipAsMainCategoryIncluded(CategoryOptions.Event),
+                onTap: () => controller.selectFilterChip(CategoryOptions.Event),
               ),
             ],
           ),
         ),
-        FilterTitle(label: 'Sotieren nach'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Wrap(
+      ),
+      FilterTitle(label: 'Sotieren nach'),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: GetBuilder<FeedController>(
+          builder: (c) => Wrap(
             spacing: 5,
             runSpacing: 5,
             children: [
-              FilterChip(
-                label: 'Neuste',
-                selected: true,
+              FilterLabelChip(
+                label: 'Datum',
+                isSelected: () => controller
+                    .isPostFilterSortBySelected(PostFilterSortBy.date),
+                onTap: () =>
+                    controller.selectPostFilterSortBy(PostFilterSortBy.date),
               ),
-              FilterChip(
-                label: 'Meisten likes',
+              FilterLabelChip(
+                label: 'Likes',
+                isSelected: () => controller
+                    .isPostFilterSortBySelected(PostFilterSortBy.likes),
+                onTap: () =>
+                    controller.selectPostFilterSortBy(PostFilterSortBy.likes),
               ),
             ],
           ),
         ),
-        SizedBox(
-          height: 30,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: LocooTextButton(
-            label: 'Anwenden',
-            onPressed: () {},
-            icon: FlutterRemix.check_line,
+      ),
+      FilterTitle(label: 'Reihenfolge'),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: GetBuilder<FeedController>(
+          builder: (c) => Wrap(
+            spacing: 5,
+            runSpacing: 5,
+            children: [
+              FilterLabelChip(
+                label: 'Neueste',
+                isSelected: controller.isDescending,
+                onTap: controller.swapOrder,
+              ),
+              FilterLabelChip(
+                label: 'Älteste',
+                isSelected: controller.isAscending,
+                onTap: controller.swapOrder,
+              ),
+            ],
           ),
         ),
-        SizedBox(
-          height: 15,
-        ),
-      ],
-    );
-  }
-}
-
-//create a filterchip which is around cintainer with a gray border and when cicked the border color changes to primary color and a check icon appears
-class FilterChip extends StatelessWidget {
-  const FilterChip({
-    Key? key,
-    required this.label,
-    this.selected = false,
-  }) : super(key: key);
-
-  final String label;
-
-  final bool selected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: selected
-              ? Theme.of(context).primaryColor
-              : Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-        ),
-        borderRadius: BorderRadius.circular(20),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (selected)
-              Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: Icon(
-                  FlutterRemix.check_line,
-                  color: Theme.of(context).primaryColor,
-                  size: 15,
-                ),
-              ),
-            Text(
-              label,
-              style: TextStyle(
-                color: selected
-                    ? Theme.of(context).primaryColor
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
-              ),
-            ),
-          ],
+      SizedBox(
+        height: 30,
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: LocooTextButton(
+          label: 'Anwenden',
+          onPressed: () =>
+              {controller.takeOverExtendedPostFilter(), Get.back()},
+          icon: FlutterRemix.check_line,
         ),
       ),
-    );
+      SizedBox(
+        height: 15,
+      ),
+    ]);
   }
 }
