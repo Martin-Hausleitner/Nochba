@@ -19,16 +19,8 @@ class EditPostPage extends GetView<EditPostController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Post bearbeiten',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -0.5,
-                  // color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                ),
-          ),
+          elevation: 0,
+          title: const Text('Beitrag bearbeiten'),
           leading: IconButton(
               icon: const Icon(Icons.arrow_back), onPressed: () => Get.back()),
         ),
@@ -50,13 +42,20 @@ class EditPostPage extends GetView<EditPostController> {
   }
 }
 
-class EditPostView extends StatelessWidget {
+class EditPostView extends StatefulWidget {
   const EditPostView({
     Key? key,
     required this.controller,
   }) : super(key: key);
 
   final EditPostController controller;
+
+  @override
+  State<EditPostView> createState() => _EditPostViewState();
+}
+
+class _EditPostViewState extends State<EditPostView> {
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +75,10 @@ class EditPostView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        
                         children: [
                           Column(
-                            children: controller.mainCategories
+                            children: widget.controller.mainCategories
                                 .asMap()
                                 .entries
                                 .map(
@@ -86,43 +86,57 @@ class EditPostView extends StatelessWidget {
                                     () => Row(
                                       children: [
                                         ChoiceChip(
-                                            label: Text(entry.value.name),
-                                            selected: controller
-                                                .isMainCategorySelected(
-                                                    entry.value),
-                                            labelStyle:
-                                                const TextStyle(fontSize: 10),
-                                            selectedColor: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            onSelected: (isSelected) =>
-                                                controller.selectCategory(
-                                                    entry.value)),
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withOpacity(0.05),
+                                          label: Text(entry.value.name),
+                                          selected: isSelected,
+                                          labelStyle: const TextStyle(
+                                            fontSize: 10,
+                                            // color: isSelected
+                                            //     ? Colors.blue
+                                            //     : Colors.red,
+                                            color: Colors.black,
+                                          ),
+                                          selectedColor: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          onSelected: (value) {
+                                            widget.controller
+                                                .selectCategory(entry.value);
+                                            setState(() {
+                                              isSelected = value;
+                                            });
+                                          },
+                                        ),
                                         Column(
-                                          children: controller
+                                          children: widget.controller
                                               .getSubCategoriesOf(entry.value)
                                               .asMap()
                                               .entries
                                               .map(
                                                 (entry2) => ChoiceChip(
-                                                    label:
-                                                        Text(entry2.value.name),
-                                                    selected: controller
-                                                        .isSubCategorySelected(
-                                                            entry2.value),
-                                                    labelStyle: const TextStyle(
-                                                        fontSize: 10),
-                                                    selectedColor:
-                                                        Theme.of(context)
-                                                            .colorScheme
-                                                            .primary,
-                                                    onSelected: (isSelected) =>
-                                                        controller
-                                                            .selectCategory(
-                                                                entry2.value)),
+                                                  label:
+                                                      Text(entry2.value.name),
+                                                  selected: widget.controller
+                                                      .isSubCategorySelected(
+                                                          entry2.value),
+                                                  labelStyle: const TextStyle(
+                                                      fontSize: 10),
+                                                  selectedColor:
+                                                      Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                  onSelected: (isSelected) =>
+                                                      widget
+                                                          .controller
+                                                          .selectCategory(
+                                                              entry2.value),
+                                                ),
                                               )
                                               .toList(),
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -133,7 +147,7 @@ class EditPostView extends StatelessWidget {
                           //tile small Wähle deien Kategorie
                           Obx(
                             () => Text(
-                              controller.categoryName
+                              widget.controller.categoryName
                               // show category, and if subcategory is avabile add " - " and ontroller.subcategory.name.toString()
                               /*controller.subcategory != CategoryOptions.None
                                       ? "${controller.category.name.toString()} - ${controller.subcategory.name.toString()}"
@@ -152,7 +166,7 @@ class EditPostView extends StatelessWidget {
                           SizedBox(height: 20),
 
                           LocooTextField(
-                              controller: controller.titleController,
+                              controller: widget.controller.titleController,
                               textInputAction: TextInputAction.next,
                               label: 'Titel',
                               autovalidateMode: AutovalidateMode.disabled,
@@ -165,7 +179,8 @@ class EditPostView extends StatelessWidget {
                           LocooTextField(
                               maxLines: 10,
                               height: 220,
-                              controller: controller.descriptionController,
+                              controller:
+                                  widget.controller.descriptionController,
                               // textInputAction: TextInputAction.next,
                               label: 'Beschreibung',
                               autovalidateMode: AutovalidateMode.disabled,
@@ -177,18 +192,18 @@ class EditPostView extends StatelessWidget {
                           NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<EditPostController>(
                             builder: (c) => AddPhotoElement(
-                              image: controller.image,
-                              selectImage: controller.selectImage,
-                              deleteImage: controller.deleteImage,
-                              editImage: controller.editImage,
+                              image: widget.controller.image,
+                              selectImage: widget.controller.selectImage,
+                              deleteImage: widget.controller.deleteImage,
+                              editImage: widget.controller.editImage,
                             ),
                           ),
                           NewPostTitle(label: 'Tags'),
                           TagsElement(
-                            tags: controller.tags,
-                            removeTag: controller.removeTag,
-                            showTagDialog: controller.showTagDialog,
-                            addTag: controller.addTag,
+                            tags: widget.controller.tags,
+                            removeTag: widget.controller.removeTag,
+                            showTagDialog: widget.controller.showTagDialog,
+                            addTag: widget.controller.addTag,
                           ),
                         ],
                       ),
@@ -205,7 +220,7 @@ class EditPostView extends StatelessWidget {
             ],
           ),
         ),
-        EditPostButton(controller: controller),
+        EditPostButton(controller: widget.controller),
       ],
     );
   }
