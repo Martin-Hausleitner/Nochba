@@ -192,6 +192,7 @@ class FeedPage extends GetView<FeedController> {
                                 controller.isCategoryChipAsMainCategoryIncluded,
                             onTap: controller.selectCategoryChip,
                           ),
+                          const SizedBox(width: 06),
                           CategorieChip(
                             label: 'Event',
                             category: CategoryOptions.Event,
@@ -298,39 +299,37 @@ class CategorieChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FeedController>(
-        builder: (c) => GestureDetector(
-              onTap: () => onTap(category),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-                decoration: BoxDecoration(
-                  color: isSelected(category)
-                      ? Theme.of(context).colorScheme.primary
-                      : isIncluded(category)
-                          ? Theme.of(context).colorScheme.surface
-                          : Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withOpacity(0.2),
-                  //: Theme.of(context).colorScheme.onPrimary,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: isSelected(category)
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : isIncluded(category)
-                            ? Theme.of(context).colorScheme.secondary
-                            : Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.9),
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ));
+      builder: (c) => GestureDetector(
+        onTap: () => onTap(category),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+          decoration: BoxDecoration(
+            color: isSelected(category)
+                ? Theme.of(context).colorScheme.primary
+                : isIncluded(category)
+                    ? Theme.of(context).colorScheme.surface
+                    : //set color as post color
+                    Theme.of(context).colorScheme.onPrimary,
+            //: Theme.of(context).colorScheme.onPrimary,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: isSelected(category)
+                  ? Theme.of(context).colorScheme.onPrimary
+                  : isIncluded(category)
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.9),
+              fontSize: 13,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
