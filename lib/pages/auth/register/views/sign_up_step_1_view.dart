@@ -24,7 +24,7 @@ class SignUpStep1View extends StatelessWidget {
     return AppBarBigView(
         tailingIcon: Icons.close,
         onPressed: onPressedBack,
-        title: 'Registrieren',
+        title: 'Register',
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         children: [
           Column(
@@ -50,7 +50,7 @@ class SignUpStep1View extends StatelessWidget {
               SizedBox(height: 28),
               //tile small Wähle deien Kategorie
               Text(
-                'Gebe deine Email und Passwort ein',
+                'Enter the email and password',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       // color: Theme.of(context).secondaryHeaderColor,
@@ -194,7 +194,7 @@ class SignUpStep1View extends StatelessWidget {
                       ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.onBackground,
+                  // backgroundColor: Theme.of(context).colorScheme.onBackground,
                   elevation: 0,
                   minimumSize: const Size.fromHeight(60),
                   shadowColor: Colors.transparent,
