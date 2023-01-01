@@ -115,7 +115,6 @@ jobs:
           channel: "stable"
       - run: flutter pub get
       - run: flutter clean
-      - run: flutter build appbundle
       - run: flutter build apk
       - uses: actions/upload-artifact@main
         with:
@@ -128,7 +127,7 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: beta-testers
           file: build/app/outputs/flutter-apk/app-release.apk
-
+      - run: fastlane deploy
 
 
 
