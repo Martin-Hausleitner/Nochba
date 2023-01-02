@@ -188,7 +188,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
           ],
         ),
         content: const Text(
-          'Lösche deinen Account für immer bei Locoo. Die Daten können nicht wiederhergestellt werden.',
+          'Lösche deinen Account für immer bei Nochba. Die Daten können nicht wiederhergestellt werden.',
           //style the text gray
           style: TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
         ),

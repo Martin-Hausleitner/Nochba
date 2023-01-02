@@ -139,7 +139,14 @@ class PublicProfileMoreView extends StatelessWidget {
   }
 }
 
-const List<String> list = <String>['Spam', 'Nicht jugendfrei', 'Gewalt'];
+const List<String> list = <String>[
+  'Belästigung',
+  'Unangebrachte Inhalte',
+  'Spam',
+  'Betrug',
+  'Spamming',
+  'Sonstiges'
+];
 
 class DropdownButtonExample extends StatefulWidget {
   const DropdownButtonExample({super.key});

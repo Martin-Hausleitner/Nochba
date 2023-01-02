@@ -149,7 +149,7 @@ class ActionBarMore extends StatelessWidget {
   }
 }
 
-const List<String> list = <String>['Spam', 'Nicht jugendfrei', 'Gewalt'];
+const List<String> list = <String>['Unangebrachter Inhalt', 'Belästigung', 'Betrug', 'Spam', 'Sonstiges'];
 
 class DropdownButtonExample extends StatefulWidget {
   const DropdownButtonExample({super.key});
