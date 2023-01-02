@@ -60,7 +60,7 @@ class NewPostCategorySelectionView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Post erstellen',
+            'Beitrag erstellen',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
