@@ -22,21 +22,57 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Row(
-        children: [
-          LocooCircleAvatar(
-            imageUrl: commentAuthorImage,
-            radius: 20,
-          ),
-          Text(
-            commentAuthorName,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          ActionBar(comment: comment)
-        ],
-      ),
-      subtitle: Text(comment.text),
+    return Row(
+      // start of row
+      crossAxisAlignment: CrossAxisAlignment.start,
+      //space between
+      mainAxisSize: MainAxisSize.max,
+
+      children: [
+        LocooCircleAvatar(
+          imageUrl: commentAuthorImage,
+          radius: 20,
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Column(
+          // left
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              commentAuthorName,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: -0.3,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.88),
+                  ),
+            ),
+            Text(
+              comment.text,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.6),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
+        Spacer(),
+        ActionBar(comment: comment),
+      ],
     );
+    // subtitle: Text(comment.text),
   }
 }

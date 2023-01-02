@@ -33,17 +33,24 @@ class ActionBar extends GetView<CommentController> {
               data = snapshot.data;
             }
 
-            return Padding(
-              padding: EdgeInsets.only(left: 8, right: 18),
-              child: Text(
-                data != null ? '${data}' : '-',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
+            if (data == 0) {
+              return Container(
+                width: 5,
+                height: 0,
+              );
+            } else {
+              return Padding(
+                padding: EdgeInsets.only(left: 8, right: 18),
+                child: Text(
+                  data != null ? '${data}' : '-',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            );
+              );
+            }
           },
         ),
         LocooCircleIconButton(

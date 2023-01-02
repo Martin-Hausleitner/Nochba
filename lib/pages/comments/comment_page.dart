@@ -24,25 +24,31 @@ class CommentPage extends GetView<CommentController> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GetBuilder<CommentController>(
+          Padding(
+            padding: // top 8 left 8 bottom 12 right 8
+                const EdgeInsets.only(top: 8, left: 8, bottom: 12, right: 8),
+            child: GetBuilder<CommentController>(
               builder: (c) => Row(
-                    children: [
-                      FilterLabelChip(
-                          label: 'Datum',
-                          isSelected: () =>
-                              controller.isCommentFilterSortBySelected(
-                                  CommentFilterSortBy.date),
-                          onTap: () => controller.selectCommentFilterSortBy(
-                              CommentFilterSortBy.date)),
-                      FilterLabelChip(
-                          label: 'Likes',
-                          isSelected: () =>
-                              controller.isCommentFilterSortBySelected(
-                                  CommentFilterSortBy.likes),
-                          onTap: () => controller.selectCommentFilterSortBy(
-                              CommentFilterSortBy.likes)),
-                    ],
-                  )),
+                children: [
+                  FilterLabelChip(
+                    label: 'Datum',
+                    isSelected: () => controller.isCommentFilterSortBySelected(
+                        CommentFilterSortBy.date),
+                    onTap: () => controller
+                        .selectCommentFilterSortBy(CommentFilterSortBy.date),
+                  ),
+                  const SizedBox(width: 8),
+                  FilterLabelChip(
+                    label: 'Likes',
+                    isSelected: () => controller.isCommentFilterSortBySelected(
+                        CommentFilterSortBy.likes),
+                    onTap: () => controller
+                        .selectCommentFilterSortBy(CommentFilterSortBy.likes),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             child: GetBuilder<CommentController>(
               builder: (c) => StreamBuilder<List<Comment>>(
@@ -74,7 +80,9 @@ class CommentPage extends GetView<CommentController> {
                                   final user = snapshot.data!;
                                   return Padding(
                                     padding: // top 3
-                                        const EdgeInsets.only(top: 3),
+                                        // top left right 5
+                                        const EdgeInsets.only(
+                                            top: 3, left: 8, right: 8),
                                     child: CommentCard(
                                         comment: comment,
                                         commentAuthorName:
