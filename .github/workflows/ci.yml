@@ -16,7 +16,7 @@ jobs:
     name: Print Current Working Directory
     runs-on: ubuntu-latest
     steps:
-      - run: cd /android
+      - run: cd android
       - run: echo "The current working directory is $(pwd)"
 
 
