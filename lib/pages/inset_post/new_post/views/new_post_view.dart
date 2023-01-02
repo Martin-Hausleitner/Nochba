@@ -409,54 +409,6 @@ class TagsElement extends StatelessWidget {
             SizedBox(height: 8),
 
             ButtonTextField(onPressAdd: addTag),
-
-            // ElevatedButton(
-            //   onPressed: () => showTagDialog(context),
-            //   style: ElevatedButton.styleFrom(
-            //     primary: Theme.of(context).primaryColor,
-            //     elevation: 0,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(40),
-            //     ),
-            //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            //   ),
-            //   child: Row(
-            //     mainAxisSize: MainAxisSize.min,
-            //     children: [
-            //       Icon(
-            //         Icons.add,
-            //         color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
-            //         size: 18,
-            //       ),
-            //       SizedBox(width: 5),
-            //       Text(
-            //         'Tag hinzufügen',
-            //         style: Theme.of(context).textTheme.button?.copyWith(
-            //               color: Theme.of(context)
-            //                   .buttonTheme
-            //                   .colorScheme
-            //                   ?.onPrimary,
-            //               letterSpacing: -0.07,
-            //             ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            // LocooCircularIconButton(
-            //   radius: 30,
-            //   iconData: Icons.add_outlined,
-            //   onPressed: () =>
-            //       controller.showTagDialog(context),
-            //   // label: 'Bild hinzufügen',
-            //   // fillColor: Theme.of(context)
-            //   //     .colorScheme
-            //   //     .onSurface
-            //   //     .withOpacity(0.05),
-            //   fillColor: Theme.of(context).primaryColor,
-            //   iconColor:
-            //       Theme.of(context).colorScheme.onPrimary,
-            // ),
           ],
         ),
       ),
@@ -661,13 +613,9 @@ class ButtonTextField extends StatefulWidget {
   State<ButtonTextField> createState() => _ButtonTextFieldState();
 }
 
-//create a setState for isButton which is true when the button is shown and false when the text field is shown
-
 class _ButtonTextFieldState extends State<ButtonTextField> {
   bool isButton = true;
   TextEditingController tagController = TextEditingController();
-
-  //rerender when isButton changes
 
   @override
   Widget build(BuildContext context) {
@@ -713,17 +661,6 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
               ],
             ),
           )
-
-        // ? OutlinedButton(
-        //     onPressed: () {
-        //       //show text field
-        //       setState(() {
-        //         isButton = false;
-        //         print(isButton);
-        //       });
-        //     },
-        //     child: const Text('Show Text Field1'),
-        //   )
         : Row(
             children: [
               Expanded(
@@ -747,16 +684,6 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   },
                 ),
               ),
-              // OutlinedButton(
-              //   onPressed: () {
-              //     //show text field
-              //     setState(() {
-              //       isButton = true;
-              //       print(isButton);
-              //     });
-              //   },
-              //   child: const Text('Speichern'),
-              // )
               SizedBox(width: 10),
               ElevatedButton(
                 // onPressed: () => showTagDialog(context),

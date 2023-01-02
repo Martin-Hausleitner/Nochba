@@ -16,6 +16,7 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../../../shared/ui/locoo_chip_adder_field.dart';
 import '../private_profile_page.dart';
 
 class EditProfileView extends GetView<EditProfileController> {
@@ -352,7 +353,51 @@ class EditProfileView extends GetView<EditProfileController> {
                   ActionTextCard(
                     title: 'Interessen',
                     icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet<void>(
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0))),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return BottomSheetCloseSaveView(
+                            onSave: () async =>
+                                //show snackbar#
+                                Get.snackbar(" ",
+                                    "Interessen wurden erfolgreich aktualisiert"),
+                            children: [
+                              Column(
+                                children: [
+                                  // LocooChipAdderField(
+                                  //   tags: [
+                                  //     "Outdoor",
+                                  //     "Kunst",
+                                  //     "Musik",
+                                  //     "Reisen",
+                                  //     "Sport"
+                                  //   ],
+                                  //   removeTag: (tag) {
+                                  //     // code to remove a tag
+                                  //   },
+                                  //   showTagDialog: (context) {
+                                  //     // code to show a dialog to add a new tag
+                                  //   },
+                                  //   addTag: (tag) {
+                                  //     // code to add a new tag
+                                  //   },
+                                  // ),
+                                  SizedBox(height: 380),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     text: userPublicInfo.interests != null &&
                             userPublicInfo.interests!.isNotEmpty
                         ? userPublicInfo.interests!.fold<String>(
@@ -382,43 +427,43 @@ class EditProfileView extends GetView<EditProfileController> {
                         ? userPublicInfo.familyStatus!
                         : '',
                   ),
-                  ActionTextCard(
-                    title: 'Kinder',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                        backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0))),
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (BuildContext context) {
-                          return BottomSheetCloseSaveView(
-                            onSave: () {},
-                            children: [
-                              // ad a counter with + an- buttons
-                              Row(
-                                children: [
-                                  Text('0'),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(FlutterRemix.add_line),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(FlutterRemix.subtract_line),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: '3',
-                  ),
+                  // ActionTextCard(
+                  //   title: 'Kinder',
+                  //   icon: Icon(FlutterRemix.user_line),
+                  //   onTap: () {
+                  //     showModalBottomSheet<void>(
+                  //       backgroundColor:
+                  //           Theme.of(context).scaffoldBackgroundColor,
+                  //       shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.vertical(
+                  //               top: Radius.circular(25.0))),
+                  //       context: context,
+                  //       isScrollControlled: true,
+                  //       builder: (BuildContext context) {
+                  //         return BottomSheetCloseSaveView(
+                  //           onSave: () {},
+                  //           children: [
+                  //             // ad a counter with + an- buttons
+                  //             Row(
+                  //               children: [
+                  //                 Text('0'),
+                  //                 IconButton(
+                  //                   onPressed: () {},
+                  //                   icon: Icon(FlutterRemix.add_line),
+                  //                 ),
+                  //                 IconButton(
+                  //                   onPressed: () {},
+                  //                   icon: Icon(FlutterRemix.subtract_line),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ],
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  //   text: '3',
+                  // ),
                   ActionTextCard(
                     title: 'Tiere',
                     icon: Icon(FlutterRemix.user_line),
