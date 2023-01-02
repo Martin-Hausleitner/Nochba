@@ -4,134 +4,19 @@ on:
     branches:
       - main
 jobs:
-  build_ios:
-    # https://medium.com/team-rockstars-it/the-easiest-way-to-build-a-flutter-ios-app-using-github-actions-plus-a-key-takeaway-for-developers-48cf2ad7c72a#:~:text=Have%20fun%20coding%20and%20building%20your%20Flutter%20applications%2C%20but%20remember%3A%20Read%20the%20f***ing%20manual!
-    name: Build Flutter (iOS)
-    runs-on: macos-latest
+
+  print_working_directory:
+    name: Print Working Directory
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Install the Apple certificate and provisioning profile
-        env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
-          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-
-          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode --output $CERTIFICATE_PATH
-          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
-
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
-
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-              
-      # Install flutter
-      - name: Flutter get
-        uses: subosito/flutter-action@v2.7.1
-        with:
-          channel: "stable"
-      - run: flutter --version
-
+      - run: echo "The current working directory is $(pwd)"
       
-
-      # Install your project's dependencies
-      - run: flutter doctor
-      - run: flutter pub get
-      - run: flutter clean
-
-      # - name: pod update
-      # - run: ls
-      - run: cd ios && pod update
-      - run: pod repo update
-      - run: pod install
-
-    
-
-      # Build and sign the ipa using a single flutter command
-      - name: Building IPA
-        run: flutter build ipa --export-options-plist=ios/Runner/ExportOptions.plist
-        #https://docs.flutter.dev/deployment/ios
-        # run: flutter build ipa --export-method development
-          
-      # Collect the file and upload as artifact         
-      - name: collect ipa artifacts
-        uses: actions/upload-artifact@master
-        with:
-         name: release-ipa
-         # Path to the release files
-         path: build/ios/ipa/*.ipa
-
-      # Important! Cleanup: remove the certificate and provisioning profile from the runner!
-      - name: Clean up keychain and provisioning profile
-        if: ${{ always() }}
-        run: |
-          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
-          rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
-
-  firebase_app_distribution_ios:
-    name: Upload .ipa to Firebase App Distribution
-    needs: [ build_ios ]
+  print_current_working_directory:
+    name: Print Current Working Directory
     runs-on: ubuntu-latest
     steps:
-    
-    # Retrieve ipa file from GitHub artifacts
-    - uses: actions/checkout@v2
-    - name: Get release-ipa from artifacts
-      uses: actions/download-artifact@master
-      with:
-        name: release-ipa
-
-    # Upload ipa file to Fiebase
-    - name: Upload artifact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
-      with:
-        appId: ${{secrets.FIREBASE_APP_ID_IOS}}
-        token: ${{secrets.FIREBASE_TOKEN}}
-        groups: beta-testers
-        file: nochba.ipa
-
-
-  build_android:
-    name: Build Flutter (Android)
-    # needs: [flutter_test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: "12.x"
-      - uses: subosito/flutter-action@v2.7.1
-        with:
-          channel: "stable"
-      - run: flutter pub get
-      - run: flutter clean
-      - run: flutter build apk --release
-#      - uses: actions/upload-artifact@main
-#        with:
-#          name: apk-release
-#          path: build/app/outputs/flutter-apk/app-release.apk
-      # - name: Upload artifact to Firebase App Distributions
-#      - uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
-#        with:
-#          appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
-#          token: ${{secrets.FIREBASE_TOKEN}}
-#          groups: beta-testers
-#          file: build/app/outputs/flutter-apk/app-release.apk
-      - run: cd android/
-      - run: fastlane deploy
-
-
-
+      - run: cd /android
+      - run: echo "The current working directory is $(pwd)"
 
 
 
