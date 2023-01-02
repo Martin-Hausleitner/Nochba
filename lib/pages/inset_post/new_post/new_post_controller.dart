@@ -6,7 +6,7 @@ import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
 import 'package:nochba/logic/storage/StorageService.dart';
-import 'package:nochba/pages/inset_post/Inset_post_controller.dart';
+import 'package:nochba/pages/inset_post/inset_post_controller.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 
 class NewPostController extends InsetPostController {

@@ -68,7 +68,7 @@ dependencies:
   cloud_functions: ^4.0.6
   mobile_scanner: ^2.1.0
   firebase_crashlytics: ^3.0.8
-  firebase_performance: ^0.9.0+8
+  firebase_performance: ^0.9.0
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2

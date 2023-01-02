@@ -19,7 +19,7 @@ class SignUpEmailView extends StatelessWidget {
     SignUpController controller = Get.put(SignUpController());
 
     return AppBarBigView(
-      title: 'Registrieren',
+      title: 'Register',
       // showBackButton: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
@@ -46,7 +46,7 @@ class SignUpEmailView extends StatelessWidget {
             SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
-              'Gebe deine Email und Passwort ein',
+              'Enter your email and password',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     // color: Theme.of(context).secondaryHeaderColor,
@@ -55,7 +55,7 @@ class SignUpEmailView extends StatelessWidget {
             //tile small Schritt 1 von 3
             SizedBox(height: 2),
             Text(
-              'Schritt 4 von 4',
+              'Step 4 of 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   // fontSize: 18,
                   // fontWeight: FontWeight.w600,
@@ -90,7 +90,7 @@ class SignUpEmailView extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      'Ich Akzeptiere die Nutzungsbedingungen und Datenschutzbestimmungen',
+                      'I accept the terms of use and privacy policy',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context)
                               .textTheme
@@ -137,7 +137,7 @@ class BottomNavBar extends StatelessWidget {
           child: BackOutlinedButton(
             controller: controller,
             icon: FlutterRemix.arrow_left_s_line,
-            label: 'Zurück',
+            label: 'Back',
           ),
         ),
         const SizedBox(width: 8),
@@ -154,7 +154,7 @@ class BottomNavBar extends StatelessWidget {
           },
           controller: controller,
           icon: Icons.done_outlined,
-          label: 'Regestrieren',
+          label: 'Register',
         )),
       ],
     );

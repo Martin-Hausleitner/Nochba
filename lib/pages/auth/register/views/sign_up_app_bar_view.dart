@@ -29,7 +29,7 @@ class SignUpAppBarView extends StatelessWidget {
     SignUpController controller = Get.put(SignUpController());
 
     return AppBarBigView(
-      title: 'Registrieren',
+      title: 'Register',
       // showBackButton: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
@@ -58,7 +58,7 @@ class SignUpAppBarView extends StatelessWidget {
             SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
-              'Gebe deine Email und Passwort ein',
+              'Enter your email and password',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     // color: Theme.of(context).secondaryHeaderColor,
@@ -67,7 +67,7 @@ class SignUpAppBarView extends StatelessWidget {
             //tile small Schritt 1 von 3
             SizedBox(height: 2),
             Text(
-              'Schritt ${step} von 4',
+              'Step ${step} of 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   // fontSize: 18,
                   // fontWeight: FontWeight.w600,
@@ -100,7 +100,7 @@ class BottomNavBar extends StatelessWidget {
           child: BackOutlinedButton(
             controller: controller,
             icon: FlutterRemix.arrow_left_s_line,
-            label: 'Zurück',
+            label: 'Back',
           ),
         ),
         const SizedBox(width: 8),
@@ -117,7 +117,7 @@ class BottomNavBar extends StatelessWidget {
           },
           controller: controller,
           icon: Icons.done_outlined,
-          label: 'Regestrieren',
+          label: 'Register',
         )),
       ],
     );
