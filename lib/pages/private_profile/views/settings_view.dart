@@ -11,7 +11,9 @@ import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
-// import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
@@ -31,6 +33,14 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Uri url = Uri.parse('http://nochba.at/');
+
+    Future<void> _launchUrl() async {
+      if (!await launchUrl(url)) {
+        throw 'Could not launch $url';
+      }
+    }
+
     return AppBarBigView(
       title: 'Einstellungen',
       onPressed: () => {Get.back()},
@@ -43,13 +53,13 @@ class SettingsView extends StatelessWidget {
           title: 'Konto verwalten',
           icon: FlutterRemix.user_line,
           onTap: () {
-            Get.to(
-              // routeName: 'test',
-              // ManageAccountView(),
-              fullscreenDialog: true,
-              transition: Transition.cupertino,
-              ManageAccountView(),
-            );
+            // Get.to(
+            //   // routeName: 'test',
+            //   // ManageAccountView(),
+            //   fullscreenDialog: true,
+            //   transition: Transition.cupertino,
+            //   ManageAccountView(),
+            // );
           },
         ),
 
@@ -64,22 +74,22 @@ class SettingsView extends StatelessWidget {
           title: 'Sprache',
           icon: Icons.translate_rounded,
           onTap: () {
-            Get.snackbar("Pressed", "Pressed");
+            Get.snackbar(
+                "Sprache wählen", "Aktuell kann nur Deutsch gewählt werden");
           },
         ),
         ActionCard(
           title: 'Erscheinungsbild',
           icon: FlutterRemix.contrast_2_line,
           onTap: () {
-            Get.snackbar("Pressed", "Pressed");
+            Get.snackbar("Erscheinungsbild",
+                "Es wird in der Zukunft ein Dark modus kommen");
           },
         ),
         ActionCard(
           title: 'Hilfe',
           icon: FlutterRemix.question_line,
-          onTap: () {
-            Get.snackbar("Pressed", "Pressed");
-          },
+          onTap: _launchUrl,
         ),
         // SizedBox(height: 25),
         ActionCardTitle(
@@ -88,26 +98,20 @@ class SettingsView extends StatelessWidget {
         ActionCard(
           title: 'Datenschutzerklärung',
           icon: FlutterRemix.shield_user_line,
-          onTap: () {
-            Get.snackbar("Pressed", "Pressed");
-          },
+          onTap: _launchUrl,
         ),
         ActionCardImpressum(
-          onTap: () => {},
+          onTap: _launchUrl,
         ),
         ActionCard(
           title: 'Lizenzen',
           icon: FlutterRemix.stack_fill,
-          onTap: () {
-            Get.snackbar("Pressed", "Pressed");
-          },
+          onTap: _launchUrl,
         ),
         ActionCard(
           title: 'Über Uns',
           icon: FlutterRemix.group_line,
-          onTap: () {
-            Get.snackbar("Pressed", "Pressed");
-          },
+          onTap: _launchUrl,
         ),
         SizedBox(height: 30),
 
@@ -118,6 +122,27 @@ class SettingsView extends StatelessWidget {
         SizedBox(height: 15),
       ],
     );
+  }
+}
+
+class BuildNumberWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _getPackageInfo(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return CircularProgressIndicator();
+        }
+
+        PackageInfo packageInfo = snapshot.data as PackageInfo;
+        return Text('Build number: ${packageInfo.buildNumber}');
+      },
+    );
+  }
+
+  Future<PackageInfo> _getPackageInfo() async {
+    return await PackageInfo.fromPlatform();
   }
 }
 
@@ -134,7 +159,6 @@ class MadebyAndVersion extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       //draw on tap confetti with Path drawStar(Size size) {
-
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -161,7 +185,8 @@ class MadebyAndVersion extends StatelessWidget {
               ],
             ),
             SizedBox(height: 3),
-            //display packageInfo.version in Text
+            // display packageInfo.version in Text
+
             // FutureBuilder<PackageInfo>(
             //   future: _getPackageInfo(),
             //   builder:
@@ -185,7 +210,7 @@ class MadebyAndVersion extends StatelessWidget {
             //     );
             //   },
             // ),
-
+            // BuildNumberWidget(),
             // const Text(
             //   'Version 1.0.0',
             //   style: TextStyle(

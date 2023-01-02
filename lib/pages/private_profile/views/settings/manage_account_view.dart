@@ -25,30 +25,32 @@ class ManageAccountView extends StatelessWidget {
           title: 'Email',
           icon: Icon(FlutterRemix.user_line),
           onTap: () {
-            showModalBottomSheet<void>(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25.0))),
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return BottomSheetCloseSaveView(
-                  onSave: () {},
-                  children: [
-                    LocooTextField(
-                      label: 'Email',
-                      autofocus: true,
-                      controller: TextEditingController(text: 'test@test.at'),
-                    ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                );
-              },
-            );
+            Get.snackbar(
+                "Email ändern", "Diese Funktion ist noch nicht verfügbar");
+            // showModalBottomSheet<void>(
+            //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius:
+            //           BorderRadius.vertical(top: Radius.circular(25.0))),
+            //   context: context,
+            //   isScrollControlled: true,
+            //   builder: (BuildContext context) {
+            //     return BottomSheetCloseSaveView(
+            //       onSave: () {},
+            //       children: [
+            //         LocooTextField(
+            //           label: 'Email',
+            //           autofocus: true,
+            //           controller: TextEditingController(text: 'test@test.at'),
+            //         ),
+            //         SizedBox(height: 10),
+            //         SizedBox(
+            //           height: 15,
+            //         ),
+            //       ],
+            //     );
+            //   },
+            // );
           },
           text: 'Test@test.at',
         ),
@@ -56,30 +58,33 @@ class ManageAccountView extends StatelessWidget {
           title: 'Passwort',
           icon: Icon(FlutterRemix.user_line),
           onTap: () {
-            showModalBottomSheet<void>(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25.0))),
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return BottomSheetCloseSaveView(
-                  onSave: () {},
-                  children: [
-                    LocooTextField(
-                      label: 'Passwort',
-                      autofocus: true,
-                      controller: TextEditingController(text: 'test'),
-                    ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                );
-              },
-            );
+            Get.snackbar(
+                "Passwort ändern", "Diese Funktion ist noch nicht verfügbar");
+
+            // showModalBottomSheet<void>(
+            //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius:
+            //           BorderRadius.vertical(top: Radius.circular(25.0))),
+            //   context: context,
+            //   isScrollControlled: true,
+            //   builder: (BuildContext context) {
+            //     return BottomSheetCloseSaveView(
+            //       onSave: () {},
+            //       children: [
+            //         LocooTextField(
+            //           label: 'Passwort',
+            //           autofocus: true,
+            //           controller: TextEditingController(text: 'test'),
+            //         ),
+            //         SizedBox(height: 10),
+            //         SizedBox(
+            //           height: 15,
+            //         ),
+            //       ],
+            //     );
+            //   },
+            // );
           },
           text: '⦁⦁⦁⦁⦁⦁⦁⦁⦁',
         ),
@@ -87,42 +92,46 @@ class ManageAccountView extends StatelessWidget {
           title: 'Adresse',
           icon: Icon(FlutterRemix.user_line),
           onTap: () {
-            showModalBottomSheet<void>(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25.0))),
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return BottomSheetCloseSaveView(
-                  onSave: () {},
-                  children: [
-                    LocooTextField(
-                      label: 'Straße',
-                      autofocus: true,
-                      controller: TextEditingController(text: 'Teststraße'),
-                    ),
-                    SizedBox(height: 10),
-                    LocooTextField(
-                      label: 'Stadt',
-                      autofocus: true,
-                      controller: TextEditingController(text: 'Linz'),
-                    ),
-                    SizedBox(height: 10),
-                    LocooTextField(
-                      label: 'Postleitzahl',
-                      autofocus: true,
-                      controller: TextEditingController(text: '4020'),
-                    ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                );
-              },
-            );
+            // show me a alert that now you cant change your address
+            Get.snackbar(
+                "Adresse ändern", "Diese Funktion ist noch nicht verfügbar");
+
+            // showModalBottomSheet<void>(
+            //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius:
+            //           BorderRadius.vertical(top: Radius.circular(25.0))),
+            //   context: context,
+            //   isScrollControlled: true,
+            //   builder: (BuildContext context) {
+            //     return BottomSheetCloseSaveView(
+            //       onSave: () {},
+            //       children: [
+            //         LocooTextField(
+            //           label: 'Straße',
+            //           autofocus: true,
+            //           controller: TextEditingController(text: 'Teststraße'),
+            //         ),
+            //         SizedBox(height: 10),
+            //         LocooTextField(
+            //           label: 'Stadt',
+            //           autofocus: true,
+            //           controller: TextEditingController(text: 'Linz'),
+            //         ),
+            //         SizedBox(height: 10),
+            //         LocooTextField(
+            //           label: 'Postleitzahl',
+            //           autofocus: true,
+            //           controller: TextEditingController(text: '4020'),
+            //         ),
+            //         SizedBox(height: 10),
+            //         SizedBox(
+            //           height: 15,
+            //         ),
+            //       ],
+            //     );
+            //   },
+            // );
           },
           text: 'Gutenbergstraße 1, 1234 Wien',
         ),
