@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "The current working directory is $(pwd)"
+      - run: ls
       
   print_current_working_directory:
     name: Print Current Working Directory
