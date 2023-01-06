@@ -1,0 +1,46 @@
+
+          
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: typesense
+  namespace: student-m-hausleitner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: typesense
+  template:
+    metadata:
+      labels:
+        app: typesense
+    spec:
+      volumes:
+      - name: typesense-data
+        emptyDir: {}
+      containers:
+        - name: typesense
+          image: typesense/typesense:0.23.1
+          ports:
+            - containerPort: 8108
+          volumeMounts:
+          - name: typesense-data
+            mountPath: /var/lib/typesense
+          env:
+            - name: TYPESENSE_NODE_NAME
+              value: "typesense-server"
+            - name: TYPESENSE_CLUSTER_NAME
+              value: "default-cluster"
+            - name: TYPESENSE_HTTP_BIND_PORT
+              value: "8108"
+            - name: TYPESENSE_DASHBOARD_ENABLED
+              value: "true"
+            - name: TYPESENSE_DASHBOARD_BIND_PORT
+              value: "8080"
+            - name: TYPESENSE_DATA_DIR
+              value: "/var/lib/typesense"
+            - name: TYPESENSE_API_KEY
+              value: "your-api-key"
