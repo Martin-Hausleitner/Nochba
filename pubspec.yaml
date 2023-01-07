@@ -23,7 +23,6 @@ dependencies:
   contained_tab_bar_view: ^0.8.0
   geolocator: ^9.0.2
   url_launcher: 6.1.7
-  flutter_launcher_icons: ^0.11.0
   package_info_plus: ^3.0.2
   # flutter_chat_types: ^3.4.3
   # flutter_chat_ui: ^1.6.4
