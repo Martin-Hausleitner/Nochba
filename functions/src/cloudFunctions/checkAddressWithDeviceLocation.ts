@@ -44,7 +44,7 @@ export const checkAddressWithDeviceLocation = functions
     const userRef = db
       .collection("users")
       .doc(uid)
-      .collection("userInternInfo")
+      .collection("intern")
       .doc(uid);
     const userDoc = await userRef.get();
 
@@ -126,7 +126,7 @@ export const checkAddressWithDeviceLocation = functions
     const userPublicInfpRef = db
       .collection("users")
       .doc(uid)
-      .collection("userPublicInfo")
+      .collection("public")
       .doc(uid);
     await userPublicInfpRef.set({ subUrb }, { merge: true });
     logger.info(`✅ User: ${uid} verified with Location.`);

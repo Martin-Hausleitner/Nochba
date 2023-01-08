@@ -4,7 +4,7 @@ import 'package:nochba/logic/interfaces/IModel.dart';
 class Comment implements IModel {
   @override
   String id;
-  final String user;
+  final String uid;
   final String text;
   final Timestamp createdAt;
   final String post;
@@ -12,7 +12,7 @@ class Comment implements IModel {
 
   Comment(
       {this.id = '',
-      required this.user,
+      required this.uid,
       required this.text,
       required this.createdAt,
       required this.post,
@@ -21,7 +21,7 @@ class Comment implements IModel {
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
-        'user': user,
+        'uid': uid,
         'text': text,
         'createdAt': createdAt,
         'post': post,
@@ -30,7 +30,7 @@ class Comment implements IModel {
 
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
       id: json['id'],
-      user: json['user'],
+      uid: json['uid'],
       text: json['text'],
       createdAt: json['createdAt'],
       post: json['post'],

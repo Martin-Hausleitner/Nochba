@@ -50,7 +50,7 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    const codeRef = db.collection("verificationCodes").doc(verificationCode);
+    const codeRef = db.collection("codes").doc(verificationCode);
     const codeDoc = await codeRef.get();
 
     if (!codeDoc.exists) {
@@ -85,7 +85,7 @@ export const checkVerificationCode = functions.https.onCall(
     const userRef = db
       .collection("users")
       .doc(uid)
-      .collection("userInternInfo")
+      .collection("intern")
       .doc(uid);
     const userDoc = await userRef.get();
     if (userDoc.exists && userDoc.data()?.addressCoordinates) {
@@ -183,7 +183,7 @@ export const checkVerificationCode = functions.https.onCall(
     const userPublicInfpRef = db
       .collection("users")
       .doc(uid)
-      .collection("userPublicInfo")
+      .collection("public")
       .doc(uid);
     await userPublicInfpRef.set({ subUrb }, { merge: true });
 
@@ -192,14 +192,14 @@ export const checkVerificationCode = functions.https.onCall(
     try {
       // Code that performs operations on Firebase
       await db
-        .collection("verificationCodes")
+        .collection("codes")
         .doc(verificationCode)
         .collection("usedForVerification")
         .doc(uid)
         .set({});
 
       await db
-        .collection("verificationCodes")
+        .collection("codes")
         .doc(verificationCode)
         .set({ usedCodeCount: FieldValue.increment(1) }, { merge: true });
     } catch (error) {

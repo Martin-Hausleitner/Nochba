@@ -107,7 +107,7 @@ class ActionBarMore extends StatelessWidget {
                   );
                 },
               ),
-              if (controller.isThisTheCurrentUser(comment.user))
+              if (controller.isThisTheCurrentUser(comment.uid))
                 Column(
                   children: [
                     ActionCard(

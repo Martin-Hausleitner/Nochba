@@ -29,14 +29,14 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     const postData = postSnapshot.data();
 
     //if postdata user is null throw error else save the user id as post user id
-    if (!postData?.user) {
+    if (!postData?.uid) {
       logger.error("Post user is required");
       throw new functions.https.HttpsError(
         "invalid-argument",
         "Post user is required"
       );
     }
-    const postUserId = postData?.user;
+    const postUserId = postData?.uid;
 
     //check if post range is set
     if (!postData?.range) {
@@ -51,13 +51,13 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     const postUserSnapshot = await db
       .collection("users")
       .doc(postUserId)
-      .collection("userInternInfo")
+      .collection("intern")
       .doc(postUserId)
       .get();
     const userSnapshot = await db
       .collection("users")
       .doc(uid)
-      .collection("userInternInfo")
+      .collection("intern")
       .doc(uid)
       .get();
 
@@ -74,7 +74,7 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     const snapshot = await db
       .collection("users")
       .doc(postUserId)
-      .collection("userInternInfo")
+      .collection("intern")
       .doc(postUserId)
       .get();
     const userAddressCoordinates = snapshot.data()?.addressCoordinates;
@@ -82,7 +82,7 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     const snapshot2 = await db
       .collection("users")
       .doc(uid)
-      .collection("userInternInfo")
+      .collection("intern")
       .doc(uid)
       .get();
     const currentUserAddressCoordinates = snapshot2.data()?.addressCoordinates;
@@ -90,11 +90,11 @@ export const getDistanceFromTwoUsers = functions.https.onCall(
     if (!userAddressCoordinates || !currentUserAddressCoordinates) {
       logger.error(
         "Coordinates for both users are required: " +
-          postUserId +
-          " " +
-          uid +
-          currentUserAddressCoordinates +
-          userAddressCoordinates
+        postUserId +
+        " " +
+        uid +
+        currentUserAddressCoordinates +
+        userAddressCoordinates
       );
 
       throw new functions.https.HttpsError(

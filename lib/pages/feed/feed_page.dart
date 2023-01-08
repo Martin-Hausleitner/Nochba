@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
+import 'package:nochba/pages/feed/widgets/post/loading_post.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:nochba/logic/models/post.dart' as models;
@@ -235,11 +236,11 @@ class FeedPage extends GetView<FeedController> {
                           final post = posts.elementAt(index);
 
                           return FutureBuilder<models.User?>(
-                            future: controller.getUser(post.user),
+                            future: controller.getUser(post.uid),
                             builder: ((context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Container();
+                                return const LoadingPost();
                               } else if (snapshot.hasData) {
                                 final user = snapshot.data!;
                                 return Padding(

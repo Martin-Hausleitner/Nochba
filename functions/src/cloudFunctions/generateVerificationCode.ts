@@ -24,9 +24,9 @@ export const generateVerificationCode = functions.https.onCall(
     const uid = context.auth.uid;
 
     const userRef = db.collection("users").doc(uid);
-    const userInternInfoRef = userRef.collection("userInternInfo").doc(uid);
+    const userInternInfoRef = userRef.collection("intern").doc(uid);
     const userInternInfoDoc = await userInternInfoRef.get();
-    const userPrivateInfoRef = userRef.collection("userPrivateInfo").doc(uid);
+    const userPrivateInfoRef = userRef.collection("private").doc(uid);
     const userPrivateInfoDoc = await userPrivateInfoRef.get();
     const coordinates = userInternInfoDoc.get("addressCoordinates");
     logger.info(`User: ${uid} generating verification code.`);
@@ -52,7 +52,7 @@ export const generateVerificationCode = functions.https.onCall(
     let verificationCode;
     while (true) {
       verificationCode = await generateRandomVerificationCode();
-      const codeRef = db.collection("verificationCodes").doc(verificationCode);
+      const codeRef = db.collection("codes").doc(verificationCode);
       const codeSnapshot = await codeRef.get();
       if (!codeSnapshot.exists) {
         break;
@@ -67,9 +67,9 @@ export const generateVerificationCode = functions.https.onCall(
       );
     }
 
-    const codeRef = db.collection("verificationCodes").doc(verificationCode);
+    const codeRef = db.collection("codes").doc(verificationCode);
     await codeRef.set({
-      userId: context.auth.uid,
+      uid: context.auth.uid,
       isActive: true,
       addressCoordinate: coordinates,
       rangeInMeter: RANGE_IN_METERS,
@@ -78,7 +78,7 @@ export const generateVerificationCode = functions.https.onCall(
     });
 
     await userPrivateInfoRef
-      .collection("generatedVerificationCodes")
+      .collection("generatedCodes")
       .doc(verificationCode)
       .set({});
 

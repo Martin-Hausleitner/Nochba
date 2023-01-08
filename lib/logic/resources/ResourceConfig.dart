@@ -11,13 +11,16 @@ class ResourceConfig {
   final String usersCollectionName = 'users';
 
   /// Property to set userPublicInfo collection name.
-  final String userPublicInfoCollectionName = 'userPublicInfo';
-
-  /// Property to set posts collection name.
-  final String postsCollectionName = 'posts';
+  final String userPublicInfoCollectionName = 'public';
 
   /// Property to set bookmarks collection name.
   final String bookMarksCollectionName = 'bookmark';
+
+  /// Property to set tokens collection name.
+  final String tokenCollectionName = 'tokens';
+
+  /// Property to set posts collection name.
+  final String postsCollectionName = 'posts';
 
   /// Property to set notifications collection name.
   final String notificationsCollectionName = 'notifications';
