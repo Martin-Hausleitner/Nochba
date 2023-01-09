@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+      - name: Build APK
+        run: flutter build apk
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
