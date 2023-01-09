@@ -7,7 +7,7 @@ platform :android do
       firebase_app_distribution(
         groups: "alpha",
         release_notes: "Bug fixes and performance improvements",
-        apk_path: "build/app/outputs/flutter-apk/app-release.apk",
+        apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
         firebase_cli_path: "usr/local/bin/firebase",
         firebase_cli_token: "1//09vTJ45BdGkokCgYIARAAGAkSNwF-L9Ir-X82rnPrKF82W2jKAXOqYFqUyTbwHXbSGwd5WOwlkbq6x6WYReFsgVkJtYf1uFpSXgM",
         app: "1:799212549268:android:76bbdf0aedd4d0fa2ff081",
