@@ -2,7 +2,7 @@ default_platform(:android)
 
 platform :android do
   desc "Deploy to firebase"
-  lane :deploy_to_firebase do
+  lane :deploy do
     begin
       firebase_app_distribution(
         groups: "alpha",
