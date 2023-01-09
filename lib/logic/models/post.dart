@@ -4,7 +4,7 @@ import 'package:nochba/logic/interfaces/IModel.dart';
 class Post implements IModel {
   @override
   String id;
-  final String user;
+  final String uid;
   final String title;
   final String description;
   final String imageUrl;
@@ -15,7 +15,7 @@ class Post implements IModel {
 
   Post(
       {this.id = '',
-      required this.user,
+      required this.uid,
       required this.title,
       required this.description,
       this.imageUrl = '',
@@ -27,7 +27,7 @@ class Post implements IModel {
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
-        'user': user,
+        'uid': uid,
         'title': title,
         'description': description,
         'imageUrl': imageUrl,
@@ -39,7 +39,7 @@ class Post implements IModel {
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
         id: json['id'],
-        user: json['user'],
+        uid: json['uid'],
         title: json['title'],
         description: json['description'],
         imageUrl: json['imageUrl'],

@@ -40,7 +40,7 @@ class CommentController extends GetxController {
     if (!isValid) return;
 
     final comment = Comment(
-        user: _authService.uid,
+        uid: _authService.uid,
         text: textController.text.trim(),
         createdAt: Timestamp.now(),
         post: postId);

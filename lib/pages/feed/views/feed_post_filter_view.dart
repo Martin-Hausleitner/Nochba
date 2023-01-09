@@ -83,7 +83,7 @@ class FeedPostFilterView extends StatelessWidget {
                     controller.isFilterChipSelected(CategoryOptions.Found),
                 onTap: () => controller.selectFilterChip(CategoryOptions.Found),
               ),
-              const Divider(),
+              Container(),
               FilterLabelChip(
                 label: 'Suche',
                 isSelected: () =>
@@ -107,7 +107,8 @@ class FeedPostFilterView extends StatelessWidget {
                     controller.isFilterChipSelected(CategoryOptions.Lost),
                 onTap: () => controller.selectFilterChip(CategoryOptions.Lost),
               ),
-              const Divider(),
+              Container(),
+
               FilterLabelChip(
                 label: 'Ausleihen',
                 isSelected: () =>

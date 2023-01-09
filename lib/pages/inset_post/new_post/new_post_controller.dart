@@ -105,7 +105,7 @@ class NewPostController extends InsetPostController {
           ? ''
           : await storageService.uploadPostImageToStorage(imageName, image!);
       final post = Post(
-        user: FirebaseAuth.instance.currentUser!.uid,
+        uid: FirebaseAuth.instance.currentUser!.uid,
         title: titleController.text.trim(),
         description: descriptionController.text.trim(),
         imageUrl: imageUrl,

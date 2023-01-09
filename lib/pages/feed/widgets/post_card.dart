@@ -156,7 +156,7 @@ class Post extends GetView<PostCardController> {
                   : Container(),
 
               // Button
-              if (controller.shouldShowWriteToButton(post.user, category))
+              if (controller.shouldShowWriteToButton(post.uid, category))
                 Padding(
                   padding: EdgeInsets.only(top: spacingBetween),
                   child: LocooTextButton(
@@ -166,7 +166,7 @@ class Post extends GetView<PostCardController> {
                     height: 48,
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
                     onPressed: () async =>
-                        await controller.sendNotification(post.user, post.id),
+                        await controller.sendNotification(post.uid, post.id),
                   ),
                 ),
 

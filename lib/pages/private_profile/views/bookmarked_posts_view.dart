@@ -78,7 +78,7 @@ class BookmarkedPostsView extends StatelessWidget {
                   final post = posts.elementAt(index);
 
                   return FutureBuilder<models.User?>(
-                    future: controller.getUser(post.user),
+                    future: controller.getUser(post.uid),
                     builder: ((context, snapshot) {
                       if (snapshot.hasData) {
                         final user = snapshot.data!;

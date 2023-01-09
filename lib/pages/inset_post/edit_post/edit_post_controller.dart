@@ -90,7 +90,7 @@ class EditPostController extends InsetPostController {
 
       final post = Post(
         id: oldPost!.id,
-        user: FirebaseAuth.instance.currentUser!.uid,
+        uid: FirebaseAuth.instance.currentUser!.uid,
         title: titleController.text.trim(),
         description: descriptionController.text.trim(),
         createdAt: oldPost!.createdAt,

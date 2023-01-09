@@ -71,7 +71,7 @@ class CommentPage extends GetView<CommentController> {
                             final comment = comments.elementAt(index);
 
                             return FutureBuilder<User?>(
-                              future: controller.getUser(comment.user),
+                              future: controller.getUser(comment.uid),
                               builder: ((context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {

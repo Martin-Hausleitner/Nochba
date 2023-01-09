@@ -107,7 +107,7 @@ class ProfileContent extends StatelessWidget {
                           final post = posts.elementAt(index);
 
                           return FutureBuilder<models.User?>(
-                            future: dataAccess.getUser(post.user),
+                            future: dataAccess.getUser(post.uid),
                             builder: ((context, snapshot) {
                               if (snapshot.hasData) {
                                 final user = snapshot.data!;
