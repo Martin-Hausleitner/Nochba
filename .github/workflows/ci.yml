@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Fastlane
-        uses: fastlane/setup-fastlane@v2
       - name: Deploy to Firebase
         run: fastlane android deploy_to_firebase
+        with:
+          working-directory: android
 
 
 
