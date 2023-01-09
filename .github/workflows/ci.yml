@@ -5,21 +5,14 @@ on:
       - main
 jobs:
 
-  print_working_directory:
-    name: Print Working Directory
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "The current working directory is $(pwd)"
-      - run: cd ..      
-      - run: ls
-      - run: cd ..
-      
-  print_current_working_directory:
-    name: Print Current Working Directory
-    runs-on: ubuntu-latest
-    steps:
-      - run: cd android
-      - run: echo "The current working directory is $(pwd)"
+    - uses: actions/checkout@v2
+    - name: Set up Fastlane
+      uses: fastlane/setup-fastlane@v2
+    - name: Deploy to Firebase
+      run: fastlane android deploy_to_firebase
 
 
 
