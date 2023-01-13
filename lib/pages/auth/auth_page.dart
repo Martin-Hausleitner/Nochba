@@ -132,6 +132,9 @@ class AuthPage extends GetView<AuthController> {
                     ),
                   ],
                 ),
+
+                // show a container
+
                 Container(
                   // height: 140,
                   decoration: BoxDecoration(
@@ -152,32 +155,57 @@ class AuthPage extends GetView<AuthController> {
                         //       {await Get.to(() => const LoginPage())},
                         // ),
                         OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(60),
-                            primary: Theme.of(context).colorScheme.onSurface,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(60),
+                              primary: Theme.of(context).colorScheme.onSurface,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              // splashFactory: InkRipple.splashFactory,
+                              // enableFeedback: true,
                             ),
-                            // splashFactory: InkRipple.splashFactory,
-                            // enableFeedback: true,
-                          ),
-                          child: Text(
-                            'Anmelden',
-                            style: Theme.of(context).textTheme.button?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  letterSpacing: -0.07,
-                                ),
-                          ),
-                          // onPressed: () async =>
-                          //     {await Get.to(() => const LoginPage())},
-                          onPressed: () async => {
-                            await Get.to(
-                              () => const LoginPage(),
-                              transition: Transition.rightToLeft,
-                            )
-                          },
-                        ),
+                            child: Text(
+                              'Anmelden',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .button
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    letterSpacing: -0.07,
+                                  ),
+                            ),
+                            // onPressed: () async =>
+                            //     {await Get.to(() => const LoginPage())},
+                            onPressed: () {
+                              // set the width and height
+
+                              showDialog(
+                                
+
+
+                                context: context,
+                                builder: (BuildContext context) {
+                                  
+                                  return AlertDialog(
+                                    title: const Text("Warnung vor Datenverlust: Bitte beachten Sie, dass alle während der Testphase eingegebenen Daten verloren gehen können"),
+                                    content: const Text(
+                                        "Wir möchten Sie daran erinnern, dass alle während der Testphase in die App eingegebenen Daten nach Abschluss der Testphase verloren gehen können. Wir freuen uns sehr über Ihr Feedback, um die App für künftige Nutzer zu verbessern. Wir bitten Sie, uns unter project@nochba.com zu kontaktieren, wenn Sie Fehler oder Probleme mit den Funktionen der App feststellen. Wir danken für Ihr Verständnis und wünschen Ihnen viel Spaß mit der App!"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("LOS GEHT'S!"),  
+                                        onPressed: () async => {
+                                          await Get.to(
+                                            () => const LoginPage(),
+                                            transition: Transition.rightToLeft,
+                                          )
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }),
                         SizedBox(
                           height: 12,
                         ),

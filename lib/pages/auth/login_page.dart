@@ -32,7 +32,7 @@ class LoginPage extends GetView<LoginController> {
 
             children: [
               const Text(
-                'Locoo Beta',
+                'Nochba Beta',
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
