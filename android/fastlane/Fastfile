@@ -1,5 +1,15 @@
 default_platform(:android)
 
+desc "Build"
+lane :build do
+  gradle(
+     task: "assemble",
+     flavor: "demo",
+     build_type: "release"
+   )
+end
+
+
 platform :android do
   desc "Deploy to firebase"
   lane :deploy do
@@ -9,9 +19,14 @@ platform :android do
         release_notes: "Bug fixes and performance improvements",
         apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
         firebase_cli_path: "usr/local/bin/firebase",
-        firebase_cli_token: "1//09vTJ45BdGkokCgYIARAAGAkSNwF-L9Ir-X82rnPrKF82W2jKAXOqYFqUyTbwHXbSGwd5WOwlkbq6x6WYReFsgVkJtYf1uFpSXgM",
-        app: "1:799212549268:android:76bbdf0aedd4d0fa2ff081",
+        firebase_cli_token: "${{secrets.FIREBASE_TOKEN}}",
+        app: "${{secrets.FIREBASE_APP_ID_ANDROID}}",
       )
     end
+  end
+
+  desc "Increment version code"
+  lane :increment_vc do
+    increment_version_code( gradle_file_path: "./app/build.gradle" )
   end
 end

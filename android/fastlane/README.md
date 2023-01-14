@@ -13,6 +13,17 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+### build
+
+```sh
+[bundle exec] fastlane build
+```
+
+Build
+
+----
+
+
 ## Android
 
 ### android deploy
@@ -22,6 +33,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ```
 
 Deploy to firebase
+
+### android increment_vc
+
+```sh
+[bundle exec] fastlane android increment_vc
+```
+
+Increment version code
 
 ----
 
