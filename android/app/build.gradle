@@ -76,13 +76,13 @@ android {
     buildTypes {
 
         debug {  
-            applicationIdSuffix ".debug"  
-            debuggable true  
+            //applicationIdSuffix ".debug"  
+            //debuggable true  
         }  
 
         release {  
             //signingConfig signingConfigs.release
-            signingConfig signingConfigs.debug
+            //signingConfig signingConfigs.debug
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'  
         }  
