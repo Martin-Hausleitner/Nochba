@@ -17,7 +17,7 @@ platform :android do
       firebase_app_distribution(
         groups: "alpha",
         release_notes: "Bug fixes and performance improvements",
-        apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+        apk_path: "../build/app/outputs/apk/demo/release/app-demo-release.apk",
         firebase_cli_path: "usr/local/bin/firebase",
         firebase_cli_token: "${{secrets.FIREBASE_TOKEN}}",
         app: "${{secrets.FIREBASE_APP_ID_ANDROID}}",
@@ -25,8 +25,22 @@ platform :android do
     end
   end
 
-  desc "Increment version code"
-  lane :increment_vc do
-    increment_version_code( gradle_file_path: "./app/build.gradle" )
+  desc "Increment build number"
+  lane :IncrementBuildNumber do
+
+    path = '../app/build.gradle'
+    re = /versionCode\s+(\d+)/
+    s = File.read(path)
+    versionCode = s[re, 1].to_i
+    s[re, 1] = (versionCode + 1).to_s
+    f = File.new(path, 'w')
+    f.write(s)
+    f.close
+
   end
+
+  #desc "Increment version code"
+  #lane :increment_vc do
+  #  increment_version_code( gradle_file_path: "./app/build.gradle" )
+  #end
 end

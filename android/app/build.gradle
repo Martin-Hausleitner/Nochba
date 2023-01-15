@@ -34,12 +34,12 @@ android {
     productFlavors {  
         create("demo") {  
             dimension = "version"  
-            applicationIdSuffix = ".demo"  
+            //applicationIdSuffix = ".demo"  
             versionNameSuffix = "-demo"  
         }  
         create("full") {  
             dimension = "version"  
-            applicationIdSuffix = ".full"  
+            //applicationIdSuffix = ".full"  
             versionNameSuffix = "-full"  
         }  
   }
@@ -69,9 +69,8 @@ android {
         minSdkVersion 21
         multiDexEnabled true
         targetSdkVersion 33
-        versionCode 1
+        versionCode 3
         versionName "2.0"
-        test.instrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -82,7 +81,7 @@ android {
         }  
 
         release {  
-            signingConfig signingConfigs.release  
+            //signingConfig signingConfigs.release
             signingConfig signingConfigs.debug
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'  
