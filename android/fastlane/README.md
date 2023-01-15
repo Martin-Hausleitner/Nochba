@@ -34,6 +34,14 @@ Build
 
 Deploy to firebase
 
+### android IncrementBuildNumber
+
+```sh
+[bundle exec] fastlane android IncrementBuildNumber
+```
+
+Increment build number
+
 ### android increment_vc
 
 ```sh
