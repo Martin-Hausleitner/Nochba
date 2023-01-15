@@ -2,6 +2,7 @@ default_platform(:android)
 
 desc "Build"
 lane :build do
+  gradle(task: "clean assembleRelease")
   gradle(
      task: "assemble",
      flavor: "demo",
