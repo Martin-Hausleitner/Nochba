@@ -12,6 +12,18 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: stable
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'build'
+          subdirectory: 'android'
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'IncrementBuildNumber'
+          subdirectory: 'android'
+#      - name: Build
+#        run: fastlane build
+#      - name: Increment Build Number
+#        run: fastlane IncrementBuildNumber
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
@@ -19,7 +31,5 @@ jobs:
           working-directory: 'android'
       - uses: maierj/fastlane-action@v3.0.0
         with:
-          lane: 'build'
-          lane: 'IncrementBuildNumber'
           lane: 'deploy'
           subdirectory: 'android'
