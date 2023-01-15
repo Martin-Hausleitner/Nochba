@@ -29,21 +29,6 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-
-    flavorDimensions "version"  
-    productFlavors {  
-        create("demo") {  
-            dimension = "version"  
-            //applicationIdSuffix = ".demo"  
-            versionNameSuffix = "-demo"  
-        }  
-        create("full") {  
-            dimension = "version"  
-            //applicationIdSuffix = ".full"  
-            versionNameSuffix = "-full"  
-        }  
-  }
-
     // compileSdkVersion flutter.compileSdkVersion
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
@@ -68,31 +53,18 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
         multiDexEnabled true
-        targetSdkVersion 33
-        versionCode 3
-        versionName "2.0"
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
     }
 
     buildTypes {
-
-        debug {  
-            //applicationIdSuffix ".debug"  
-            //debuggable true  
-        }  
-
-        release {  
-            //signingConfig signingConfigs.release
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'  
-        }  
-
-        
+        }
     }
-
-    
-
-    
 }
 
 flutter {
