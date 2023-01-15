@@ -17,7 +17,7 @@ platform :android do
       firebase_app_distribution(
         groups: "alpha",
         release_notes: "Bug fixes and performance improvements",
-        apk_path: "../build/app/outputs/apk/demo/release/app-demo-release.apk",
+        apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
         firebase_cli_path: "usr/local/bin/firebase",
         firebase_cli_token: "${{secrets.FIREBASE_TOKEN}}",
         app: "${{secrets.FIREBASE_APP_ID_ANDROID}}",
