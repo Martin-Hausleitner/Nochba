@@ -12,13 +12,20 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: stable
-      - name: Build APK
-        run: flutter build apk
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
           working-directory: 'android'
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'build'
+          subdirectory: 'android'
+          command: 'sudo fastlane build apk'
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'IncrementBuildNumber'
+          subdirectory: 'android'
       - uses: maierj/fastlane-action@v3.0.0
         with:
           lane: 'deploy'
