@@ -12,8 +12,10 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: stable
-      - name: Build APK
-        run: flutter build apk
+      - name: Build
+        run: fastlane build
+      - name: Increment Build Number
+        run: fastlane IncrementBuildNumber
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
@@ -23,7 +25,3 @@ jobs:
         with:
           lane: 'deploy'
           subdirectory: 'android'
-      - name: Build
-        run: flutter build apk
-      - name: Increment Build Number
-        run: fastlane increment_build_number
