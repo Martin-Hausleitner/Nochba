@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -7,34 +5,38 @@ import 'package:get/get.dart';
 import 'locoo_circle_avatar.dart';
 
 class EditAvatar extends StatelessWidget {
-  final Uint8List? image;
-  final Function(BuildContext context) onTap;
+  final String imageUrl;
+  final VoidCallback onTap;
 
   const EditAvatar({
     Key? key,
-    required this.image,
+    required this.imageUrl,
     required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(context),
+      onTap: () => onTap(),
       child: Center(
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.bottomRight,
           children: [
-            image != null
-                ? CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 55,
-                    backgroundImage: MemoryImage(image!),
-                  )
-                : const CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 55,
-                  ),
+            // CircleAvatar(
+            //   backgroundColor: Colors.black26,
+            //   radius: 55,
+            //   backgroundImage: NetworkImage(
+            //     "https://ui-avatars.com/api/?name=John+Doe",
+            //   ),
+            // ),
+            //create a circle container with i user icon in the center
+            // when image url is emty show container
+            LocooCircleAvatar(
+              imageUrl: imageUrl,
+              radius: 55,
+            ),
+
             SizedBox(
               height: 30.0,
               width: 30.0,

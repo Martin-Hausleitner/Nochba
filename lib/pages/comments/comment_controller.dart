@@ -55,47 +55,6 @@ class CommentController extends GetxController {
     }
   }
 
-  Future<void> updateTextOfComment(String postId, String commentId) async {
-    try {
-      await _commentRepository.updateFields(
-          commentId, {'text': updateTextController.text.trim()},
-          nexus: [postId]);
-      updateTextController.clear();
-    } on Exception {
-      Get.snackbar('Bearbeiten fehlgeschlagen',
-          'Der Kommentar konnte nicht bearbeitet werden');
-    }
-  }
-
-  Future deleteComment(String postId, String commentId) async {
-    try {
-      await _commentRepository.delete(commentId, nexus: [postId]);
-      Get.snackbar('Kommentar wurde gelöscht',
-          'Dein Kommentar wurde erfolgreich gelöscht');
-    } on Exception {
-      Get.snackbar('Löschen fehlgeschlagen',
-          'Der Kommentar konnte nicht gelöscht werden');
-    }
-  }
-
-  Future<int?> getLikesOfComment(String postId, String commentId) async {
-    try {
-      return await _commentRepository.getLikesOfPost(commentId, postId);
-    } on Exception {
-      return Future.error(Error);
-    }
-  }
-
-  bool isThisTheCurrentUser(String uid) {
-    return uid == _authService.uid;
-  }
-
-  final updateTextController = TextEditingController();
-  TextEditingController getTextController(String? text) {
-    updateTextController.text = text ?? '';
-    return updateTextController;
-  }
-
   bool isCommentFilterSortBySelected(CommentFilterSortBy commentFilterSortBy) =>
       commentFilter.commentFilterSortBy == commentFilterSortBy;
   void selectCommentFilterSortBy(CommentFilterSortBy commentFilterSortBy) {
@@ -106,7 +65,6 @@ class CommentController extends GetxController {
   @override
   void dispose() {
     textController.dispose();
-    updateTextController.dispose();
     super.dispose();
   }
 }

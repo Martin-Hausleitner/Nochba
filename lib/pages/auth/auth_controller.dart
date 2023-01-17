@@ -21,7 +21,6 @@ class AuthController extends GetxController {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final birthdayController = TextEditingController();
-  
 
   void toggle() => _isLogin.value = !_isLogin.value;
 
@@ -49,7 +48,7 @@ class AuthController extends GetxController {
         '${firstName.toLowerCase()}.${lastName.toLowerCase()}@${faker.internet.domainName()}';
     const password = '123456';
 
-    await authService.signUp(email, password, firstName, lastName);
+    await authService.signUp(email, password, firstName, lastName, null, false);
 
     /*emailController.text = email;
     passwordController.text = password;*/

@@ -32,8 +32,6 @@ class UserPublicInfo extends IModel {
 
   @override
   Map<String, dynamic> toJson() => {
-        'id': id,
-        //'user': user,
         'birthday': birthday,
         'neighbourhoodMemberSince': neighbourhoodMemberSince,
         'profession': profession,
@@ -46,9 +44,9 @@ class UserPublicInfo extends IModel {
         'bio': bio,
       };
 
-  factory UserPublicInfo.fromJson(Map<String, dynamic> json) => UserPublicInfo(
-        id: json['id'],
-        //user: json['user'],
+  factory UserPublicInfo.fromJson(String id, Map<String, dynamic> json) =>
+      UserPublicInfo(
+        id: id,
         birthday: json['birthday'],
         neighbourhoodMemberSince: json['neighbourhoodMemberSince'],
         profession: json['profession'],

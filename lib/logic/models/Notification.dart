@@ -29,7 +29,6 @@ class Notification implements IModel {
 
   @override
   Map<String, dynamic> toJson() => {
-        'id': id,
         'fromUser': fromUser,
         'toUser': toUser,
         'type': type.name,
@@ -38,8 +37,9 @@ class Notification implements IModel {
         'visible': visible,
       };
 
-  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
-        id: json['id'],
+  factory Notification.fromJson(String id, Map<String, dynamic> json) =>
+      Notification(
+        id: id,
         fromUser: json['fromUser'],
         toUser: json['toUser'],
         type: getNotificationType(json['type']),

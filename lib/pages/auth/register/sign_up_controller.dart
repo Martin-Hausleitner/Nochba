@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
+import 'package:nochba/logic/models/ImageFile.dart';
 
 class SignUpController extends GetxController {
   final emailController = TextEditingController();
@@ -9,6 +13,9 @@ class SignUpController extends GetxController {
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
+
+  final ImageFile _imageFile = ImageFile();
+  Uint8List? get image => _imageFile.file;
 
   final Rx<bool> _showLastName = true.obs;
   bool get showLastName => _showLastName.value;
@@ -51,6 +58,61 @@ class SignUpController extends GetxController {
             : null;
   }
 
+  selectImage(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Select a profile picture'),
+            children: [
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Pick an image'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await pickImage(ImageSource.gallery);
+                },
+              ),
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Take a photo'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await pickImage(ImageSource.camera);
+                },
+              ),
+              if (!_imageFile.isClear())
+                SimpleDialogOption(
+                  padding: const EdgeInsets.all(20),
+                  child: const Text('Delete the image'),
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    await deleteImage();
+                  },
+                )
+            ],
+          );
+        });
+  }
+
+  pickImage(ImageSource imageSource) async {
+    final imagePicker = ImagePicker();
+
+    XFile? file = await imagePicker.pickImage(source: imageSource);
+
+    if (file != null) {
+      _imageFile.name = file.name;
+      _imageFile.file = await file.readAsBytes();
+
+      update();
+    }
+  }
+
+  deleteImage() {
+    _imageFile.clear();
+    update();
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -64,6 +126,7 @@ class SignUpController extends GetxController {
     pageController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    _imageFile.clear();
     firstNameController.dispose();
     lastNameController.dispose();
     super.onClose();
@@ -111,7 +174,9 @@ class SignUpController extends GetxController {
           emailController.text.trim(),
           passwordController.text.trim(),
           firstNameController.text.trim(),
-          lastNameController.text.trim());
+          lastNameController.text.trim(),
+          _imageFile,
+          showLastName);
       getBack();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
@@ -135,6 +200,7 @@ class SignUpController extends GetxController {
   void getBack() {
     emailController.clear();
     passwordController.clear();
+    _imageFile.clear();
     firstNameController.clear();
     lastNameController.clear();
     Get.back();

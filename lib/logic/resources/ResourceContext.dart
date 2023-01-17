@@ -2,9 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nochba/logic/exceptions/LogicException.dart';
 import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
 import 'package:nochba/logic/interfaces/IModel.dart';
-import 'package:nochba/logic/model_mapper.dart';
+import 'package:nochba/logic/model_converter/model_factory.dart';
+import 'package:nochba/logic/model_converter/model_mapper.dart';
 import 'package:nochba/logic/models/Comment.dart';
+import 'package:nochba/logic/models/LikedComment.dart';
+import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/logic/models/Notification.dart';
+import 'package:nochba/logic/models/Token.dart';
+import 'package:nochba/logic/models/UserInternInfoAddress.dart';
+import 'package:nochba/logic/models/UserPrivateInfoName.dart';
+import 'package:nochba/logic/models/UserPrivateInfoSettings.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/models/post.dart';
@@ -19,18 +26,33 @@ class ResourceContext {
       firebaseUser = user;
     });
 
+    ModelMapper modelMapper = ModelMapper();
+
     postResource = Resource<Post>(
-        getCollectionName: getCollectionName(), modelMapper: ModelMapper());
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
     userResource = Resource<models.User>(
-        getCollectionName: getCollectionName(), modelMapper: ModelMapper());
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
     userPublicInfoResource = Resource<UserPublicInfo>(
-        getCollectionName: getCollectionName(), modelMapper: ModelMapper());
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
     bookMarkResource = Resource<BookMark>(
-        getCollectionName: getCollectionName(), modelMapper: ModelMapper());
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
+    userPrivateInfoNameResource = Resource<UserPrivateInfoName>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
+    userPrivateInfoSettingsResource = Resource<UserPrivateInfoSettings>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
+    userInternInfoAddressResource = Resource<UserInternInfoAddress>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
+    likedPostResource = Resource<LikedPost>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
+    likedCommentResource = Resource<LikedComment>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
+
+    tokenResource = Resource<Token>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
     notificationResource = Resource<Notification>(
-        getCollectionName: getCollectionName(), modelMapper: ModelMapper());
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
     commentResource = Resource<Comment>(
-        getCollectionName: getCollectionName(), modelMapper: ModelMapper());
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
   }
 
   final config = const ResourceConfig();
@@ -43,6 +65,12 @@ class ResourceContext {
   late Resource<models.User> userResource;
   late Resource<UserPublicInfo> userPublicInfoResource;
   late Resource<BookMark> bookMarkResource;
+  late Resource<UserPrivateInfoName> userPrivateInfoNameResource;
+  late Resource<UserPrivateInfoSettings> userPrivateInfoSettingsResource;
+  late Resource<UserInternInfoAddress> userInternInfoAddressResource;
+  late Resource<LikedPost> likedPostResource;
+  late Resource<LikedComment> likedCommentResource;
+  late Resource<Token> tokenResource;
   late Resource<Notification> notificationResource;
   late Resource<Comment> commentResource;
 
@@ -56,10 +84,28 @@ class ResourceContext {
             nexus != null &&
             nexus.length == 1) {
           return '${config.usersCollectionName}/${nexus[0]}/${config.userPublicInfoCollectionName}';
-        } else if (type == typeOf<BookMark>() &&
+        } else if ((type == typeOf<BookMark>() ||
+                type == typeOf<UserPrivateInfoName>() ||
+                type == typeOf<UserPrivateInfoSettings>()) &&
             nexus != null &&
             nexus.length == 1) {
-          return '${config.usersCollectionName}/${nexus[0]}/${config.bookMarksCollectionName}';
+          return '${config.usersCollectionName}/${nexus[0]}/${config.userPrivateInfoCollectionName}';
+        } else if (type == typeOf<UserInternInfoAddress>() &&
+            nexus != null &&
+            nexus.length == 1) {
+          return '${config.usersCollectionName}/${nexus[0]}/${config.userInternInfoCollectionName}';
+        } else if (type == typeOf<LikedPost>() &&
+            nexus != null &&
+            nexus.length == 1) {
+          return '${config.usersCollectionName}/${nexus[0]}/${config.userPrivateInfoCollectionName}/record/${config.likedPostsCollectionName}';
+        } else if (type == typeOf<LikedComment>() &&
+            nexus != null &&
+            nexus.length == 1) {
+          return '${config.usersCollectionName}/${nexus[0]}/${config.userPrivateInfoCollectionName}/record/${config.likedCommentsCollectionName}';
+        } else if (type == typeOf<Token>() &&
+            nexus != null &&
+            nexus.length == 1) {
+          return '${config.usersCollectionName}/${nexus[0]}/${config.tokenCollectionName}';
         } else if (type == typeOf<Notification>() &&
             nexus != null &&
             nexus.length == 1) {
@@ -82,6 +128,18 @@ class ResourceContext {
       return userPublicInfoResource as Resource<T>;
     } else if (typeOf<T>() == typeOf<BookMark>()) {
       return bookMarkResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<UserPrivateInfoName>()) {
+      return userPrivateInfoNameResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<UserPrivateInfoSettings>()) {
+      return userPrivateInfoSettingsResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<UserInternInfoAddress>()) {
+      return userInternInfoAddressResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<LikedPost>()) {
+      return likedPostResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<LikedComment>()) {
+      return likedCommentResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<Token>()) {
+      return tokenResource as Resource<T>;
     } else if (typeOf<T>() == typeOf<Notification>()) {
       return notificationResource as Resource<T>;
     } else if (typeOf<T>() == typeOf<Comment>()) {

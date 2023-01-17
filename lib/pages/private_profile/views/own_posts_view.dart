@@ -110,11 +110,11 @@ class OwnPostsView extends StatelessWidget {
                       future: controller.getPostsOfCurrentUser(),
                       builder: ((context, snapshot) {
                         if (snapshot.hasError) {
-                          return Text(
-                              'Something went wrong: ${snapshot.error.toString()}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 32, fontWeight: FontWeight.w300));
+                          return Center(
+                              child: Text(snapshot.error.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w300)));
                         } else if (snapshot.hasData) {
                           final posts = snapshot.data!;
 
@@ -162,21 +162,12 @@ class OwnPostsView extends StatelessWidget {
                             itemBuilder: (BuildContext context, int index) {
                               final post = posts.elementAt(index);
 
-                              return FutureBuilder<models.User?>(
-                                future: controller.getUser(post.uid),
-                                builder: ((context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    final user = snapshot.data!;
-                                    return widget.Post(
-                                      post: post,
-                                      postAuthorName:
-                                          '${user.firstName} ${user.lastName}',
-                                      postAuthorImage: user.imageUrl!,
-                                    );
-                                  } else {
-                                    return Container();
-                                  }
-                                }),
+                              return Padding(
+                                padding: // top 3
+                                    const EdgeInsets.only(top: 3),
+                                child: widget.Post(
+                                  post: post,
+                                ),
                               );
                             },
                             separatorBuilder:

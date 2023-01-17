@@ -10,4 +10,6 @@ class ImageFile {
     name = '';
     file = null;
   }
+
+  bool isClear() => name == '' && file == null;
 }

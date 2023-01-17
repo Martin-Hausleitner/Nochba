@@ -1,13 +1,42 @@
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
+import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/CommentRepository.dart';
+import 'package:nochba/logic/repositories/LikedPostRepository.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 
 class ActionBarController extends GetxController {
+  final _likedPostRepository = Get.find<LikedPostRepository>();
+
+  Stream<List<String>> getLikedPostsOfCurrentUser() {
+    try {
+      return _likedPostRepository.getLikedPostsOfCurrentUser();
+    } on Exception {
+      return Stream.error(Error());
+    }
+  }
+
+  Future<void> likePost(String postId) async {
+    try {
+      return await _likedPostRepository.insertLikedPost(postId);
+    } on Exception {
+      Get.snackbar('Liken fehlgeschlagen', 'Beim Liken ist was schiefgelaufen');
+    }
+  }
+
+  Future<void> unlikePost(String postId) async {
+    try {
+      return await _likedPostRepository.deleteLikedPost(postId);
+    } catch (e) {
+      Get.snackbar('Like zurücknehmen fehlgeschlagen',
+          'Beim Zurücknehmen von deinem Like ist was schiefgelaufen');
+    }
+  }
+
   final _bookMarkRepository = Get.find<BookMarkRepository>();
 
   Stream<BookMark?> getBookMarkOfCurrentUser() {
@@ -60,11 +89,11 @@ class ActionBarController extends GetxController {
 
   final _postRepository = Get.find<PostRepository>();
 
-  Future<int?> getLikesOfPost(String postId) async {
+  Stream<int?> getLikesOfPost(String postId) {
     try {
-      return await _postRepository.getLikesOfPost(postId);
+      return _postRepository.getLikesOfPost(postId);
     } on Exception {
-      return Future.error(Error);
+      return Stream.error(Error);
     }
   }
 

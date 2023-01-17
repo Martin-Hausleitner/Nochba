@@ -5,7 +5,11 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'filter_title.dart';
 
 class FilterRangeSlider extends StatefulWidget {
-  const FilterRangeSlider({super.key});
+  const FilterRangeSlider(
+      {super.key, required this.sliderValue, required this.onChanged});
+
+  final double sliderValue;
+  final Function(double) onChanged;
 
   @override
   State<FilterRangeSlider> createState() => _FilterRangeSliderState();
@@ -30,7 +34,7 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
               Padding(
                 padding: const EdgeInsets.only(
                     top: 25, bottom: 12, left: 15, right: 15),
-                child: Text('${_currentSliderValue.round()}km'),
+                child: Text('${widget.sliderValue.round()}km'),
               ),
             ],
           ),
@@ -48,17 +52,13 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Slider(
-            value: _currentSliderValue,
+            value: widget.sliderValue,
             max: 100,
             divisions: 5,
-            label: _currentSliderValue == 0
+            label: widget.sliderValue == 0
                 ? 'eignes Haus'
-                : '${_currentSliderValue.round()}',
-            onChanged: (double value) {
-              setState(() {
-                _currentSliderValue = value;
-              });
-            },
+                : '${widget.sliderValue.round()}',
+            onChanged: widget.onChanged,
             onChangeStart: (double value) {
               showOverlay();
             },

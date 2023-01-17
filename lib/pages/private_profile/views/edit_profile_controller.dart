@@ -1,10 +1,19 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:nochba/logic/models/ImageFile.dart';
+import 'package:nochba/logic/models/UserPrivateInfoName.dart';
+import 'package:nochba/logic/models/UserPrivateInfoSettings.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/logic/repositories/UserPrivateInfoNameRepository.dart';
+import 'package:nochba/logic/repositories/UserPrivateInfoSettingsRepository.dart';
 import 'package:nochba/logic/repositories/UserPublicInfoRepository.dart';
 import 'package:nochba/logic/repositories/UserRepository.dart';
+import 'package:nochba/logic/storage/StorageService.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EditProfileController extends GetxController {
@@ -45,20 +54,104 @@ class EditProfileController extends GetxController {
 
   final userRepository = Get.find<UserRepository>();
   final userPublicInfoRepository = Get.find<UserPublicInfoRepository>();
+  final userPrivateInfoNameRepository =
+      Get.find<UserPrivateInfoNameRepository>();
+  final userPrivateInfoSettingsRepository =
+      Get.find<UserPrivateInfoSettingsRepository>();
 
-  Stream<User?> getCurrentUserAsStream() {
+  final ImageFile _imageFile = ImageFile();
+  Uint8List? get image => _imageFile.file;
+
+  selectImage(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Select a profile picture'),
+            children: [
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Pick an image'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await pickImage(ImageSource.gallery);
+                  await updateProfilePicture();
+                },
+              ),
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Take a photo'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await pickImage(ImageSource.camera);
+                  await updateProfilePicture();
+                },
+              ),
+              if (!_imageFile.isClear())
+                SimpleDialogOption(
+                  padding: const EdgeInsets.all(20),
+                  child: const Text('Delete the image'),
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    await deleteImage();
+                    await updateProfilePicture();
+                  },
+                )
+            ],
+          );
+        });
+  }
+
+  pickImage(ImageSource imageSource) async {
+    final imagePicker = ImagePicker();
+
+    XFile? file = await imagePicker.pickImage(source: imageSource);
+
+    if (file != null) {
+      _imageFile.name = file.name;
+      _imageFile.file = await file.readAsBytes();
+
+      update();
+    }
+  }
+
+  deleteImage() {
+    _imageFile.clear();
+    update();
+  }
+
+  Future updateProfilePicture() async {
+    final storageService = Get.find<StorageService>();
+
+    final imageUrl = !_imageFile.isClear()
+        ? await storageService.uploadProfileImageToStorage(_imageFile.file!)
+        : '';
+
+    userRepository.updateProfilePictureOfCurrentUser(imageUrl);
+  }
+
+  Stream<UserPrivateInfoName?> getCurrentUserName() {
     try {
-      return userRepository.getCurrentUserAsStream();
+      return userPrivateInfoNameRepository.getCurrentUserAsStream();
     } on Exception {
       return Stream.error(Error);
     }
   }
 
-  Future<User?> getCurrentUser() {
+  Stream<bool?> getCurrentUserSettingForLastName() {
     try {
-      return userRepository.getCurrentUser();
+      return userPrivateInfoSettingsRepository
+          .getLastNameInitialOnlyOfCurrentUser();
     } on Exception {
-      return Future.error(Error);
+      return Stream.error(Error);
+    }
+  }
+
+  Stream<User?> getCurrentUser() {
+    try {
+      return userRepository.getCurrentUserAsStream();
+    } on Exception {
+      return Stream.error(Error);
     }
   }
 
@@ -72,11 +165,20 @@ class EditProfileController extends GetxController {
 
   Future<void> updateNameOfCurrentUser() async {
     try {
-      await userRepository.updateNameOfCurrentUser(
+      await userPrivateInfoNameRepository.updateNameOfCurrentUser(
           firstNameTextController.text.trim(),
           lastNameTextController.text.trim());
       //firstNameTextController.clear();
       //lastNameTextController.clear();
+    } on Exception {
+      return Future.error(Error);
+    }
+  }
+
+  Future<void> updateSettingForLastNameOfCurrentUser(bool value) async {
+    try {
+      await userPrivateInfoSettingsRepository
+          .updateLastNameInitialOnlyOfCurrentUser(value);
     } on Exception {
       return Future.error(Error);
     }

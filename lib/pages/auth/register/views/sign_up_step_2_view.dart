@@ -68,10 +68,11 @@ class SignUpStep2View extends StatelessWidget {
                     ),
               ),
               SizedBox(height: 25),
-              EditAvatar(
-                imageUrl:
-                    'https://play-lh.googleusercontent.com/03URhAXU-IrK5PB-DiN6lyLGITlp-6xTizXkW5l98AUvpzOxQej6ss_zM4f8zxN0ofEf',
-                onTap: () => Get.snackbar('title', 'message'),
+              GetBuilder<SignUpController>(
+                builder: (c) => EditAvatar(
+                  image: controller.image,
+                  onTap: controller.selectImage,
+                ),
               ),
               // Center(
               //   child: Stack(
@@ -106,7 +107,7 @@ class SignUpStep2View extends StatelessWidget {
                         label: 'Vorname',
                         controller: controller.firstNameController,
                         validator: controller.validateFirstName,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        autovalidateMode: AutovalidateMode.disabled,
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: 10),
@@ -114,7 +115,7 @@ class SignUpStep2View extends StatelessWidget {
                         label: 'Nachname',
                         controller: controller.lastNameController,
                         validator: controller.validateLastName,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        autovalidateMode: AutovalidateMode.disabled,
                         textInputAction: TextInputAction.done,
                       ),
                     ],

@@ -12,16 +12,12 @@ import 'package:nochba/views/public_profile/public_profile_view.dart';
 
 class PostProfile extends StatelessWidget {
   final Post post;
-  final String authorImage;
-  final String authorName;
   final String publishDate;
   final String distance;
 
   const PostProfile({
     Key? key,
     required this.post,
-    required this.authorImage,
-    required this.authorName,
     this.publishDate = '---',
     this.distance = '---',
   }) : super(key: key);
@@ -37,7 +33,7 @@ class PostProfile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           LocooCircleAvatar(
-            imageUrl: authorImage,
+            imageUrl: post.imageUrl,
             radius: 20,
           ),
           Expanded(
@@ -49,7 +45,7 @@ class PostProfile extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 2),
                     child: Text(
-                      authorName,
+                      post.userName,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(

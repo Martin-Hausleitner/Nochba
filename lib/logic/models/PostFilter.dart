@@ -1,6 +1,7 @@
 import 'package:nochba/logic/models/category.dart';
 
 class PostFilter {
+  double radius = 100;
   List<CategoryOptions> categories = <CategoryOptions>[];
   PostFilterSortBy postFilterSortBy = PostFilterSortBy.date;
   bool isOrderDescending = true;

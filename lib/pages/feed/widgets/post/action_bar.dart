@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/pages/comments/comment_page.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
@@ -21,20 +22,36 @@ class ActionBar extends GetView<ActionBarController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // return a round icon button with a icon of Icons.favorite and a color of Colors.red
-          LocooCircleIconButton(
-            icon: Icons.thumb_up,
-            isPressed: false,
-            onPressed: () {
-              Get.snackbar(
-                "Edit",
-                "Edit your profile",
-              );
-            },
+          StreamBuilder<List<String>>(
+            stream: controller.getLikedPostsOfCurrentUser(),
+            builder: ((context, snapshot) {
+              if (snapshot.hasData) {
+                final likedPosts = snapshot.data!;
+                if (likedPosts.contains(post.id)) {
+                  return LocooCircleIconButton(
+                      icon: Icons.thumb_up,
+                      isPressed: true,
+                      onPressed: () async =>
+                          await controller.unlikePost(post.id));
+                } else {
+                  return LocooCircleIconButton(
+                      icon: Icons.thumb_up,
+                      isPressed: false,
+                      onPressed: () async =>
+                          await controller.likePost(post.id));
+                }
+              } else {
+                return LocooCircleIconButton(
+                  icon: Icons.thumb_up,
+                  // isPressed: true,
+                  // color: Colors.grey,
+                  onPressed: () {},
+                );
+              }
+            }),
           ),
-          // add a gray Text
-          FutureBuilder<int?>(
-            future: controller.getLikesOfPost(post.id),
+          StreamBuilder<int?>(
+            stream: controller.getLikesOfPost(post.id),
             builder: (context, snapshot) {
               int? data;
               if (snapshot.hasData) {

@@ -22,39 +22,21 @@ import 'package:nochba/logic/models/post.dart' as models;
 
 class PostView extends StatelessWidget {
   final models.Post post;
-  final String postAuthorImage;
-  final String postAuthorName;
-  const PostView(
-      {super.key,
-      required this.post,
-      required this.postAuthorImage,
-      required this.postAuthorName});
+  const PostView({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
     if (post.imageUrl == '') {
-      return PostViewNoImage(
-          post: this.post,
-          postAuthorImage: this.postAuthorImage,
-          postAuthorName: this.postAuthorName);
+      return PostViewNoImage(post: this.post);
     } else {
-      return PostViewImage(
-          post: this.post,
-          postAuthorImage: this.postAuthorImage,
-          postAuthorName: this.postAuthorName);
+      return PostViewImage(post: this.post);
     }
   }
 }
 
 class PostViewNoImage extends StatelessWidget {
   final models.Post post;
-  final String postAuthorImage;
-  final String postAuthorName;
-  const PostViewNoImage(
-      {super.key,
-      required this.post,
-      required this.postAuthorImage,
-      required this.postAuthorName});
+  const PostViewNoImage({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -150,8 +132,6 @@ class PostViewNoImage extends StatelessWidget {
                   // Post Profile
                   PostProfile(
                     post: post,
-                    authorImage: postAuthorImage,
-                    authorName: postAuthorName,
                     publishDate: '---',
                     distance: '---',
                   ),
@@ -225,17 +205,9 @@ const startIconColor = Colors.white;
 const targetIconColor = Colors.black;
 
 class PostViewImage extends StatefulWidget {
-  final String postAuthorImage;
-  final String postAuthorName;
-
   final models.Post post;
   CategoryOptions category = CategoryOptions.None;
-  PostViewImage(
-      {Key? key,
-      required this.postAuthorImage,
-      required this.postAuthorName,
-      required this.post})
-      : super(key: key);
+  PostViewImage({Key? key, required this.post}) : super(key: key);
 
   @override
   _PostViewImageState createState() => _PostViewImageState();
@@ -398,8 +370,6 @@ class _PostViewImageState extends State<PostViewImage> {
                         // Post Profile
                         PostProfile(
                           post: widget.post,
-                          authorImage: widget.postAuthorImage,
-                          authorName: widget.postAuthorName,
                           publishDate: '---',
                           distance: '---',
                         ),

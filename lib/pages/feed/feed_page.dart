@@ -228,6 +228,44 @@ class FeedPage extends GetView<FeedController> {
                     } else if (snapshot.hasData) {
                       final posts = snapshot.data!;
 
+                      if (posts.isEmpty) {
+                        return Center(
+                          child: Column(
+                            //center
+                            mainAxisAlignment: MainAxisAlignment.center,
+
+                            children: [
+                              // add a forum icon
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                              ),
+
+                              Icon(
+                                Icons.article_outlined,
+                                size: 100,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withOpacity(0.1),
+                              ),
+                              Text(
+                                'Es sind noch keine posts vorhanden',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.15),
+                                    ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+
                       return ListView.separated(
                         physics: const ClampingScrollPhysics(),
                         shrinkWrap: true,
@@ -235,28 +273,10 @@ class FeedPage extends GetView<FeedController> {
                         itemBuilder: (BuildContext context, int index) {
                           final post = posts.elementAt(index);
 
-                          return FutureBuilder<models.User?>(
-                            future: controller.getUser(post.uid),
-                            builder: ((context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const LoadingPost();
-                              } else if (snapshot.hasData) {
-                                final user = snapshot.data!;
-                                return Padding(
-                                  padding: // top 3
-                                      const EdgeInsets.only(top: 3),
-                                  child: Post(
-                                    post: post,
-                                    postAuthorName:
-                                        '${user.firstName} ${user.lastName}',
-                                    postAuthorImage: user.imageUrl!,
-                                  ),
-                                );
-                              } else {
-                                return Container();
-                              }
-                            }),
+                          return Padding(
+                            padding: // top 3
+                                const EdgeInsets.only(top: 3),
+                            child: Post(post: post),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) =>

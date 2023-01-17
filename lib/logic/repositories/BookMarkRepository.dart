@@ -4,9 +4,11 @@ import 'package:nochba/logic/repositories/GenericRepository.dart';
 class BookMarkRepository extends GenericRepository<BookMark> {
   BookMarkRepository(super.resourceContext);
 
+  @override
+  String get reference => 'record';
+
   Stream<BookMark?> getBookMarkOfCurrentUser() {
-    return resource
-        .getAsStream(resourceContext.uid, nexus: [resourceContext.uid]);
+    return resource.getAsStream(reference, nexus: [resourceContext.uid]);
   }
 
   Future updateBookMarkOfCurrentUser(BookMark bookMark) {

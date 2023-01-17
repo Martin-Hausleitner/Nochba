@@ -4,7 +4,7 @@ import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/pages/comments/comment_controller.dart';
 import 'package:nochba/pages/comments/views/action_bar_more_view.dart';
 import 'package:nochba/pages/comments/widgets/action_bar.dart';
-import 'package:nochba/pages/comments/widgets/comment_cart_controller.dart';
+import 'package:nochba/pages/comments/widgets/action_bar_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circle_icon_button.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 
@@ -12,13 +12,9 @@ class CommentCard extends StatelessWidget {
   const CommentCard({
     Key? key,
     required this.comment,
-    required this.commentAuthorName,
-    required this.commentAuthorImage,
   }) : super(key: key);
 
   final Comment comment;
-  final String commentAuthorImage;
-  final String commentAuthorName;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +26,7 @@ class CommentCard extends StatelessWidget {
 
       children: [
         LocooCircleAvatar(
-          imageUrl: commentAuthorImage,
+          imageUrl: comment.userImageUrl,
           radius: 20,
         ),
         SizedBox(
@@ -41,7 +37,7 @@ class CommentCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              commentAuthorName,
+              comment.userName,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(

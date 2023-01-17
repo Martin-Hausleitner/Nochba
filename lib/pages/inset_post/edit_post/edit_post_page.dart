@@ -75,7 +75,6 @@ class _EditPostViewState extends State<EditPostView> {
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        
                         children: [
                           Column(
                             children: widget.controller.mainCategories
@@ -211,7 +210,7 @@ class _EditPostViewState extends State<EditPostView> {
                     Padding(
                       padding: // left 10 righ t10
                           const EdgeInsets.symmetric(horizontal: 10),
-                      child: FilterRangeSlider(),
+                      //child: FilterRangeSlider(),
                     ),
                     SizedBox(height: 20),
                   ],

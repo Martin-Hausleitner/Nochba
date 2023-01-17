@@ -170,7 +170,7 @@ class NewPostView extends StatelessWidget {
                     Padding(
                       padding: // left 10 righ t10
                           const EdgeInsets.symmetric(horizontal: 10),
-                      child: FilterRangeSlider(),
+                      //child: FilterRangeSlider(),
                     ),
                     SizedBox(height: 20),
                   ],

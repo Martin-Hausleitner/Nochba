@@ -3,6 +3,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/pages/comments/comment_controller.dart';
+import 'package:nochba/pages/comments/widgets/action_bar_controller.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/alert_dialog_delete.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
@@ -14,7 +15,7 @@ import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 
 class ActionBarMore extends StatelessWidget {
   final Comment comment;
-  final CommentController controller;
+  final CommentActionBarController controller;
   const ActionBarMore({
     Key? key,
     required this.comment,

@@ -40,16 +40,18 @@ class PrivateProfileController extends GetxController {
   Future<List<Post>> getPostsOfCurrentUser() async {
     try {
       return await postRepository.getPostsOfCurrentUser();
-    } on Exception {
-      return Future.error(Error);
+    } on Exception catch (e) {
+      print('Error: ' + e.toString());
+      return Future.error('Die Posts können derzeit nicht geladen werden');
     }
   }
 
   Future<List<Post>> getMarkedPostsOfCurrentUser() async {
     try {
       return await postRepository.getMarkedPostsOfCurrentUser();
-    } on Exception {
-      return Future.error(Error);
+    } on Exception catch (e) {
+      print('Error: ' + e.toString());
+      return Future.error('Die Posts können derzeit nicht geladen werden');
     }
   }
 }

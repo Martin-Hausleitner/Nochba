@@ -21,11 +21,9 @@ class UserRepository extends GenericRepository<User> {
     }
   }
 
-  Future<void> updateNameOfCurrentUser(
-      String firstName, String lastName) async {
+  Future<void> updateProfilePictureOfCurrentUser(String imageUrl) async {
     try {
-      return await updateFields(
-          resourceContext.uid, {"firstName": firstName, "lastName": lastName});
+      return await updateFields(resourceContext.uid, {"imageUrl": imageUrl});
     } on Exception {
       rethrow;
     }

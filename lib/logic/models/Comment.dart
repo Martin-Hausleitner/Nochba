@@ -10,17 +10,22 @@ class Comment implements IModel {
   final String post;
   final int likes;
 
+  // Unmapped fields
+  String userName;
+  String userImageUrl;
+
   Comment(
       {this.id = '',
       required this.uid,
       required this.text,
       required this.createdAt,
       required this.post,
-      this.likes = 0});
+      this.likes = 0,
+      this.userName = '',
+      this.userImageUrl = ''});
 
   @override
   Map<String, dynamic> toJson() => {
-        'id': id,
         'uid': uid,
         'text': text,
         'createdAt': createdAt,
@@ -28,8 +33,8 @@ class Comment implements IModel {
         'likes': likes
       };
 
-  factory Comment.fromJson(Map<String, dynamic> json) => Comment(
-      id: json['id'],
+  factory Comment.fromJson(String id, Map<String, dynamic> json) => Comment(
+      id: id,
       uid: json['uid'],
       text: json['text'],
       createdAt: json['createdAt'],

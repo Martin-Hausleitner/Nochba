@@ -132,31 +132,31 @@ class FeedPostFilterView extends StatelessWidget {
         ),
       ),
       FilterTitle(label: 'Sotieren nach'),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: GetBuilder<FeedController>(
-          builder: (c) => Wrap(
-            spacing: 5,
-            runSpacing: 5,
-            children: [
-              FilterLabelChip(
-                label: 'Datum',
-                isSelected: () => controller
-                    .isPostFilterSortBySelected(PostFilterSortBy.date),
-                onTap: () =>
-                    controller.selectPostFilterSortBy(PostFilterSortBy.date),
-              ),
-              FilterLabelChip(
-                label: 'Likes',
-                isSelected: () => controller
-                    .isPostFilterSortBySelected(PostFilterSortBy.likes),
-                onTap: () =>
-                    controller.selectPostFilterSortBy(PostFilterSortBy.likes),
-              ),
-            ],
-          ),
-        ),
-      ),
+      // Padding(
+      //   padding: const EdgeInsets.symmetric(horizontal: 15),
+      //   child: GetBuilder<FeedController>(
+      //     builder: (c) => Wrap(
+      //       spacing: 5,
+      //       runSpacing: 5,
+      //       children: [
+      //         FilterLabelChip(
+      //           label: 'Datum',
+      //           isSelected: () => controller
+      //               .isPostFilterSortBySelected(PostFilterSortBy.date),
+      //           onTap: () =>
+      //               controller.selectPostFilterSortBy(PostFilterSortBy.date),
+      //         ),
+      //         FilterLabelChip(
+      //           label: 'Likes',
+      //           isSelected: () => controller
+      //               .isPostFilterSortBySelected(PostFilterSortBy.likes),
+      //           onTap: () =>
+      //               controller.selectPostFilterSortBy(PostFilterSortBy.likes),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       FilterTitle(label: 'Reihenfolge'),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),

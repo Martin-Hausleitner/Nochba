@@ -106,21 +106,48 @@ class ProfileContent extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           final post = posts.elementAt(index);
 
-                          return FutureBuilder<models.User?>(
-                            future: dataAccess.getUser(post.uid),
-                            builder: ((context, snapshot) {
-                              if (snapshot.hasData) {
-                                final user = snapshot.data!;
-                                return Post(
-                                  post: post,
-                                  postAuthorName:
-                                      '${user.firstName} ${user.lastName}',
-                                  postAuthorImage: user.imageUrl!,
-                                );
-                              } else {
-                                return Container();
-                              }
-                            }),
+                          if (posts.isEmpty) {
+                            return Center(
+                              child: Column(
+                                //center
+                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                children: [
+                                  // add a forum icon
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.25,
+                                  ),
+
+                                  Icon(
+                                    Icons.article_outlined,
+                                    size: 100,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.1),
+                                  ),
+                                  Text(
+                                    'Es sind noch keine posts vorhanden',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withOpacity(0.15),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+
+                          return Padding(
+                            padding: // top 3
+                                const EdgeInsets.only(top: 3),
+                            child: Post(post: post),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) =>

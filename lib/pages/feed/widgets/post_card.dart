@@ -29,17 +29,9 @@ import 'post/hashtag_badges.dart';
 //create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
 
 class Post extends GetView<PostCardController> {
-  final String postAuthorImage;
-  final String postAuthorName;
-
   final models.Post post;
   CategoryOptions category = CategoryOptions.None;
-  Post({
-    Key? key,
-    required this.post,
-    required this.postAuthorImage,
-    required this.postAuthorName,
-  }) : super(key: key) {
+  Post({Key? key, required this.post}) : super(key: key) {
     category = CategoryModul.getCategoryOptionByName(post.category);
   }
 
@@ -55,11 +47,7 @@ class Post extends GetView<PostCardController> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PostView(
-              post: post,
-              postAuthorName: postAuthorName,
-              postAuthorImage: postAuthorImage,
-            ),
+            builder: (context) => PostView(post: post),
           ),
         );
       },
@@ -120,8 +108,6 @@ class Post extends GetView<PostCardController> {
               // Post Profile
               PostProfile(
                 post: post,
-                authorImage: postAuthorImage,
-                authorName: postAuthorName,
                 publishDate: getTimeAgo(post.createdAt.toDate()),
                 distance: '---',
               ),

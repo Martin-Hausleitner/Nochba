@@ -1,10 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart';
 import 'package:nochba/logic/models/PostFilter.dart';
 import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/GenericRepository.dart';
 import 'package:nochba/logic/models/post.dart';
+import 'package:nochba/logic/repositories/UserInternInfoAddressRepository.dart';
+import 'package:nochba/logic/repositories/UserRepository.dart';
 import 'package:nochba/logic/storage/StorageService.dart';
 
 class PostRepository extends GenericRepository<Post> {
@@ -35,6 +41,22 @@ class PostRepository extends GenericRepository<Post> {
         _storageService.deletePostImageFromStorage(oldImage.name);
       }
     }
+  }
+
+  @override
+  Stream<List<Post>> processStreamListResult(Stream<List<Post>> result) {
+    final userRepository = Get.find<UserRepository>();
+
+    return result.asyncMap((posts) => Future.wait(posts.map((post) async {
+          final user = await userRepository.get(post.uid);
+
+          if (user != null) {
+            post.userName = user.fullName ?? '';
+            post.userImageUrl = user.imageUrl ?? '';
+          }
+
+          return post;
+        }).toList()));
   }
 
   Stream<List<Post>> getAllPosts(bool orderFieldDescending) {
@@ -72,6 +94,35 @@ class PostRepository extends GenericRepository<Post> {
                     .map((c) => c.name)
                     .toList()))
         : super.queryAsStream(orderFieldDescending);
+    /*.asyncMap((posts) async {
+            final userInternInfoAddressRepository =
+                Get.find<UserInternInfoAddressRepository>();
+            final center = await userInternInfoAddressRepository
+                .getField<Map<String, dynamic>>(
+                    userInternInfoAddressRepository.reference, 'position',
+                    nexus: [resourceContext.uid]);
+
+            // Get.snackbar('Center',
+            //     center != null ? center['geopoint'].toString() : 'Null');
+
+            List<String> nearUids = [];
+            if (center != null) {
+              GeoPoint gp = center['geopoint'];
+              try {
+                final gq = await userInternInfoAddressRepository.geoQuery(
+                    GeoFirePoint(gp.latitude, gp.longitude),
+                    postFilter.radius,
+                    'position',
+                    nexus: [resourceContext.uid]);
+                nearUids = gq.map((info) => info.id).toList();
+              } catch (e) {
+                Get.snackbar('Error', e.toString());
+              }
+            }
+            Get.snackbar(nearUids.length.toString(), nearUids.toString());
+
+            return posts.where((post) => nearUids.contains(post.uid)).toList();
+          });*/
   }
 
   Future<String?> getPostTitle(String id) async {
@@ -79,20 +130,25 @@ class PostRepository extends GenericRepository<Post> {
     return post?.title;
   }
 
-  Future<int?> getLikesOfPost(String id) async {
-    final post = await get(id);
-    return post?.likes;
+  Stream<int?> getLikesOfPost(String id) {
+    return getFieldAsStream(id, 'likes');
   }
 
   Future<List<Post>> getPostsOfCurrentUser() async {
     return await query(const MapEntry('createdAt', true),
-        whereIsEqualTo: {'user': resourceContext.uid});
+        whereIsEqualTo: {'uid': resourceContext.uid});
   }
 
   Future<List<Post>> getMarkedPostsOfCurrentUser() async {
-    final bookMarkRepo = loadResource<BookMark>();
+    final bookMarkRepository = Get.find<BookMarkRepository>();
     final uid = resourceContext.uid;
-    final bookMark = await bookMarkRepo.get(uid, nexus: [uid]);
+    final bookMark = await bookMarkRepository
+        .get(bookMarkRepository.reference, nexus: [uid]);
+    Get.snackbar(
+        bookMark == null ? 'Null' : bookMark.toString(),
+        bookMark != null && bookMark.posts.isNotEmpty
+            ? bookMark.posts.length.toString()
+            : '0');
     if (bookMark != null && bookMark.posts.isNotEmpty) {
       final postIds = bookMark.posts;
       final posts = await query(const MapEntry('createdAt', true),

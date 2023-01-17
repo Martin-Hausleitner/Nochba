@@ -27,9 +27,8 @@ class BookmarkedPostsView extends StatelessWidget {
         FutureBuilder<List<models.Post>>(
           future: controller.getMarkedPostsOfCurrentUser(),
           builder: ((context, snapshot) {
-            //return Text('Hey');
             if (snapshot.hasError) {
-              return Text('Something went wrong: ${snapshot.error.toString()}',
+              return Text(snapshot.error.toString(),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 32, fontWeight: FontWeight.w300));
@@ -77,20 +76,12 @@ class BookmarkedPostsView extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final post = posts.elementAt(index);
 
-                  return FutureBuilder<models.User?>(
-                    future: controller.getUser(post.uid),
-                    builder: ((context, snapshot) {
-                      if (snapshot.hasData) {
-                        final user = snapshot.data!;
-                        return widget.Post(
-                          post: post,
-                          postAuthorName: '${user.firstName} ${user.lastName}',
-                          postAuthorImage: user.imageUrl!,
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
+                  return Padding(
+                    padding: // top 3
+                        const EdgeInsets.only(top: 3),
+                    child: widget.Post(
+                      post: post,
+                    ),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) =>

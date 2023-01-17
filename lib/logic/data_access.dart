@@ -37,15 +37,17 @@ class DataAccess extends GetxService {
   Stream<List<Post>> getPosts() => postCol
       .orderBy('createdAt', descending: true)
       .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
+      .map((snapshot) => snapshot.docs
+          .map((doc) => Post.fromJson(doc.id, doc.data()))
+          .toList());
 
   Stream<List<Post>> getPostsOfUser(String uid) => postCol
       .where('user', isEqualTo: uid)
       .orderBy('createdAt', descending: true)
       .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
+      .map((snapshot) => snapshot.docs
+          .map((doc) => Post.fromJson(doc.id, doc.data()))
+          .toList());
 
   Future<List<Post>> getSavedPostsOfCurrentUser() async {
     try {
@@ -54,11 +56,13 @@ class DataAccess extends GetxService {
           await userdataCol.doc(uid).collection('bookmarks').doc(uid).get();
 
       if (snapshot1.exists) {
-        final posts = BookMark.fromJson(snapshot1.data()!).posts;
+        final posts = BookMark.fromJson(snapshot1.id, snapshot1.data()!).posts;
         final snapshot2 = await postCol.where('id', whereIn: posts).get();
 
         if (snapshot2.docs.isNotEmpty) {
-          return snapshot2.docs.map((e) => Post.fromJson(e.data())).toList();
+          return snapshot2.docs
+              .map((e) => Post.fromJson(e.id, e.data()))
+              .toList();
         } else {
           return List.empty();
         }
@@ -112,7 +116,7 @@ class DataAccess extends GetxService {
           .snapshots()
           .map((doc) {
         if (doc.exists) {
-          return BookMark.fromJson(doc.data()!);
+          return BookMark.fromJson(doc.id, doc.data()!);
         } else {
           return null;
         }
@@ -189,7 +193,7 @@ class DataAccess extends GetxService {
       .orderBy('createdAt', descending: true)
       .snapshots()
       .map((snapshot) => snapshot.docs
-          .map((doc) => Notification.fromJson(doc.data()))
+          .map((doc) => Notification.fromJson(doc.id, doc.data()))
           .toList());
 
   Future<bool> sendNotification(String toUser, NotificationType type,

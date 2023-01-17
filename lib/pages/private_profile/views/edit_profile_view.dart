@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart';
+import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
@@ -10,7 +11,7 @@ import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/text_field_remove_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
-import 'package:nochba/shared/ui/edit_avatar.dart';
+import 'package:nochba/shared/ui/edit_avatar_copy.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
@@ -36,16 +37,14 @@ class EditProfileView extends GetView<EditProfileController> {
         // ),
         // EditAvatar(),
         // Text('data'),
-        FutureBuilder<User?>(
-          future: controller.getCurrentUser(),
+        StreamBuilder<User?>(
+          stream: controller.getCurrentUser(),
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
               final user = snapshot.data!;
               return EditAvatar(
-                imageUrl: user.imageUrl ?? '',
-                onTap: () => Get.snackbar(
-                    'Berabeiten des Profilbildes', 'Noch nicht implementiert'),
-              );
+                  imageUrl: user.imageUrl ?? '',
+                  onTap: () => controller.selectImage(context));
             } else {
               return Container();
             }
@@ -298,7 +297,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                 label: 'Beruf',
                                 suffixIcon: TextFieldRemoveTextButton(
                                   onPressed: () => controller
-                                      .firstNameTextController
+                                      .professionTextController
                                       .clear(),
                                 ),
                                 autofocus: true,
@@ -495,8 +494,8 @@ class NameElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: controller.getCurrentUserAsStream(),
+    return StreamBuilder<UserPrivateInfoName?>(
+      stream: controller.getCurrentUserName(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final user = snapshot.data!;
@@ -574,16 +573,27 @@ class NameElement extends StatelessWidget {
                                             ?.withOpacity(0.6)),
                               ),
                             ),
-
-                            //tranform  scale 0.8 cupertuon swtich
-                            Transform.scale(
-                              scale: 0.8,
-                              child: CupertinoSwitch(
-                                activeColor: Theme.of(context).primaryColor,
-                                value: true,
-                                onChanged: (value) {},
-                              ),
-                            ),
+                            StreamBuilder<bool?>(
+                              stream:
+                                  controller.getCurrentUserSettingForLastName(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  final data = snapshot.data!;
+                                  return Transform.scale(
+                                    scale: 0.8,
+                                    child: CupertinoSwitch(
+                                        activeColor:
+                                            Theme.of(context).primaryColor,
+                                        value: data,
+                                        onChanged: (value) async => await controller
+                                            .updateSettingForLastNameOfCurrentUser(
+                                                value)),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            )
                           ],
                         ),
                       ),

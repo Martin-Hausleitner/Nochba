@@ -9,10 +9,9 @@ class BookMark implements IModel {
 
   @override
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'posts': posts,
+         'posts': posts,
       };
 
-  static BookMark fromJson(Map<String, dynamic> json) => BookMark(
-      id: json['id'], posts: List.castFrom<dynamic, String>(json['posts']));
+  static BookMark fromJson(String id, Map<String, dynamic> json) =>
+      BookMark(id: id, posts: List.castFrom<dynamic, String>(json['posts']));
 }

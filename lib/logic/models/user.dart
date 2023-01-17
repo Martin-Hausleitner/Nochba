@@ -14,29 +14,31 @@ enum Role { admin, agent, moderator, user }
 @immutable
 abstract class User extends Equatable implements IModel {
   /// Creates a user.
-  const User._({
-    this.createdAt,
-    this.firstName,
-    required this.id,
-    this.imageUrl,
-    this.lastName,
-    this.lastSeen,
-    this.metadata,
-    this.role,
-    this.updatedAt,
-  });
+  const User._(
+      {this.createdAt,
+      this.firstName,
+      required this.id,
+      this.imageUrl,
+      this.lastName,
+      this.lastSeen,
+      this.metadata,
+      this.role,
+      this.updatedAt,
+      this.fullName,
+      this.subUrb});
 
-  const factory User({
-    Timestamp? createdAt,
-    String? firstName,
-    required String id,
-    String? imageUrl,
-    String? lastName,
-    Timestamp? lastSeen,
-    Map<String, dynamic>? metadata,
-    Role? role,
-    Timestamp? updatedAt,
-  }) = _User;
+  const factory User(
+      {Timestamp? createdAt,
+      String? firstName,
+      required String id,
+      String? imageUrl,
+      String? lastName,
+      Timestamp? lastSeen,
+      Map<String, dynamic>? metadata,
+      Role? role,
+      Timestamp? updatedAt,
+      String? fullName,
+      String? subUrb}) = _User;
 
   /// Creates user from a map (decoded JSON).
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -69,6 +71,14 @@ abstract class User extends Equatable implements IModel {
   /// Updated user timestamp, in ms.
   final Timestamp? updatedAt;
 
+  ///
+  /// Full name of the user.
+  final String? fullName;
+
+  ///
+  /// Full name of the user.
+  final String? subUrb;
+
   /// Equatable props.
   @override
   List<Object?> get props => [
@@ -81,19 +91,22 @@ abstract class User extends Equatable implements IModel {
         metadata,
         role,
         updatedAt,
+        fullName,
+        subUrb
       ];
 
-  User copyWith({
-    Timestamp? createdAt,
-    String? firstName,
-    String? id,
-    String? imageUrl,
-    String? lastName,
-    Timestamp? lastSeen,
-    Map<String, dynamic>? metadata,
-    Role? role,
-    Timestamp? updatedAt,
-  });
+  User copyWith(
+      {Timestamp? createdAt,
+      String? firstName,
+      String? id,
+      String? imageUrl,
+      String? lastName,
+      Timestamp? lastSeen,
+      Map<String, dynamic>? metadata,
+      Role? role,
+      Timestamp? updatedAt,
+      String? fullName,
+      String? subUrb});
 
   /// Converts user to the map representation, encodable to JSON.
   @override
@@ -102,45 +115,50 @@ abstract class User extends Equatable implements IModel {
 
 /// A utility class to enable better copyWith.
 class _User extends User {
-  const _User({
-    super.createdAt,
-    super.firstName,
-    required super.id,
-    super.imageUrl,
-    super.lastName,
-    super.lastSeen,
-    super.metadata,
-    super.role,
-    super.updatedAt,
-  }) : super._();
+  const _User(
+      {super.createdAt,
+      super.firstName,
+      required super.id,
+      super.imageUrl,
+      super.lastName,
+      super.lastSeen,
+      super.metadata,
+      super.role,
+      super.updatedAt,
+      super.fullName,
+      super.subUrb})
+      : super._();
 
   @override
-  User copyWith({
-    dynamic createdAt = _Unset,
-    dynamic firstName = _Unset,
-    String? id,
-    dynamic imageUrl = _Unset,
-    dynamic lastName = _Unset,
-    dynamic lastSeen = _Unset,
-    dynamic metadata = _Unset,
-    dynamic role = _Unset,
-    dynamic updatedAt = _Unset,
-  }) =>
+  User copyWith(
+          {dynamic createdAt = _Unset,
+          dynamic firstName = _Unset,
+          String? id,
+          dynamic imageUrl = _Unset,
+          dynamic lastName = _Unset,
+          dynamic lastSeen = _Unset,
+          dynamic metadata = _Unset,
+          dynamic role = _Unset,
+          dynamic updatedAt = _Unset,
+          dynamic fullName = _Unset,
+          dynamic subUrb = _Unset}) =>
       _User(
-        createdAt:
-            createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
-        firstName: firstName == _Unset ? this.firstName : firstName as String?,
-        id: id ?? this.id,
-        imageUrl: imageUrl == _Unset ? this.imageUrl : imageUrl as String?,
-        lastName: lastName == _Unset ? this.lastName : lastName as String?,
-        lastSeen: lastSeen == _Unset ? this.lastSeen : lastSeen as Timestamp?,
-        metadata: metadata == _Unset
-            ? this.metadata
-            : metadata as Map<String, dynamic>?,
-        role: role == _Unset ? this.role : role as Role?,
-        updatedAt:
-            updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
-      );
+          createdAt:
+              createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
+          firstName:
+              firstName == _Unset ? this.firstName : firstName as String?,
+          id: id ?? this.id,
+          imageUrl: imageUrl == _Unset ? this.imageUrl : imageUrl as String?,
+          lastName: lastName == _Unset ? this.lastName : lastName as String?,
+          lastSeen: lastSeen == _Unset ? this.lastSeen : lastSeen as Timestamp?,
+          metadata: metadata == _Unset
+              ? this.metadata
+              : metadata as Map<String, dynamic>?,
+          role: role == _Unset ? this.role : role as Role?,
+          updatedAt:
+              updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
+          fullName: fullName == _Unset ? this.fullName : fullName as String?,
+          subUrb: subUrb == _Unset ? this.subUrb : subUrb as String?);
 
   @override
   set id(String _id) {
@@ -162,6 +180,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       metadata: json['metadata'] as Map<String, dynamic>?,
       role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
       updatedAt: json['updatedAt'] as Timestamp?,
+      fullName: json['fullName'] as String?,
+      subUrb: json['subUrb'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) {
@@ -182,6 +202,8 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('metadata', instance.metadata);
   writeNotNull('role', _$RoleEnumMap[instance.role]);
   writeNotNull('updatedAt', instance.updatedAt);
+  writeNotNull('fullName', instance.updatedAt);
+  writeNotNull('subUrb', instance.updatedAt);
   return val;
 }
 

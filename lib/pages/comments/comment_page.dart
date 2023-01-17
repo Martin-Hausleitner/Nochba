@@ -70,30 +70,12 @@ class CommentPage extends GetView<CommentController> {
                           itemBuilder: (BuildContext context, int index) {
                             final comment = comments.elementAt(index);
 
-                            return FutureBuilder<User?>(
-                              future: controller.getUser(comment.uid),
-                              builder: ((context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Container();
-                                } else if (snapshot.hasData) {
-                                  final user = snapshot.data!;
-                                  return Padding(
-                                    padding: // top 3
-                                        // top left right 5
-                                        const EdgeInsets.only(
-                                            top: 3, left: 8, right: 8),
-                                    child: CommentCard(
-                                        comment: comment,
-                                        commentAuthorName:
-                                            '${user.firstName} ${user.lastName}',
-                                        commentAuthorImage: user.imageUrl!),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              }),
-                            );
+                            return Padding(
+                                padding: // top 3
+                                    // top left right 5
+                                    const EdgeInsets.only(
+                                        top: 3, left: 8, right: 8),
+                                child: CommentCard(comment: comment));
                           });
                     } else {
                       return Container();
@@ -115,7 +97,7 @@ class CommentPage extends GetView<CommentController> {
                           textInputAction: TextInputAction.done,
                           decoration:
                               InputDecoration(labelText: 'Enter your comment'),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          autovalidateMode: AutovalidateMode.disabled,
                           validator: (value) => value != null && value.isEmpty
                               ? 'Enter your comment'
                               : null),

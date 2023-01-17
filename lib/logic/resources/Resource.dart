@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:nochba/logic/exceptions/LogicException.dart';
 import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
+import 'package:nochba/logic/interfaces/IModelFactory.dart';
 import 'package:nochba/logic/interfaces/IModelMapper.dart';
 import 'package:nochba/logic/interfaces/IResource.dart';
 import 'package:nochba/logic/interfaces/IModel.dart';
@@ -11,13 +13,14 @@ class Resource<T extends IModel> implements IResource<T> {
 
   final IModelMapper modelMapper;
   FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
+  GeoFlutterFire geoflutterfire = GeoFlutterFire();
 
-  Map<String, dynamic> getJsonFromModel(T model) {
+  Map<String, dynamic> convertModelToJson(T model) {
     return modelMapper.getJsonFromModel<T>(model);
   }
 
-  T getModelFromJson(Map<String, dynamic> json) {
-    return modelMapper.getModelFromJson<T>(json);
+  T convertJsonToModel(String id, Map<String, dynamic> json) {
+    return modelMapper.getModelFromJson<T>(id, json);
   }
 
   final String Function(Type type, {List<String>? nexus}) getCollectionName;
@@ -32,13 +35,13 @@ class Resource<T extends IModel> implements IResource<T> {
                 descending: orderFieldDescending.value)
             .snapshots()
             .map((snapshot) => snapshot.docs
-                .map((doc) => getModelFromJson(doc.data()))
+                .map((doc) => convertJsonToModel(doc.id, doc.data()))
                 .toList())
         : firestoreInstance
             .collection(getCollectionName(typeOf<T>(), nexus: nexus))
             .snapshots()
             .asyncMap((snapshot) => snapshot.docs
-                .map((doc) => getModelFromJson(doc.data()))
+                .map((doc) => convertJsonToModel(doc.id, doc.data()))
                 .toList());
   }
 
@@ -50,7 +53,7 @@ class Resource<T extends IModel> implements IResource<T> {
         .get();
 
     if (snapshot.exists) {
-      return getModelFromJson(snapshot.data()!);
+      return convertJsonToModel(snapshot.id, snapshot.data()!);
     } else {
       return null;
     }
@@ -64,7 +67,37 @@ class Resource<T extends IModel> implements IResource<T> {
         .snapshots()
         .map((doc) {
       if (doc.exists) {
-        return getModelFromJson(doc.data()!);
+        return convertJsonToModel(doc.id, doc.data()!);
+      } else {
+        return null;
+      }
+    });
+  }
+
+  Future<F?> getField<F>(String id, String fieldName,
+      {List<String>? nexus}) async {
+    final snapshot = await firestoreInstance
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc(id)
+        .get();
+
+    if (snapshot.exists) {
+      return snapshot.get(fieldName);
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Stream<F?> getFieldAsStream<F>(String id, String fieldName,
+      {List<String>? nexus}) {
+    return firestoreInstance
+        .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+        .doc(id)
+        .snapshots()
+        .map((doc) {
+      if (doc.exists) {
+        return doc.get(fieldName);
       } else {
         return null;
       }
@@ -87,7 +120,8 @@ class Resource<T extends IModel> implements IResource<T> {
 
       final snapshots = await query.get();
       if (snapshots.docs.isNotEmpty) {
-        return getModelFromJson(snapshots.docs.first.data());
+        final snapshot = snapshots.docs.first;
+        return convertJsonToModel(snapshot.id, snapshot.data());
       } else {
         return null;
       }
@@ -106,7 +140,7 @@ class Resource<T extends IModel> implements IResource<T> {
 
     if (snapshots.docs.isNotEmpty) {
       return snapshots.docs
-          .map((snapshot) => getModelFromJson(snapshot.data()))
+          .map((snapshot) => convertJsonToModel(snapshot.id, snapshot.data()))
           .toList();
     } else {
       return List.empty();
@@ -131,7 +165,7 @@ class Resource<T extends IModel> implements IResource<T> {
     return await firestoreInstance
         .collection(getCollectionName(typeOf<T>(), nexus: nexus))
         .doc(model.id)
-        .update(getJsonFromModel(model));
+        .update(convertModelToJson(model));
   }
 
   @override
@@ -156,7 +190,7 @@ class Resource<T extends IModel> implements IResource<T> {
           .collection(getCollectionName(typeOf<T>(), nexus: nexus))
           .doc(model.id);
     }
-    return await doc.set(getJsonFromModel(model));
+    return await doc.set(convertModelToJson(model));
   }
 
   @override
@@ -259,7 +293,7 @@ class Resource<T extends IModel> implements IResource<T> {
     final snapshots = await query.get();
 
     return snapshots.docs
-        .map((snapshot) => getModelFromJson(snapshot.data()))
+        .map((snapshot) => convertJsonToModel(snapshot.id, snapshot.data()))
         .toList();
   }
 
@@ -347,7 +381,38 @@ class Resource<T extends IModel> implements IResource<T> {
       query = query.limitToLast(limitToLast);
     }
 
-    return query.snapshots().asyncMap((snapshot) =>
-        snapshot.docs.map((doc) => getModelFromJson(doc.data())).toList());
+    return query.snapshots().asyncMap((snapshot) => snapshot.docs
+        .map((doc) => convertJsonToModel(doc.id, doc.data()))
+        .toList());
+  }
+
+  Future<List<T>> geoQuery(GeoFirePoint center, double radius, String fieldName,
+      {List<String>? nexus}) async {
+    final geoQuery = await geoflutterfire
+        .collection(
+            collectionRef: firestoreInstance
+                .collection(getCollectionName(typeOf<T>(), nexus: nexus)))
+        .within(center: center, radius: radius, field: fieldName)
+        .firstWhere((element) => false);
+
+    return geoQuery
+        .map((doc) =>
+            convertJsonToModel(doc.id, doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
+  Stream<List<T>> geoQueryAsStream(
+      GeoFirePoint center, double radius, String fieldName,
+      {List<String>? nexus}) {
+    final geoQuery = geoflutterfire
+        .collection(
+            collectionRef: firestoreInstance
+                .collection(getCollectionName(typeOf<T>(), nexus: nexus)))
+        .within(center: center, radius: radius, field: fieldName);
+
+    return geoQuery.map((snapshot) => snapshot
+        .map((doc) =>
+            convertJsonToModel(doc.id, doc.data() as Map<String, dynamic>))
+        .toList());
   }
 }
