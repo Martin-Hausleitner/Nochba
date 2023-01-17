@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/pages/private_profile/views/own_posts_view.dart';
 
 import 'package:nochba/logic/models/user.dart' as models;
@@ -93,20 +94,43 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Text(
-                                      '${data.firstName} ${data.lastName}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(
-                                            // fontSize: 30,
-                                            fontWeight: FontWeight.w700,
-                                            letterSpacing: -0.3,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer,
-                                          ),
-                                    ),
+                                    FutureBuilder<UserPrivateInfoName?>(
+                                        future: controller.getCurrentUserName(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasError) {
+                                            return Text(
+                                              'Der Name kann zurzeit nicht geladen werden',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge
+                                                  ?.copyWith(
+                                                    // fontSize: 30,
+                                                    fontWeight: FontWeight.w700,
+                                                    letterSpacing: -0.3,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
+                                                  ),
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            final data2 = snapshot.data!;
+                                            return Text(
+                                              '${data2.firstName} ${data2.lastName}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge
+                                                  ?.copyWith(
+                                                    // fontSize: 30,
+                                                    fontWeight: FontWeight.w700,
+                                                    letterSpacing: -0.3,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
+                                                  ),
+                                            );
+                                          }
+                                          return Container();
+                                        }),
                                     SizedBox(
                                       height: 2,
                                     ),
@@ -183,11 +207,12 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                 ),
                               );
                             } else if (snapshot.hasError) {
-                              return Center(
-                                child: Text('Fail'),
+                              return const Center(
+                                child: Text(
+                                    'Das Profil ist momentan nicht verfügbar'),
                               );
                             } else {
-                              return Center(
+                              return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }

@@ -54,6 +54,14 @@ class UserPrivateInfoNameRepository
     }
   }
 
+  Future<UserPrivateInfoName?> getCurrentUser() async {
+    try {
+      return await get(reference, nexus: [resourceContext.uid]);
+    } on Exception {
+      rethrow;
+    }
+  }
+
   Stream<UserPrivateInfoName?> getCurrentUserAsStream() {
     try {
       return getAsStream(reference, nexus: [resourceContext.uid]);
