@@ -1,0 +1,21 @@
+@startuml
+
+
+:Github Push;
+:Github Action starts the line: distributeFirebase;
+:the
+:then incireases the build number;
+:upload it to firebase app dispo;
+end
+
+
+
+:Local Build;
+:enter the version number;
+:you can enter manuly the version number;
+:the build number increases;
+:upload to playstore;
+:upload to firebase app dispo;
+
+
+@enduml
