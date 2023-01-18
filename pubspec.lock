@@ -414,6 +414,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.10"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "14.2.1"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.10"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.11"
   firebase_performance:
     dependency: "direct main"
     description:
@@ -560,6 +581,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "10.3.0"
+  geoflutterfire2:
+    dependency: "direct main"
+    description:
+      name: geoflutterfire2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.14"
   geolocator:
     dependency: "direct main"
     description:
@@ -1064,6 +1092,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.3"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      name: qr_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   quiver:
     dependency: transitive
     description:
@@ -1078,6 +1120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0+4"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.27.7"
   safe_device:
     dependency: "direct main"
     description:
@@ -1092,6 +1141,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  share_plus:
+    dependency: "direct main"
+    description:
+      name: share_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.3.0"
+  share_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: share_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   shared_preferences:
     dependency: transitive
     description:

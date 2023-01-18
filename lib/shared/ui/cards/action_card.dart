@@ -7,12 +7,18 @@ class ActionCard extends StatelessWidget {
   final String title;
   final IconData? icon;
   final VoidCallback onTap;
+  final Color backgroundColor;
+  final Color textColor;
+
 
   const ActionCard({
     Key? key,
     required this.title,
     this.icon,
     required this.onTap,
+    this.backgroundColor = Colors.white,
+    this.textColor = Colors.black,
+
   }) : super(key: key);
 
   @override

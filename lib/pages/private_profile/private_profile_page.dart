@@ -18,6 +18,7 @@ import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 import 'private_profile_controller.dart';
 import 'views/bookmarked_posts_view.dart';
 import 'views/edit_profile_view.dart';
+import 'views/invite_neighbor_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 
@@ -221,17 +222,18 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         SizedBox(
                           height: 20,
                         ),
-                        ActionCardTitle(
-                          title: 'Dein Profil',
-                        ),
-                        TextButton(
-                          onPressed: () => throw Exception(),
-                          child: const Text("Throw Test Exception"),
-                        ),
-                        GenerateVerificationCode(),
-                        GetDistanceFromLatLonInMeters(),
-                        VerifyButton(),
-                        CheckAddressWithDeviceLocation(),
+                        // ActionCardTitle(
+                        //   title: 'Dein Profil',
+                        // ),
+                        InviteNeighborCard(),
+                        // TextButton(
+                        //   onPressed: () => throw Exception(),
+                        //   child: const Text("Throw Test Exception"),
+                        // ),
+                        // GenerateVerificationCode(),
+                        // GetDistanceFromLatLonInMeters(),
+                        // VerifyButton(),
+                        // CheckAddressWithDeviceLocation(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
@@ -469,6 +471,75 @@ class VerifyButton extends StatelessWidget {
           print(e);
         }
       },
+    );
+  }
+}
+
+class InviteNeighborCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: GestureDetector(
+        onTap: () {
+          Get.to(
+            fullscreenDialog: true,
+            transition: Transition.cupertino,
+            InviteNeighborView(),
+          );
+        },
+        child: Container(
+          // add background color to the rounded container
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(14),
+          ),
+
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // return a rounded container with a icon on the left side and a text
+              Padding(
+                padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15),
+                child: Row(
+                  children: [
+                    //if icon is null then return a empty container else icon
+                    Icon(
+                      size: 22,
+                      //if icon is null shwo nothing
+
+                      FlutterRemix.share_box_fill,
+                      color: Theme.of(context).primaryColor,
+                      // color: Colors.black87,
+                      // color: Colors.black,
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Text(
+                        "Nachbar einladen",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).primaryColor,
+                              // letterSpacing: -0.1,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // return a arrow icon
+              Padding(
+                padding: const EdgeInsets.only(right: 13),
+                child: Icon(
+                  FlutterRemix.arrow_right_s_line,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
