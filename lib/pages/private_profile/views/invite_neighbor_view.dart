@@ -103,6 +103,14 @@ class InviteNeighborView extends StatelessWidget {
           },
           icon: FlutterRemix.refresh_line,
         ),
+        //padding top left right bottom 10
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            'Wenn du einen neuen Einladungscode generierst, wird der alte ungültig.',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ),
       ],
     );
   }
