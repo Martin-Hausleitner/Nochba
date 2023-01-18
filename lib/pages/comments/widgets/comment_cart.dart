@@ -32,40 +32,45 @@ class CommentCard extends StatelessWidget {
         SizedBox(
           width: 10,
         ),
-        Column(
-          // left
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              comment.userName,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: -0.3,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.88),
-                  ),
-            ),
-            Text(
-              comment.text,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.6),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            // left
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                comment.userName,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.3,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.88),
+                    ),
+              ),
+              Text(
+                comment.text,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
-        Spacer(),
+        SizedBox(
+          width: 10,
+        ),
+        // Spacer(),
         ActionBar(comment: comment),
       ],
     );
