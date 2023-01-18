@@ -1,23 +1,23 @@
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
+      versionIncrement:
         description: 'Log level'
         required: true
         default: 'warning'
         type: choice
         options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Test scenario tags'
+        - patch (x.x.1)
+        - minor (x.1.x)
+        - major (1.x.x)
+      distriputeTofirebaseAppDistribution:
+        description: 'Distripute Firebase App Distribution'
+        required: true
+        type: boolean
+      uplaoToPlayStore:
+        description: 'Upload to Play Store'
         required: false
         type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
 
 jobs:
   log-the-inputs:
