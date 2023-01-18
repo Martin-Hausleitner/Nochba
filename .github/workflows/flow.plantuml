@@ -1,3 +1,8 @@
+
+' https://github.com/rubiconba/fastlane-plugin-flutter-version-manager
+' https://www.runway.team/blog/how-to-set-up-a-ci-cd-pipeline-for-your-ios-app-fastlane-github-actions
+
+' https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch:~:text=workflow_dispatch%3A%0A%20%20%20%20inputs,environment%0A%20%20%20%20%20%20%20%20required%3A%20true
 @startuml
 
 
