@@ -12,6 +12,7 @@ on:
         - major (1.x.x)
       distriputeTofirebaseAppDistribution:
         description: 'Distripute Firebase App Distribution'
+        default: true
         required: true
         type: boolean
       uplaoToPlayStore:
