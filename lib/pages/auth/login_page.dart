@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/auth/auth_controller.dart';
 import 'package:nochba/pages/auth/login_controller.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
@@ -67,12 +68,7 @@ class LoginPage extends GetView<LoginController> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 10),
-                  LocooTextField(
-                    label: 'Passwort',
-                    controller: controller.passwordController,
-                    textInputAction: TextInputAction.done,
-                    obscureText: true,
-                  ),
+                  PasswordField(controller: controller),
                   const SizedBox(height: 20),
                   NextElevatedButton(
                     rtl: true,
@@ -186,6 +182,7 @@ class LoginPage extends GetView<LoginController> {
                       // backgroundColor:
                       //     Theme.of(context).colorScheme.onBackground,
                       elevation: 0,
+                      backgroundColor: Colors.black,
                       minimumSize: const Size.fromHeight(60),
                       shadowColor: Colors.transparent,
                       // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
@@ -216,6 +213,57 @@ class LoginPage extends GetView<LoginController> {
             ],
           ),
       ],
+    );
+  }
+}
+
+class PasswordField extends StatefulWidget {
+  const PasswordField({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final LoginController controller;
+
+  @override
+  State<PasswordField> createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  bool _isObscure = true;
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextField(
+      obscureText: _isObscure,
+      label: 'Passwort',
+      suffixIcon: Padding(
+        padding: const EdgeInsets.only(top: 9, left: 2),
+        child: LocooCircularIconButton(
+          iconData: _isObscure ? Icons.visibility : Icons.visibility_off,
+          // fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+          //fill color transparent
+          fillColor: Colors.transparent,
+          iconColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+          radius: 24,
+          onPressed: () {
+            setState(() {
+              _isObscure = !_isObscure;
+            });
+          },
+        ),
+      ),
+      // suffixIcon: IconButton(
+      //   icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+      //   onPressed: () {
+      //     setState(() {
+      //       _isObscure = !_isObscure;
+      //     });
+      //   },
+      // ),
+      controller: widget.controller.passwordController,
+      // validator: widget.controller.validatePassword,
+      autovalidateMode: AutovalidateMode.disabled,
+      textInputAction: TextInputAction.done,
     );
   }
 }

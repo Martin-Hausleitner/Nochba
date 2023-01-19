@@ -7,6 +7,7 @@ import 'package:nochba/pages/auth/register/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
+import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
@@ -21,6 +22,8 @@ class SignUpStep1View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // bool _isObscure = true;
+
     return AppBarBigView(
         tailingIcon: Icons.close_rounded,
         onPressed: onPressedBack,
@@ -80,13 +83,7 @@ class SignUpStep1View extends StatelessWidget {
                       textInputAction: TextInputAction.next,
                     ),
                     SizedBox(height: 10),
-                    LocooTextField(
-                      label: 'Passwort',
-                      controller: controller.passwordController,
-                      validator: controller.validatePassword,
-                      autovalidateMode: AutovalidateMode.disabled,
-                      textInputAction: TextInputAction.done,
-                    ),
+                    PasswordField(controller: controller),
                   ],
                 ),
               ),
@@ -200,6 +197,7 @@ class SignUpStep1View extends StatelessWidget {
                   shadowColor: Colors.transparent,
                   // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
                   //background color red
+                  backgroundColor: Colors.black,
 
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -213,6 +211,57 @@ class SignUpStep1View extends StatelessWidget {
             ],
           )
         ]);
+  }
+}
+
+class PasswordField extends StatefulWidget {
+  const PasswordField({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final SignUpController controller;
+
+  @override
+  State<PasswordField> createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  bool _isObscure = true;
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextField(
+      obscureText: _isObscure,
+      label: 'Passwort',
+      suffixIcon: Padding(
+        padding: const EdgeInsets.only(top: 9, left: 2),
+        child: LocooCircularIconButton(
+          iconData: _isObscure ? Icons.visibility : Icons.visibility_off,
+          // fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+          //fill color transparent
+          fillColor: Colors.transparent,
+          iconColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+          radius: 24,
+          onPressed: () {
+            setState(() {
+              _isObscure = !_isObscure;
+            });
+          },
+        ),
+      ),
+      // suffixIcon: IconButton(
+      //   icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+      //   onPressed: () {
+      //     setState(() {
+      //       _isObscure = !_isObscure;
+      //     });
+      //   },
+      // ),
+      controller: widget.controller.passwordController,
+      validator: widget.controller.validatePassword,
+      autovalidateMode: AutovalidateMode.disabled,
+      textInputAction: TextInputAction.done,
+    );
   }
 }
 
