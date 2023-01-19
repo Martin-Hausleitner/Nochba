@@ -271,48 +271,76 @@ class _PostViewImageState extends State<PostViewImage> {
             ),
             pinned: true,
             expandedHeight: 200,
-            leading: IconButton(
-              splashRadius: 0.0001,
-              icon: Icon(
-                Icons.arrow_back_rounded,
-                color: iconColor,
-                shadows: [
-                  BoxShadow(
-                    color: appBarColor.withOpacity(0.4),
-                    blurRadius: 10,
-                  ),
-                ],
-              ),
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
+            leading: Padding(
+              padding: //left 20 top 20 bottom 20
+                  const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+              child: Container(
+                //reounded button
+                decoration: BoxDecoration(
+                  color: //color scheme colorScheme": {
+                      // "background
+                      Theme.of(context).colorScheme.background,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                // padding: const EdgeInsets.only(left: 10),
                 child: IconButton(
+                  padding: const EdgeInsets.all(0),
                   splashRadius: 0.0001,
-
                   icon: Icon(
-                    FlutterRemix.more_line,
-                    color: iconColor,
-                    shadows: [
-                      BoxShadow(
-                        color: appBarColor.withOpacity(0.4),
-                        blurRadius: 10,
-                      ),
-                    ],
+                    Icons.chevron_left_outlined,
+
+                    // color: iconColor,
+                    // color primery color
+                    color: Colors.black,
+
+                    // shadows: [
+                    //   BoxShadow(
+                    //     color: appBarColor.withOpacity(0.4),
+                    //     blurRadius: 10,
+                    //   ),
+                    // ],
                   ),
-                  //onPress open SettingsPage
                   onPressed: () {
-                    //opne snackbar
-                    Get.snackbar(
-                      "Settings",
-                      "This is a snackbar",
-                    );
+                    Get.back();
                   },
                 ),
               ),
+            ),
+            actions: [
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       color: //color scheme colorScheme": {
+              //           // "background
+              //           Theme.of(context).colorScheme.background,
+              //       borderRadius: BorderRadius.circular(100),
+              //     ),
+              //     child: IconButton(
+              //       splashRadius: 0.0001,
+              //       padding: const EdgeInsets.all(0),
+
+              //       icon: Icon(
+              //         Icons.more_horiz_outlined,
+              //         color: Colors.black,
+              //         // shadows: [
+              //         //   BoxShadow(
+              //         //     color: appBarColor.withOpacity(0.4),
+              //         //     blurRadius: 10,
+              //         //   ),
+              //         // ],
+              //       ),
+              //       //onPress open SettingsPage
+              //       onPressed: () {
+              //         //opne snackbar
+              //         Get.snackbar(
+              //           "Settings",
+              //           "This is a snackbar",
+              //         );
+              //       },
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           SliverList(
@@ -327,8 +355,8 @@ class _PostViewImageState extends State<PostViewImage> {
                           alignment: Alignment.centerLeft,
                           child: Text(widget.post.title,
                               //chnage the space between the words
-                              maxLines: 4,
-                              overflow: TextOverflow.ellipsis,
+                              // maxLines: 4,
+                              // overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
