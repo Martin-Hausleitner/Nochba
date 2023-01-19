@@ -4,9 +4,10 @@ on:
       versionIncrement:
         description: 'Version Increment'
         required: true
-        default: 'warning'
+        default: 'none'
         type: choice
         options:
+        - none
         - patch (x.x.1)
         - minor (x.1.x)
         - major (1.x.x)

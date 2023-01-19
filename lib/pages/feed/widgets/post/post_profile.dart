@@ -54,7 +54,7 @@ class PostProfile extends StatelessWidget {
                           ),
                     ),
                   ),
-                  TimeDistance(publishDate: publishDate, distance: distance),
+                  TimeSuburbDistance(publishDate: publishDate, distance: distance),
                 ],
               ),
             ),
@@ -65,8 +65,8 @@ class PostProfile extends StatelessWidget {
   }
 }
 
-class TimeDistance extends StatelessWidget {
-  const TimeDistance({
+class TimeSuburbDistance extends StatelessWidget {
+  const TimeSuburbDistance({
     Key? key,
     required this.publishDate,
     required this.distance,
@@ -160,6 +160,38 @@ class TimeDistance extends StatelessWidget {
         //   ),
         // ),
         //show svg housing_distance.svg
+        SizedBox(
+          width: 8,
+        ),
+        Row(
+          //center
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              FlutterRemix.map_pin_line,
+              size: 12,
+              color: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.color
+                  ?.withOpacity(0.5),
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              'Auwiesen',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 12,
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.color
+                        ?.withOpacity(0.5),
+                  ),
+            ),
+          ],
+        ),
         SizedBox(
           width: 8,
         ),
