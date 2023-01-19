@@ -74,5 +74,6 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.21"
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.mlkit:barcode-scanning:17.0.3'
     implementation platform('com.google.firebase:firebase-bom:30.3.1')
 }
