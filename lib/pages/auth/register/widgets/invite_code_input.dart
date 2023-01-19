@@ -65,7 +65,7 @@ class InviteCodeInput extends StatelessWidget {
                     ),
                   ),
 
-                  ExitButton(),
+                  CloseButton(),
                   Align(
                     alignment: Alignment.topCenter,
                     child: Container(
@@ -120,8 +120,8 @@ class QRcodeScanner extends StatelessWidget {
   }
 }
 
-class ExitButton extends StatelessWidget {
-  const ExitButton({
+class CloseButton extends StatelessWidget {
+  const CloseButton({
     Key? key,
   }) : super(key: key);
 

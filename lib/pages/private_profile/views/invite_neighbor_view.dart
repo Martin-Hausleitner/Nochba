@@ -91,8 +91,9 @@ class InviteNeighborView extends StatelessWidget {
           title: 'Einladungscode teilen',
           icon: FlutterRemix.share_box_line,
           onTap: () {
-            Share.share('check out my website https://example.com',
-                subject: 'Look what I made!');
+            //"Lieber Nachbar, lass uns gemeinsam unsere Nachbarschaft stärken! Ich lade dich herzlich dazu ein, unserer Gruppe beizutreten. Hier ist der Link zur Installation unserer App im Play Store: PLAY STORE LINK. Dein persönlicher Einladungscode lautet: 123456789.
+            Share.share('Hallo Nachbar, ich möchte dich einladen, Teil unserer aktiven Nachbarschaftsgemeinschaft zu werden. Lade dir einfach die Nochba App im Play Store herunter: PLAY STORE LINK. Verwende bei der Registrierung meinen Einladungscode: 123456789.',
+                subject: 'Nochba einladungscode');
           },
         ),
         LocooTextButton(
