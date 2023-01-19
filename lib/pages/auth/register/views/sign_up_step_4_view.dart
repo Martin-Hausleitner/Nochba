@@ -11,12 +11,14 @@ import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../../logic/register/check_if_safe_device.dart';
 import '../../../inset_post/new_post/widgets/circle_step.dart';
+import '../widgets/invite_code_input.dart';
 
 class SignUpStep4View extends StatelessWidget {
   const SignUpStep4View(
@@ -82,7 +84,7 @@ class SignUpStep4View extends StatelessWidget {
             SizedBox(height: 28),
             TestLocation(),
             TestSafeDevice(),
-            TestMobileScanner(),
+            InviteCodeInput(),
 
             ChooserRadio(),
 
@@ -171,164 +173,6 @@ class TestLocation extends StatelessWidget {
 //           }),
 //     );
 
-class TestMobileScanner extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return LocooTextButton(
-      label: 'Test Mobile Scanner',
-      icon: Icons.arrow_back_rounded,
-      onPressed: () async {
-        //open a bottom sheet with the mobile scanner as background on the top of the bottom sheet is a button which closes the bottom sheet and on the bottom of the sheet is are 1 button which when pressed shows a textfield
-
-        //show bottom sheet
-        showModalBottomSheet(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(25.0),
-            ),
-          ),
-          context: context,
-          builder: (context) {
-            //return a stack where on the bottom is a mobile scanner and on top is a transparent 40% container with a button which closes the bottom sheet
-            return Container(
-              height: //80% of the screen height
-                  MediaQuery.of(context).size.height * 0.8,
-              padding: const EdgeInsets.all(20.0),
-              child: Stack(
-                children: [
-                  //mobile scanner
-                  //show the mobile scanner with top round corners
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(25.0),
-                    ),
-                    child: MobileScanner(
-                      allowDuplicates: false,
-                      controller: MobileScannerController(
-                          facing: CameraFacing.front, torchEnabled: true),
-                      onDetect: (barcode, args) {
-                        if (barcode.rawValue == null) {
-                          debugPrint('Failed to scan Barcode');
-                        } else {
-                          final String code = barcode.rawValue!;
-                          debugPrint('Barcode found! $code');
-                        }
-                      },
-                    ),
-                  ),
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(25.0),
-                    ),
-                    child: ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.4),
-                          BlendMode.srcOut), // This one will create the magic
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                backgroundBlendMode: BlendMode
-                                    .dstOut), // This one will handle background + difference out
-                          ),
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 80),
-                              height: 200,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                //red border only in the cornders
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  //add on top a cube with corners like a qr code scanner exactly where cut out is (topCenter)
-                  Positioned(
-                    top: 80,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        //red border only in the cornders
-                      ),
-                    ),
-                  ),
-                  //close button
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      //round and color colorscheme background
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
-                        borderRadius: // round
-                            BorderRadius.circular(100),
-                      ),
-
-                      child: IconButton(
-                        splashColor: Colors.transparent,
-                        splashRadius: 0.00001,
-                        icon: Icon(
-                          Icons.close_rounded,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ),
-                  // //container with button
-                  // Positioned(
-                  //   bottom: 0,
-                  //   top: 0,
-                  //   child: Container(
-                  //     // top round corners 25
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.black.withOpacity(0.4),
-                  //       // round top 25
-                  //       borderRadius: const BorderRadius.vertical(
-                  //         top: Radius.circular(25.0),
-                  //       ),
-                  //     ),
-
-                  //     // height: 100,
-                  //     width: MediaQuery.of(context).size.width,
-                  //     // child: Center(
-                  //     //   child: LocooTextButton(
-                  //     //     label: 'Test Mobile Scanner',
-                  //     //     icon: Icons.arrow_back_rounded,
-                  //     //     onPressed:
-                  //     //         () async {}, //create a button which runs the emulated firebase cloud function http://
-                  //     //   ),
-                  //     // ),
-                  //   ),
-                  // ),
-
-                  //open a bottom sheet with the mobile scanner as background on the top of the bottom sheet is a button which closes the bottom sheet and on the bottom of the sheet is are 1 button which when pressed shows a textfield
-
-                  //show bottom sheet
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-}
 
 //create a button which runs the emulated firebase cloud function http://127.0.0.1:5001/nochba-dev/us-central1/checkAddress
 
