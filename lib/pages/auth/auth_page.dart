@@ -6,7 +6,7 @@ import 'package:nochba/pages/auth/auth_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
-import 'register/sign_up_page.dart';
+import 'sign_up_page.dart';
 
 /*class AuthPage2 extends GetView<AuthController> {
   const AuthPage2({Key? key}) : super(key: key);

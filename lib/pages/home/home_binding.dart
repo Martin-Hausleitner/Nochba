@@ -19,7 +19,7 @@ import 'package:nochba/logic/data_access.dart';
 import 'package:nochba/logic/storage/StorageService.dart';
 import 'package:nochba/pages/auth/auth_controller.dart';
 import 'package:nochba/pages/auth/login_controller.dart';
-import 'package:nochba/pages/auth/register/sign_up_controller.dart';
+import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/chats/chat_controller.dart';
 import 'package:nochba/pages/chats/chats_controller.dart';
 import 'package:nochba/pages/comments/comment_controller.dart';

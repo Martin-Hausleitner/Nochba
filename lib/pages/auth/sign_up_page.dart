@@ -5,10 +5,10 @@ import 'package:nochba/pages/auth/register/views/sign_up_verified_view.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 import 'sign_up_controller.dart';
-import 'views/sign_up_step_1_view.dart';
-import 'views/sign_up_step_2_view.dart';
-import 'views/sign_up_step_3_view.dart';
-import 'views/sign_up_step_4_view.dart';
+import 'register/views/sign_up_step_1_view.dart';
+import 'register/views/sign_up_step_2_view.dart';
+import 'register/views/sign_up_step_3_view.dart';
+import 'register/views/sign_up_step_4_view.dart';
 
 class NewSignUpPage extends GetView<SignUpController> {
   const NewSignUpPage({Key? key /*, required this.onClicked*/})

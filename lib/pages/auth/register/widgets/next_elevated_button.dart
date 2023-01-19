@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nochba/pages/inset_post/new_post/new_post_controller.dart';
 
-import '../sign_up_controller.dart';
+import '../../sign_up_controller.dart';
 
 class NextElevatedButton extends StatelessWidget {
   final String label;
