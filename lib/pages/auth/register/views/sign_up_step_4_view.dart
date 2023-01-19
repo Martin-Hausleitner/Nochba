@@ -34,7 +34,7 @@ class SignUpStep4View extends StatelessWidget {
     ];
 
     return AppBarBigView(
-      tailingIcon: Icons.close,
+      tailingIcon: Icons.close_rounded,
       title: 'Registrieren',
       onPressed: onPressedBack,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -109,7 +109,7 @@ class BottomNavBar extends StatelessWidget {
         Expanded(
           child: BackOutlinedButton(
             controller: controller,
-            icon: FlutterRemix.arrow_left_s_line,
+            icon: Icons.chevron_left_rounded,
             label: 'Zurück',
           ),
         ),
@@ -143,7 +143,7 @@ class TestLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocooTextButton(
       label: 'Test Location',
-      icon: FlutterRemix.arrow_left_s_line,
+      icon: Icons.arrow_back_rounded,
       onPressed: () async {
         Position position = await getLocationData();
         print(position.latitude);
@@ -160,7 +160,7 @@ class TestLocation extends StatelessWidget {
 //   Widget build(BuildContext context) {
 //     return LocooTextButton(
 //       label: 'Test Cloud Function',
-//       icon: FlutterRemix.arrow_left_s_line,
+//       icon: Icons.arrow_back_rounded,
 //       onPressed: () async {
 //         HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
 //           'checkAddress',
@@ -187,7 +187,7 @@ class TestSafeDevice extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocooTextButton(
       label: 'Test Safe Device',
-      icon: FlutterRemix.arrow_left_s_line,
+      icon: Icons.arrow_back_rounded,
       onPressed: () async {
         bool isSafe = await checkIfSafeDevice();
         print('Device is safe: $isSafe');

@@ -12,7 +12,7 @@ class RoundedSmallButton extends StatelessWidget {
         Row(
       children: [
         Icon(
-          FlutterRemix.arrow_left_s_line,
+          Icons.arrow_back_rounded,
           color: Colors.black,
         ),
        

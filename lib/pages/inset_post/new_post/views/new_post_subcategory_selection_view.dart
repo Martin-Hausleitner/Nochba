@@ -78,7 +78,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                   // return ActionCard(
                   //     title: categories[index].name.toString(),
                   //     icon: Icon(
-                  //       Icons.close_outlined,
+                  //       Icons.close_rounded_outlined,
                   //     ),
                   //     onTap: controller.updateSubcategory(categories[index]));
                   return InkWell(
@@ -157,7 +157,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
 
           BackOutlinedButton(
             controller: controller,
-            icon: FlutterRemix.arrow_left_s_line,
+            icon: Icons.chevron_left_rounded,
             label: "Zurück",
             onPress: () => controller.jumpBack(),
           ),

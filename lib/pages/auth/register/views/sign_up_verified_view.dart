@@ -29,7 +29,7 @@ class SignUpVerifiedView extends StatelessWidget {
     ];
 
     return AppBarBigView(
-        tailingIcon: Icons.close,
+        tailingIcon: Icons.close_rounded,
         title: 'Registrieren',
         onPressed: onPressedBack,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -167,7 +167,7 @@ class BottomNavBar extends StatelessWidget {
         Expanded(
           child: BackOutlinedButton(
             controller: controller,
-            icon: FlutterRemix.arrow_left_s_line,
+            icon: Icons.chevron_left_rounded,
             label: 'Zurück',
           ),
         ),

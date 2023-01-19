@@ -19,7 +19,7 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
-      tailingIcon: Icons.close,
+      tailingIcon: Icons.close_rounded,
       onPressed: controller.getBack,
       title: 'Anmelden',
       backgroundColor: Theme.of(context).backgroundColor,
@@ -49,7 +49,6 @@ class LoginPage extends GetView<LoginController> {
               const SizedBox(height: 24),
             ],
           ),
-
 
         // if (kIsWeb) show a button to open the web version
         if (!kIsWeb)

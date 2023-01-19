@@ -51,7 +51,7 @@ class PostViewNoImage extends StatelessWidget {
         leading: IconButton(
           splashRadius: 0.0001,
           icon: Icon(
-            Icons.arrow_back_outlined,
+            Icons.arrow_back_rounded,
             color: Theme.of(context).colorScheme.onBackground,
           ),
           onPressed: () {
@@ -274,7 +274,7 @@ class _PostViewImageState extends State<PostViewImage> {
             leading: IconButton(
               splashRadius: 0.0001,
               icon: Icon(
-                Icons.arrow_back_outlined,
+                Icons.arrow_back_rounded,
                 color: iconColor,
                 shadows: [
                   BoxShadow(
@@ -509,7 +509,7 @@ class _PostViewImageState extends State<PostViewImage> {
 //             expandedHeight: MediaQuery.of(context).size.height * 0.4,
 //             leading: IconButton(
 //               icon: Icon(
-//                 Icons.arrow_back_outlined,
+//                 Icons.arrow_back_rounded,
 //                 color: Theme.of(context).primaryColor,
 //               ),
 //               onPressed: () {

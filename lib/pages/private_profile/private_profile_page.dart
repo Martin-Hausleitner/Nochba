@@ -337,7 +337,7 @@ class CheckAddressWithDeviceLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocooTextButton(
       label: 'CheckAddressWithDeviceLocation',
-      icon: FlutterRemix.arrow_left_s_line,
+      icon: Icons.arrow_back_rounded,
       onPressed: () async {
         print(FirebaseAuth.instance.currentUser);
         HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
@@ -372,7 +372,7 @@ class GenerateVerificationCode extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocooTextButton(
       label: 'Generate Verification Code',
-      icon: FlutterRemix.arrow_left_s_line,
+      icon: Icons.arrow_back_rounded,
       onPressed: () async {
         if (FirebaseAuth.instance.currentUser != null) {
           // The user is signed in.
@@ -405,7 +405,7 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocooTextButton(
       label: 'getDistanceFromLatLonInMeters',
-      icon: FlutterRemix.arrow_left_s_line,
+      icon: Icons.arrow_back_rounded,
       onPressed: () async {
         const postId = 'hNZr1vDPmzTSA5oomzRi';
 
@@ -450,7 +450,7 @@ class VerifyButton extends StatelessWidget {
     final String address = "Wüstenrotstrasse 1, 4020 Linz, Austria";
     return LocooTextButton(
       label: 'Verify',
-      icon: FlutterRemix.arrow_left_s_line,
+      icon: Icons.arrow_back_rounded,
       onPressed: () async {
         // Call the verifyVerificationCode function
         final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(

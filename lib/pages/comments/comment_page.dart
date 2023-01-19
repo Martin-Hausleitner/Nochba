@@ -19,7 +19,7 @@ class CommentPage extends GetView<CommentController> {
         elevation: 0,
         title: const Text('Kommentare'),
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back), onPressed: () => Get.back()),
+            icon: const Icon(Icons.arrow_back_rounded), onPressed: () => Get.back()),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

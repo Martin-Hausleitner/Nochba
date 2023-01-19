@@ -22,7 +22,7 @@ class SignUpStep1View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
-        tailingIcon: Icons.close,
+        tailingIcon: Icons.close_rounded,
         onPressed: onPressedBack,
         title: 'Register',
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -231,7 +231,7 @@ class BottomNavBar extends StatelessWidget {
         Expanded(
           child: BackOutlinedButton(
             controller: controller,
-            icon: FlutterRemix.arrow_left_s_line,
+            icon: Icons.chevron_left_rounded,
             label: 'Zurück',
           ),
         ),

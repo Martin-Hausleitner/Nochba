@@ -232,7 +232,7 @@ class AddPhotoElement extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(100)),
                           ),
                           child: const Icon(
-                            Icons.close,
+                            Icons.close_rounded,
                             color: Colors.white,
                             size: 18,
                           ),
@@ -280,7 +280,7 @@ class AddPhotoElement extends StatelessWidget {
         //       ),
         //       IconButton(
         //         icon: const Icon(
-        //           Icons.close,
+        //           Icons.close_rounded,
         //         ),
         //         onPressed: () =>
         //             controller.deleteImage(),
@@ -384,7 +384,7 @@ class TagsElement extends StatelessWidget {
                       children: tags
                           .map((e) => Chip(
                                 deleteIcon: Icon(
-                                  Icons.close,
+                                  Icons.close_rounded,
                                   size: 16,
                                 ),
                                 onDeleted: () {
@@ -435,7 +435,7 @@ class BottomNavBar extends StatelessWidget {
           Expanded(
             child: BackOutlinedButton(
               controller: controller,
-              icon: FlutterRemix.arrow_left_s_line,
+              icon: Icons.chevron_left_rounded,
               label: 'Zurück',
               onPress: () => controller.jumpBack(),
             ),
@@ -834,7 +834,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
 //                   () => Wrap(
 //                     children: controller.tags
 //                         .map((e) => Chip(
-//                               deleteIcon: Icon(Icons.close),
+//                               deleteIcon: Icon(Icons.close_rounded),
 //                               onDeleted: () {
 //                                 controller.removeTag(e);
 //                               },
@@ -853,7 +853,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
 //                               backgroundImage: MemoryImage(controller.image!),
 //                             ),
 //                             IconButton(
-//                               icon: const Icon(Icons.close),
+//                               icon: const Icon(Icons.close_rounded),
 //                               onPressed: () => controller.deleteImage(),
 //                             )
 //                           ],
@@ -875,7 +875,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
 //                   Expanded(
 //                     child: BackOutlinedButton(
 //                         controller: controller,
-//                         icon: FlutterRemix.arrow_left_s_line,
+//                         icon: Icons.arrow_back_rounded,
 //                         label: 'Zurück'),
 //                   ),
 //                   const SizedBox(width: 8),

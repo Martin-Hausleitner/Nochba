@@ -15,6 +15,10 @@ on:
         default: true
         required: true
         type: boolean
+      uploadToTestFlight:
+        description: 'Upload to TestFlight'
+        required: false
+        type: boolean
       uploadToPlayStore:
         description: 'Upload to Play Store'
         required: false
@@ -23,6 +27,8 @@ on:
         description: 'Upload to App Store'
         required: false
         type: boolean
+      # uplaod to TestFlight
+      
       changelog:
         description: 'Changelog'
         required: false

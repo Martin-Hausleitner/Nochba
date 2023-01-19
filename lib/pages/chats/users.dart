@@ -20,7 +20,7 @@ class UsersPage extends StatelessWidget {
           systemOverlayStyle: SystemUiOverlayStyle.light,
           title: const Text('Users'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back_rounded),
             onPressed: () {
               Get.back();
             },

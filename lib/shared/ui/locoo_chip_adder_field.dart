@@ -38,7 +38,6 @@ class LocooChipAdderField extends StatelessWidget {
 
           //start
           children: [
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -56,7 +55,7 @@ class LocooChipAdderField extends StatelessWidget {
                     children: [
                       Chip(
                         deleteIcon: Icon(
-                          Icons.close,
+                          Icons.close_rounded,
                           size: 16,
                         ),
                         backgroundColor: Colors.white,

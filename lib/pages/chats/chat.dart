@@ -139,7 +139,7 @@ class ChatPage extends GetView<ChatController> {
           leading: IconButton(
             splashRadius: 0.001,
             icon: Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_rounded,
               color: Theme.of(context).primaryColor,
             ),
             onPressed: () {

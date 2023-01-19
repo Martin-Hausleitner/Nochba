@@ -99,7 +99,7 @@ class BottomNavBar extends StatelessWidget {
         Expanded(
           child: BackOutlinedButton(
             controller: controller,
-            icon: FlutterRemix.arrow_left_s_line,
+            icon: Icons.chevron_left_rounded,
             label: 'Back',
           ),
         ),
