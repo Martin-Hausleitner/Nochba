@@ -82,9 +82,48 @@ class LoginPage extends GetView<LoginController> {
                   Align(
                     //align left
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      'Passwort vergessen?',
-                      style: Theme.of(context).textTheme.bodySmall,
+                    child: GestureDetector(
+                      //write a alert which said in german that you must write a email to project@nochba.com
+                      onTap: () {
+                        Get.snackbar(
+                          'Passwort vergessen',
+                          'Schreibe eine Email an project@nochba.com mit deiner Email Adresse und wir senden dir ein neues Passwort!',
+                          // snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.background,
+                          colorText: Theme.of(context).colorScheme.onSurface,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: 12,
+                          isDismissible: false,
+                          //form bottom to top
+                          duration: const Duration(seconds: 10),
+                          // isDismissible: true,
+                          forwardAnimationCurve: Curves.easeOut,
+                          reverseAnimationCurve: Curves.easeIn,
+                          animationDuration: const Duration(milliseconds: 500),
+                          icon: Icon(
+                            Icons.info_outline_rounded,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          shouldIconPulse: true,
+                          mainButton: TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+
+                      child: Text(
+                        'Passwort vergessen?',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     ),
                   ),
 
