@@ -7,6 +7,7 @@ service cloud.firestore {
     function isSignedIn() {
       return request.auth != null;
     }
+    
 
     //allow everyone to read write to all collections+
     allow read, write: if isSignedIn();
@@ -15,8 +16,11 @@ service cloud.firestore {
   
 
     match /posts/{postId} {
+      function userExists() {
+        return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+      }
       allow read: if isSignedIn();
-      allow create: if isSignedIn() &&
+      allow create: if userExists() &&
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.title is string &&
         request.resource.data.title.size() >= 2 &&
@@ -51,7 +55,7 @@ service cloud.firestore {
       //allow everyone to read write to the comments subcollection
       match /comments/{commentId} {
         allow read: if isSignedIn();
-        allow create: if isSignedIn() &&
+        allow create: if userExists() &&
           request.resource.data.uid == request.auth.uid &&
           request.resource.data.text is string &&
           request.resource.data.text.size() > 1 &&
@@ -75,6 +79,9 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
+      function isSelf() {
+        return request.auth.uid == userId;
+      }
       allow read: if isSignedIn();
       allow write: if isSignedIn() &&
         request.resource.data.uid == request.auth.uid &&
@@ -82,36 +89,90 @@ service cloud.firestore {
         request.resource.data.name is string && 
         request.resource.data.name.size() >= 1 &&
         request.resource.data.suburb == resource.data.suburb;
-      match /public/data {
+      match /public/{document=**} {
         //TODO
         allow read: if isSignedIn();
-        allow write: if isSignedIn() &&
-          request.resource.data.uid == request.auth.uid;
-          
+        allow write: if isSignedIn() && isSelf();
       }
-
-     
+      match /private {
+        match /codes { 
+          allow read: if isSignedIn() &&
+            isSelf();
+        }
+        match /name { 
+          allow read, create, update: if isSignedIn() &&
+            isSelf() &&
+            request.resource.data.firstName is string &&
+            request.resource.data.lastName is string &&
+            request.resource.data.firstName.size() >= 1 &&
+            request.resource.data.lastName.size() >= 1;
+        }
+        match /settings { 
+          allow read, create, update: if isSignedIn() &&
+           isSelf() &&
+            request.resource.data.lastNameInitialOnly is bool &&
+            request.resource.data.permReqBeforeChat is bool;
+        }
+        match /record/{document=**} {
+          //TODO
+          allow read, write: if isSignedIn() &&
+            isSelf();
+        }
+        match /address { 
+          allow read, create: if isSignedIn() &&
+            isSelf() &&
+            request.resource.data.street is string &&
+            request.resource.data.street.size() >= 1 &&
+            request.resource.data.city is string &&
+            request.resource.data.city.size() >= 1 &&
+            request.resource.data.zip is string &&
+            request.resource.data.zip.size() >= 1 &&
+            request.resource.data.streetNr is string &&
+            request.resource.data.streetNr.size() >= 1;
+        }
+      }
     }
+
+    match /reports/{reportID} {
+      function userExists() {
+        return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+      }
+      allow read: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid;
+      allow create: if userExists() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.message is string &&
+        request.resource.data.message.size() > 1 &&
+        request.resource.data.message.size() <= 1024 &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.category is string;
+        // check if the doc field postID exists and if it does, check if the post exists
+        // (exists(/databases/$(database)/documents/posts/$(request.resource.data.postID)) ||
+
+
+    }
+
+
 
     // Rules for the users collection
-    match /users/{userId} {
-      // Validates user's object format
-      // Remove this if you don't plan to provide first or last names
-      function isUserCorrect() {
-        return isSignedIn() && request.resource.data.firstName is string && request.resource.data.lastName is string;
-      }
+    // match /users/{userId} {
+    //   // Validates user's object format
+    //   // Remove this if you don't plan to provide first or last names
+    //   function isUserCorrect() {
+    //     return isSignedIn() && request.resource.data.firstName is string && request.resource.data.lastName is string;
+    //   }
 
-      // Checks that the document was created by currently logged in user
-      function isSelf() {
-        return request.auth.uid == userId;
-      }
+    //   // Checks that the document was created by currently logged in user
+    //   function isSelf() {
+    //     return request.auth.uid == userId;
+    //   }
 
-      // Rules set for the users collection
-      allow create: if isUserCorrect();
-      allow delete: if isSelf();
-      allow read: if isSignedIn();
-      allow update: if isUserCorrect() && isSelf();
-    }
+    //   // Rules set for the users collection
+    //   allow create: if isUserCorrect();
+    //   allow delete: if isSelf();
+    //   allow read: if isSignedIn();
+    //   allow update: if isUserCorrect() && isSelf();
+    // }
 
     // Rules for the rooms collection
     match /rooms/{roomId} {
