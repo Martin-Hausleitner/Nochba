@@ -9,25 +9,54 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //create a class calles InviteNeighborView which have AppBarBigView
 
 //create a invationcode controller with getx
 class InviteNeighborController extends GetxController {
   //create a verificationCode variable with getx
   var verificationCode = ''.obs;
+  //create a timestamp variable to store the last button press time
+  var lastPressTime = 0.obs;
+
   //create a function to generate a verification code
   Future<void> generateVerificationCode() async {
     try {
-      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-        'generateVerificationCode',
-      );
-      final HttpsCallableResult result = await callable();
-      verificationCode.value = result.data;
-      // verificationCode = result.data;
+      //get the shared preferences object
+      final prefs = await SharedPreferences.getInstance();
+      //get the lastPressTime from the shared_preferences
+      final int lastPressTime = prefs.getInt('lastPressTime') ?? 0;
+
+      //get the current time
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
+      //calculate the difference between the current time and the last button press time
+      final diff = currentTime - lastPressTime;
+
+      if (diff >= 86400000) {
+        //if the difference is greater than or equal to 24 hours, execute the function and update the last press time
+        final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+          'generateVerificationCode',
+        );
+        final HttpsCallableResult result = await callable();
+        verificationCode.value = result.data;
+        this.lastPressTime.value = currentTime;
+        //save the lastPressTime using shared_preferences
+        await prefs.setInt('lastPressTime', currentTime);
+      } else {
+        //if the difference is less than 24 hours, display the remaining time in a snackbar
+        final remainingTime = 86400000 - diff;
+        final remainingTimeInSeconds = remainingTime ~/ 1000;
+        final remainingTimeInMinutes = remainingTimeInSeconds ~/ 60;
+        final hours = remainingTimeInMinutes ~/ 60;
+        final minutes = remainingTimeInMinutes % 60;
+        final seconds = remainingTimeInSeconds % 60;
+
+        Get.snackbar('Info',
+            'Du kannst einen neuen Einladecode in $hours:$minutes:$seconds erstellen');
+      }
     } on FirebaseFunctionsException catch (e) {
+      print(e.message);
       Get.snackbar('Error', e.message!);
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
     }
   }
 }

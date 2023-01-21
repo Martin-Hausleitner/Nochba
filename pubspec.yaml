@@ -74,6 +74,7 @@ dependencies:
   geoflutterfire2: ^2.3.14
   qr_flutter: ^4.0.0
   share_plus: ^6.3.0
+  shared_preferences: ^2.0.17
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
