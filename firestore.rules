@@ -31,7 +31,8 @@ service cloud.firestore {
         request.resource.data.tags.size() <= 20 &&
         // a tag in tags can only be 64 characters long
         // request.resource.data.tags[0:19].size() <= 64 &&
-        request.resource.data.createdAt is timestamp;
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.range is number;
       allow update: if resource.data.uid == request.auth.uid &&
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.title is string &&
@@ -46,7 +47,8 @@ service cloud.firestore {
         request.resource.data.tags is list &&
         request.resource.data.tags.size() <= 20 &&
         request.resource.data.createdAt is timestamp &&
-        request.resource.data.createdAt == resource.data.createdAt;
+        request.resource.data.createdAt == resource.data.createdAt &&
+        request.resource.data.range is number;
       allow delete: if resource.data.uid == request.auth.uid;
       //allow everyone to read write to the comments subcollection
       match /comments/{commentId} {
@@ -129,6 +131,19 @@ service cloud.firestore {
       }
     }
 
+    match /notifications/{notificationID} {
+      allow read: if isSignedIn() &&
+        request.resource.data.toUID == request.auth.uid &&
+        request.resource.data.fromUID is string &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.visible is bool &&
+        request.resource.data.type is string &&
+        //TODO TEST
+        (request.resource.data.postID is string || !request.resource.data.postID) && 
+        (request.resource.data.commentID is string || !request.resource.data.commentID) &&
+        (request.resource.data.messageID is string || !request.resource.data.messageID);
+    }
+
     match /reports/{reportID} {
       function userExists() {
         return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
@@ -141,12 +156,12 @@ service cloud.firestore {
         request.resource.data.message.size() > 1 &&
         request.resource.data.message.size() <= 1024 &&
         request.resource.data.createdAt is timestamp &&
-        request.resource.data.category is string;
+        request.resource.data.category is string &&
+        (request.resource.data.postID is string || request.resource.data.userID is string || request.resource.data.commentID is string);
         // check if the doc field postID exists and if it does, check if the post exists
         // (exists(/databases/$(database)/documents/posts/$(request.resource.data.postID)) ||
-
-
     }
+
 
 
 
