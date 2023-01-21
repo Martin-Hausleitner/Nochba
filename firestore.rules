@@ -9,7 +9,7 @@ service cloud.firestore {
     }
     
     //TEMPRÄR!!!!!!!!!!!!!!!
-    allow read, write: if isSignedIn();
+    // allow read, write: if isSignedIn();
     
     match /posts/{postId} {
       function userExists() {
@@ -31,8 +31,9 @@ service cloud.firestore {
         request.resource.data.tags.size() <= 20 &&
         // a tag in tags can only be 64 characters long
         // request.resource.data.tags[0:19].size() <= 64 &&
-        request.resource.data.createdAt is timestamp &&
-        request.resource.data.range is number;
+        request.resource.data.createdAt is timestamp;
+        //TODO range
+        // request.resource.data.range is number;
       allow update: if resource.data.uid == request.auth.uid &&
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.title is string &&
