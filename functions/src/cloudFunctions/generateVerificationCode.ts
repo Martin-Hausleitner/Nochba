@@ -24,24 +24,22 @@ export const generateVerificationCode = functions.https.onCall(
     const uid = context.auth.uid;
 
     const userRef = db.collection("users").doc(uid);
-    const userInternInfoRef = userRef.collection("intern").doc(uid);
-    const userInternInfoDoc = await userInternInfoRef.get();
+    // const userInternRef = userRef.collection("intern").doc("address");
+    // const userInternDoc = await userInternRef.get();
     const userPrivateRef = userRef.collection("private").doc("codes");
-    const userPrivateInfoDoc = await userPrivateRef.get();
-    const coordinates = userInternInfoDoc.get("addressCoordinates");
+    const userPrivateDoc = await userPrivateRef.get();
+    // const coordinates = userInternDoc.get("coords");
     logger.info(`User: ${uid} generating verification code.`);
 
     // get /users/Hs7OuEPhToXg6qPw1ejjuTOFgDo1/userPrivateInfo/Hs7OuEPhToXg6qPw1ejjuTOFgDo1/ lastGeneratedCode
-    const lastGeneratedCodeDate = userPrivateInfoDoc.get(
-      "lastGeneratedCodeDate"
-    );
+    const lastGeneratedCodeDate = userPrivateDoc.get("lastGeneratedCodeDate");
     if (lastGeneratedCodeDate && lastGeneratedCodeDate !== null) {
       const currentTimestamp = Timestamp.fromDate(new Date());
       if (
         currentTimestamp.toMillis() - lastGeneratedCodeDate.toMillis() <
         GENERATION_INTERVAL
       ) {
-        const lastGeneratedCode = userPrivateInfoDoc.get("lastGeneratedCode");
+        const lastGeneratedCode = userPrivateDoc.get("lastGeneratedCode");
         logger.info(
           `User: ${uid} got last verification code: ${lastGeneratedCode}`
         );
@@ -59,6 +57,9 @@ export const generateVerificationCode = functions.https.onCall(
       }
     }
 
+    const coordsRef = userRef.collection("intern").doc("address").get();
+    const coordsSnapshot = await coordsRef;
+    const coordinates = coordsSnapshot.get("coords");
     if (!coordinates) {
       logger.error(`User: ${uid} has no coordinates`);
       throw new functions.https.HttpsError(

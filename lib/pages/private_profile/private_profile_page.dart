@@ -383,9 +383,9 @@ class GenerateVerificationCode extends StatelessWidget {
         }
         HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
           'generateVerificationCode',
-          options: HttpsCallableOptions(
-            timeout: const Duration(seconds: 5),
-          ),
+          // options: HttpsCallableOptions(
+          //   timeout: const Duration(seconds: 5),
+          // ),
         );
         try {
           final result = await callable.call(<String, dynamic>{});
