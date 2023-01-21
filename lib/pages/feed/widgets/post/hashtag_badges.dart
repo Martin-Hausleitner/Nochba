@@ -9,7 +9,7 @@ class HashtagBadges extends StatelessWidget {
 
   const HashtagBadges({
     Key? key,
-    this.hashtags = const ['hashtag1', 'hashtag2', 'hashtag3'],
+    this.hashtags = const [],
   }) : super(key: key);
 
   //create a SingleChildScrollView class with a list of hashtags and with HashtagBadge a
