@@ -1,3 +1,4 @@
+// firebase deploy --only firestore:rules
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -5,6 +6,67 @@ service cloud.firestore {
     // Checks that request is coming from an authenticated user
     function isSignedIn() {
       return request.auth != null;
+    }
+  
+
+    match /posts/{postId} {
+      allow create: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.title is string &&
+        request.resource.data.title.size() >= 2 &&
+        request.resource.data.title.size() <= 256 &&
+        request.resource.data.description is string &&
+        request.resource.data.description.size() > 1 &&
+        request.resource.data.category is string &&
+        request.resource.data.likes is number &&
+        request.resource.data.likes == 0 &&
+        request.resource.data.imageUrl is string &&
+        request.resource.data.tags is list &&
+        request.resource.data.tags.size() <= 20 &&
+        // a tag in tags can only be 64 characters long
+        // request.resource.data.tags[0:19].size() <= 64 &&
+        request.resource.data.createdAt is timestamp;
+      allow read: if isSignedIn();
+      allow update: if resource.data.uid == request.auth.uid &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.title is string &&
+        request.resource.data.title.size() >= 1 &&
+        request.resource.data.title.size() <= 256 &&
+        request.resource.data.description is string &&
+        request.resource.data.description.size() > 1 &&
+        request.resource.data.category is string &&
+        request.resource.data.likes is number &&
+        request.resource.data.likes == resource.data.likes &&
+        request.resource.data.imageUrl is string &&
+        request.resource.data.tags is list &&
+        request.resource.data.tags.size() <= 20 &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if resource.data.uid == request.auth.uid;
+      //allow everyone to read write to the comments subcollection
+      match /comments/{commentId} {
+        allow read: if isSignedIn();
+        allow create: if isSignedIn() &&
+          request.resource.data.uid == request.auth.uid &&
+          request.resource.data.text is string &&
+          request.resource.data.text.size() > 1 &&
+          // request.resource.data.text.size() <= 256 &&
+          request.resource.data.likes is number &&
+          request.resource.data.likes == 0 &&
+          request.resource.data.createdAt is timestamp &&
+          request.resource.data.post == postId;
+        allow update: if resource.data.uid == request.auth.uid &&
+          request.resource.data.uid == request.auth.uid &&
+          request.resource.data.text is string &&
+          request.resource.data.text.size() > 1 &&
+          // request.resource.data.text.size() <= 256 &&
+          request.resource.data.likes is number &&
+          request.resource.data.likes == resource.data.likes &&
+          request.resource.data.createdAt is timestamp &&
+          request.resource.data.createdAt == resource.data.createdAt &&
+          request.resource.data.post == postId;
+        allow delete: if resource.data.uid == request.auth.uid;
+      }
     }
 
     // Rules for the users collection
@@ -72,28 +134,6 @@ service cloud.firestore {
       }
     }
     
-    match /users/{userId}/bookmark/{bookmarkID} {
-      allow read, create, update: if isSignedIn();
-    }
-    
-    match /users/{userId}/notifications/{notificationId} {
-    	allow read, create, update: if isSignedIn();
-    }
-    
-    match /users/{userId}/userPublicInfo/{userPublicInfoId} {
-    	allow read, create, update: if isSignedIn();
-    }
-    
-    match /categories/{categoryId} {
-    	allow read: if isSignedIn();
-    }
-    
-    match /categories/{categoryId}/tags/{tagsID} {
-      allow read: if isSignedIn();
-    }
-    
-    match /posts/{postId} {
-    	allow read, create, update, delete: if isSignedIn();
-    }
+   
   }
 }
