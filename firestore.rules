@@ -7,9 +7,15 @@ service cloud.firestore {
     function isSignedIn() {
       return request.auth != null;
     }
+
+    //allow everyone to read write to all collections+
+    
+    
+
   
 
     match /posts/{postId} {
+      allow read: if isSignedIn();
       allow create: if isSignedIn() &&
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.title is string &&
@@ -26,7 +32,6 @@ service cloud.firestore {
         // a tag in tags can only be 64 characters long
         // request.resource.data.tags[0:19].size() <= 64 &&
         request.resource.data.createdAt is timestamp;
-      allow read: if isSignedIn();
       allow update: if resource.data.uid == request.auth.uid &&
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.title is string &&
@@ -67,6 +72,25 @@ service cloud.firestore {
           request.resource.data.post == postId;
         allow delete: if resource.data.uid == request.auth.uid;
       }
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.imageUrl is string &&
+        request.resource.data.name is string && 
+        request.resource.data.name.size() >= 1 &&
+        request.resource.data.suburb == resource.data.suburb;
+      match /public/data {
+        //TODO
+        allow read: if isSignedIn();
+        allow write: if isSignedIn() &&
+          request.resource.data.uid == request.auth.uid;
+          
+      }
+
+     
     }
 
     // Rules for the users collection

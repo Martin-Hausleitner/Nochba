@@ -82,13 +82,13 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    const userRef = db
+    const userInternAddressRef = db
       .collection("users")
       .doc(uid)
       .collection("intern")
-      .doc(uid);
-    const userDoc = await userRef.get();
-    if (userDoc.exists && userDoc.data()?.addressCoordinates) {
+      .doc("address");
+    const userDoc = await userInternAddressRef.get();
+    if (userDoc.exists && userDoc.data()?.coords) {
       logger.error("The user has already addressCoordinates in the Database!");
       throw new functions.https.HttpsError(
         "failed-precondition",
@@ -169,25 +169,30 @@ export const checkVerificationCode = functions.https.onCall(
       );
     }
 
-    await userRef.set({
-      addressCoordinates: addressCoordinates,
-      distanceInMeter: distance,
-      usedVerificationCode: verificationCode,
+    await userInternAddressRef.set({
+      coords: addressCoordinates,
+      // distanceInMeter: distance,
+      // usedVerificationCode: verificationCode,
     });
 
-    const subUrb = await getOSMSuburbFromCoords(
+    const userInternVerificationRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("intern")
+      .doc("verification");
+
+    await userInternVerificationRef.set({
+      code: verificationCode,
+      distance: distance,
+    });
+
+    const suburb = await getOSMSuburbFromCoords(
       addressCoordinates.latitude,
       addressCoordinates.longitude
     );
 
-    const userPublicInfpRef = db
-      .collection("users")
-      .doc(uid)
-      .collection("public")
-      .doc(uid);
-    await userPublicInfpRef.set({ subUrb }, { merge: true });
-
-
+    const userPublicRef = db.collection("users").doc(uid);
+    await userPublicRef.set({ suburb: suburb }, { merge: true });
 
     try {
       // Code that performs operations on Firebase

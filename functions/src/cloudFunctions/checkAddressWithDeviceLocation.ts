@@ -41,12 +41,12 @@ export const checkAddressWithDeviceLocation = functions
       `User: ${uid} Cords: ${deviceLatitudeCoordinate} ${deviceLongitudeCoordinate} Address: ${address}`
     );
 
-    const userRef = db
+    const userInternAddressRef = db
       .collection("users")
       .doc(uid)
       .collection("intern")
-      .doc(uid);
-    const userDoc = await userRef.get();
+      .doc("address");
+    const userDoc = await userInternAddressRef.get();
 
     if (userDoc.exists) {
       logger.error("Address coordinates have already been written!");
@@ -112,23 +112,30 @@ export const checkAddressWithDeviceLocation = functions
       deviceLongitudeCoordinate
     );
 
-    await userRef.set({
-      addressCoordinates: addressCoordinates,
-      deviceCoordinates: deviceCoordinates,
-      distanceInMeter: distance,
+    await userInternAddressRef.set({
+      coords: addressCoordinates,
+      // deviceCoordinates: deviceCoordinates,
+      // distanceInMeter: distance,
     });
 
-    const subUrb = await getOSMSuburbFromCoords(
+    const userInternVerificationRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("intern")
+      .doc("verification");
+
+    await userInternVerificationRef.set({
+      deviceCoords: deviceCoordinates,
+      distance: distance,
+    });
+
+    const suburb = await getOSMSuburbFromCoords(
       addressCoordinates.latitude,
       addressCoordinates.longitude
     );
 
-    const userPublicInfpRef = db
-      .collection("users")
-      .doc(uid)
-      .collection("public")
-      .doc(uid);
-    await userPublicInfpRef.set({ subUrb }, { merge: true });
+    const userPublicRef = db.collection("users").doc(uid);
+    await userPublicRef.set({ suburb: suburb }, { merge: true });
     logger.info(`✅ User: ${uid} verified with Location.`);
     return true;
   });

@@ -26,8 +26,8 @@ export const generateVerificationCode = functions.https.onCall(
     const userRef = db.collection("users").doc(uid);
     const userInternInfoRef = userRef.collection("intern").doc(uid);
     const userInternInfoDoc = await userInternInfoRef.get();
-    const userPrivateInfoRef = userRef.collection("private").doc(uid);
-    const userPrivateInfoDoc = await userPrivateInfoRef.get();
+    const userPrivateRef = userRef.collection("private").doc("codes");
+    const userPrivateInfoDoc = await userPrivateRef.get();
     const coordinates = userInternInfoDoc.get("addressCoordinates");
     logger.info(`User: ${uid} generating verification code.`);
 
@@ -77,12 +77,12 @@ export const generateVerificationCode = functions.https.onCall(
       maxCodeLimit: MAX_CODE_LIMIT,
     });
 
-    await userPrivateInfoRef
+    await userPrivateRef
       .collection("generatedCodes")
       .doc(verificationCode)
       .set({});
 
-    await userPrivateInfoRef.set(
+    await userPrivateRef.set(
       {
         lastGeneratedCodeDate: FieldValue.serverTimestamp(),
         lastGeneratedCode: verificationCode,
