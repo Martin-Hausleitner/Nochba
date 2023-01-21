@@ -8,13 +8,9 @@ service cloud.firestore {
       return request.auth != null;
     }
     
-
-    //allow everyone to read write to all collections+
+    //TEMPRÄR!!!!!!!!!!!!!!!
     allow read, write: if isSignedIn();
     
-
-  
-
     match /posts/{postId} {
       function userExists() {
         return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
