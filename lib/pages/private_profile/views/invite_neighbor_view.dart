@@ -19,6 +19,21 @@ class InviteNeighborController extends GetxController {
   //create a timestamp variable to store the last button press time
   var lastPressTime = 0.obs;
 
+  //get current uid
+  String get uid => FirebaseAuth.instance.currentUser!.uid;
+
+  //now create a var lastCodeGenerated which take the "lastCodeGenerated" string anf addd the uid
+  String get lastCodeGenerated => 'lastCodeGenerated$uid';
+
+  Future<void> resetLastPressTime() async {
+    //get the shared preferences object
+    final prefs = await SharedPreferences.getInstance();
+    //set the lastPressTime to 0
+    this.lastPressTime.value = 0;
+    //save the lastPressTime using shared_preferences
+    await prefs.setInt('lastPressTime', 0);
+  }
+
   //create a function to generate a verification code
   Future<void> generateVerificationCode() async {
     try {
@@ -42,41 +57,59 @@ class InviteNeighborController extends GetxController {
         this.lastPressTime.value = currentTime;
         //save the lastPressTime using shared_preferences
         await prefs.setInt('lastPressTime', currentTime);
+
+        final savedCode = prefs.getString(lastCodeGenerated) ?? '';
+        if (savedCode != verificationCode.value) {
+          await prefs.setString(lastCodeGenerated, verificationCode.value);
+        }
       } else {
         //if the difference is less than 24 hours, display the remaining time in a snackbar
         final remainingTime = 86400000 - diff;
-        final remainingTimeInSeconds = remainingTime ~/ 1000;
-        final remainingTimeInMinutes = remainingTimeInSeconds ~/ 60;
-        final hours = remainingTimeInMinutes ~/ 60;
-        final minutes = remainingTimeInMinutes % 60;
-        final seconds = remainingTimeInSeconds % 60;
-
-        Get.snackbar('Info',
-            'Du kannst einen neuen Einladecode in $hours:$minutes:$seconds erstellen');
+        //convert the to da Time object
+        final remainingTimeObject = DateTime.fromMillisecondsSinceEpoch(
+          remainingTime,
+          isUtc: true,
+        );
+        //get the hours and minutes from the remaining time
+        final hours = remainingTimeObject.hour;
+        final minutes = remainingTimeObject.minute;
+        final seconds = remainingTimeObject.second;
+        //display the remaining time in a snackbar im format 00:00:00 and german
+        Get.snackbar(
+          'Wartezeit',
+          'Du kannst in $hours Stunden, $minutes Minuten und $seconds Sekunden einen neuen Code generieren',
+          // snackPosition: SnackPosition.BOTTOM,
+          // backgroundColor: Colors.red,
+          // colorText: Colors.white,
+        );
+       
+       
+       
       }
     } on FirebaseFunctionsException catch (e) {
       print(e.message);
       Get.snackbar('Error', e.message!);
     }
   }
-}
-
-class InviteNeighborView extends StatefulWidget {
-  const InviteNeighborView({Key? key}) : super(key: key);
 
   @override
-  State<InviteNeighborView> createState() => _InviteNeighborViewState();
-}
+  void onInit() async {
+    final prefs = await SharedPreferences.getInstance();
+    //
+    verificationCode.value = prefs.getString(lastCodeGenerated) ?? '';
+    // verificationCode.value is emty run generateVerificationCode
+    if (verificationCode.value.isEmpty) {
+      await generateVerificationCode();
+    }
+    //print the current verification code
+    print(verificationCode.value);
+    print(lastCodeGenerated);
 
-class _InviteNeighborViewState extends State<InviteNeighborView> {
-  final InviteNeighborController controller =
-      Get.put(InviteNeighborController());
-  @override
-  void initState() {
-    super.initState();
-    controller.generateVerificationCode();
+    super.onInit();
   }
+}
 
+class InviteNeighborView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final InviteNeighborController controller =
@@ -183,6 +216,10 @@ class _InviteNeighborViewState extends State<InviteNeighborView> {
           },
 
           icon: FlutterRemix.refresh_line,
+        ),
+        TextButton(
+          onPressed: controller.resetLastPressTime,
+          child: Text("Reset lastPressTime"),
         ),
         //padding top left right bottom 10
         Padding(
