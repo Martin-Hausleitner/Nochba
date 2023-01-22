@@ -15,7 +15,7 @@ service cloud.firestore {
       function userExists() {
         return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
       }
-      allow read: if isSignedIn();
+      allow read: if userExists();
       allow create: if userExists() &&
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.title is string &&
@@ -53,7 +53,7 @@ service cloud.firestore {
       allow delete: if resource.data.uid == request.auth.uid;
       //allow everyone to read write to the comments subcollection
       match /comments/{commentId} {
-        allow read: if isSignedIn();
+        allow read: if userExists();
         allow create: if userExists() &&
           request.resource.data.uid == request.auth.uid &&
           request.resource.data.text is string &&
@@ -90,7 +90,7 @@ service cloud.firestore {
         request.resource.data.suburb == resource.data.suburb;
       match /public/{document=**} {
         //TODO
-        allow read: if isSignedIn();
+        allow read: if userExists();
         allow write: if isSignedIn() && isSelf();
       }
       match /private {
