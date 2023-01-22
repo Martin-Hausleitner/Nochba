@@ -81,6 +81,9 @@ service cloud.firestore {
       function isSelf() {
         return request.auth.uid == userId;
       }
+      function userExists() {
+        return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+      }
       allow read: if isSignedIn();
       allow write: if isSignedIn() &&
         request.resource.data.uid == request.auth.uid &&
