@@ -230,9 +230,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         //   onPressed: () => throw Exception(),
                         //   child: const Text("Throw Test Exception"),
                         // ),
-                        GenerateVerificationCode(),
-                        GetDistanceFromLatLonInMeters(),
-                        VerifyButton(),
+                        // GetDistanceFromLatLonInMeters(),
+                        // VerifyButton(),
                         CheckAddressWithDeviceLocation(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
