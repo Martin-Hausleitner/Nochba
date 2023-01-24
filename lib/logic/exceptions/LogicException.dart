@@ -5,4 +5,9 @@ class LogicException implements Exception {
 
   final LogicExceptionType type;
   final String? message;
+
+  @override
+  String toString() {
+    return '${type.name}: $message';
+  }
 }

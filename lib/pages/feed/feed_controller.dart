@@ -1,4 +1,7 @@
+import 'package:algolia/algolia.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/algolia/AlgoliaApplication.dart';
 import 'package:nochba/logic/models/PostFilter.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/user.dart';
@@ -14,8 +17,31 @@ class FeedController extends GetxController {
     try {
       //return postRepository.getAllPosts(true);
       return postRepository.queryPosts(postFilter.value);
-    } on Exception {
+    } on Exception catch (e) {
       return Stream.error(Error);
+    }
+  }
+
+  final searchInputController = TextEditingController();
+  void onSearchInputChanged(String value) {
+    update();
+  }
+
+  Future<List<Post>> searchPosts() async {
+    try {
+      const Algolia algolia = AlgoliaApplication.algolia;
+      AlgoliaQuery query =
+          algolia.instance.index("posts").query(searchInputController.text);
+      AlgoliaQuerySnapshot querySnap = await query.getObjects();
+      List<AlgoliaObjectSnapshot> results = querySnap.hits;
+      final postIds = results.map((snapshot) => snapshot.objectID).toList();
+
+      return postIds.isNotEmpty
+          ? postRepository.query(const MapEntry('createdAt', true),
+              whereIn: MapEntry('id', postIds))
+          : Future.value(List.empty());
+    } on Exception catch (e) {
+      return Future.error(Error);
     }
   }
 

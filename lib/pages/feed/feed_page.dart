@@ -78,6 +78,8 @@ class FeedPage extends GetView<FeedController> {
                               child: SizedBox(
                                 height: 38,
                                 child: TextField(
+                                  onChanged: controller.onSearchInputChanged,
+                                  controller: controller.searchInputController,
                                   decoration: InputDecoration(
                                     //set padding 0
                                     contentPadding: const EdgeInsets.all(0),
@@ -213,83 +215,168 @@ class FeedPage extends GetView<FeedController> {
             ),
             Expanded(
               child: GetBuilder<FeedController>(
-                builder: (c) => StreamBuilder<List<models.Post>>(
-                  stream: controller.getPosts(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return const Center(
-                          child: Text(
-                              'The feeds are not available at the moment',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 32, fontWeight: FontWeight.w300)));
-                    } else if (snapshot.hasData) {
-                      final posts = snapshot.data!;
+                builder: (c) => controller.searchInputController.text.isNotEmpty
+                    ? FutureBuilder<List<models.Post>>(
+                        future: controller.searchPosts(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return const Center(
+                                child: Text(
+                                    'Die Suche ist derzeit nicht verfügbar',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w300)));
+                          } else if (snapshot.hasData) {
+                            final posts = snapshot.data!;
 
-                      if (posts.isEmpty) {
-                        return Center(
-                          child: Column(
-                            //center
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            if (posts.isEmpty) {
+                              return Center(
+                                child: Column(
+                                  //center
+                                  mainAxisAlignment: MainAxisAlignment.center,
 
-                            children: [
-                              // add a forum icon
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.25,
-                              ),
+                                  children: [
+                                    // add a forum icon
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.25,
+                                    ),
 
-                              Icon(
-                                Icons.article_outlined,
-                                size: 100,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withOpacity(0.1),
-                              ),
-                              Text(
-                                'Es sind noch keine posts vorhanden',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
+                                    Icon(
+                                      Icons.article_outlined,
+                                      size: 100,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onSurface
-                                          .withOpacity(0.15),
+                                          .withOpacity(0.1),
                                     ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
+                                    Text(
+                                      'Es wurde nichts auf die Suche gefunden',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.15),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
 
-                      return ListView.separated(
-                        physics: const ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: posts.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final post = posts.elementAt(index);
+                            return ListView.separated(
+                              physics: const ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: posts.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final post = posts.elementAt(index);
 
-                          return Padding(
-                            padding: // top 3
-                                const EdgeInsets.only(top: 3),
-                            child: Post(post: post),
-                          );
+                                return Padding(
+                                  padding: // top 3
+                                      const EdgeInsets.only(top: 3),
+                                  child: Post(post: post),
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const SizedBox(height: 0),
+                            );
+                          } else {
+                            return Container();
+                          }
                         },
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(height: 0),
-                      );
-                    } else {
-                      return Container();
-                      // return const Text('There are no posts in the moment',
-                      //   textAlign: TextAlign.center,
-                      //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
-                    }
-                  },
-                ),
+                      )
+                    : StreamBuilder<List<models.Post>>(
+                        stream: controller.getPosts(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return const Center(
+                                child: Text(
+                                    'Die Posts sind derzeit nicht verfügbar',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w300)));
+                          } else if (snapshot.hasData) {
+                            final posts = snapshot.data!;
+
+                            if (posts.isEmpty) {
+                              return Center(
+                                child: Column(
+                                  //center
+                                  mainAxisAlignment: MainAxisAlignment.center,
+
+                                  children: [
+                                    // add a forum icon
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.25,
+                                    ),
+
+                                    Icon(
+                                      Icons.article_outlined,
+                                      size: 100,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.1),
+                                    ),
+                                    Text(
+                                      'Es sind noch keine posts vorhanden',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.15),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+
+                            return ListView.separated(
+                              physics: const ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: posts.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final post = posts.elementAt(index);
+
+                                return Padding(
+                                  padding: // top 3
+                                      const EdgeInsets.only(top: 3),
+                                  child: Post(post: post),
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const SizedBox(height: 0),
+                            );
+                          } else {
+                            return Container();
+                            // return const Text('There are no posts in the moment',
+                            //   textAlign: TextAlign.center,
+                            //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+                          }
+                        },
+                      ),
               ),
             ),
           ],
