@@ -193,7 +193,7 @@ class ChatPage extends GetView<ChatController> {
               TextButton(
                 onPressed: () async {
                   Navigator.pop(context);
-                  //_handleImageSelection(context);
+                  _handleImageSelection(context);
 
                   // var result = await ImagePicker().pickImage(
                   //   imageQuality: 70,
@@ -204,12 +204,12 @@ class ChatPage extends GetView<ChatController> {
                   // var imageData = await result!.readAsBytes();
 
                   // ignore: use_build_context_synchronously
-                  var editedImage = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ImageEditorExample(),
-                    ),
-                  );
+                  //var editedImage = await Navigator.push(
+                    //context,
+                    //MaterialPageRoute(
+                      //builder: (context) => ImageEditorExample(),
+                    //),
+                  //);
 
                   // // replace with edited image
                   // if (editedImage != null) {
@@ -326,7 +326,7 @@ class ChatPage extends GetView<ChatController> {
   }
 
   void _handleImageSelection(BuildContext context) async {
-    /*var result = await ImagePicker().pickImage(
+    var result = await ImagePicker().pickImage(
       imageQuality: 70,
       maxWidth: 1440,
       source: ImageSource.gallery,
@@ -335,15 +335,15 @@ class ChatPage extends GetView<ChatController> {
     final image = await result!.readAsBytes();
     if(image == null) {
       Get.snackbar("null", "null");
-    }*/
-    final editedImage = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ImageEditorExample(),
-      ),
-    );
+    }
+    //final editedImage = await Navigator.push(
+    //  context,
+    //  MaterialPageRoute(
+    //    builder: (context) => const ImageEditorExample(),
+    //  ),
+    //);
 
-    final result = editedImage;
+    //final result = editedImage;
 
     if (result != null) {
       _setAttachmentUploading(true);
