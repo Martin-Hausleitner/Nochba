@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -6,6 +7,7 @@ import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_c
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/user.dart';
+import 'package:nochba/pages/inset_post/new_post/views/new_post_view.dart';
 import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/text_field_remove_text_button.dart';
@@ -114,11 +116,14 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () {},
+                            onSave: () {  },
                             children: [
                               Column(
                                 children: [
                                   SfDateRangePicker(
+                                    onSelectionChanged: (value) async => await controller
+                                        .updateBirthdayOfCurrentUser(
+                                            value.value),
                                     view: DateRangePickerView.decade,
                                     // monthViewSettings:
                                     //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
@@ -370,25 +375,12 @@ class EditProfileView extends GetView<EditProfileController> {
                             children: [
                               Column(
                                 children: [
-                                  // LocooChipAdderField(
-                                  //   tags: [
-                                  //     "Outdoor",
-                                  //     "Kunst",
-                                  //     "Musik",
-                                  //     "Reisen",
-                                  //     "Sport"
-                                  //   ],
-                                  //   removeTag: (tag) {
-                                  //     // code to remove a tag
-                                  //   },
-                                  //   showTagDialog: (context) {
-                                  //     // code to show a dialog to add a new tag
-                                  //   },
-                                  //   addTag: (tag) {
-                                  //     // code to add a new tag
-                                  //   },
-                                  // ),
-                                  SizedBox(height: 380),
+                                  TagsElement(
+                                  tags: controller.tags,
+                                  removeTag: controller.removeTag,
+                                  showTagDialog: controller.showTagDialog,
+                                  addTag: controller.addTag,
+                                  )
                                 ],
                               ),
                               SizedBox(height: 10),

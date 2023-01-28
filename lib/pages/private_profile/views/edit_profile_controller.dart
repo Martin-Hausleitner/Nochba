@@ -14,6 +14,7 @@ import 'package:nochba/logic/repositories/UserPrivateInfoSettingsRepository.dart
 import 'package:nochba/logic/repositories/UserPublicInfoRepository.dart';
 import 'package:nochba/logic/repositories/UserRepository.dart';
 import 'package:nochba/logic/storage/StorageService.dart';
+import 'package:nochba/views/new_post/tag_dialog.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EditProfileController extends GetxController {
@@ -29,8 +30,11 @@ class EditProfileController extends GetxController {
     return lastNameTextController;
   }
 
-  DateRangePickerController birthdayDateController =
-      DateRangePickerController();
+  DateRangePickerController birthdayDateController = DateRangePickerController();
+  DateRangePickerController getBirthdayDateController(Timestamp? birthday) {
+    birthdayDateController.selectedDate = birthday?.toDate();
+    return birthdayDateController;
+  }
 
   TextEditingController professionTextController = TextEditingController();
   TextEditingController getProfessionTextController(String? profession) {
@@ -202,5 +206,44 @@ class EditProfileController extends GetxController {
     } on Exception {
       return Future.error(Error);
     }
+  }
+
+  Future<void> updateBirthdayOfCurrentUser(value) async {
+    try {
+      //await userPublicInfoRepository.updateBirthdayOfCurrentUser(value);
+    } on Exception {
+      return Future.error(Error);
+    }
+  }
+
+
+  
+  final RxList<String> _tags = <String>[].obs;
+
+  List<String> get tags => _tags;
+
+  addTag(String tag) {
+    _tags.add(tag);
+  }
+
+  addTags(List<String> tags) {
+    _tags.addAll(tags);
+  }
+
+  removeTag(String tag) {
+    _tags.remove(tag);
+  }
+
+
+
+  void showTagDialog(BuildContext context) async {
+    final String result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const TagDialog();
+      },
+    );
+
+    addTag(result);
   }
 }
