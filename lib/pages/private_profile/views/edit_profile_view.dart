@@ -116,8 +116,8 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () async =>
-                                controller.updateBirthDayOfCurrentUser,
+                            onSave: () async => await
+                                controller.updateBirthDayOfCurrentUser(),
                             children: [
                               Column(
                                 children: [
@@ -229,7 +229,7 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () async => controller
+                            onSave: () async => await controller
                                 .updateNeighbourhoodMemberSinceOfCurrentUser(),
                             children: [
                               SfDateRangePicker(

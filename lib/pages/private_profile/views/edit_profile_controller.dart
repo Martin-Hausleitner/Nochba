@@ -219,8 +219,15 @@ class EditProfileController extends GetxController {
 
   Future<void> updateBirthDayOfCurrentUser() async {
     try {
+      Get.snackbar(
+          'Birthday',
+          birthdayDateController.selectedDate != null
+              ? '${birthdayDateController.selectedDate!.day}.${birthdayDateController.selectedDate!.month}.${birthdayDateController.selectedDate!.year}'
+              : 'null');
       await userPublicInfoRepository
           .updateBirthDayOfCurrentUser(birthdayDateController.selectedDate);
+      Get.snackbar('Erfolgreich',
+          'Das Aktualisieren vom Geburtstag hat Erfolgreich funktioniert');
     } on Exception {
       Get.snackbar('Fehlgeschlagen',
           'Das Aktualisieren vom Geburtstag ist leider fehlgeschlagen');
