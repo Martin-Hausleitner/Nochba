@@ -116,14 +116,14 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () {  },
+                            onSave: () async =>
+                                controller.updateBirthDayOfCurrentUser,
                             children: [
                               Column(
                                 children: [
                                   SfDateRangePicker(
-                                    onSelectionChanged: (value) async => await controller
-                                        .updateBirthdayOfCurrentUser(
-                                            value.value),
+                                    controller: controller
+                                        .getBirthdayDateController(birthday),
                                     view: DateRangePickerView.decade,
                                     // monthViewSettings:
                                     //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
@@ -133,7 +133,6 @@ class EditProfileView extends GetView<EditProfileController> {
                                     minDate: DateTime(1880),
                                     //set initial year to 1999
                                     // enableMultiView: true,
-                                    initialDisplayDate: DateTime(2000),
                                     // when onSubmit () => Navigator.pop(context),
                                     // onSubmit: (value) {
                                     //   Navigator.pop(context);
@@ -230,10 +229,13 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () {},
+                            onSave: () async => controller
+                                .updateNeighbourhoodMemberSinceOfCurrentUser(),
                             children: [
                               SfDateRangePicker(
-                                controller: controller.birthdayDateController,
+                                controller: controller
+                                    .getNeighbourhoodMemberSinceDateController(
+                                        neighbourhoodMemberSince),
                                 view: DateRangePickerView.decade,
                                 // monthViewSettings:
                                 //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
@@ -243,7 +245,6 @@ class EditProfileView extends GetView<EditProfileController> {
                                 minDate: DateTime(1880),
                                 //set initial year to 1999
                                 // enableMultiView: true,
-                                initialDisplayDate: DateTime(2000),
                                 // when onSubmit () => Navigator.pop(context),
                                 // onSubmit: (value) {
                                 //   Navigator.pop(context);
@@ -376,10 +377,10 @@ class EditProfileView extends GetView<EditProfileController> {
                               Column(
                                 children: [
                                   TagsElement(
-                                  tags: controller.tags,
-                                  removeTag: controller.removeTag,
-                                  showTagDialog: controller.showTagDialog,
-                                  addTag: controller.addTag,
+                                    tags: controller.tags,
+                                    removeTag: controller.removeTag,
+                                    showTagDialog: controller.showTagDialog,
+                                    addTag: controller.addTag,
                                   )
                                 ],
                               ),

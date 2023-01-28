@@ -42,4 +42,29 @@ class UserPublicInfoRepository extends GenericRepository<UserPublicInfo> {
       rethrow;
     }
   }
+
+  Future<void> updateBirthDayOfCurrentUser(DateTime? birthday) async {
+    try {
+      return await updateFields(reference, {
+        "birthday": birthday,
+      }, nexus: [
+        resourceContext.uid
+      ]);
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Future<void> updateNeighbourhoodMemberSinceOfCurrentUser(
+      DateTime? neighbourhoodMemberSince) async {
+    try {
+      return await updateFields(reference, {
+        "neighbourhoodMemberSince": neighbourhoodMemberSince,
+      }, nexus: [
+        resourceContext.uid
+      ]);
+    } on Exception {
+      rethrow;
+    }
+  }
 }

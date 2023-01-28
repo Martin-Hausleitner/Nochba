@@ -30,10 +30,19 @@ class EditProfileController extends GetxController {
     return lastNameTextController;
   }
 
-  DateRangePickerController birthdayDateController = DateRangePickerController();
-  DateRangePickerController getBirthdayDateController(Timestamp? birthday) {
-    birthdayDateController.selectedDate = birthday?.toDate();
+  DateRangePickerController birthdayDateController =
+      DateRangePickerController();
+  DateRangePickerController getBirthdayDateController(DateTime? birthday) {
+    birthdayDateController.selectedDate = birthday;
     return birthdayDateController;
+  }
+
+  DateRangePickerController neighbourhoodMemberSinceController =
+      DateRangePickerController();
+  DateRangePickerController getNeighbourhoodMemberSinceDateController(
+      DateTime? neighbourhoodMemberSince) {
+    neighbourhoodMemberSinceController.selectedDate = neighbourhoodMemberSince;
+    return neighbourhoodMemberSinceController;
   }
 
   TextEditingController professionTextController = TextEditingController();
@@ -208,16 +217,25 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future<void> updateBirthdayOfCurrentUser(value) async {
+  Future<void> updateBirthDayOfCurrentUser() async {
     try {
-      //await userPublicInfoRepository.updateBirthdayOfCurrentUser(value);
+      await userPublicInfoRepository
+          .updateBirthDayOfCurrentUser(birthdayDateController.selectedDate);
     } on Exception {
       return Future.error(Error);
     }
   }
 
+  Future<void> updateNeighbourhoodMemberSinceOfCurrentUser() async {
+    try {
+      await userPublicInfoRepository
+          .updateNeighbourhoodMemberSinceOfCurrentUser(
+              birthdayDateController.selectedDate);
+    } on Exception {
+      return Future.error(Error);
+    }
+  }
 
-  
   final RxList<String> _tags = <String>[].obs;
 
   List<String> get tags => _tags;
@@ -233,8 +251,6 @@ class EditProfileController extends GetxController {
   removeTag(String tag) {
     _tags.remove(tag);
   }
-
-
 
   void showTagDialog(BuildContext context) async {
     final String result = await showDialog(
