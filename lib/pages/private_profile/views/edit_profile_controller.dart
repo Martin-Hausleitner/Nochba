@@ -222,6 +222,8 @@ class EditProfileController extends GetxController {
       await userPublicInfoRepository
           .updateBirthDayOfCurrentUser(birthdayDateController.selectedDate);
     } on Exception {
+      Get.snackbar('Fehlgeschlagen',
+          'Das Aktualisieren vom Geburtstag ist leider fehlgeschlagen');
       return Future.error(Error);
     }
   }
@@ -232,6 +234,8 @@ class EditProfileController extends GetxController {
           .updateNeighbourhoodMemberSinceOfCurrentUser(
               birthdayDateController.selectedDate);
     } on Exception {
+      Get.snackbar('Fehlgeschlagen',
+          'Das Aktualisieren vom Zeitpunkt, seit dem du der Nachbarschaft beigetreten bist, ist leider fehlgeschlagen');
       return Future.error(Error);
     }
   }
