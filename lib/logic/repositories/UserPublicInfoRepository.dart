@@ -67,4 +67,16 @@ class UserPublicInfoRepository extends GenericRepository<UserPublicInfo> {
       rethrow;
     }
   }
+
+  Future<void> updateInterestsOfCurrentUser(List<String>? interests) async {
+    try {
+      return await updateFields(reference, {
+        "interests": interests,
+      }, nexus: [
+        resourceContext.uid
+      ]);
+    } on Exception {
+      rethrow;
+    }
+  }
 }

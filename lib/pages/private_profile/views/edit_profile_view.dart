@@ -46,7 +46,8 @@ class EditProfileView extends GetView<EditProfileController> {
               final user = snapshot.data!;
               return EditAvatar(
                   imageUrl: user.imageUrl ?? '',
-                  onTap: () => controller.selectImage(context));
+                  onTap: () =>
+                      controller.selectImage(context, user.imageUrl != null));
             } else {
               return Container();
             }
@@ -116,8 +117,8 @@ class EditProfileView extends GetView<EditProfileController> {
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
-                            onSave: () async => await
-                                controller.updateBirthDayOfCurrentUser(),
+                            onSave: () async =>
+                                await controller.updateBirthDayOfCurrentUser(),
                             children: [
                               Column(
                                 children: [
@@ -370,17 +371,16 @@ class EditProfileView extends GetView<EditProfileController> {
                         builder: (BuildContext context) {
                           return BottomSheetCloseSaveView(
                             onSave: () async =>
-                                //show snackbar#
-                                Get.snackbar(" ",
-                                    "Interessen wurden erfolgreich aktualisiert"),
+                                await controller.updateInterestsOfCurrentUser(),
                             children: [
                               Column(
                                 children: [
                                   TagsElement(
-                                    tags: controller.tags,
-                                    removeTag: controller.removeTag,
+                                    tags: controller
+                                        .getInterests(userPublicInfo.interests),
+                                    removeTag: controller.removeInterest,
                                     showTagDialog: controller.showTagDialog,
-                                    addTag: controller.addTag,
+                                    addTag: controller.addInterest,
                                   )
                                 ],
                               ),
@@ -393,9 +393,10 @@ class EditProfileView extends GetView<EditProfileController> {
                     text: userPublicInfo.interests != null &&
                             userPublicInfo.interests!.isNotEmpty
                         ? userPublicInfo.interests!.fold<String>(
-                            userPublicInfo.interests!.first,
-                            (previousValue, element) =>
-                                '$previousValue, $element')
+                            '',
+                            (previousValue, element) => previousValue.isEmpty
+                                ? element
+                                : '$previousValue, $element')
                         : '',
                   ),
                   ActionTextCard(

@@ -75,7 +75,7 @@ class EditProfileController extends GetxController {
   final ImageFile _imageFile = ImageFile();
   Uint8List? get image => _imageFile.file;
 
-  selectImage(BuildContext context) {
+  selectImage(BuildContext context, bool userHasProfilePicture) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -100,7 +100,7 @@ class EditProfileController extends GetxController {
                   await updateProfilePicture();
                 },
               ),
-              if (!_imageFile.isClear())
+              if (!_imageFile.isClear() || userHasProfilePicture)
                 SimpleDialogOption(
                   padding: const EdgeInsets.all(20),
                   child: const Text('Delete the image'),
@@ -211,7 +211,6 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository
           .updateBioOfCurrentUser(bioTextController.text.trim());
-      //bioTextController.clear();
     } on Exception {
       return Future.error(Error);
     }
@@ -219,11 +218,6 @@ class EditProfileController extends GetxController {
 
   Future<void> updateBirthDayOfCurrentUser() async {
     try {
-      Get.snackbar(
-          'Birthday',
-          birthdayDateController.selectedDate != null
-              ? '${birthdayDateController.selectedDate!.day}.${birthdayDateController.selectedDate!.month}.${birthdayDateController.selectedDate!.year}'
-              : 'null');
       await userPublicInfoRepository
           .updateBirthDayOfCurrentUser(birthdayDateController.selectedDate);
       Get.snackbar('Erfolgreich',
@@ -247,20 +241,21 @@ class EditProfileController extends GetxController {
     }
   }
 
-  final RxList<String> _tags = <String>[].obs;
+  RxList<String> _interests = <String>[].obs;
 
-  List<String> get tags => _tags;
-
-  addTag(String tag) {
-    _tags.add(tag);
+  List<String> getInterests(List<String>? interestsList) {
+    _interests.clear();
+    _interests.addAllIf(
+        interestsList != null && interestsList.isNotEmpty, interestsList!);
+    return _interests;
   }
 
-  addTags(List<String> tags) {
-    _tags.addAll(tags);
+  addInterest(String interest) {
+    _interests.add(interest);
   }
 
-  removeTag(String tag) {
-    _tags.remove(tag);
+  removeInterest(String interest) {
+    _interests.remove(interest);
   }
 
   void showTagDialog(BuildContext context) async {
@@ -271,6 +266,14 @@ class EditProfileController extends GetxController {
       },
     );
 
-    addTag(result);
+    addInterest(result);
+  }
+
+  Future<void> updateInterestsOfCurrentUser() async {
+    try {
+      await userPublicInfoRepository.updateInterestsOfCurrentUser(_interests);
+    } on Exception {
+      return Future.error(Error);
+    }
   }
 }
