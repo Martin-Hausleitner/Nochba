@@ -233,7 +233,7 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository
           .updateNeighbourhoodMemberSinceOfCurrentUser(
-              birthdayDateController.selectedDate);
+              neighbourhoodMemberSinceController.selectedDate);
     } on Exception {
       Get.snackbar('Fehlgeschlagen',
           'Das Aktualisieren vom Zeitpunkt, seit dem du der Nachbarschaft beigetreten bist, ist leider fehlgeschlagen');
