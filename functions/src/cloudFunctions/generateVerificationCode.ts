@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { generateRandomVerificationCode } from "../functions/generateRandomVerificationCode";
-import { FieldValue, GeoPoint, Timestamp } from "firebase-admin/firestore";
+import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
 
 const GENERATION_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
@@ -12,7 +12,7 @@ const RANGE_IN_METERS = 1000;
 
 const db = admin.firestore();
 
-export const generateVerificationCode = functions.https.onCall(
+export const generateVerificationCode = functions.region('europe-west1').https.onCall(
   async (data, context) => {
     if (!context.auth) {
       logger.error("The request is not authenticated.");

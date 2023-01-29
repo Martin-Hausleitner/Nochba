@@ -7,7 +7,7 @@ import * as logger from "firebase-functions/logger";
 
 // Import some helper functions for getting coordinates from an address and
 // calculating the distance between two sets of coordinates
-import { getCoordinatesFromAddress } from "../functions/getCoordinatesFromAddress";
+// import { getCoordinatesFromAddress } from "../functions/getCoordinatesFromAddress";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 
 // Import a function for verifying a verification code
@@ -17,7 +17,7 @@ import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";
 
 const db = admin.firestore();
 
-export const checkVerificationCode = functions.https.onCall(
+export const checkVerificationCode = functions.region('europe-west1').https.onCall(
   async (data, context) => {
     if (!context.auth) {
       throw new functions.https.HttpsError(
@@ -40,9 +40,9 @@ export const checkVerificationCode = functions.https.onCall(
 
     try {
       await verifyVerificationCode(verificationCode);
-    } catch (error) {
+    } catch (e) {
       logger.error(
-        `The verification code does not have the correct format! Error: ${error}`
+        `The verification code does not have the correct format! Error: ${e}`
       );
       throw new functions.https.HttpsError(
         "invalid-argument",
@@ -209,7 +209,7 @@ export const checkVerificationCode = functions.https.onCall(
         .set({ usedCodeCount: FieldValue.increment(1) }, { merge: true });
     } catch (error) {
       // Log the error message
-      logger.error(error.message);
+      logger.error(error);
 
       // Throw an HttpsError with a custom error message
       throw new functions.https.HttpsError(

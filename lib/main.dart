@@ -29,7 +29,9 @@ Future main() async {
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
   GetTimeAgo.setCustomLocaleMessages('de', DEMessage());
-  FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
+  // FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
+  // load cloud functions 
+  FirebaseFunctions.instance;
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };

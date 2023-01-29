@@ -1,4 +1,4 @@
-import * as functions from "firebase-functions";
+// import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
 // firebase emulators:start --only functions
@@ -9,19 +9,21 @@ import * as admin from "firebase-admin";
 // Initialize Firebase app
 admin.initializeApp();
 
-
-
 export { generateVerificationCode } from "./cloudFunctions/generateVerificationCode";
 export { checkAddressWithDeviceLocation } from "./cloudFunctions/checkAddressWithDeviceLocation";
 export { getDistanceFromTwoUsers } from "./cloudFunctions/getDistanceFromTwoUsers";
 export { checkVerificationCode } from "./cloudFunctions/checkVerificationCode";
-export { createUser } from "./cloudFunctions/createUser";
+export {
+  incrementLikeCounter,
+  decrementLikeCounter,
+} from "./cloudFunctions/changeLikeCounter";
+// export { createUser } from "./cloudFunctions/createUser.ts.old";
 // Get a reference to the Firestore database
 //firebase emulators:start
 // // Start writing functions
 // // https://firebase.google.com/docs/functions/typescript
 //
-export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", { structuredData: true });
-  response.send("Hello from Firebasedddrrrr!tthhh");
-});
+// export const helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", { structuredData: true });
+//   response.send("Hello from Firebasedddrrrr!tthhh");
+// });
