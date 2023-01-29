@@ -49,10 +49,16 @@ class InviteNeighborController extends GetxController {
 
       if (diff >= 86400000) {
         //if the difference is greater than or equal to 24 hours, execute the function and update the last press time
-        final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        // final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        //   'generateVerificationCode',
+        // );  europe-west1
+        final HttpsCallable callable = FirebaseFunctions.instanceFor(
+          region: 'europe-west1',
+        ).httpsCallable(
           'generateVerificationCode',
         );
         final HttpsCallableResult result = await callable();
+        print(result.data);
         verificationCode.value = result.data;
         this.lastPressTime.value = currentTime;
         //save the lastPressTime using shared_preferences
@@ -217,10 +223,10 @@ class InviteNeighborView extends StatelessWidget {
 
           icon: FlutterRemix.refresh_line,
         ),
-        TextButton(
-          onPressed: controller.resetLastPressTime,
-          child: Text("Reset lastPressTime"),
-        ),
+        // TextButton(
+        //   onPressed: controller.resetLastPressTime,
+        //   child: Text("Reset lastPressTime"),
+        // ),
         //padding top left right bottom 10
         Padding(
           padding: const EdgeInsets.all(10.0),

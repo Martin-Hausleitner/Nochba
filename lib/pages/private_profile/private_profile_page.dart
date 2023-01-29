@@ -339,12 +339,17 @@ class CheckAddressWithDeviceLocation extends StatelessWidget {
       icon: Icons.arrow_back_rounded,
       onPressed: () async {
         print(FirebaseAuth.instance.currentUser);
-        HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        final HttpsCallable callable = FirebaseFunctions.instanceFor(
+          region: 'europe-west1',
+        ).httpsCallable(
           'checkAddressWithDeviceLocation',
-          options: HttpsCallableOptions(
-            timeout: const Duration(seconds: 5),
-          ),
         );
+        // HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        //   'checkAddressWithDeviceLocation',
+        //   options: HttpsCallableOptions(
+        //     timeout: const Duration(seconds: 5),
+        //   ),
+        // );
         try {
           // final send result address, deviceLongitudeCoordinate, deviceLatitudeCoordinate
           final HttpsCallableResult result =
