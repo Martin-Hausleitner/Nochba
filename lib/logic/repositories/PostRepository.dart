@@ -55,7 +55,7 @@ class PostRepository extends GenericRepository<Post> {
           if (user != null) {
             post.userName = user.fullName ?? '';
             post.userImageUrl = user.imageUrl ?? '';
-            post.subUrb = user.subUrb ?? '';
+            post.suburb = user.suburb ?? '';
           }
 
           return post;
