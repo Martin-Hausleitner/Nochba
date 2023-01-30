@@ -56,9 +56,9 @@ class BottomSheetTitleCloseView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              // SizedBox(
+              //   height: 20,
+              // ),
               Column(
                 //align left
                 crossAxisAlignment: CrossAxisAlignment.start,
