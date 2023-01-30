@@ -54,10 +54,10 @@ class PostProfile extends StatelessWidget {
                           ),
                     ),
                   ),
-                  TimeSuburbDistance(
+                  TimesuburbDistance(
                     publishDate: publishDate,
                     distance: distance,
-                    subUrb: post.subUrb,
+                    suburb: post.suburb,
                   ),
                 ],
               ),
@@ -69,17 +69,17 @@ class PostProfile extends StatelessWidget {
   }
 }
 
-class TimeSuburbDistance extends StatelessWidget {
-  const TimeSuburbDistance({
+class TimesuburbDistance extends StatelessWidget {
+  const TimesuburbDistance({
     Key? key,
     required this.publishDate,
     required this.distance,
-    required this.subUrb,
+    required this.suburb,
   }) : super(key: key);
 
   final String publishDate;
   final String distance;
-  final String subUrb;
+  final String suburb;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +186,7 @@ class TimeSuburbDistance extends StatelessWidget {
               width: 2,
             ),
             Text(
-              subUrb,
+              suburb,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 12,
                     color: Theme.of(context)

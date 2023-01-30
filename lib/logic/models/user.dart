@@ -25,7 +25,7 @@ abstract class User extends Equatable implements IModel {
       this.role,
       this.updatedAt,
       this.fullName,
-      this.subUrb});
+      this.suburb});
 
   const factory User(
       {Timestamp? createdAt,
@@ -38,7 +38,7 @@ abstract class User extends Equatable implements IModel {
       Role? role,
       Timestamp? updatedAt,
       String? fullName,
-      String? subUrb}) = _User;
+      String? suburb}) = _User;
 
   /// Creates user from a map (decoded JSON).
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -77,7 +77,7 @@ abstract class User extends Equatable implements IModel {
 
   ///
   /// Full name of the user.
-  final String? subUrb;
+  final String? suburb;
 
   /// Equatable props.
   @override
@@ -92,7 +92,7 @@ abstract class User extends Equatable implements IModel {
         role,
         updatedAt,
         fullName,
-        subUrb
+        suburb
       ];
 
   User copyWith(
@@ -106,7 +106,7 @@ abstract class User extends Equatable implements IModel {
       Role? role,
       Timestamp? updatedAt,
       String? fullName,
-      String? subUrb});
+      String? suburb});
 
   /// Converts user to the map representation, encodable to JSON.
   @override
@@ -126,7 +126,7 @@ class _User extends User {
       super.role,
       super.updatedAt,
       super.fullName,
-      super.subUrb})
+      super.suburb})
       : super._();
 
   @override
@@ -141,7 +141,7 @@ class _User extends User {
           dynamic role = _Unset,
           dynamic updatedAt = _Unset,
           dynamic fullName = _Unset,
-          dynamic subUrb = _Unset}) =>
+          dynamic suburb = _Unset}) =>
       _User(
           createdAt:
               createdAt == _Unset ? this.createdAt : createdAt as Timestamp?,
@@ -158,7 +158,7 @@ class _User extends User {
           updatedAt:
               updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,
           fullName: fullName == _Unset ? this.fullName : fullName as String?,
-          subUrb: subUrb == _Unset ? this.subUrb : subUrb as String?);
+          suburb: suburb == _Unset ? this.suburb : suburb as String?);
 
   @override
   set id(String _id) {
@@ -181,7 +181,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
       updatedAt: json['updatedAt'] as Timestamp?,
       fullName: json['fullName'] as String?,
-      subUrb: json['subUrb'] as String?,
+      suburb: json['suburb'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) {
@@ -203,7 +203,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('role', _$RoleEnumMap[instance.role]);
   writeNotNull('updatedAt', instance.updatedAt);
   writeNotNull('fullName', instance.updatedAt);
-  writeNotNull('subUrb', instance.updatedAt);
+  writeNotNull('suburb', instance.updatedAt);
   return val;
 }
 

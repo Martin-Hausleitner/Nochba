@@ -17,7 +17,7 @@ class Post implements IModel {
   // Unmapped fields
   String userName;
   String userImageUrl;
-  String subUrb;
+  String suburb;
 
   Post(
       {this.id = '',
@@ -31,7 +31,7 @@ class Post implements IModel {
       required this.likes,
       this.userName = '',
       this.userImageUrl = '',
-      this.subUrb = '',
+      this.suburb = '',
       this.range = 10});
 
   @override
