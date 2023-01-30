@@ -21,7 +21,7 @@ class FeedPostFilterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomSheetTitleCloseView(title: 'Filter', children: [
-      //FilterRangeSlider(),
+      FilterRangeSlider(),
       FilterTitle(label: 'Filtern nach Kategorie'),
       Padding(
         padding: //horizontal 15
