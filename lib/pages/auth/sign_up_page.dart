@@ -21,27 +21,11 @@ class NewSignUpPage extends GetView<SignUpController> {
       controller: controller.pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        SignUpStep4View(
-          controller: controller,
-          onPressedBack: () => controller.getBack(),
-        ),
-        SignUpStep1View(
-          controller: controller,
-          onPressedBack: () => controller.getBack(),
-        ),
-        SignUpStep2View(
-          controller: controller,
-          onPressedBack: () => controller.getBack(),
-        ),
-        SignUpStep3View(
-          controller: controller,
-          onPressedBack: () => controller.getBack(),
-        ),
-
-        SignUpVerifiedView(
-          controller: controller,
-          onPressedBack: () => controller.getBack(),
-        ),
+        SignUpStep1View(controller: controller),
+        SignUpStep2View(controller: controller),
+        SignUpStep3View(controller: controller),
+        SignUpStep4View(controller: controller),
+        SignUpVerifiedView(controller: controller),
 
         // NewPostCategorySelectionView(),
         // NewPostSubcategorySelectionView(),

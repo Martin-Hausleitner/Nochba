@@ -213,7 +213,7 @@ class Resource<T extends IModel> implements IResource<T> {
     List<Object?>? startAt,
     List<Object?>? endAt,
     List<Object?>? endBefore,
-    MapEntry<String, List<Object?>?>? whereIn,
+    Map<String, List<Object?>?>? whereIn,
     MapEntry<String, List<Object?>?>? whereNotIn,
     Map<String, dynamic>? whereIsEqualTo,
     Map<String, dynamic>? whereIsNotEqualTo,
@@ -257,12 +257,11 @@ class Resource<T extends IModel> implements IResource<T> {
     }
 
     if (whereIn != null) {
-      if (whereIn.value == null ||
-          (whereIn.value != null && whereIn.value!.isEmpty)) {
-        throw const LogicException(LogicExceptionType.query,
-            message: 'Query parameter "whereIn" requires a non-empty list');
+      for (var entry in whereIn.entries) {
+        if (entry.value != null && entry.value!.isNotEmpty) {
+          query = query.where(entry.key, whereIn: entry.value);
+        }
       }
-      query = query.where(whereIn.key, whereIn: whereIn.value);
     }
 
     if (whereNotIn != null) {
@@ -309,7 +308,7 @@ class Resource<T extends IModel> implements IResource<T> {
     List<Object?>? startAt,
     List<Object?>? endAt,
     List<Object?>? endBefore,
-    MapEntry<String, List<Object?>?>? whereIn,
+    Map<String, List<Object?>?>? whereIn,
     MapEntry<String, List<Object?>?>? whereNotIn,
     Map<String, dynamic>? whereIsEqualTo,
     Map<String, dynamic>? whereIsNotEqualTo,
@@ -353,7 +352,11 @@ class Resource<T extends IModel> implements IResource<T> {
     }
 
     if (whereIn != null) {
-      query = query.where(whereIn.key, whereIn: whereIn.value);
+      for (var entry in whereIn.entries) {
+        if (entry.value != null && entry.value!.isNotEmpty) {
+          query = query.where(entry.key, whereIn: entry.value);
+        }
+      }
     }
 
     if (whereNotIn != null) {

@@ -9,6 +9,7 @@ import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/Token.dart';
 import 'package:nochba/logic/models/UserInternInfoAddress.dart';
+import 'package:nochba/logic/models/UserPrivateInfoAddress.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPrivateInfoSettings.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
@@ -31,6 +32,8 @@ class ModelMapper implements IModelMapper {
       return (model as UserPrivateInfoName).toJson();
     } else if (typeOf<T>() == typeOf<UserPrivateInfoSettings>()) {
       return (model as UserPrivateInfoSettings).toJson();
+    } else if (typeOf<T>() == typeOf<UserPrivateInfoAddress>()) {
+      return (model as UserPrivateInfoAddress).toJson();
     } else if (typeOf<T>() == typeOf<UserInternInfoAddress>()) {
       return (model as UserInternInfoAddress).toJson();
     } else if (typeOf<T>() == typeOf<LikedPost>()) {
@@ -63,6 +66,8 @@ class ModelMapper implements IModelMapper {
       return UserPrivateInfoName.fromJson(id, json) as T;
     } else if (typeOf<T>() == typeOf<UserPrivateInfoSettings>()) {
       return UserPrivateInfoSettings.fromJson(id, json) as T;
+    } else if (typeOf<T>() == typeOf<UserPrivateInfoAddress>()) {
+      return UserPrivateInfoAddress.fromJson(id, json) as T;
     } else if (typeOf<T>() == typeOf<UserInternInfoAddress>()) {
       return UserInternInfoAddress.fromJson(id, json) as T;
     } else if (typeOf<T>() == typeOf<LikedPost>()) {

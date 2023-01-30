@@ -442,11 +442,12 @@ class BottomNavBar extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: PublishButton(
+              child: GetBuilder<NewPostController>(
+            builder: (c) => PublishButton(
               controller: controller,
-              isPublishing: false,
+              isPublishing: controller.isLoading,
             ),
-          ),
+          )),
         ],
       ),
     );

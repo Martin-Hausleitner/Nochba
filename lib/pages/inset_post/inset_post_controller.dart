@@ -148,6 +148,8 @@ class InsetPostController extends GetxController {
     update();
   }
 
+  bool isLoading = false;
+
   clear({bool alsoCategory = true}) {
     titleController.clear();
     descriptionController.clear();
@@ -162,6 +164,8 @@ class InsetPostController extends GetxController {
 
     _imageFile.value.name = '';
     _imageFile.value.file = null;
+
+    isLoading = false;
 
     update();
   }

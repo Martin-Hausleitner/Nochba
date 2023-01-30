@@ -14,11 +14,9 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import '../../../inset_post/new_post/widgets/circle_step.dart';
 
 class SignUpStep1View extends StatelessWidget {
-  const SignUpStep1View(
-      {super.key, required this.controller, required this.onPressedBack});
+  const SignUpStep1View({super.key, required this.controller});
 
   final SignUpController controller;
-  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class SignUpStep1View extends StatelessWidget {
 
     return AppBarBigView(
         tailingIcon: Icons.close_rounded,
-        onPressed: onPressedBack,
+        onPressed: () async => await controller.quitRegistration(),
         title: 'Register',
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         children: [
@@ -93,8 +91,8 @@ class SignUpStep1View extends StatelessWidget {
               NextElevatedButton(
                 rtl: true,
                 onPressed: //controller.addPost() and go to
-                    () {
-                  controller.nextPage();
+                    () async {
+                  await controller.nextPage();
                   FocusScope.of(context).unfocus();
                   // Get.to(PublishedNewPostView());
                 },

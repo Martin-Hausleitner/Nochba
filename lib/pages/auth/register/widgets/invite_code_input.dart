@@ -81,7 +81,9 @@ class InviteCodeInput extends StatelessWidget {
                     ),
                   ),
                   //possiton on the bottom of the sheet a locoo button which opens a textfield
-                  EnterCodeManualButton(),
+                  EnterCodeManualButton(
+                    checkQRCode: (qrCode) {},
+                  ),
                 ],
               ),
             );
@@ -157,9 +159,10 @@ class CloseButton extends StatelessWidget {
 }
 
 class EnterCodeManualButton extends StatelessWidget {
-  const EnterCodeManualButton({
-    Key? key,
-  }) : super(key: key);
+  const EnterCodeManualButton({Key? key, required this.checkQRCode})
+      : super(key: key);
+
+  final Function(String qrCode) checkQRCode;
 
   @override
   Widget build(BuildContext context) {
@@ -194,10 +197,13 @@ class EnterCodeManualButton extends StatelessWidget {
                                 top: 20, left: 20, right: 20),
                             child: LocooTextField(
                               label: 'Einladecode',
-                              onFieldSubmitted: (value) {
+                              onFieldSubmitted: (value) async {
                                 //check if the code is valid
                                 //if valid close the bottom sheet
                                 //if not valid show a snackbar with the error message
+                                await checkQRCode(value);
+
+                                Navigator.pop(context);
                               },
                             ),
                           ),
@@ -208,10 +214,12 @@ class EnterCodeManualButton extends StatelessWidget {
                             child: LocooTextButton(
                               label: 'Einladecode überprüfen',
                               icon: FlutterRemix.check_line,
-                              onPressed: () {
+                              onPressed: () async {
                                 //check if the code is valid
                                 //if valid close the bottom sheet
                                 //if not valid show a snackbar with the error message
+
+                                Navigator.pop(context);
                               },
                             ),
                           ),

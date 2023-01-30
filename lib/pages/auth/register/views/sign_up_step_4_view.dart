@@ -21,11 +21,9 @@ import '../../../inset_post/new_post/widgets/circle_step.dart';
 import '../widgets/invite_code_input.dart';
 
 class SignUpStep4View extends StatelessWidget {
-  const SignUpStep4View(
-      {super.key, required this.controller, required this.onPressedBack});
+  const SignUpStep4View({super.key, required this.controller});
 
   final SignUpController controller;
-  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class SignUpStep4View extends StatelessWidget {
     return AppBarBigView(
       tailingIcon: Icons.close_rounded,
       title: 'Registrieren',
-      onPressed: onPressedBack,
+      onPressed: () async => await controller.quitRegistration(),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         Column(
@@ -82,11 +80,11 @@ class SignUpStep4View extends StatelessWidget {
                   ),
             ),
             SizedBox(height: 28),
-            TestLocation(),
-            TestSafeDevice(),
-            InviteCodeInput(),
+            //TestLocation(),
+            //TestSafeDevice(),
+            //InviteCodeInput(),
 
-            ChooserRadio(),
+            ChooserRadio(changeOption: controller.setVerificationOption),
 
             SizedBox(height: 20),
 
@@ -123,7 +121,7 @@ class BottomNavBar extends StatelessWidget {
             rtl: true,
             onPressed: //controller.addPost() and go to
                 () async {
-              controller.nextPage();
+              controller.nextPage(context: context);
               //close keyboard
               FocusScope.of(context).unfocus();
               // Get.to(PublishedNewPostView());
@@ -173,7 +171,6 @@ class TestLocation extends StatelessWidget {
 //           }),
 //     );
 
-
 //create a button which runs the emulated firebase cloud function http://127.0.0.1:5001/nochba-dev/us-central1/checkAddress
 
 // class TestCloudFunction extends StatelessWidget {
@@ -220,7 +217,9 @@ class TestSafeDevice extends StatelessWidget {
 enum SingingCharacter { location, qrcode }
 
 class ChooserRadio extends StatefulWidget {
-  const ChooserRadio({super.key});
+  const ChooserRadio({super.key, required this.changeOption});
+
+  final Function(SingingCharacter? sc) changeOption;
 
   @override
   State<ChooserRadio> createState() => _ChooserRadioState();
@@ -228,6 +227,12 @@ class ChooserRadio extends StatefulWidget {
 
 class _ChooserRadioState extends State<ChooserRadio> {
   SingingCharacter? _character = SingingCharacter.location;
+
+  @override
+  void initState() {
+    widget.changeOption(_character);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,6 +243,7 @@ class _ChooserRadioState extends State<ChooserRadio> {
             setState(() {
               _character = SingingCharacter.location;
             });
+            widget.changeOption(_character);
           },
           child: Container(
             height: 90,
@@ -273,6 +279,7 @@ class _ChooserRadioState extends State<ChooserRadio> {
                     setState(() {
                       _character = value;
                     });
+                    widget.changeOption(_character);
                   },
                   activeColor: Theme.of(context).primaryColor,
                 ),
@@ -286,6 +293,7 @@ class _ChooserRadioState extends State<ChooserRadio> {
             setState(() {
               _character = SingingCharacter.qrcode;
             });
+            widget.changeOption(_character);
           },
           child: Container(
             height: 90,
@@ -327,6 +335,7 @@ class _ChooserRadioState extends State<ChooserRadio> {
                     setState(() {
                       _character = value;
                     });
+                    widget.changeOption(_character);
                   },
                 ),
               ),

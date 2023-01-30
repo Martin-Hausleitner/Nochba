@@ -224,7 +224,7 @@ class FeedPage extends GetView<FeedController> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           } else if (snapshot.hasError) {
-                            return const Center(
+                            return Center(
                                 child: Text(
                                     'Die Suche ist derzeit nicht verfügbar',
                                     textAlign: TextAlign.center,
