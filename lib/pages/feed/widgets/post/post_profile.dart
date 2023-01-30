@@ -55,7 +55,10 @@ class PostProfile extends StatelessWidget {
                     ),
                   ),
                   TimeSuburbDistance(
-                      publishDate: publishDate, distance: distance),
+                    publishDate: publishDate,
+                    distance: distance,
+                    subUrb: post.subUrb,
+                  ),
                 ],
               ),
             ),
@@ -71,10 +74,12 @@ class TimeSuburbDistance extends StatelessWidget {
     Key? key,
     required this.publishDate,
     required this.distance,
+    required this.subUrb,
   }) : super(key: key);
 
   final String publishDate;
   final String distance;
+  final String subUrb;
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +186,7 @@ class TimeSuburbDistance extends StatelessWidget {
               width: 2,
             ),
             Text(
-              'Auwiesen',
+              subUrb,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 12,
                     color: Theme.of(context)
@@ -218,7 +223,7 @@ class TimeSuburbDistance extends StatelessWidget {
                 ),
               ),
               Text(
-                'm',
+                ' m',
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
