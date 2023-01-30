@@ -154,44 +154,48 @@ class SignUpController extends GetxController {
   }
 
   Future nextPage({BuildContext? context}) async {
-    try {
-      if (pageController.page == 0) {
-        if (!formKey1.currentState!.validate()) {
-          return;
-        }
-
-        await signUpWithEmail();
-      } else if (pageController.page == 1) {
-        if (!formKey2.currentState!.validate()) {
-          return;
-        }
-
-        await createUser();
-      } else if (pageController.page == 2) {
-        if (!formKey3.currentState!.validate()) {
-          return;
-        }
-
-        await addUserAddress();
-      } else if (pageController.page == 3) {
-        if (verificationOption == null) {
-          return;
-        }
-
-        if (verificationOption == SingingCharacter.location) {
-          await authService.addUserCoordinates();
-        } else if (verificationOption == SingingCharacter.qrcode &&
-            context != null) {
-          final result = await inviteCodeInput(context);
-          Get.snackbar('Result', result.toString());
-        } else {
-          return;
-        }
+    bool result = false;
+    if (pageController.page == 0) {
+      if (!formKey1.currentState!.validate()) {
+        return;
       }
 
+      result = await signUpWithEmail();
+    } else if (pageController.page == 1) {
+      if (!formKey2.currentState!.validate()) {
+        return;
+      }
+
+      result = await createUser();
+    } else if (pageController.page == 2) {
+      if (!formKey3.currentState!.validate()) {
+        return;
+      }
+
+      result = await addUserAddress();
+    } else if (pageController.page == 3) {
+      if (verificationOption == null) {
+        return;
+      }
+
+      if (verificationOption == SingingCharacter.location) {
+        result = await addUserCoordinates();
+      } else if (verificationOption == SingingCharacter.qrcode &&
+          context != null) {
+        result = await inviteCodeInput(context);
+        // print('Result1: ' + result.toString());
+      } else {
+        return;
+      }
+    } else if (pageController.page == 4) {
+      result = true;
+    }
+
+    // print('Result2: ' + result.toString());
+    if (result) {
       await pageController.nextPage(
           duration: const Duration(milliseconds: 1), curve: Curves.easeIn);
-    } catch (e) {}
+    }
   }
 
   Future previousPage() async {
@@ -223,7 +227,7 @@ class SignUpController extends GetxController {
 
   final authService = Get.find<AuthService>();
 
-  Future signUpWithEmail() async {
+  Future<bool> signUpWithEmail() async {
     try {
       final result = await authService.signUpWithEmail(
           emailController.text.trim(), passwordController.text.trim());
@@ -232,6 +236,8 @@ class SignUpController extends GetxController {
         Get.snackbar('Fehler aufgetreten',
             'Bitte überprüfen Sie Ihre Eingabefelder noch einmal');
       }
+
+      return result;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         Get.snackbar(
@@ -245,7 +251,7 @@ class SignUpController extends GetxController {
       } else {
         Get.snackbar('Error', '$e');
       }
-      rethrow;
+      return false;
     }
   }
 
@@ -279,11 +285,13 @@ class SignUpController extends GetxController {
         Get.snackbar('Fehler aufgetreten',
             'Bitte überprüfen Sie Ihre Eingabefelder noch einmal');
       }
+
+      return result;
     } on FirebaseAuthException catch (e) {
       Get.snackbar('Error', '$e');
       Get.snackbar(
           'Achtung', 'Ein Fehler bei der Registrierung ist aufgetreten');
-      rethrow;
+      return false;
     }
   }
 
@@ -316,11 +324,29 @@ class SignUpController extends GetxController {
         Get.snackbar('Fehler aufgetreten',
             'Bitte überprüfen Sie Ihre Eingabefelder noch einmal');
       }
+
+      return result;
     } on FirebaseAuthException catch (e) {
-      Get.snackbar('Error', '$e');
       Get.snackbar(
           'Achtung', 'Ein Fehler bei der Registrierung ist aufgetreten');
-      rethrow;
+      return false;
+    }
+  }
+
+  Future addUserCoordinates() async {
+    try {
+      final result = await authService.addUserCoordinates();
+
+      if (!result) {
+        Get.snackbar('Fehler aufgetreten',
+            'Bitte überprüfen Sie Ihre Eingabefelder noch einmal');
+      }
+
+      return result;
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar(
+          'Achtung', 'Ein Fehler bei der Registrierung ist aufgetreten');
+      return false;
     }
   }
 
@@ -395,9 +421,9 @@ class SignUpController extends GetxController {
     zipController.clear();
   }
 
-  Future inviteCodeInput(BuildContext context) {
-    return //show bottom sheet
-        showModalBottomSheet(
+  Future inviteCodeInput(BuildContext context) async {
+    final result = //show bottom sheet
+        await showModalBottomSheet<bool>(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -410,7 +436,10 @@ class SignUpController extends GetxController {
           height: MediaQuery.of(context).size.height * 0.8,
           child: Stack(
             children: [
-              ici.QRcodeScanner(),
+              ici.QRcodeScanner(
+                checkQRCode: (qrCode) =>
+                    authService.checkVerificationCode(qrCode),
+              ),
 
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(
@@ -470,5 +499,7 @@ class SignUpController extends GetxController {
         );
       },
     );
+
+    return result ?? false;
   }
 }

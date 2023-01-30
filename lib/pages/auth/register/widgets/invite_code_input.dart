@@ -28,7 +28,9 @@ class InviteCodeInput extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.8,
               child: Stack(
                 children: [
-                  QRcodeScanner(),
+                  QRcodeScanner(
+                    checkQRCode: ((qrCode) async => true),
+                  ),
 
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(
@@ -82,7 +84,9 @@ class InviteCodeInput extends StatelessWidget {
                   ),
                   //possiton on the bottom of the sheet a locoo button which opens a textfield
                   EnterCodeManualButton(
-                    checkQRCode: (qrCode) {},
+                    checkQRCode: (qrCode) async {
+                      return false;
+                    },
                   ),
                 ],
               ),
@@ -95,9 +99,9 @@ class InviteCodeInput extends StatelessWidget {
 }
 
 class QRcodeScanner extends StatelessWidget {
-  const QRcodeScanner({
-    Key? key,
-  }) : super(key: key);
+  const QRcodeScanner({Key? key, required this.checkQRCode}) : super(key: key);
+
+  final Future<bool> Function(String qrCode) checkQRCode;
 
   @override
   Widget build(BuildContext context) {
@@ -109,12 +113,20 @@ class QRcodeScanner extends StatelessWidget {
         allowDuplicates: false,
         controller: MobileScannerController(
             facing: CameraFacing.front, torchEnabled: true),
-        onDetect: (barcode, args) {
+        onDetect: (barcode, args) async {
           if (barcode.rawValue == null) {
             debugPrint('Failed to scan Barcode');
           } else {
             final String code = barcode.rawValue!;
             debugPrint('Barcode found! $code');
+
+            try {
+              final result = await checkQRCode(code);
+              Navigator.pop(context, result);
+              Navigator.pop(context, result);
+            } on Exception {
+              Navigator.pop(context, false);
+            }
           }
         },
       ),
@@ -162,7 +174,7 @@ class EnterCodeManualButton extends StatelessWidget {
   const EnterCodeManualButton({Key? key, required this.checkQRCode})
       : super(key: key);
 
-  final Function(String qrCode) checkQRCode;
+  final Future<bool> Function(String qrCode) checkQRCode;
 
   @override
   Widget build(BuildContext context) {
@@ -201,28 +213,32 @@ class EnterCodeManualButton extends StatelessWidget {
                                 //check if the code is valid
                                 //if valid close the bottom sheet
                                 //if not valid show a snackbar with the error message
-                                await checkQRCode(value);
-
-                                Navigator.pop(context);
+                                try {
+                                  final result = await checkQRCode(value);
+                                  Navigator.pop(context, result);
+                                  Navigator.pop(context, result);
+                                } on Exception {
+                                  Navigator.pop(context, false);
+                                }
                               },
                             ),
                           ),
                           //button
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 15, left: 20, right: 20),
-                            child: LocooTextButton(
-                              label: 'Einladecode überprüfen',
-                              icon: FlutterRemix.check_line,
-                              onPressed: () async {
-                                //check if the code is valid
-                                //if valid close the bottom sheet
-                                //if not valid show a snackbar with the error message
+                          // Container(
+                          //   margin: const EdgeInsets.only(
+                          //       top: 15, left: 20, right: 20),
+                          //   child: LocooTextButton(
+                          //     label: 'Einladecode überprüfen',
+                          //     icon: FlutterRemix.check_line,
+                          //     onPressed: () async {
+                          //       //check if the code is valid
+                          //       //if valid close the bottom sheet
+                          //       //if not valid show a snackbar with the error message
 
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
+                          //       Navigator.pop(context);
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
