@@ -232,7 +232,6 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         // ),
                         // GetDistanceFromLatLonInMeters(),
                         // VerifyButton(),
-                        CheckAddressWithDeviceLocation(),
                         ActionCard(
                           title: 'Dein Öffentliches Profil',
                           icon: FlutterRemix.user_line,
@@ -318,6 +317,10 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         SizedBox(
                           height: 18,
                         ),
+                        SizedBox(
+                          height: 300,
+                        ),
+                        CheckAddressWithDeviceLocation(),
                       ],
                     ),
                   ),
@@ -335,7 +338,7 @@ class CheckAddressWithDeviceLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
-      label: 'CheckAddressWithDeviceLocation',
+      label: 'DEV Verify',
       icon: Icons.arrow_back_rounded,
       onPressed: () async {
         print(FirebaseAuth.instance.currentUser);
