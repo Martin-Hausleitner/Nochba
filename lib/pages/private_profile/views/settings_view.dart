@@ -16,7 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:math';
 
-import 'package:confetti/confetti.dart';
+// import 'package:confetti/confetti.dart';
 
 import 'settings/manage_account_view.dart';
 
