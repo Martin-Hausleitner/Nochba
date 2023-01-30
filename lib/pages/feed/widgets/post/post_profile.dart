@@ -222,16 +222,16 @@ class TimeSuburbDistance extends StatelessWidget {
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
               ),
-              Text(
-                ' m',
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  // add light gray color
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-                ),
-              ),
+              // Text(
+              //   'm',
+              //   style: GoogleFonts.inter(
+              //     fontSize: 12,
+              //     fontWeight: FontWeight.w400,
+              //     // add light gray color
+              //     color:
+              //         Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+              //   ),
+              // ),
             ],
           ),
         ),

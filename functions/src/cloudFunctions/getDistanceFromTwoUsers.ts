@@ -6,7 +6,8 @@ import * as logger from "firebase-functions/logger";
 
 const db = admin.firestore();
 
-export const getDistanceFromTwoUsers = functions.region('europe-west1').https.onCall(
+// export const getDistanceFromTwoUsers = functions.region('europe-west1').https.onCall(
+export const getDistanceFromTwoUsers = functions.https.onCall(
   async (data, context) => {
     if (!context.auth) {
       throw new functions.https.HttpsError(
@@ -52,13 +53,13 @@ export const getDistanceFromTwoUsers = functions.region('europe-west1').https.on
       .collection("users")
       .doc(postUserId)
       .collection("intern")
-      .doc(postUserId)
+      .doc("address")
       .get();
     const userSnapshot = await db
       .collection("users")
       .doc(uid)
       .collection("intern")
-      .doc(uid)
+      .doc("address")
       .get();
 
     if (!postUserSnapshot.exists || !userSnapshot.exists) {
@@ -75,26 +76,26 @@ export const getDistanceFromTwoUsers = functions.region('europe-west1').https.on
       .collection("users")
       .doc(postUserId)
       .collection("intern")
-      .doc(postUserId)
+      .doc("address")
       .get();
-    const userAddressCoordinates = snapshot.data()?.addressCoordinates;
+    const userAddressCoordinates = snapshot.data()?.coords;
 
     const snapshot2 = await db
       .collection("users")
       .doc(uid)
       .collection("intern")
-      .doc(uid)
+      .doc("address")
       .get();
-    const currentUserAddressCoordinates = snapshot2.data()?.addressCoordinates;
+    const currentUserAddressCoordinates = snapshot2.data()?.coords;
 
     if (!userAddressCoordinates || !currentUserAddressCoordinates) {
       logger.error(
         "Coordinates for both users are required: " +
-        postUserId +
-        " " +
-        uid +
-        currentUserAddressCoordinates +
-        userAddressCoordinates
+          postUserId +
+          " " +
+          uid +
+          currentUserAddressCoordinates +
+          userAddressCoordinates
       );
 
       throw new functions.https.HttpsError(

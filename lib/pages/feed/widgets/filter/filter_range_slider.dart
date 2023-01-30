@@ -5,11 +5,10 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'filter_title.dart';
 
 class FilterRangeSlider extends StatefulWidget {
-  const FilterRangeSlider(
-      {super.key, required this.sliderValue, required this.onChanged});
+  const FilterRangeSlider({super.key});
 
-  final double sliderValue;
-  final Function(double) onChanged;
+  // final double sliderValue;
+  // final Function(double) onChanged;
 
   @override
   State<FilterRangeSlider> createState() => _FilterRangeSliderState();
@@ -31,40 +30,34 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FilterTitle(label: 'Reichweite'),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 25, bottom: 12, left: 15, right: 15),
-                child: Text('${widget.sliderValue.round()}km'),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       top: 25, bottom: 12, left: 15, right: 15),
+              //   child: Text('${_currentSliderValue.round()}km'),
+              // ),
             ],
           ),
         ),
-        // Test1(),
-        // Example2(),
-        //if focusnoed is active, show a text else a text with no
-        // focusnode
-
-        // if (_focusNode.hasFocus)
-        //   Text('focusnode is active')
-        // else
-        //   Text('focusnode is not active'),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Slider(
-            value: widget.sliderValue,
+            value: _currentSliderValue,
             max: 100,
             divisions: 5,
-            label: widget.sliderValue == 0
+            label: _currentSliderValue == 0
                 ? 'eignes Haus'
-                : '${widget.sliderValue.round()}',
-            onChanged: widget.onChanged,
-            onChangeStart: (double value) {
-              showOverlay();
+                : '${_currentSliderValue.round()}',
+            onChanged: (value) {
+              setState(() {
+                _currentSliderValue = value;
+              });
             },
-            onChangeEnd: (double value) {
-              hideOverlay();
-            },
+            // onChangeStart: (double value) {
+            //   showOverlay();
+            // },
+            // onChangeEnd: (double value) {
+            //   hideOverlay();
+            // },
           ),
         ),
         // Test(),
@@ -93,58 +86,59 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
       ],
     );
   }
+}
 
-  // create a function showOverlay which creates an overlayEntry and inserts it into the overlay
 
-  void showOverlay() {
-    _overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        // top: 100,
-        left: 15,
-        //bottom size of bottomsheet
-        bottom: bottomSheetKey.currentContext!.size!.height + 20,
 
-        child: Container(
-          width: //infinity width
-              //size width screen
-              MediaQuery.of(context).size.width - 30,
-          height: 200,
-          //add round corners
-          // color: Colors.white,
-          decoration: BoxDecoration(
-            // color: Colors.white,
-            color: Colors.white,
+  // void showOverlay() {
+  //   _overlayEntry = OverlayEntry(
+  //     builder: (context) => Positioned(
+  //       // top: 100,
+  //       left: 15,
+  //       //bottom size of bottomsheet
+  //       bottom: bottomSheetKey.currentContext!.size!.height + 20,
 
-            borderRadius: BorderRadius.circular(15),
-          ),
-          //show as a child a  photo: C:\Users\am\.temp\lol\Locoo\assets\images\range.png with round corners
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Image.asset(
-              'assets/images/range.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-    );
-    Overlay.of(context)!.insert(_overlayEntry!);
-  }
+  //       child: Container(
+  //         width: //infinity width
+  //             //size width screen
+  //             MediaQuery.of(context).size.width - 30,
+  //         height: 200,
+  //         //add round corners
+  //         // color: Colors.white,
+  //         decoration: BoxDecoration(
+  //           // color: Colors.white,
+  //           color: Colors.white,
+
+  //           borderRadius: BorderRadius.circular(15),
+  //         ),
+  //         //show as a child a  photo: C:\Users\am\.temp\lol\Locoo\assets\images\range.png with round corners
+  //         child: ClipRRect(
+  //           borderRadius: BorderRadius.circular(15),
+  //           child: Image.asset(
+  //             'assets/images/range.png',
+  //             fit: BoxFit.cover,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  //   Overlay.of(context)!.insert(_overlayEntry!);
+  // }
 
   // create a function hideOverlay which removes the overlayEntry from the overlay
 
-  void hideOverlay() {
-    _overlayEntry!.remove();
-    _overlayEntry = null;
-  }
+  // void hideOverlay() {
+  //   _overlayEntry!.remove();
+  //   _overlayEntry = null;
+  // }
 
-  // create a function toggleOverlay which checks if the overlayEntry is null and if so calls showOverlay, otherwise calls hideOverlay
+  // // create a function toggleOverlay which checks if the overlayEntry is null and if so calls showOverlay, otherwise calls hideOverlay
 
-  void toggleOverlay() {
-    if (_overlayEntry == null) {
-      showOverlay();
-    } else {
-      hideOverlay();
-    }
-  }
-}
+  // void toggleOverlay() {
+  //   if (_overlayEntry == null) {
+  //     showOverlay();
+  //   } else {
+  //     hideOverlay();
+  //   }
+  // }
+
