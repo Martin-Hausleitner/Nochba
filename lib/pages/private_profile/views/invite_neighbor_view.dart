@@ -88,9 +88,6 @@ class InviteNeighborController extends GetxController {
           // backgroundColor: Colors.red,
           // colorText: Colors.white,
         );
-       
-       
-       
       }
     } on FirebaseFunctionsException catch (e) {
       print(e.message);
@@ -228,11 +225,16 @@ class InviteNeighborView extends StatelessWidget {
         //   child: Text("Reset lastPressTime"),
         // ),
         //padding top left right bottom 10
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            'Wenn du einen neuen Einladungscode generierst, wird der alte ungültig.',
-            style: Theme.of(context).textTheme.bodySmall,
+        GestureDetector(
+          onTap: () async {
+            await controller.resetLastPressTime();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Wenn du einen neuen Einladungscode generierst, wird der alte ungültig.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ),
         ),
       ],
