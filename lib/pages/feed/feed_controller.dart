@@ -29,18 +29,10 @@ class FeedController extends GetxController {
 
   Future<List<Post>> searchPosts() async {
     try {
-      const Algolia algolia = AlgoliaApplication.algolia;
-      AlgoliaQuery query =
-          algolia.instance.index("posts").query(searchInputController.text);
-      AlgoliaQuerySnapshot querySnap = await query.getObjects();
-      List<AlgoliaObjectSnapshot> results = querySnap.hits;
-      final postIds = results.map((snapshot) => snapshot.objectID).toList();
-
-      return postIds.isNotEmpty
-          ? postRepository.query(const MapEntry('createdAt', true),
-              whereIn: MapEntry('id', postIds))
-          : Future.value(List.empty());
+      return postRepository.searchPosts(
+          searchInputController.text, postFilter.value);
     } on Exception catch (e) {
+      print(e);
       return Future.error(Error);
     }
   }

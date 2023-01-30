@@ -100,6 +100,9 @@ class NewPostController extends InsetPostController {
     //final isValid = formKey.currentState!.validate();
     if (/*!isValid ||*/ category == CategoryOptions.None) return;
 
+    isLoading = true;
+    update();
+
     try {
       final imageUrl = image == null
           ? ''

@@ -1,6 +1,8 @@
+import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/algolia/AlgoliaApplication.dart';
 import 'package:nochba/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart';
 import 'package:nochba/logic/models/PostFilter.dart';
 import 'package:nochba/logic/models/bookmark.dart';
@@ -59,10 +61,10 @@ class PostRepository extends GenericRepository<Post> {
         }).toList()));
   }
 
-  Stream<List<Post>> getAllPosts(bool orderFieldDescending) {
-    return super.getAll(
-        orderFieldDescending: MapEntry('createdAt', orderFieldDescending));
-  }
+  // Stream<List<Post>> getAllPosts(bool orderFieldDescending) {
+  //   return super.getAll(
+  //       orderFieldDescending: MapEntry('createdAt', orderFieldDescending));
+  // }
 
   Stream<List<Post>> queryPosts(PostFilter postFilter) {
     final orderFieldDescending = MapEntry(
@@ -73,27 +75,22 @@ class PostRepository extends GenericRepository<Post> {
                 : '',
         postFilter.isOrderDescending);
 
-    return postFilter.categories.isNotEmpty
-        ? super.queryAsStream(orderFieldDescending,
-            whereIn: MapEntry(
-                'category',
-                postFilter.categories
-                    .fold<List<CategoryOptions>>(
-                        [],
-                        (previousValue, element) => CategoryModul
-                                    .isMainCategory(element) &&
-                                CategoryModul.getSubCategoriesOfMainCategory(
-                                        element)
-                                    .isNotEmpty
-                            ? [
-                                ...previousValue,
-                                ...CategoryModul.getSubCategoriesOfMainCategory(
-                                    element)
-                              ]
-                            : [...previousValue, element])
-                    .map((c) => c.name)
-                    .toList()))
-        : super.queryAsStream(orderFieldDescending);
+    return queryAsStream(orderFieldDescending, whereIn: {
+      'category': postFilter.categories
+          .fold<List<CategoryOptions>>(
+              [],
+              (previousValue, element) => CategoryModul.isMainCategory(
+                          element) &&
+                      CategoryModul.getSubCategoriesOfMainCategory(element)
+                          .isNotEmpty
+                  ? [
+                      ...previousValue,
+                      ...CategoryModul.getSubCategoriesOfMainCategory(element)
+                    ]
+                  : [...previousValue, element])
+          .map((c) => c.name)
+          .toList()
+    });
     /*.asyncMap((posts) async {
             final userInternInfoAddressRepository =
                 Get.find<UserInternInfoAddressRepository>();
@@ -125,6 +122,45 @@ class PostRepository extends GenericRepository<Post> {
           });*/
   }
 
+  Future<List<Post>> searchPosts(
+      String searchInput, PostFilter postFilter) async {
+    final orderFieldDescending = MapEntry(
+        postFilter.postFilterSortBy == PostFilterSortBy.date
+            ? 'createdAt'
+            : postFilter.postFilterSortBy == PostFilterSortBy.likes
+                ? 'likes'
+                : '',
+        postFilter.isOrderDescending);
+
+    const Algolia algolia = AlgoliaApplication.algolia;
+    AlgoliaQuery query = algolia.instance.index("posts").query(searchInput);
+    AlgoliaQuerySnapshot querySnap = await query.getObjects();
+    List<AlgoliaObjectSnapshot> results = querySnap.hits;
+    final postIds = results.map((snapshot) => snapshot.objectID).toList();
+
+    return postIds.isNotEmpty
+        ? super.query(orderFieldDescending, whereIn: {
+            // 'category': postFilter.categories
+            //     .fold<List<CategoryOptions>>(
+            //         [],
+            //         (previousValue, element) =>
+            //             CategoryModul.isMainCategory(element) &&
+            //                     CategoryModul.getSubCategoriesOfMainCategory(
+            //                             element)
+            //                         .isNotEmpty
+            //                 ? [
+            //                     ...previousValue,
+            //                     ...CategoryModul.getSubCategoriesOfMainCategory(
+            //                         element)
+            //                   ]
+            //                 : [...previousValue, element])
+            //     .map((c) => c.name)
+            //     .toList(),
+            'id': postIds
+          })
+        : Future.value(List.empty());
+  }
+
   Future<String?> getPostTitle(String id) async {
     final post = await get(id);
     return post?.title;
@@ -152,7 +188,7 @@ class PostRepository extends GenericRepository<Post> {
     if (bookMark != null && bookMark.posts.isNotEmpty) {
       final postIds = bookMark.posts;
       final posts = await query(const MapEntry('createdAt', true),
-          whereIn: MapEntry('id', postIds));
+          whereIn: {'id': postIds});
 
       return posts.isNotEmpty ? posts : List.empty();
     }

@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/category.dart';
@@ -23,5 +24,26 @@ class PostCardController extends GetxController {
             CategoryModul.subCategoriesOfSearch.contains(category) ||
             category == CategoryModul.lending ||
             CategoryModul.subCategoriesOfLending.contains(category));
+  }
+
+  Future<String> getDistanceToUser(String postId) async {
+    try {
+      HttpsCallable callable =
+          FirebaseFunctions.instanceFor(region: 'europe-west1').httpsCallable(
+        'getDistanceFromTwoUsers',
+        options: HttpsCallableOptions(
+          timeout: const Duration(seconds: 5),
+        ),
+      );
+
+      final result = await callable.call(<String, dynamic>{
+        'postId': postId,
+      });
+
+      return result.data;
+    } catch (e) {
+      // Get.snackbar('Error', e.toString());
+      return '---';
+    }
   }
 }

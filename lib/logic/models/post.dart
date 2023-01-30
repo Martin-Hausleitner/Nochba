@@ -12,6 +12,7 @@ class Post implements IModel {
   final String category;
   final List<String> tags;
   final int likes;
+  final int range;
 
   // Unmapped fields
   String userName;
@@ -28,7 +29,8 @@ class Post implements IModel {
       required this.tags,
       required this.likes,
       this.userName = '',
-      this.userImageUrl = ''});
+      this.userImageUrl = '',
+      this.range = 10});
 
   @override
   Map<String, dynamic> toJson() => {
@@ -41,6 +43,7 @@ class Post implements IModel {
         'category': category,
         'tags': tags,
         'likes': likes,
+        'range': range,
       };
 
   factory Post.fromJson(String id, Map<String, dynamic> json) => Post(
@@ -54,5 +57,6 @@ class Post implements IModel {
         tags: List.castFrom<dynamic, String>(json[
             'tags']) /*tags: json['tags'] == null ? [] : json['tags'].map<String>((e) => e as String).toList()*/,
         likes: json['likes'] /*List.castFrom<dynamic, String>(json['liked'])*/,
+        range: json['range'],
       );
 }

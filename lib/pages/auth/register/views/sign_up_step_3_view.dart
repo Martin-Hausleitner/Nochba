@@ -12,18 +12,16 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import '../../../inset_post/new_post/widgets/circle_step.dart';
 
 class SignUpStep3View extends StatelessWidget {
-  const SignUpStep3View(
-      {super.key, required this.controller, required this.onPressedBack});
+  const SignUpStep3View({super.key, required this.controller});
 
   final SignUpController controller;
-  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
       tailingIcon: Icons.close_rounded,
       title: 'Registrieren',
-      onPressed: onPressedBack,
+      onPressed: () async => await controller.quitRegistration(),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
         Column(
@@ -67,39 +65,49 @@ class SignUpStep3View extends StatelessWidget {
             ),
             SizedBox(height: 28),
 
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: LocooTextField(
-                    label: 'Straße',
-                    // controller: controller.emailController,
+            Form(
+              key: controller.formKey3,
+              autovalidateMode: AutovalidateMode.disabled,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: LocooTextField(
+                          label: 'Straße',
+                          controller: controller.streetController,
+                          validator: controller.validateAddress,
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: LocooTextField(
+                          label: 'Nr.',
+                          controller: controller.streetNumberController,
+                          validator: controller.validateAddress,
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  LocooTextField(
+                    label: 'Stadt',
+                    controller: controller.cityController,
+                    validator: controller.validateAddress,
                     textInputAction: TextInputAction.next,
                   ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: LocooTextField(
-                    label: 'Nr.',
-                    // controller: controller.emailController,
+                  SizedBox(height: 10),
+                  LocooTextField(
+                    label: 'Postleitzahl',
+                    controller: controller.zipController,
+                    validator: controller.validateAddress,
                     textInputAction: TextInputAction.next,
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-
-            LocooTextField(
-              label: 'Stadt',
-              // controller: controller.emailController,
-              textInputAction: TextInputAction.next,
-            ),
-            SizedBox(height: 10),
-
-            LocooTextField(
-              label: 'Postleitzahl',
-              // controller: controller.emailController,
-              textInputAction: TextInputAction.next,
+                ],
+              ),
             ),
 
             SizedBox(height: 20),

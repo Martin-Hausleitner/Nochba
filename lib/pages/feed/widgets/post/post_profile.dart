@@ -33,7 +33,7 @@ class PostProfile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           LocooCircleAvatar(
-            imageUrl: post.imageUrl,
+            imageUrl: post.userImageUrl,
             radius: 20,
           ),
           Expanded(
@@ -54,7 +54,8 @@ class PostProfile extends StatelessWidget {
                           ),
                     ),
                   ),
-                  TimeSuburbDistance(publishDate: publishDate, distance: distance),
+                  TimeSuburbDistance(
+                      publishDate: publishDate, distance: distance),
                 ],
               ),
             ),

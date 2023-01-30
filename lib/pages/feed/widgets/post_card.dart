@@ -105,11 +105,19 @@ class Post extends GetView<PostCardController> {
 
               const SizedBox(height: spacingBetween),
 
-              // Post Profile
-              PostProfile(
-                post: post,
-                publishDate: getTimeAgo(post.createdAt.toDate()),
-                distance: '---',
+              FutureBuilder<String>(
+                future: controller.getDistanceToUser(post.id),
+                builder: (context, snapshot) {
+                  String distance = '---';
+                  if (snapshot.hasData) {
+                    distance = snapshot.data!;
+                  }
+
+                  return PostProfile(
+                      post: post,
+                      publishDate: getTimeAgo(post.createdAt.toDate()),
+                      distance: distance);
+                },
               ),
 
               const SizedBox(height: spacingBetween),

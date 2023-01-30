@@ -9,6 +9,7 @@ import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/Token.dart';
 import 'package:nochba/logic/models/UserInternInfoAddress.dart';
+import 'package:nochba/logic/models/UserPrivateInfoAddress.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPrivateInfoSettings.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
@@ -39,6 +40,9 @@ class ResourceContext {
         getCollectionName: getCollectionName(), modelMapper: modelMapper);
     userPrivateInfoSettingsResource = Resource<UserPrivateInfoSettings>(
         getCollectionName: getCollectionName(), modelMapper: modelMapper);
+    userPrivateInfoAddressResource = Resource<UserPrivateInfoAddress>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
+
     userInternInfoAddressResource = Resource<UserInternInfoAddress>(
         getCollectionName: getCollectionName(), modelMapper: modelMapper);
     likedPostResource = Resource<LikedPost>(
@@ -66,6 +70,7 @@ class ResourceContext {
   late Resource<BookMark> bookMarkResource;
   late Resource<UserPrivateInfoName> userPrivateInfoNameResource;
   late Resource<UserPrivateInfoSettings> userPrivateInfoSettingsResource;
+  late Resource<UserPrivateInfoAddress> userPrivateInfoAddressResource;
   late Resource<UserInternInfoAddress> userInternInfoAddressResource;
   late Resource<LikedPost> likedPostResource;
   late Resource<LikedComment> likedCommentResource;
@@ -85,7 +90,8 @@ class ResourceContext {
           return '${config.usersCollectionName}/${nexus[0]}/${config.userPublicInfoCollectionName}';
         } else if ((type == typeOf<BookMark>() ||
                 type == typeOf<UserPrivateInfoName>() ||
-                type == typeOf<UserPrivateInfoSettings>()) &&
+                type == typeOf<UserPrivateInfoSettings>() ||
+                type == typeOf<UserPrivateInfoAddress>()) &&
             nexus != null &&
             nexus.length == 1) {
           return '${config.usersCollectionName}/${nexus[0]}/${config.userPrivateInfoCollectionName}';
@@ -108,7 +114,7 @@ class ResourceContext {
         } else if (type == typeOf<Notification>() &&
             nexus != null &&
             nexus.length == 1) {
-          return '${config.usersCollectionName}/${nexus[0]}/${config.notificationsCollectionName}';
+          return config.notificationsCollectionName;
         } else if (type == typeOf<Comment>() &&
             nexus != null &&
             nexus.length == 1) {
@@ -131,6 +137,8 @@ class ResourceContext {
       return userPrivateInfoNameResource as Resource<T>;
     } else if (typeOf<T>() == typeOf<UserPrivateInfoSettings>()) {
       return userPrivateInfoSettingsResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<UserPrivateInfoAddress>()) {
+      return userPrivateInfoAddressResource as Resource<T>;
     } else if (typeOf<T>() == typeOf<UserInternInfoAddress>()) {
       return userInternInfoAddressResource as Resource<T>;
     } else if (typeOf<T>() == typeOf<LikedPost>()) {

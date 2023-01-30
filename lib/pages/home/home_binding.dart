@@ -9,6 +9,7 @@ import 'package:nochba/logic/repositories/NotificationRepository.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
 import 'package:nochba/logic/repositories/TokenRepository.dart';
 import 'package:nochba/logic/repositories/UserInternInfoAddressRepository.dart';
+import 'package:nochba/logic/repositories/UserPrivateInfoAddressRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoNameRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoSettingsRepository.dart';
 import 'package:nochba/logic/repositories/UserPublicInfoRepository.dart';
@@ -48,6 +49,7 @@ class HomeBinding extends Bindings {
     Get.put(BookMarkRepository(ResourceContext()));
     Get.put(UserPrivateInfoNameRepository(ResourceContext()));
     Get.put(UserPrivateInfoSettingsRepository(ResourceContext()));
+    Get.put(UserPrivateInfoAddressRepository(ResourceContext()));
     Get.put(UserInternInfoAddressRepository(ResourceContext()));
     Get.put(LikedPostRepository(ResourceContext()));
     Get.put(CommentRepository(ResourceContext()));

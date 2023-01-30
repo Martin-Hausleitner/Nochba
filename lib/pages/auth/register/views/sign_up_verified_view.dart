@@ -13,11 +13,9 @@ import 'package:lottie/lottie.dart';
 import '../../../inset_post/new_post/widgets/circle_step.dart';
 
 class SignUpVerifiedView extends StatelessWidget {
-  const SignUpVerifiedView(
-      {super.key, required this.controller, required this.onPressedBack});
+  const SignUpVerifiedView({super.key, required this.controller});
 
   final SignUpController controller;
-  final void Function() onPressedBack;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class SignUpVerifiedView extends StatelessWidget {
     return AppBarBigView(
         tailingIcon: Icons.close_rounded,
         title: 'Registrieren',
-        onPressed: onPressedBack,
+        onPressed: () async => await controller.finishRegistration(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         children: [
           Column(
@@ -137,7 +135,7 @@ class SignUpVerifiedView extends StatelessWidget {
                 rtl: true,
                 onPressed: //controller.addPost() and go to
                     () async {
-                  await controller.signUp();
+                  await controller.finishRegistration();
                   //close keyboard
                   FocusScope.of(context).unfocus();
                   // Get.to(PublishedNewPostView());
