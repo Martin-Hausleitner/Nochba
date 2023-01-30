@@ -181,19 +181,16 @@ class AuthPage extends GetView<AuthController> {
                               // set the width and height
 
                               showDialog(
-                                
-
-
                                 context: context,
                                 builder: (BuildContext context) {
-                                  
                                   return AlertDialog(
-                                    title: const Text("Warnung vor Datenverlust: Bitte beachten Sie, dass alle während der Testphase eingegebenen Daten verloren gehen können"),
+                                    title: const Text(
+                                        "Warnung vor Datenverlust: Bitte beachten Sie, dass alle während der Testphase eingegebenen Daten verloren gehen können"),
                                     content: const Text(
                                         "Wir möchten Sie daran erinnern, dass alle während der Testphase in die App eingegebenen Daten nach Abschluss der Testphase verloren gehen können. Wir freuen uns sehr über Ihr Feedback, um die App für künftige Nutzer zu verbessern. Wir bitten Sie, uns unter project@nochba.com zu kontaktieren, wenn Sie Fehler oder Probleme mit den Funktionen der App feststellen. Wir danken für Ihr Verständnis und wünschen Ihnen viel Spaß mit der App!"),
                                     actions: [
                                       TextButton(
-                                        child: Text("LOS GEHT'S!"),  
+                                        child: Text("LOS GEHT'S!"),
                                         onPressed: () async => {
                                           await Get.to(
                                             () => const LoginPage(),
@@ -218,7 +215,7 @@ class AuthPage extends GetView<AuthController> {
                             )
                           },
                           child: Text(
-                            'Regestrieren',
+                            'Registrieren',
                             style: Theme.of(context).textTheme.button?.copyWith(
                                   color: Theme.of(context)
                                       .buttonTheme
