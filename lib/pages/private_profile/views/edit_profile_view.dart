@@ -402,24 +402,55 @@ class EditProfileView extends GetView<EditProfileController> {
                   ActionTextCard(
                     title: 'Bietet',
                     icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet<void>(
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0))),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return BottomSheetCloseSaveView(
+                            onSave: () async =>
+                                await controller.updateOffersOfCurrentUser(),
+                            children: [
+                              Column(
+                                children: [
+                                  TagsElement(
+                                    tags: controller
+                                        .getOffers(userPublicInfo.offers),
+                                    removeTag: controller.removeOffer,
+                                    showTagDialog: controller.showOfferTagDialog,
+                                    addTag: controller.addOffer,
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     text: userPublicInfo.offers != null &&
                             userPublicInfo.offers!.isNotEmpty
                         ? userPublicInfo.offers!.fold<String>(
-                            userPublicInfo.offers!.first,
-                            (previousValue, element) =>
-                                '$previousValue, $element')
+                            '',
+                            (previousValue, element) => previousValue.isEmpty
+                                ? element
+                                : '$previousValue, $element')
                         : '',
                   ),
-                  ActionCardTitle(title: 'Familie'),
-                  ActionTextCard(
-                    title: 'Familien Status',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: userPublicInfo.familyStatus != null
-                        ? userPublicInfo.familyStatus!
-                        : '',
-                  ),
+                  // ActionCardTitle(title: 'Familie'),
+                  // ActionTextCard(
+                  //   title: 'Familien Status',
+                  //   icon: Icon(FlutterRemix.user_line),
+                  //   onTap: () {},
+                  //   text: userPublicInfo.familyStatus != null
+                  //       ? userPublicInfo.familyStatus!
+                  //       : '',
+                  // ),
                   // ActionTextCard(
                   //   title: 'Kinder',
                   //   icon: Icon(FlutterRemix.user_line),
@@ -457,12 +488,14 @@ class EditProfileView extends GetView<EditProfileController> {
                   //   },
                   //   text: '3',
                   // ),
-                  ActionTextCard(
-                    title: 'Tiere',
-                    icon: Icon(FlutterRemix.user_line),
-                    onTap: () {},
-                    text: 'Hund, Katze',
-                  ),
+                  // ActionTextCard(
+                  //   title: 'Tiere',
+                  //   icon: Icon(FlutterRemix.user_line),
+                  //   onTap: () {
+                      
+                  //   },
+                  //   text: 'Hund, Katze',
+                  // ),
                 ],
               );
             } else {

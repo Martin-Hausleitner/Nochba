@@ -79,4 +79,16 @@ class UserPublicInfoRepository extends GenericRepository<UserPublicInfo> {
       rethrow;
     }
   }
+
+    Future<void> updateOffersOfCurrentUser(List<String>? offers) async {
+    try {
+      return await updateFields(reference, {
+        "offers": offers,
+      }, nexus: [
+        resourceContext.uid
+      ]);
+    } on Exception {
+      rethrow;
+    }
+  }
 }

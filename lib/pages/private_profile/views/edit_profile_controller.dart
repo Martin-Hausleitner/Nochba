@@ -245,8 +245,9 @@ class EditProfileController extends GetxController {
 
   List<String> getInterests(List<String>? interestsList) {
     _interests.clear();
-    _interests.addAllIf(
-        interestsList != null && interestsList.isNotEmpty, interestsList!);
+    if (interestsList != null && interestsList.isNotEmpty) {
+      _interests.addAll(interestsList);
+    }
     return _interests;
   }
 
@@ -272,6 +273,43 @@ class EditProfileController extends GetxController {
   Future<void> updateInterestsOfCurrentUser() async {
     try {
       await userPublicInfoRepository.updateInterestsOfCurrentUser(_interests);
+    } on Exception {
+      return Future.error(Error);
+    }
+  }
+
+  RxList<String> _offers = <String>[].obs;
+
+  List<String> getOffers(List<String>? offersList) {
+    _offers.clear();
+    if (offersList != null) {
+      _offers.addAllIf(offersList.isNotEmpty, offersList);
+    }
+    return _offers;
+  }
+
+  addOffer(String offer) {
+    _offers.add(offer);
+  }
+
+  removeOffer(String offer) {
+    _offers.remove(offer);
+  }
+
+  void showOfferTagDialog(BuildContext context) async {
+    final String result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const TagDialog();
+      },
+    );
+
+    addOffer(result);
+  }
+
+  Future<void> updateOffersOfCurrentUser() async {
+    try {
+      await userPublicInfoRepository.updateOffersOfCurrentUser(_offers);
     } on Exception {
       return Future.error(Error);
     }
