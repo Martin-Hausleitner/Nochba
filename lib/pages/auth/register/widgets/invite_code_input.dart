@@ -112,7 +112,7 @@ class QRcodeScanner extends StatelessWidget {
       child: MobileScanner(
         allowDuplicates: false,
         controller: MobileScannerController(
-            facing: CameraFacing.front, torchEnabled: true),
+            facing: CameraFacing.back, torchEnabled: false),
         onDetect: (barcode, args) async {
           if (barcode.rawValue == null) {
             debugPrint('Failed to scan Barcode');

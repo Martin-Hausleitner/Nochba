@@ -8,12 +8,13 @@ const GENERATION_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
 
 const MAX_CODE_LIMIT = 1000;
 
-const RANGE_IN_METERS = 1000;
+const RANGE_IN_METERS = 10000000;
 
 const db = admin.firestore();
 
-export const generateVerificationCode = functions.region('europe-west1').https.onCall(
-  async (data, context) => {
+export const generateVerificationCode = functions
+  .region("europe-west1")
+  .https.onCall(async (data, context) => {
     if (!context.auth) {
       logger.error("The request is not authenticated.");
       throw new functions.https.HttpsError(
@@ -96,5 +97,4 @@ export const generateVerificationCode = functions.region('europe-west1').https.o
     );
 
     return verificationCode;
-  }
-);
+  });

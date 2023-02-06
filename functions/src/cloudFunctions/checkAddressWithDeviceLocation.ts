@@ -7,7 +7,7 @@ import { GeoPoint } from "firebase-admin/firestore";
 import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";
 import * as logger from "firebase-functions/logger";
 
-const MAX_DISTANCE_METERS = 44440;
+const MAX_DISTANCE_METERS = 4444000;
 
 const db = admin.firestore();
 
