@@ -391,13 +391,11 @@ class FeedbackTest extends StatelessWidget {
     listId = dotenv.env['TRELLO_LIST_ID'];
 
     var packageInfo = await PackageInfo.fromPlatform();
-    var appName = packageInfo.appName;
-    var packageName = packageInfo.packageName;
     var version = packageInfo.version;
     var buildNumber = packageInfo.buildNumber;
     var cardId;
 
-    var name = text;
+    var name = "v$version" + "+" + "$buildNumber | $text";
 
     var url1 = Uri.parse(
         "https://api.trello.com/1/cards?key=$apiKey&token=$token&idList=$listId&name=$name&desc=$text");
@@ -433,6 +431,14 @@ class FeedbackTest extends StatelessWidget {
     if (response.statusCode == 200) {
       print("Data successfully uploaded to Trello");
     } else {
+      //get snackbar with error
+      Get.snackbar(
+        "Error",
+        "Failed to upload data to Trello: " +
+            response.statusCode.toString() +
+            " " +
+            response.reasonPhrase.toString(),
+      );
       throw Exception("Failed to upload data to Trello" +
           response.statusCode.toString() +
           response.reasonPhrase.toString());
@@ -442,13 +448,6 @@ class FeedbackTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
-        var packageInfo = await PackageInfo.fromPlatform();
-        var appName = packageInfo.appName;
-        var packageName = packageInfo.packageName;
-        var version = packageInfo.version;
-        var buildNumber = packageInfo.buildNumber;
-        var test = packageInfo.toString();
-        print("$appName $packageName $version $buildNumber");
         // uploadDataToTrello(
         //   "Test",
         //   null,
