@@ -64,16 +64,22 @@ class Post extends GetView<PostCardController> {
             //allign left
             children: <Widget>[
               // Post title
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(post.title,
-                    //chnage the space between the words
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -0.5,
-                        )),
+              Row(
+                children: [
+                  DateDisplay(date: DateTime.now()),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(post.title,
+                        //chnage the space between the words
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                )),
+                  ),
+                ],
               ),
 
               const SizedBox(height: spacingBetween),
@@ -172,6 +178,63 @@ class Post extends GetView<PostCardController> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class DateDisplay extends StatelessWidget {
+  final DateTime date;
+
+  const DateDisplay({super.key, required this.date});
+
+  
+
+
+  
+
+  @override
+  Widget build(BuildContext context) {
+    late String month = date.month.toString();
+    //take month and parse it that the string is 3 letters long
+    month = month.substring(0, 3);
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              //display the month with 3 letters as a string
+              month,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[600],
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              date.day.toString(),
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              date.year.toString(),
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[600],
+              ),
+            ),
+          ],
         ),
       ),
     );

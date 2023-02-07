@@ -89,17 +89,22 @@ class PostViewNoImage extends StatelessWidget {
                 //align left
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(post.title,
-                      //chnage the space between the words
-                      //align the text to the left
-                      textAlign: TextAlign.left,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: -0.5,
-                              )),
+                  Row(
+                    
+                    children: [
+                      Text(post.title,
+                          //chnage the space between the words
+                          //align the text to the left
+                          textAlign: TextAlign.left,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: -0.5,
+                                  )),
+                    ],
+                  ),
 
                   const SizedBox(height: spacingBetween),
 
