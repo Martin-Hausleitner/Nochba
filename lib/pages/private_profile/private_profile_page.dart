@@ -1,11 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
+import 'package:image/image.dart' as Image;
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
+import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/private_profile/views/own_posts_view.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:nochba/logic/models/user.dart' as models;
 
@@ -14,6 +21,7 @@ import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'private_profile_controller.dart';
 import 'views/bookmarked_posts_view.dart';
@@ -21,6 +29,8 @@ import 'views/edit_profile_view.dart';
 import 'views/invite_neighbor_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:http/http.dart' as http;
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   @override
@@ -226,10 +236,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         //   title: 'Dein Profil',
                         // ),
                         InviteNeighborCard(),
-                        // TextButton(
-                        //   onPressed: () => throw Exception(),
-                        //   child: const Text("Throw Test Exception"),
-                        // ),
+                        FeedbackTest(),
                         // GetDistanceFromLatLonInMeters(),
                         // VerifyButton(),
                         ActionCard(
@@ -330,6 +337,131 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FeedbackTest extends StatelessWidget {
+  const FeedbackTest({
+    super.key,
+  });
+
+  @override
+  // Future<void> uploadDataToTrello(String text, var screenshot) async {
+  //   var apiKey = "4d60a69bfdb5d28aaf146e5a34198d40";
+  //   var token =
+  //       "ATTAb271ce9839d5e42a79a04bfa600f5a75dfd2a47193551364dd5c1ea1c79f09b776F068EC";
+  //   var boardId = "63e174cb45bf889af05af506";
+  //   var listId = "63e174cb45bf889af05af50d";
+  //   var packageInfo = await PackageInfo.fromPlatform();
+  //   var appName = packageInfo.appName;
+  //   var packageName = packageInfo.packageName;
+  //   var version = packageInfo.version;
+  //   var buildNumber = packageInfo.buildNumber;
+
+  //   var name = "v$version+$buildNumber | $text";
+
+  //   var url = Uri.parse(
+  //       "https://api.trello.com/1/cards?key=$apiKey&token=$token&idList=$listId&name=$name&desc=$text");
+
+  //   try {
+  //     var response = await http.post(url,
+  //         body: jsonEncode({'fileSource': base64Encode(screenshot)}));
+  //     if (response.statusCode == 200) {
+  //       print("Data successfully uploaded to Trello");
+  //     } else {
+  //       throw Exception("Failed to upload data to Trello" +
+  //           response.statusCode.toString() +
+  //           response.body);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  Future<void> uploadDataToTrello(String text, var screenshot) async {
+    var apiKey = Platform.environment['TRELLO_API_KEY'];
+    var token = Platform.environment['TRELLO_TOKEN'];
+    var boardId = Platform.environment['TRELLO_BOARD_ID'];
+    var listId = Platform.environment['TRELLO_LIST_ID'];
+
+    apiKey = dotenv.env['TRELLO_API_KEY'];
+    token = dotenv.env['TRELLO_TOKEN'];
+    boardId = dotenv.env['TRELLO_BOARD_ID'];
+    listId = dotenv.env['TRELLO_LIST_ID'];
+
+    var packageInfo = await PackageInfo.fromPlatform();
+    var appName = packageInfo.appName;
+    var packageName = packageInfo.packageName;
+    var version = packageInfo.version;
+    var buildNumber = packageInfo.buildNumber;
+    var cardId;
+
+    var name = text;
+
+    var url1 = Uri.parse(
+        "https://api.trello.com/1/cards?key=$apiKey&token=$token&idList=$listId&name=$name&desc=$text");
+
+    try {
+      var response1 = await http.post(url1);
+      if (response1.statusCode == 200) {
+        var responseJson = json.decode(response1.body);
+        cardId = responseJson["id"];
+      } else {
+        throw Exception("Failed to retrieve card ID: " +
+            response1.statusCode.toString() +
+            response1.reasonPhrase.toString());
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+
+    var url = Uri.parse(
+        "https://api.trello.com/1/cards/$cardId/attachments?key=$apiKey&token=$token&name=$name&setCover=true");
+
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(
+      http.MultipartFile.fromBytes(
+        'file',
+        screenshot,
+        filename: name,
+        contentType: MediaType('image', 'png'),
+      ),
+    );
+
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      print("Data successfully uploaded to Trello");
+    } else {
+      throw Exception("Failed to upload data to Trello" +
+          response.statusCode.toString() +
+          response.reasonPhrase.toString());
+    }
+  }
+
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () async {
+        var packageInfo = await PackageInfo.fromPlatform();
+        var appName = packageInfo.appName;
+        var packageName = packageInfo.packageName;
+        var version = packageInfo.version;
+        var buildNumber = packageInfo.buildNumber;
+        var test = packageInfo.toString();
+        print("$appName $packageName $version $buildNumber");
+        // uploadDataToTrello(
+        //   "Test",
+        //   null,
+        // );
+
+        BetterFeedback.of(context).show(
+          (UserFeedback feedback) async {
+            print(feedback.text);
+            uploadDataToTrello(feedback.text, feedback.screenshot);
+          },
+        );
+      },
+      child: const Text("Test Feedback"),
     );
   }
 }

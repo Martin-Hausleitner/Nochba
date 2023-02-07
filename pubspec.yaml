@@ -46,7 +46,6 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.2.45
   dotted_line: ^3.1.0
   # confetti: ^0.7.0
-  # package_info_plus: ^3.0.0
   lottie: ^1.4.2
   image_editor_plus: ^0.1.5
   safe_device: ^1.1.2
@@ -77,6 +76,9 @@ dependencies:
   share_plus: ^6.3.0
   shared_preferences: ^2.0.17
   algolia: ^1.1.1
+  device_info_plus: ^8.0.0
+  http_parser: ^4.0.2
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
@@ -115,6 +117,8 @@ flutter:
     - assets/appainter_theme.json
     - assets/chat_ui/
     - assets/images/
+    - .env
+
   fonts:
     - family: Inter
       fonts:

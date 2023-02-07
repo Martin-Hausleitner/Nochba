@@ -1,8 +1,10 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 
@@ -24,13 +26,14 @@ Future main() async {
   // await FirebaseAppCheck.instance.activate(
   //     // webRecaptchaSiteKey: 'recaptcha-v3-site-key',  // If you're building a web app.
   //     );
+  await dotenv.load();
 
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
   GetTimeAgo.setCustomLocaleMessages('de', DEMessage());
   // FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
-  // load cloud functions 
+  // load cloud functions
   FirebaseFunctions.instance;
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
@@ -41,23 +44,28 @@ Future main() async {
 //    return true;
 //  };
 
-  runApp(MyApp(theme: theme));
+  runApp(BetterFeedback(child: MyApp(theme: theme)));
   // runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // final ThemeData theme = ThemeData();
   final ThemeData theme;
 
   const MyApp({Key? key, required this.theme}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialRoute: AppRoutes.HOME,
       getPages: AppPages.list,
       debugShowCheckedModeBanner: false,
-      theme: theme,
+      theme: widget.theme,
 
       // theme: AppTheme.light,
       // theme: theme.copyWith(
