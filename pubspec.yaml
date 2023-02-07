@@ -79,6 +79,7 @@ dependencies:
   device_info_plus: ^8.0.0
   http_parser: ^4.0.2
   flutter_dotenv: ^5.0.2
+  shake: ^2.2.0
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
