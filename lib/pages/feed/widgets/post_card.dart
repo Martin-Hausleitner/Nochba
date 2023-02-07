@@ -10,7 +10,7 @@ import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_
 import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/post.dart' as models;
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/pages/chats/chat.dart';
@@ -66,18 +66,28 @@ class Post extends GetView<PostCardController> {
               // Post title
               Row(
                 children: [
-                  DateDisplay(date: DateTime.now()),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(post.title,
-                        //chnage the space between the words
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  DateDisplay(
+                    date: DateTime.now(),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(post.title,
+                            //chnage the space between the words
+                            // textAlign: TextAlign.top,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: -0.5,
                                 )),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -86,6 +96,9 @@ class Post extends GetView<PostCardController> {
 
               // Badges
               Row(
+                // horizontal start
+                crossAxisAlignment: CrossAxisAlignment.start,
+
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   // Category Badge
@@ -126,6 +139,61 @@ class Post extends GetView<PostCardController> {
                 },
               ),
 
+              const SizedBox(height: spacingBetween),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              FlutterRemix.calendar_line,
+                              color: Colors.grey[400],
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            // Text('${DateTime.now().toString()}'),
+                            //format format like: 10. Februar 2021
+                            Text(DateFormat('d. MMMM yyyy')
+                                .format(post.createdAt.toDate())),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              FlutterRemix.time_line,
+                              color: Colors.grey[400],
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('09:00 - 10:00'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              FlutterRemix.map_pin_line,
+                              color: Colors.grey[400],
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('San Francisco'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: spacingBetween),
 
               Discription(postDescription: post.description),
@@ -189,52 +257,71 @@ class DateDisplay extends StatelessWidget {
 
   const DateDisplay({super.key, required this.date});
 
-  
-
-
-  
-
   @override
   Widget build(BuildContext context) {
-    late String month = date.month.toString();
-    //take month and parse it that the string is 3 letters long
-    month = month.substring(0, 3);
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              //display the month with 3 letters as a string
-              month,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
+    var now = DateTime.now();
+    var weekStart = now.subtract(Duration(days: now.weekday - 1));
+    var weekEnd = weekStart.add(Duration(days: 7));
+
+    String display;
+    if (date.isAfter(weekStart) && date.isBefore(weekEnd)) {
+      display = DateFormat('EEE').format(date);
+    } else {
+      display = DateFormat('MMM').format(date);
+    }
+
+    return Padding(
+      padding: //left 18
+          EdgeInsets.only(right: 12),
+      child: Container(
+        width: 56,
+        padding: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          color: // c6c6ca
+              Colors.grey[200],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                //display the month with 3 letters as a string
+                display,
+                style: TextStyle(
+                  fontSize: 12,
+                  // fontWeight: FontWeight.w400,
+                  color: Colors.grey[600],
+                ),
               ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              date.day.toString(),
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+              SizedBox(height: 3),
+              Text(
+                date.day.toString(),
+                // "12",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              date.year.toString(),
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
-            ),
-          ],
+
+              // show only when the year is not the current year
+              if (date.year != DateTime.now().year)
+                Padding(
+                  padding: //top 3
+                      EdgeInsets.only(top: 3),
+                  child: Text(
+                    date.year.toString(),
+                    style: TextStyle(
+                      // fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

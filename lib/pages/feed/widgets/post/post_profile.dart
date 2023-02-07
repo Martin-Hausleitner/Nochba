@@ -83,159 +83,108 @@ class TimesuburbDistance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        // show a small clock icon
-        Icon(
-          FlutterRemix.time_line,
-          size: 12,
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.only(left: 2),
-          child: Row(
-            children: [
-              Text(
-                publishDate,
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  // add light gray color
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-                ),
-              ),
-              /*Text(
-                'min',
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  // add light gray color
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-                ),
-              ),*/
-            ],
+    return SingleChildScrollView(
+      //vertical scroll
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          // show a small clock icon
+          Icon(
+            FlutterRemix.time_line,
+            size: 12,
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
           ),
-        ),
-        // SizedBox(
-        //   width: 8,
-        // ),
-        // Icon(
-        //   FlutterRemix.map_pin_line,
-        //   size: 12,
-        //   color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-        // ),
-
-        // Padding(
-        //   padding: const EdgeInsets.only(left: 2),
-        //   child: Row(
-        //     children: [
-        //       // Text(
-        //       //   publishDate,
-        //       //   style: GoogleFonts.inter(
-        //       //     fontSize: 12,
-        //       //     fontWeight: FontWeight.w400,
-        //       //     // add light gray color
-        //       //     color:
-        //       //         Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-        //       //   ),
-        //       // ),
-        //       Text(
-        //         'Auwiesen',
-        //         style: GoogleFonts.inter(
-        //           fontSize: 12,
-        //           fontWeight: FontWeight.w400,
-        //           // add light gray color
-        //           color:
-        //               Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        //show a locaiton icon
-        // Padding(
-        //   padding: EdgeInsets.only(left: 8),
-        //   // show this svg:
-        //   child: Icon(
-        //     FlutterRemix.map_pin_line,
-        //     size: 12,
-        //     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-        //   ),
-        // ),
-        //show svg housing_distance.svg
-        SizedBox(
-          width: 8,
-        ),
-        Row(
-          //center
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              FlutterRemix.map_pin_line,
-              size: 12,
-              color: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.color
-                  ?.withOpacity(0.5),
-            ),
-            SizedBox(
-              width: 2,
-            ),
-            Text(
-              suburb,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+    
+          Padding(
+            padding: const EdgeInsets.only(left: 2),
+            child: Row(
+              children: [
+                Text(
+                  publishDate,
+                  style: GoogleFonts.inter(
                     fontSize: 12,
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.color
-                        ?.withOpacity(0.5),
+                    fontWeight: FontWeight.w400,
+                    // add light gray color
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                   ),
-            ),
-          ],
-        ),
-        SizedBox(
-          width: 8,
-        ),
-        SvgPicture.asset(
-          'assets/icons/housing_distance.svg',
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.44),
-          height: 14,
-          semanticsLabel: 'A red up arrow',
-        ),
-
-        Padding(
-          padding: const EdgeInsets.only(left: 2),
-          child: Row(
-            children: [
-              Text(
-                distance,
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  // add light gray color
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
                 ),
+                
+              ],
+            ),
+          ),
+        
+          SizedBox(
+            width: 8,
+          ),
+          Row(
+            //center
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                FlutterRemix.map_pin_line,
+                size: 12,
+                color: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.color
+                    ?.withOpacity(0.5),
               ),
-              // Text(
-              //   'm',
-              //   style: GoogleFonts.inter(
-              //     fontSize: 12,
-              //     fontWeight: FontWeight.w400,
-              //     // add light gray color
-              //     color:
-              //         Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
-              //   ),
-              // ),
+              SizedBox(
+                width: 2,
+              ),
+              Text(
+                suburb,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: 12,
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.color
+                          ?.withOpacity(0.5),
+                    ),
+              ),
             ],
           ),
-        ),
-      ],
+          SizedBox(
+            width: 8,
+          ),
+          SvgPicture.asset(
+            'assets/icons/housing_distance.svg',
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.44),
+            height: 14,
+            semanticsLabel: 'A red up arrow',
+          ),
+    
+          Padding(
+            padding: const EdgeInsets.only(left: 2),
+            child: Row(
+              children: [
+                Text(
+                  distance,
+                  style: GoogleFonts.inter(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    // add light gray color
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+                  ),
+                ),
+                // Text(
+                //   'm',
+                //   style: GoogleFonts.inter(
+                //     fontSize: 12,
+                //     fontWeight: FontWeight.w400,
+                //     // add light gray color
+                //     color:
+                //         Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
