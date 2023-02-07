@@ -347,38 +347,6 @@ class FeedbackTest extends StatelessWidget {
   });
 
   @override
-  // Future<void> uploadDataToTrello(String text, var screenshot) async {
-  //   var apiKey = "4d60a69bfdb5d28aaf146e5a34198d40";
-  //   var token =
-  //       "ATTAb271ce9839d5e42a79a04bfa600f5a75dfd2a47193551364dd5c1ea1c79f09b776F068EC";
-  //   var boardId = "63e174cb45bf889af05af506";
-  //   var listId = "63e174cb45bf889af05af50d";
-  //   var packageInfo = await PackageInfo.fromPlatform();
-  //   var appName = packageInfo.appName;
-  //   var packageName = packageInfo.packageName;
-  //   var version = packageInfo.version;
-  //   var buildNumber = packageInfo.buildNumber;
-
-  //   var name = "v$version+$buildNumber | $text";
-
-  //   var url = Uri.parse(
-  //       "https://api.trello.com/1/cards?key=$apiKey&token=$token&idList=$listId&name=$name&desc=$text");
-
-  //   try {
-  //     var response = await http.post(url,
-  //         body: jsonEncode({'fileSource': base64Encode(screenshot)}));
-  //     if (response.statusCode == 200) {
-  //       print("Data successfully uploaded to Trello");
-  //     } else {
-  //       throw Exception("Failed to upload data to Trello" +
-  //           response.statusCode.toString() +
-  //           response.body);
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   Future<void> uploadDataToTrello(String text, var screenshot) async {
     var apiKey = Platform.environment['TRELLO_API_KEY'];
     var token = Platform.environment['TRELLO_TOKEN'];
@@ -391,11 +359,14 @@ class FeedbackTest extends StatelessWidget {
     listId = dotenv.env['TRELLO_LIST_ID'];
 
     var packageInfo = await PackageInfo.fromPlatform();
+    var appName = packageInfo.appName;
+    var packageName = packageInfo.packageName;
     var version = packageInfo.version;
     var buildNumber = packageInfo.buildNumber;
     var cardId;
 
-    var name = "v$version" + "+" + "$buildNumber | $text";
+
+    var name = "v$version+$buildNumber | $text";
 
     var url1 = Uri.parse(
         "https://api.trello.com/1/cards?key=$apiKey&token=$token&idList=$listId&name=$name&desc=$text");
@@ -405,6 +376,8 @@ class FeedbackTest extends StatelessWidget {
       if (response1.statusCode == 200) {
         var responseJson = json.decode(response1.body);
         cardId = responseJson["id"];
+        print("Card ID: $cardId");
+
       } else {
         throw Exception("Failed to retrieve card ID: " +
             response1.statusCode.toString() +
@@ -413,6 +386,8 @@ class FeedbackTest extends StatelessWidget {
     } catch (e) {
       print("Error: $e");
     }
+
+    name = "Screenshot.png";
 
     var url = Uri.parse(
         "https://api.trello.com/1/cards/$cardId/attachments?key=$apiKey&token=$token&name=$name&setCover=true");
@@ -431,14 +406,6 @@ class FeedbackTest extends StatelessWidget {
     if (response.statusCode == 200) {
       print("Data successfully uploaded to Trello");
     } else {
-      //get snackbar with error
-      Get.snackbar(
-        "Error",
-        "Failed to upload data to Trello: " +
-            response.statusCode.toString() +
-            " " +
-            response.reasonPhrase.toString(),
-      );
       throw Exception("Failed to upload data to Trello" +
           response.statusCode.toString() +
           response.reasonPhrase.toString());
@@ -448,6 +415,13 @@ class FeedbackTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
+        var packageInfo = await PackageInfo.fromPlatform();
+        var appName = packageInfo.appName;
+        var packageName = packageInfo.packageName;
+        var version = packageInfo.version;
+        var buildNumber = packageInfo.buildNumber;
+        var test = packageInfo.toString();
+        print("$appName $packageName $version $buildNumber");
         // uploadDataToTrello(
         //   "Test",
         //   null,
