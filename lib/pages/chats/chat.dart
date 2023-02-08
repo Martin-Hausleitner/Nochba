@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/pages/chats/image_editor.dart';
+import 'package:mime/mime.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 //import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 //import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
@@ -38,7 +40,7 @@ class ChatPage extends GetView<ChatController> {
 
       // ignore: unnecessary_new
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
+        preferredSize: Size.fromHeight(70.0),
         child: AppBar(
           toolbarHeight: 70,
           shadowColor: Colors.white,
@@ -203,10 +205,10 @@ class ChatPage extends GetView<ChatController> {
 
                   // ignore: use_build_context_synchronously
                   //var editedImage = await Navigator.push(
-                    //context,
-                    //MaterialPageRoute(
-                      //builder: (context) => ImageEditorExample(),
-                    //),
+                  //context,
+                  //MaterialPageRoute(
+                  //builder: (context) => ImageEditorExample(),
+                  //),
                   //);
 
                   // // replace with edited image
@@ -331,7 +333,7 @@ class ChatPage extends GetView<ChatController> {
     );
 
     final image = await result!.readAsBytes();
-    if(image == null) {
+    if (image == null) {
       Get.snackbar("null", "null");
     }
     //final editedImage = await Navigator.push(
@@ -343,33 +345,35 @@ class ChatPage extends GetView<ChatController> {
 
     //final result = editedImage;
 
-    _setAttachmentUploading(true);
-    final file = File(result.path);
-    final size = file.lengthSync();
-    final bytes = await result.readAsBytes();
-    final image = await decodeImageFromList(bytes);
-    final name = result.name;
+    if (result != null) {
+      _setAttachmentUploading(true);
+      final file = File(result.path);
+      final size = file.lengthSync();
+      final bytes = await result.readAsBytes();
+      final image = await decodeImageFromList(bytes);
+      final name = result.name;
 
-    try {
-      final reference = FirebaseStorage.instance.ref(name);
-      await reference.putFile(file);
-      final uri = await reference.getDownloadURL();
+      try {
+        final reference = FirebaseStorage.instance.ref(name);
+        await reference.putFile(file);
+        final uri = await reference.getDownloadURL();
 
-      final message = types.PartialImage(
-        height: image.height.toDouble(),
-        name: name,
-        size: size,
-        uri: uri,
-        width: image.width.toDouble(),
-      );
+        final message = types.PartialImage(
+          height: image.height.toDouble(),
+          name: name,
+          size: size,
+          uri: uri,
+          width: image.width.toDouble(),
+        );
 
-      chat.FirebaseChatCore.instance.sendMessage(
-        message,
-        room.id,
-      );
-      _setAttachmentUploading(false);
-    } finally {
-      _setAttachmentUploading(false);
+        chat.FirebaseChatCore.instance.sendMessage(
+          message,
+          room.id,
+        );
+        _setAttachmentUploading(false);
+      } finally {
+        _setAttachmentUploading(false);
+      }
     }
   }
 
