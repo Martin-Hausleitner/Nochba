@@ -2,6 +2,8 @@
 
 //import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
+import 'dart:ui';
+
 import 'package:flutter_remix/flutter_remix.dart';
 
 import 'package:get/get.dart';
@@ -15,6 +17,7 @@ import 'package:nochba/pages/feed/widgets/post/post_profile.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 
 import 'package:nochba/logic/models/post.dart' as models;
+import 'package:pinch_zoom/pinch_zoom.dart';
 
 class PostView extends StatelessWidget {
   final models.Post post;
@@ -42,8 +45,8 @@ class PostViewNoImage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: const Text('Post'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // title: const Text('Post'),
         leading: IconButton(
           splashRadius: 0.0001,
           icon: Icon(
@@ -86,19 +89,22 @@ class PostViewNoImage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    
                     children: [
-                      Text(post.title,
-                          //chnage the space between the words
-                          //align the text to the left
-                          textAlign: TextAlign.left,
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: -0.5,
-                                  )),
+                      Expanded(
+                        child: Text(post.title,
+                            //chnage the space between the words
+                            //align the text to the left
+                            textAlign: TextAlign.left,
+                            // maxLines: 4,
+                            // overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                )),
+                      ),
                     ],
                   ),
 
@@ -248,10 +254,25 @@ class _PostViewImageState extends State<PostViewImage> {
             flexibleSpace: FlexibleSpaceBar(
               background: Hero(
                 tag: widget.post.id,
-                child: Image.network(
-                  widget.post.imageUrl,
-                  // post.imageUrl,
-                  fit: BoxFit.cover,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (_) => ImageFullscreenView(
+                          imageUrl: widget.post.imageUrl,
+                        ),
+                      ),
+                    );
+                    // Get.to(() => ImageFullscreenView(
+                    //       imageUrl: widget.post.imageUrl,
+                    //     ));
+                  },
+                  child: Image.network(
+                    widget.post.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -452,6 +473,53 @@ class _PostViewImageState extends State<PostViewImage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ImageFullscreenView extends StatelessWidget {
+  final String imageUrl;
+
+  const ImageFullscreenView({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            PinchZoom(
+              child: Image.network(imageUrl),
+              resetDuration: const Duration(milliseconds: 100),
+              maxScale: 20,
+              onZoomStart: () {
+                print('Start zooming');
+              },
+              onZoomEnd: () {
+                print('Stop zooming');
+              },
+            ),
+            Positioned(
+              top: 10.0,
+              right: 10.0,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: IconButton(
+                  splashColor: Colors.black,
+                  splashRadius: 20,
+                  icon: Icon(Icons.close),
+                  color: Colors.white,
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
