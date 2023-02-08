@@ -358,8 +358,6 @@ class FeedbackTest extends StatelessWidget {
     listId = dotenv.env['TRELLO_LIST_ID'];
 
     var packageInfo = await PackageInfo.fromPlatform();
-    var appName = packageInfo.appName;
-    var packageName = packageInfo.packageName;
     var version = packageInfo.version;
     var buildNumber = packageInfo.buildNumber;
     var cardId;

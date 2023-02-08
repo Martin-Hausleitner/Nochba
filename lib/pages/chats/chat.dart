@@ -5,8 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:nochba/pages/chats/image_editor.dart';
-import 'package:mime/mime.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 //import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 //import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
