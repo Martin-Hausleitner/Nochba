@@ -123,7 +123,8 @@ class SignUpStep1View extends StatelessWidget {
 
               OutlinedButton.icon(
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurface, minimumSize: const Size.fromHeight(60),
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  minimumSize: const Size.fromHeight(60),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -160,7 +161,7 @@ class SignUpStep1View extends StatelessWidget {
                       const EdgeInsets.only(right: 10),
                   child: SvgPicture.asset(
                     'assets/icons/apple_logo.svg',
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).backgroundColor,
                     width: 20,
                   ),
                 ),

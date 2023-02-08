@@ -11,9 +11,9 @@ class UserInfo extends GetView<PublicProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    const String font = "SanFrancisco";
-    const double size = 20.0;
-    const double height = 45.0;
+    // const String font = "SanFrancisco";
+    // const double size = 20.0;
+    // const double height = 45.0;
 
     // return a contianer with a title, a sizedbox, a widped Clip
     return Container(

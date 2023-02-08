@@ -18,7 +18,7 @@ class NewPostPage extends GetView<NewPostController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).backgroundColor,
 
       // appBar: AppBar(
       //   title: const Text('Add a post'),

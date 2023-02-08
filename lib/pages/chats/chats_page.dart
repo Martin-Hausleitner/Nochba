@@ -22,7 +22,7 @@ class ChatsPage extends GetView<ChatsController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).backgroundColor,
       // A ScrollView that creates custom scroll effects using slivers.
       child: CupertinoTheme(
         data: CupertinoThemeData(
@@ -45,7 +45,7 @@ class ChatsPage extends GetView<ChatsController> {
                     ),
           ),
           // barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          barBackgroundColor: Theme.of(context).colorScheme.background,
+          barBackgroundColor: Theme.of(context).backgroundColor,
         ),
         child: CustomScrollView(
           // A list of sliver widgets.
@@ -77,8 +77,8 @@ class ChatsPage extends GetView<ChatsController> {
                     onPressed: () {
                       Get.to(() => const UsersPage());
                     },
-                    padding:
-                        const EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
+                    padding: const EdgeInsets.only(
+                        right: 3, left: 0, top: 3, bottom: 0),
                     alignment: Alignment.centerRight,
                   ),
                   IconButton(
@@ -91,8 +91,8 @@ class ChatsPage extends GetView<ChatsController> {
                     onPressed: () {
                       Get.snackbar('Edit', 'Chat');
                     },
-                    padding:
-                        const EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
+                    padding: const EdgeInsets.only(
+                        right: 3, left: 0, top: 3, bottom: 0),
                     alignment: Alignment.centerRight,
                   ),
                 ],

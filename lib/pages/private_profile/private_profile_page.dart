@@ -36,7 +36,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
   Widget build(BuildContext context) {
     final authAccess = Get.find<AuthAccess>();
     return CupertinoPageScaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).backgroundColor,
       // A ScrollView that creates custom scroll effects using slivers.
       child: CupertinoTheme(
         data: CupertinoThemeData(
@@ -59,7 +59,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                     ),
           ),
           // barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          barBackgroundColor: Theme.of(context).colorScheme.background,
+          barBackgroundColor: Theme.of(context).backgroundColor,
         ),
         child: CustomScrollView(
           // A list of sliver widgets.
@@ -362,7 +362,6 @@ class FeedbackTest extends StatelessWidget {
     var buildNumber = packageInfo.buildNumber;
     var cardId;
 
-
     var name = "v$version+$buildNumber | $text";
 
     var url1 = Uri.parse(
@@ -374,9 +373,9 @@ class FeedbackTest extends StatelessWidget {
         var responseJson = json.decode(response1.body);
         cardId = responseJson["id"];
         print("Card ID: $cardId");
-
       } else {
-        throw Exception("Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
+        throw Exception(
+            "Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
       }
     } catch (e) {
       print("Error: $e");
@@ -401,7 +400,8 @@ class FeedbackTest extends StatelessWidget {
     if (response.statusCode == 200) {
       print("Data successfully uploaded to Trello");
     } else {
-      throw Exception("Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
+      throw Exception(
+          "Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
     }
   }
 

@@ -510,7 +510,7 @@ class ImageFullscreenView extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
                 child: IconButton(
-                  splashColor: Colors.black,
+                  // splashColor: Colors.black,
                   splashRadius: 20,
                   icon: Icon(Icons.close),
                   color: Colors.white,

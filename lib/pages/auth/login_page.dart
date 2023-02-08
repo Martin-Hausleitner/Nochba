@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,7 +17,7 @@ class LoginPage extends GetView<LoginController> {
       tailingIcon: Icons.close_rounded,
       onPressed: controller.getBack,
       title: 'Anmelden',
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).backgroundColor,
       children: [
         if (kIsWeb)
           Column(
@@ -30,8 +29,7 @@ class LoginPage extends GetView<LoginController> {
               const Text(
                 'Nochba Beta',
                 textAlign: TextAlign.center,
-                style:
-                    TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 20),
 
@@ -150,7 +148,8 @@ class LoginPage extends GetView<LoginController> {
 
                   OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Theme.of(context).colorScheme.onSurface, minimumSize: const Size.fromHeight(60),
+                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                      minimumSize: const Size.fromHeight(60),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
