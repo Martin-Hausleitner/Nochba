@@ -1,27 +1,18 @@
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
-import 'package:nochba/pages/feed/widgets/filter/filter_title.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/publish_button.dart';
-import 'package:nochba/shared/ui/buttons/locoo_circle_icon_button.dart';
-import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
-import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
-import 'package:material_tag_editor/tag_editor.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 import '../new_post_controller.dart';
 import '../widgets/back_outlined_button.dart';
 import '../widgets/circle_step.dart';
 import '../widgets/new_post_title.dart';
-import '../widgets/next_elevated_button.dart';
 import '../widgets/progress_line.dart';
-import 'published_new_post_view.dart';
 
 class NewPostView extends StatelessWidget {
   final bool hasSubcategories;
@@ -54,15 +45,15 @@ class NewPostView extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               Row(
                 children: [
                   CircleStep(3, '1', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: true,
                   ),
                   CircleStep(1, '2', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '3', () {}),
@@ -97,7 +88,7 @@ class NewPostView extends StatelessWidget {
                                 ),
                           ),
                           //tile small Schritt 1 von 3
-                          SizedBox(height: 2),
+                          const SizedBox(height: 2),
                           Text(
                             'Schritt 2 von 3',
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -106,7 +97,7 @@ class NewPostView extends StatelessWidget {
                                 // color: Theme.of(context).secondaryHeaderColor,
                                 ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
 
                           LocooTextField(
                               controller: controller.titleController,
@@ -117,7 +108,7 @@ class NewPostView extends StatelessWidget {
                                   value != null && value.isEmpty
                                       ? 'Enter a title'
                                       : null),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
 
                           LocooTextField(
                               maxLines: 10,
@@ -145,7 +136,7 @@ class NewPostView extends StatelessWidget {
                           //   ),
                           // )),
                           // TagsEditor(),
-                          NewPostTitle(label: 'Bild Hinzufügen'),
+                          const NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<NewPostController>(
                             builder: (c) => AddPhotoElement(
                               image: controller.image,
@@ -154,7 +145,7 @@ class NewPostView extends StatelessWidget {
                               editImage: controller.editImage,
                             ),
                           ),
-                          NewPostTitle(label: 'Tags'),
+                          const NewPostTitle(label: 'Tags'),
                           TagsElement(
                             tags: controller.tags,
                             removeTag: controller.removeTag,
@@ -167,12 +158,12 @@ class NewPostView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: // left 10 righ t10
-                          const EdgeInsets.symmetric(horizontal: 10),
+                          EdgeInsets.symmetric(horizontal: 10),
                       child: FilterRangeSlider(),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -229,7 +220,7 @@ class AddPhotoElement extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(100)),
+                                const BorderRadius.all(Radius.circular(100)),
                           ),
                           child: const Icon(
                             Icons.close_rounded,
@@ -255,7 +246,7 @@ class AddPhotoElement extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(100)),
+                                const BorderRadius.all(Radius.circular(100)),
                           ),
                           child: const Icon(
                             Icons.edit,
@@ -371,7 +362,7 @@ class TagsElement extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (tags.isNotEmpty)
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                   Padding(
@@ -383,7 +374,7 @@ class TagsElement extends StatelessWidget {
                       runSpacing: 4,
                       children: tags
                           .map((e) => Chip(
-                                deleteIcon: Icon(
+                                deleteIcon: const Icon(
                                   Icons.close_rounded,
                                   size: 16,
                                 ),
@@ -408,7 +399,7 @@ class TagsElement extends StatelessWidget {
               ),
             ),
             //show sizedbox height 10 when more then 1 tag is in the list
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             ButtonTextField(onPressAdd: addTag),
           ],
@@ -634,13 +625,13 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
               });
             },
             style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).primaryColor,
               elevation: 0,
               shadowColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -650,10 +641,10 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
                   size: 18,
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
                   'Tag hinzufügen',
-                  style: Theme.of(context).textTheme.button?.copyWith(
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context)
                             .buttonTheme
                             .colorScheme
@@ -669,7 +660,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
               Expanded(
                 child: TextField(
                   // no border 1 padding
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     isDense: true,
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
@@ -687,7 +678,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   },
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ElevatedButton(
                 // onPressed: () => showTagDialog(context),
                 onPressed: () {
@@ -700,13 +691,13 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).primaryColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   elevation: 0,
                   shadowColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -717,10 +708,10 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                           Theme.of(context).buttonTheme.colorScheme?.onPrimary,
                       size: 18,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       'Add',
-                      style: Theme.of(context).textTheme.button?.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context)
                                 .buttonTheme
                                 .colorScheme

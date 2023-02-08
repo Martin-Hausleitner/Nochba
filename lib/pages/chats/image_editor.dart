@@ -1,9 +1,7 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 // import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -99,11 +97,11 @@ class _ImageEditorExampleState extends State<ImageEditorExample> {
             // },
             onPressed: () async {
              ///snackabr 
-             await Get.snackbar("Error", "Not implemented yet",
+             Get.snackbar("Error", "Not implemented yet",
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.red,
                   colorText: Colors.white,
-                  duration: Duration(seconds: 2));
+                  duration: const Duration(seconds: 2));
             },
           ),
         ],

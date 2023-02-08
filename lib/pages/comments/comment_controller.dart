@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/logic/models/CommentFilter.dart';

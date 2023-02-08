@@ -1,17 +1,11 @@
 import 'package:algolia/algolia.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/algolia/AlgoliaApplication.dart';
-import 'package:nochba/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart';
 import 'package:nochba/logic/models/PostFilter.dart';
-import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/models/category.dart';
-import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/GenericRepository.dart';
 import 'package:nochba/logic/models/post.dart';
-import 'package:nochba/logic/repositories/UserInternInfoAddressRepository.dart';
 import 'package:nochba/logic/repositories/UserRepository.dart';
 import 'package:nochba/logic/storage/StorageService.dart';
 

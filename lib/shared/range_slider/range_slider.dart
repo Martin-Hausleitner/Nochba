@@ -12,7 +12,7 @@ class Slider1 extends StatelessWidget {
       child: Column(children: [
         Obx(
           () => SliderTheme(
-            data: SliderThemeData(
+            data: const SliderThemeData(
               trackHeight: 5,
             ),
             child: Slider(

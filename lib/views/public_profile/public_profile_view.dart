@@ -1,14 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/models/user.dart';
-import 'package:nochba/pages/private_profile/private_profile_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 // import '../settings/settings_page.dart';
 import 'public_profile_controller.dart';
@@ -57,7 +53,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                 onPressed: () {
                   showModalBottomSheet<dynamic>(
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(25.0))),
                     context: context,
@@ -91,7 +87,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // create a stack with an CircleAvatar with a photo and in the right bottom corner a small circle with a edit icon in it
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Center(
@@ -105,7 +101,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
 
                   // show a name
                   Padding(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Text(
                       '${user.firstName} ${user.lastName}',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -113,7 +109,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                           ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 6,
                   ),
                   Row(
@@ -129,7 +125,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                             ?.color
                             ?.withOpacity(0.6),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 3,
                       ),
                       Text(
@@ -142,7 +138,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                                   ?.withOpacity(0.5),
                             ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       SvgPicture.asset(
@@ -154,7 +150,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                         height: 16,
                         semanticsLabel: 'A red up arrow',
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 4,
                       ),
                       Row(
@@ -191,7 +187,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                   ),
                   if (controller.shouldShowWriteToButton(user.id))
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         top: 24,
                         left: 18,
                         right: 18,
@@ -205,7 +201,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                       ),
                     ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
 

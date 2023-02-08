@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
 
 class LocooChipAdderField extends StatelessWidget {
   const LocooChipAdderField(
@@ -42,7 +41,7 @@ class LocooChipAdderField extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (tags.isNotEmpty)
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                 Padding(
@@ -54,7 +53,7 @@ class LocooChipAdderField extends StatelessWidget {
                     runSpacing: 4,
                     children: [
                       Chip(
-                        deleteIcon: Icon(
+                        deleteIcon: const Icon(
                           Icons.close_rounded,
                           size: 16,
                         ),
@@ -65,7 +64,7 @@ class LocooChipAdderField extends StatelessWidget {
                                       .colorScheme
                                       .onSecondaryContainer,
                                 ),
-                        label: Text('#sdsdsd'),
+                        label: const Text('#sdsdsd'),
                       ),
                     ],
                   ),
@@ -74,7 +73,7 @@ class LocooChipAdderField extends StatelessWidget {
             ),
 
             //show sizedbox height 10 when more then 1 tag is in the list
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             ButtonTextField(onPressAdd: addTag),
           ],
@@ -111,13 +110,13 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
               });
             },
             style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).primaryColor,
               elevation: 0,
               shadowColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -127,10 +126,10 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
                   size: 18,
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
                   'Tag hinzufügen',
-                  style: Theme.of(context).textTheme.button?.copyWith(
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context)
                             .buttonTheme
                             .colorScheme
@@ -146,7 +145,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
               Expanded(
                 child: TextField(
                   // no border 1 padding
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     isDense: true,
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
@@ -164,7 +163,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   },
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ElevatedButton(
                 // onPressed: () => showTagDialog(context),
                 onPressed: () {
@@ -177,13 +176,13 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).primaryColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   elevation: 0,
                   shadowColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -194,10 +193,10 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                           Theme.of(context).buttonTheme.colorScheme?.onPrimary,
                       size: 18,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       'Add',
-                      style: Theme.of(context).textTheme.button?.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context)
                                 .buttonTheme
                                 .colorScheme

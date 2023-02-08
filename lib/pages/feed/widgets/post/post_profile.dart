@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
@@ -114,7 +113,7 @@ class TimesuburbDistance extends StatelessWidget {
             ),
           ),
         
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
           Row(
@@ -130,7 +129,7 @@ class TimesuburbDistance extends StatelessWidget {
                     ?.color
                     ?.withOpacity(0.5),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 2,
               ),
               Text(
@@ -146,7 +145,7 @@ class TimesuburbDistance extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
           SvgPicture.asset(

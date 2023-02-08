@@ -19,7 +19,7 @@ class BottomSheetView extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: //top 10
-                  EdgeInsets.only(
+                  const EdgeInsets.only(
                 top: 15,
                 left: 15,
                 right: 15,
@@ -40,7 +40,7 @@ class BottomSheetView extends StatelessWidget {
                     radius: 35,
                     onPressed: () => Navigator.pop(context),
                   ),
-                  Spacer(),
+                  const Spacer(),
 
                   // LocooCircularIconButton(
                   //   iconData: FlutterRemix.check_line,

@@ -4,8 +4,6 @@ import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/pages/feed/widgets/post_card.dart' as widget;
 import 'package:nochba/pages/private_profile/private_profile_controller.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
-import 'package:nochba/pages/feed/widgets/post_card.dart' as widget;
-import 'package:nochba/logic/models/user.dart' as models;
 
 class BookmarkedPostsView extends StatelessWidget {
   const BookmarkedPostsView({Key? key, required this.controller})

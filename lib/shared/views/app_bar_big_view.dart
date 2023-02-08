@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:nochba/pages/auth/auth_page.dart';
 
 class AppBarBigView extends StatelessWidget {
   final String title;
@@ -92,9 +88,9 @@ class AppBarBigView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                       ),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
 
-              padding: EdgeInsetsDirectional.only(
+              padding: const EdgeInsetsDirectional.only(
                 start: 12,
                 end: 10,
               ),

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/commonbase/util.dart';
@@ -13,17 +11,14 @@ import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/pages/chats/chat.dart';
 import 'package:nochba/pages/notifications/notifications_controller.dart';
 import 'package:nochba/pages/notifications/widgets/notification_element.dart';
-import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
-import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
-import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
-import 'package:nochba/shared/ui/locoo_text_field.dart';
-import 'package:nochba/shared/ui/pretty_textfield.dart';
 import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/logic/models/Notification.dart' as models;
 import 'package:get/get.dart' as getx;
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 class NotificationsPage extends GetView<NotificationsController> {
+  const NotificationsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
@@ -41,7 +36,7 @@ class NotificationsPage extends GetView<NotificationsController> {
           onPressed: () {
             Get.snackbar('dd', 'message');
           },
-          padding: EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
+          padding: const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
           alignment: Alignment.centerRight,
         ),
         Padding(
@@ -59,7 +54,7 @@ class NotificationsPage extends GetView<NotificationsController> {
             onPressed: () {
               Get.snackbar('dd', 'message');
             },
-            padding: EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
+            padding: const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
             alignment: Alignment.centerRight,
           ),
         ),
@@ -118,7 +113,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                                 .onSurface
                                 .withOpacity(0.1),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(

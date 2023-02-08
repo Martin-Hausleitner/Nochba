@@ -1,20 +1,12 @@
 //import material
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:nochba/logic/commonbase/util.dart';
-import 'package:nochba/logic/data_access.dart';
-import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
-import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/post.dart' as models;
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:nochba/pages/chats/chat.dart';
-import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/views/post_view.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar.dart';
 import 'package:nochba/pages/feed/widgets/post/post_profile.dart';
@@ -154,7 +146,7 @@ class Post extends GetView<PostCardController> {
                               color: Colors.grey[400],
                               size: 18,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             // Text('${DateTime.now().toString()}'),
@@ -170,10 +162,10 @@ class Post extends GetView<PostCardController> {
                               color: Colors.grey[400],
                               size: 18,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
-                            Text('09:00 - 10:00'),
+                            const Text('09:00 - 10:00'),
                           ],
                         ),
                         Row(
@@ -183,10 +175,10 @@ class Post extends GetView<PostCardController> {
                               color: Colors.grey[400],
                               size: 18,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
-                            Text('San Francisco'),
+                            const Text('San Francisco'),
                           ],
                         ),
                       ],
@@ -206,7 +198,7 @@ class Post extends GetView<PostCardController> {
               post.imageUrl != ''
                   ? Padding(
                       padding: const EdgeInsets.only(top: spacingBetween),
-                      child: Container(
+                      child: SizedBox(
                         height: 200,
                         width: double.infinity,
                         child: ClipRRect(
@@ -226,7 +218,7 @@ class Post extends GetView<PostCardController> {
               // Button
               if (controller.shouldShowWriteToButton(post.uid, category))
                 Padding(
-                  padding: EdgeInsets.only(top: spacingBetween),
+                  padding: const EdgeInsets.only(top: spacingBetween),
                   child: LocooTextButton(
                     label: 'Anschreiben',
 
@@ -261,7 +253,7 @@ class DateDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     var now = DateTime.now();
     var weekStart = now.subtract(Duration(days: now.weekday - 1));
-    var weekEnd = weekStart.add(Duration(days: 7));
+    var weekEnd = weekStart.add(const Duration(days: 7));
 
     String display;
     if (date.isAfter(weekStart) && date.isBefore(weekEnd)) {
@@ -272,17 +264,17 @@ class DateDisplay extends StatelessWidget {
 
     return Padding(
       padding: //left 18
-          EdgeInsets.only(right: 12),
+          const EdgeInsets.only(right: 12),
       child: Container(
         width: 56,
-        padding: EdgeInsets.all(2),
+        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: // c6c6ca
               Colors.grey[200],
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -295,11 +287,11 @@ class DateDisplay extends StatelessWidget {
                   color: Colors.grey[600],
                 ),
               ),
-              SizedBox(height: 3),
+              const SizedBox(height: 3),
               Text(
                 date.day.toString(),
                 // "12",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -310,7 +302,7 @@ class DateDisplay extends StatelessWidget {
               if (date.year != DateTime.now().year)
                 Padding(
                   padding: //top 3
-                      EdgeInsets.only(top: 3),
+                      const EdgeInsets.only(top: 3),
                   child: Text(
                     date.year.toString(),
                     style: TextStyle(

@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
@@ -38,21 +35,21 @@ class SignUpVerifiedView extends StatelessWidget {
               Row(
                 children: [
                   CircleStep(3, '1', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: true,
                   ),
                   CircleStep(3, '2', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: true,
                   ),
                   CircleStep(3, '3', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: true,
                   ),
                   CircleStep(3, '4', () {}),
                 ],
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               //tile small Wähle deien Kategorie
               Text(
                 'Wähle deine Authoezierungs Methode aus',
@@ -62,7 +59,7 @@ class SignUpVerifiedView extends StatelessWidget {
                     ),
               ),
               //tile small Schritt 1 von 3
-              SizedBox(height: 2),
+              const SizedBox(height: 2),
               Text(
                 'Schritt 4 von 4',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -71,7 +68,7 @@ class SignUpVerifiedView extends StatelessWidget {
                     // color: Theme.of(context).secondaryHeaderColor,
                     ),
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               Container(
                 // color: Colors.red,
                 child: Center(
@@ -93,7 +90,7 @@ class SignUpVerifiedView extends StatelessWidget {
                       ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Center(
                 child: Text(
                   'Du hast dich erfolgreich Verifiziert, du kannst jetzt mit deinen Nachbarn connecten!',
@@ -130,7 +127,7 @@ class SignUpVerifiedView extends StatelessWidget {
               //       ),
               //     ],
               //   ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               NextElevatedButton(
                 rtl: true,
                 onPressed: //controller.addPost() and go to
@@ -234,8 +231,8 @@ class _ChooserRadioState extends State<ChooserRadio> {
                           // color: Colors.black.withOpacity(0.2)),
                           color: Theme.of(context).primaryColor),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
+                    const SizedBox(width: 10),
+                    const Expanded(
                         child: Text('Verifiziere dich mit deinen Standort')),
                   ],
                 ),
@@ -253,7 +250,7 @@ class _ChooserRadioState extends State<ChooserRadio> {
             ),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
             setState(() {
@@ -284,8 +281,8 @@ class _ChooserRadioState extends State<ChooserRadio> {
                           // color: Colors.black.withOpacity(0.2)),
                           color: Theme.of(context).primaryColor),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
+                    const SizedBox(width: 10),
+                    const Expanded(
                       child: Text(
                         'Verfiziere dich mit einem QR Code',
                       ),

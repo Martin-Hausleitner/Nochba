@@ -1,15 +1,11 @@
 //import material
 
 //import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
-import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
-    as chat;
 
 import 'package:flutter_remix/flutter_remix.dart';
 
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
-import 'package:nochba/logic/data_access.dart';
-import 'package:nochba/pages/chats/chat.dart';
 
 import 'package:flutter/material.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar.dart';
@@ -27,9 +23,9 @@ class PostView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (post.imageUrl == '') {
-      return PostViewNoImage(post: this.post);
+      return PostViewNoImage(post: post);
     } else {
-      return PostViewImage(post: this.post);
+      return PostViewImage(post: post);
     }
   }
 }
@@ -46,8 +42,8 @@ class PostViewNoImage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).backgroundColor,
-        title: Text('Post'),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: const Text('Post'),
         leading: IconButton(
           splashRadius: 0.0001,
           icon: Icon(
@@ -58,7 +54,7 @@ class PostViewNoImage extends StatelessWidget {
             Get.back();
           },
         ),
-        actions: [
+        actions: const [
           // Padding(
           //   padding: const EdgeInsets.only(right: 10),
           //   child: IconButton(
@@ -237,7 +233,7 @@ class _PostViewImageState extends State<PostViewImage> {
     const double spacingBetween = 13;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       // if widget.post.imageUrl is null then return Container else return CustomScrollView
       body: CustomScrollView(
         //disable scroll bar
@@ -246,7 +242,7 @@ class _PostViewImageState extends State<PostViewImage> {
         slivers: [
           SliverAppBar(
             elevation: 0,
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             // if widget.post.imageUrl is null
 
             flexibleSpace: FlexibleSpaceBar(
@@ -276,7 +272,7 @@ class _PostViewImageState extends State<PostViewImage> {
                 child: IconButton(
                   padding: const EdgeInsets.all(0),
                   splashRadius: 0.0001,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.chevron_left_outlined,
 
                     // color: iconColor,
@@ -296,7 +292,7 @@ class _PostViewImageState extends State<PostViewImage> {
                 ),
               ),
             ),
-            actions: [
+            actions: const [
               // Padding(
               //   padding: const EdgeInsets.all(8.0),
               //   child: Container(
@@ -409,7 +405,7 @@ class _PostViewImageState extends State<PostViewImage> {
                             CategoryModul.subCategoriesOfLending
                                 .contains(widget.category))
                           Padding(
-                            padding: EdgeInsets.only(top: spacingBetween),
+                            padding: const EdgeInsets.only(top: spacingBetween),
                             child: LocooTextButton(
                               label: 'Anschreiben',
                               height: 48,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
 
 import 'locoo_circle_avatar.dart';
 
@@ -43,9 +42,9 @@ class EditAvatar extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  borderRadius: const BorderRadius.all(Radius.circular(100)),
                 ),
-                child: Icon(
+                child: const Icon(
                   FlutterRemix.pencil_line,
                   color: Colors.white,
                   size: 18,

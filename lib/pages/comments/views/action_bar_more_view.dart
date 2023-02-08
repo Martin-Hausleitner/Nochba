@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
 import 'package:nochba/logic/models/Comment.dart';
-import 'package:nochba/pages/comments/comment_controller.dart';
 import 'package:nochba/pages/comments/widgets/action_bar_controller.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/alert_dialog_delete.dart';
@@ -37,7 +35,7 @@ class ActionBarMore extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet<dynamic>(
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(25.0))),
                     context: context,
@@ -66,10 +64,10 @@ class ActionBarMore extends StatelessWidget {
                                 //               .color!
                                 //               .withOpacity(0.8)),
                                 // ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
 
-                                DropdownButtonExample(),
-                                SizedBox(height: 10),
+                                const DropdownButtonExample(),
+                                const SizedBox(height: 10),
 
                                 LocooTextField(
                                     maxLines: 10,
@@ -83,13 +81,13 @@ class ActionBarMore extends StatelessWidget {
                                         value != null && value.isEmpty
                                             ? 'Enter a description'
                                             : null),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 LocooTextButton(
                                   label: 'Post Melden',
                                   onPressed: () {},
                                   icon: FlutterRemix.flag_line,
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
 
                                 //),
 
@@ -118,7 +116,7 @@ class ActionBarMore extends StatelessWidget {
                         showModalBottomSheet<void>(
                           backgroundColor:
                               Theme.of(context).scaffoldBackgroundColor,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(25.0))),
                           context: context,
@@ -139,7 +137,7 @@ class ActionBarMore extends StatelessWidget {
                                   controller: controller
                                       .getTextController(comment.text),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                               ],
                             );
                           },
@@ -165,7 +163,7 @@ class ActionBarMore extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         // ActionCard(

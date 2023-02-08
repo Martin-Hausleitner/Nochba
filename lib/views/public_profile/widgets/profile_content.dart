@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 
 // import '../pages/private_profile/small_post/small_post.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/data_access.dart';
 import 'package:nochba/logic/models/post.dart' as models;
-import 'package:nochba/logic/models/user.dart' as models;
 
-import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/widgets/post_card.dart';
 
 import 'user_info.dart';
@@ -35,7 +31,7 @@ class ProfileContent extends StatelessWidget {
           Container(
             //center
 
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 10,
               left: 10,
               right: 10,
@@ -43,7 +39,7 @@ class ProfileContent extends StatelessWidget {
             ),
 
             // height: 40,
-            child: Text(
+            child: const Text(
               'Info',
               // style: Theme.of(context).textTheme.titleMedium,
             ),
@@ -51,7 +47,7 @@ class ProfileContent extends StatelessWidget {
           Container(
             //center
 
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 10,
               left: 10,
               right: 10,
@@ -59,7 +55,7 @@ class ProfileContent extends StatelessWidget {
             ),
 
             // height: 40,
-            child: Text(
+            child: const Text(
               'Posts',
               // style: Theme.of(context).textTheme.titleMedium,
             ),
@@ -86,7 +82,7 @@ class ProfileContent extends StatelessWidget {
             color: Theme.of(context).colorScheme.background,
 //
             child: ListView(children: [
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               Container(
                 child: StreamBuilder<List<models.Post>>(
                   stream: dataAccess.getPostsOfUser(userId),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 
@@ -35,7 +34,7 @@ class NotificationElement extends StatelessWidget {
                 imageUrl: imageUrl,
                 radius: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -117,7 +116,7 @@ class NotificationElement extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -151,7 +150,7 @@ class NotificationElement extends StatelessWidget {
                                 'Akzeptieren',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .button
+                                    .labelLarge
                                     ?.copyWith(
                                       color: Theme.of(context)
                                           .buttonTheme
@@ -163,19 +162,19 @@ class NotificationElement extends StatelessWidget {
                               ),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
 
                                 shadowColor: Colors.transparent,
                                 // primary: Theme.of(context).buttonTheme.colorScheme?.primary,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             OutlinedButton.icon(
                               onPressed: declineButtonOnPressed,
-                              icon: Icon(
+                              icon: const Icon(
                                 FlutterRemix.close_line,
                                 size: 16,
                                 // color: Theme.of(context)
@@ -187,7 +186,7 @@ class NotificationElement extends StatelessWidget {
                                 'Ablehmen',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .button
+                                    .labelLarge
                                     ?.copyWith(
                                       // color: Theme.of(context)
                                       //     .buttonTheme
@@ -203,7 +202,7 @@ class NotificationElement extends StatelessWidget {
                               ),
                               //padding 1
                               style: OutlinedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
 
                                 // primary: Theme.of(context).buttonTheme.colorScheme?.primary,

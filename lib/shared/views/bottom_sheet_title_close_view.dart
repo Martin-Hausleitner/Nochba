@@ -22,7 +22,7 @@ class BottomSheetTitleCloseView extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: //top 10
-                    EdgeInsets.only(
+                    const EdgeInsets.only(
                   top: 15,
                   left: 15,
                   right: 15,
@@ -31,7 +31,7 @@ class BottomSheetTitleCloseView extends StatelessWidget {
                   //space between
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 35,
                     ),
                     Text(

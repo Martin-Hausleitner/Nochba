@@ -1,15 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/pages/inset_post/new_post/views/new_post_view.dart';
 import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
-import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/text_field_remove_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
@@ -19,8 +16,6 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import '../../../shared/ui/locoo_chip_adder_field.dart';
-import '../private_profile_page.dart';
 
 class EditProfileView extends GetView<EditProfileController> {
   const EditProfileView({
@@ -74,10 +69,10 @@ class EditProfileView extends GetView<EditProfileController> {
         //     ],
         //   ),
         // ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
-        ActionCardTitle(title: 'Persönliche Daten'),
+        const ActionCardTitle(title: 'Persönliche Daten'),
 
         NameElement(
           controller: controller,
@@ -105,12 +100,12 @@ class EditProfileView extends GetView<EditProfileController> {
                 children: [
                   ActionTextCard(
                     title: 'Geburtstag',
-                    icon: Icon(FlutterRemix.user_line),
+                    icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.0))),
                         context: context,
@@ -164,7 +159,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   ),
                                   Padding(
                                     padding: // right left 5
-                                        EdgeInsets.only(
+                                        const EdgeInsets.only(
                                       left: 7,
                                       right: 7,
                                     ),
@@ -204,7 +199,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                             ],
@@ -218,12 +213,12 @@ class EditProfileView extends GetView<EditProfileController> {
                   ),
                   ActionTextCard(
                     title: 'In der Nachbarschaft seit',
-                    icon: Icon(FlutterRemix.user_line),
+                    icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.0))),
                         context: context,
@@ -285,12 +280,12 @@ class EditProfileView extends GetView<EditProfileController> {
                   ),
                   ActionTextCard(
                     title: 'Beruf',
-                    icon: Icon(FlutterRemix.user_line),
+                    icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.0))),
                         context: context,
@@ -312,7 +307,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                     controller.getProfessionTextController(
                                         userPublicInfo.profession),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                             ],
                           );
                         },
@@ -322,12 +317,12 @@ class EditProfileView extends GetView<EditProfileController> {
                   ),
                   ActionTextCard(
                     title: 'Mehr über dich',
-                    icon: Icon(FlutterRemix.user_line),
+                    icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.0))),
                         context: context,
@@ -347,7 +342,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                 autofocus: true,
                                 keyboardType: TextInputType.multiline,
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                             ],
                           );
                         },
@@ -355,15 +350,15 @@ class EditProfileView extends GetView<EditProfileController> {
                     },
                     text: userPublicInfo.bio ?? '',
                   ),
-                  ActionCardTitle(title: 'Mehr'),
+                  const ActionCardTitle(title: 'Mehr'),
                   ActionTextCard(
                     title: 'Interessen',
-                    icon: Icon(FlutterRemix.user_line),
+                    icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.0))),
                         context: context,
@@ -384,7 +379,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   )
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                             ],
                           );
                         },
@@ -401,12 +396,12 @@ class EditProfileView extends GetView<EditProfileController> {
                   ),
                   ActionTextCard(
                     title: 'Bietet',
-                    icon: Icon(FlutterRemix.user_line),
+                    icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.0))),
                         context: context,
@@ -427,7 +422,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   )
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                             ],
                           );
                         },
@@ -503,7 +498,7 @@ class EditProfileView extends GetView<EditProfileController> {
             }
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
       ],
@@ -529,11 +524,11 @@ class NameElement extends StatelessWidget {
 
           return ActionTextCard(
             title: 'Name',
-            icon: Icon(FlutterRemix.user_line),
+            icon: const Icon(FlutterRemix.user_line),
             onTap: () {
               showModalBottomSheet<void>(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(25.0))),
                 context: context,
@@ -561,7 +556,7 @@ class NameElement extends StatelessWidget {
                               controller.firstNameTextController.clear(),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       LocooTextField(
                         label: 'Nachname',
                         textInputAction: TextInputAction.done,
@@ -572,12 +567,12 @@ class NameElement extends StatelessWidget {
                               controller.firstNameTextController.clear(),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Padding(
                         padding: // right left 5
-                            EdgeInsets.only(
+                            const EdgeInsets.only(
                           left: 7,
                           right: 7,
                         ),
@@ -624,7 +619,7 @@ class NameElement extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                     ],

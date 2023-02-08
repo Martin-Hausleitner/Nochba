@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 
@@ -36,7 +35,7 @@ class ChatElement extends StatelessWidget {
                   imageUrl: imageUrl,
                   radius: 20,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
@@ -113,7 +112,7 @@ class ChatElement extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 2,
                       ),
 
@@ -138,7 +137,7 @@ class ChatElement extends StatelessWidget {
                               softWrap: false,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           if (notificationCount != null)

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 
@@ -33,23 +30,23 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
           ),
-          SizedBox(height: 28),
+          const SizedBox(height: 28),
           Row(
             children: [
               CircleStep(1, '1', () {
                 controller.jumpBack();
               }),
-              ProgressLineHalf(
+              const ProgressLineHalf(
                 isFinished: false,
               ),
               CircleStep(2, '2', () {}),
-              ProgressLine(
+              const ProgressLine(
                 isFinished: false,
               ),
               CircleStep(2, '3', () {}),
             ],
           ),
-          SizedBox(height: 28),
+          const SizedBox(height: 28),
           //tile small Wähle deien Kategorie
           Text(
             'Wähle deine Kategorie',
@@ -59,7 +56,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                 ),
           ),
           //tile small Schritt 1 von 3
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           Text(
             'Schritt 1 von 3',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -68,7 +65,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                 // color: Theme.of(context).secondaryHeaderColor,
                 ),
           ),
-          SizedBox(height: 28),
+          const SizedBox(height: 28),
           /*Obx(
             () => Expanded(
               child: ListView.separated(

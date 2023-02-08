@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nochba/pages/inset_post/new_post/new_post_controller.dart';
 
 class PublishButton extends StatefulWidget {
@@ -36,7 +35,7 @@ class _PublishButtonState extends State<PublishButton> {
                   //height 60
                 ),
 
-                child: Center(
+                child: const Center(
                   child: SizedBox(
                     height: 20,
                     width: 20,
@@ -59,12 +58,12 @@ class _PublishButtonState extends State<PublishButton> {
                   FocusScope.of(context).unfocus();
                   // Get.to(PublishedNewPostView());
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.done_outlined,
                 ),
                 label: Text(
                   'Veröffentlichen',
-                  style: Theme.of(context).textTheme.button?.copyWith(
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context)
                             .buttonTheme
                             .colorScheme

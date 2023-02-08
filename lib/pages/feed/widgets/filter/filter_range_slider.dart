@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'filter_title.dart';
 
@@ -28,7 +27,7 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: const [
               FilterTitle(label: 'Reichweite'),
               // Padding(
               //   padding: const EdgeInsets.only(
@@ -67,7 +66,7 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
           child: Row(
             // space between the two icons
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: const [
               Icon(
                 FlutterRemix.home_2_line,
               ),

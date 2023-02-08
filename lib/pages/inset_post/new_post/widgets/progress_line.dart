@@ -6,8 +6,8 @@ class ProgressLine extends StatelessWidget {
   final double paddingRight;
 
   final bool isFinished;
-  ProgressLine(
-      {this.isFinished = false,
+  const ProgressLine(
+      {super.key, this.isFinished = false,
       this.paddingLeft = 10.0,
       this.paddingRight = 10.0});
   @override
@@ -41,8 +41,8 @@ class ProgressLineHalf extends StatelessWidget {
   final double paddingRight;
 
   final bool isFinished;
-  ProgressLineHalf(
-      {this.isFinished = false,
+  const ProgressLineHalf(
+      {super.key, this.isFinished = false,
       this.paddingLeft = 10.0,
       this.paddingRight = 10.0});
   @override

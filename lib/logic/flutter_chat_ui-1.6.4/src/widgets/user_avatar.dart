@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
-    as types;
 import 'package:nochba/logic/models/user.dart' as models;
 
 import '../models/bubble_rtl_alignment.dart';

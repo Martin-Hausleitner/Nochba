@@ -24,19 +24,19 @@ class AlertDialogDelete extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // add a red icon flutterremix error-warning-line
-            Icon(
+            const Icon(
               FlutterRemix.error_warning_line,
               // color: Theme.of(context).colorScheme.error,
               color: Colors.red,
               size: 40,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               '$label löschen',
               //add fontwiehgt w500
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -45,7 +45,7 @@ class AlertDialogDelete extends StatelessWidget {
         content: Text(
           'Bist du dir sicher, dass du diesen $label löschen möchtest?',
           //style the text gray
-          style: TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
+          style: const TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
         ),
         actions: <Widget>[
           Row(
@@ -54,13 +54,12 @@ class AlertDialogDelete extends StatelessWidget {
                 flex: 1,
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, 'Abbrechen'),
-                  child: const Text('Abbrechen'),
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
-                    shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.black, shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text('Abbrechen'),
                 ),
               ),
               Expanded(
@@ -70,15 +69,13 @@ class AlertDialogDelete extends StatelessWidget {
                     onDelete();
                     Navigator.pop(context, 'OK');
                   },
-                  child: const Text('Löschen'),
                   //style the button red
                   style: TextButton.styleFrom(
-                    primary: Colors.red,
-                    // add round corner 20
-                    shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.red, shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text('Löschen'),
                 ),
               ),
             ],

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart' as chat;

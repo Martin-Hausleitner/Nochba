@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppBarSmallView extends StatelessWidget {
   final String title;
@@ -37,7 +35,7 @@ class AppBarSmallView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
               ),
             ),
-            padding: EdgeInsetsDirectional.only(
+            padding: const EdgeInsetsDirectional.only(
               start: 12,
               end: 10,
             ),

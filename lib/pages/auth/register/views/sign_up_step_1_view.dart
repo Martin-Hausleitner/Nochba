@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
@@ -34,21 +31,21 @@ class SignUpStep1View extends StatelessWidget {
               Row(
                 children: [
                   CircleStep(1, '1', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '2', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '3', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '4', () {}),
                 ],
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               //tile small Wähle deien Kategorie
               Text(
                 'Enter the email and password',
@@ -58,7 +55,7 @@ class SignUpStep1View extends StatelessWidget {
                     ),
               ),
               //tile small Schritt 1 von 3
-              SizedBox(height: 2),
+              const SizedBox(height: 2),
               Text(
                 'Schritt 1 von 4',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -67,7 +64,7 @@ class SignUpStep1View extends StatelessWidget {
                     // color: Theme.of(context).secondaryHeaderColor,
                     ),
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               Form(
                 key: controller.formKey1,
                 autovalidateMode: AutovalidateMode.disabled,
@@ -80,14 +77,14 @@ class SignUpStep1View extends StatelessWidget {
                       autovalidateMode: AutovalidateMode.disabled,
                       textInputAction: TextInputAction.next,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     PasswordField(controller: controller),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               NextElevatedButton(
                 rtl: true,
                 onPressed: //controller.addPost() and go to
@@ -100,10 +97,10 @@ class SignUpStep1View extends StatelessWidget {
                 icon: Icons.chevron_left_outlined,
                 label: 'Weiter',
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Divider(
                       thickness: 1,
                     ),
@@ -116,18 +113,17 @@ class SignUpStep1View extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                       child: Divider(
                     thickness: 1,
                   )),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               OutlinedButton.icon(
                 style: OutlinedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  primary: Theme.of(context).colorScheme.onSurface,
+                  foregroundColor: Theme.of(context).colorScheme.onSurface, minimumSize: const Size.fromHeight(60),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -140,7 +136,7 @@ class SignUpStep1View extends StatelessWidget {
                 ),
                 label: Text(
                   'Mit Google registrieren',
-                  style: Theme.of(context).textTheme.button?.copyWith(
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
                         letterSpacing: -0.07,
                       ),
@@ -152,7 +148,7 @@ class SignUpStep1View extends StatelessWidget {
                   FocusScope.of(context).unfocus();
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               ElevatedButton.icon(
                 onPressed: //open snackbar
@@ -180,7 +176,7 @@ class SignUpStep1View extends StatelessWidget {
 
                 label: Text(
                   'Mit Apple registrieren',
-                  style: Theme.of(context).textTheme.button?.copyWith(
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context)
                             .buttonTheme
                             .colorScheme

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
-import 'package:nochba/pages/inset_post/new_post/new_post_controller.dart';
 
 class BackOutlinedButton extends StatelessWidget {
   final String label;
@@ -20,8 +18,7 @@ class BackOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       style: OutlinedButton.styleFrom(
-        minimumSize: const Size.fromHeight(60),
-        primary: Theme.of(context).colorScheme.onSurface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface, minimumSize: const Size.fromHeight(60),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -34,7 +31,7 @@ class BackOutlinedButton extends StatelessWidget {
       ),
       label: Text(
         label,
-        style: Theme.of(context).textTheme.button?.copyWith(
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               letterSpacing: -0.07,
             ),

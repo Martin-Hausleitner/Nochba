@@ -70,14 +70,14 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
     return AlertDialog(
       title: Text(widget.title,
                 textAlign: TextAlign.center, 
-                style: TextStyle(fontSize: 18)
+                style: const TextStyle(fontSize: 18)
               ),
       content: SingleChildScrollView(
         child: Column(
           children: [
             TextField(              
               textInputAction: TextInputAction.done,
-              decoration: InputDecoration(labelText: 'Search', enabledBorder: InputBorder.none),
+              decoration: const InputDecoration(labelText: 'Search', enabledBorder: InputBorder.none),
               onChanged: (changedText) => {
                 setState(() {
                   searchText = changedText.toLowerCase();

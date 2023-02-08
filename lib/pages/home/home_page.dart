@@ -3,10 +3,7 @@ import 'dart:io';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:nochba/pages/auth/auth_page.dart';
 import 'package:nochba/pages/dashboard/dashboard_page.dart';
@@ -57,9 +54,7 @@ class _HomePageState extends State<HomePage> {
           cardId = responseJson["id"];
           print("Card ID: $cardId");
         } else {
-          throw Exception("Failed to retrieve card ID: " +
-              response1.statusCode.toString() +
-              response1.reasonPhrase.toString());
+          throw Exception("Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
         }
       } catch (e) {
         print("Error: $e");
@@ -84,9 +79,7 @@ class _HomePageState extends State<HomePage> {
       if (response.statusCode == 200) {
         print("Data successfully uploaded to Trello");
       } else {
-        throw Exception("Failed to upload data to Trello" +
-            response.statusCode.toString() +
-            response.reasonPhrase.toString());
+        throw Exception("Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
       }
     }
 
@@ -116,7 +109,7 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasError) {
           return const Center(child: Text('Something went wrong'));
         } else if (snapshot.hasData) {
-          return DashboardPage();
+          return const DashboardPage();
         } else {
           return const AuthPage();
         }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nochba/pages/inset_post/new_post/new_post_controller.dart';
 
 import '../../sign_up_controller.dart';
 
@@ -30,7 +29,7 @@ class NextElevatedButton extends StatelessWidget {
         icon: Icon(icon),
         label: Text(
           label,
-          style: Theme.of(context).textTheme.button?.copyWith(
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
                 letterSpacing: -0.07,
               ),

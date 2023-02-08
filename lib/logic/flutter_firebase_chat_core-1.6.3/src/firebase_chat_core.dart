@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cross_file/src/types/interface.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -21,21 +20,13 @@ import 'package:nochba/logic/flutter_chat_types-3.4.5/src/messages/partial_image
     as types;
 import 'package:nochba/logic/flutter_chat_types-3.4.5/src/messages/partial_text.dart'
     as types;
-import 'package:nochba/logic/flutter_chat_types-3.4.5/src/messages/system_message.dart'
-    as types;
 import 'package:nochba/logic/flutter_chat_types-3.4.5/src/messages/text_message.dart'
     as types;
-import 'package:nochba/logic/flutter_chat_types-3.4.5/src/messages/unsupported_message.dart'
-    as types;
-import 'package:nochba/logic/flutter_chat_types-3.4.5/src/preview_data.dart';
 
-import 'package:nochba/logic/flutter_chat_types-3.4.5/src/preview_data.dart'
-    as types;
 
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/util.dart';
 
 import 'firebase_chat_core_config.dart';
-import 'util.dart';
 
 /// Provides access to Firebase chat data. Singleton, use
 /// FirebaseChatCore.instance to aceess methods.
@@ -135,8 +126,9 @@ class FirebaseChatCore {
     final fu = firebaseUser;
 
     if (fu == null) return Future.error('User does not exist');
-    if (fu.uid == otherUser.id)
+    if (fu.uid == otherUser.id) {
       return Future.error('Can`t create a room with yourself');
+    }
 
     // Sort two user ids array to always have the same array for both users,
     // this will make it easy to find the room if exist and make one read only.
@@ -514,7 +506,7 @@ class FirebaseChatCore {
       );
 
       return models.User.fromJson(user);
-    } on Exception catch (e) {
+    } on Exception {
       return null;
     }
   }

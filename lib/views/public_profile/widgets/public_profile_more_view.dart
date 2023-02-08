@@ -2,12 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
-import 'package:nochba/pages/auth/login_page.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
-import 'package:nochba/shared/ui/cards/action_card_title.dart';
-import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 import 'package:nochba/views/public_profile/public_profile_controller.dart';
@@ -37,7 +33,7 @@ class PublicProfileMoreView extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet<dynamic>(
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(25.0))),
                     context: context,
@@ -66,10 +62,10 @@ class PublicProfileMoreView extends StatelessWidget {
                                 //               .color!
                                 //               .withOpacity(0.8)),
                                 // ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
 
-                                DropdownButtonExample(),
-                                SizedBox(height: 10),
+                                const DropdownButtonExample(),
+                                const SizedBox(height: 10),
 
                                 LocooTextField(
                                     maxLines: 10,
@@ -83,13 +79,13 @@ class PublicProfileMoreView extends StatelessWidget {
                                         value != null && value.isEmpty
                                             ? 'Enter a description'
                                             : null),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 LocooTextButton(
                                   label: 'Profil Melden',
                                   onPressed: () {},
                                   icon: FlutterRemix.flag_line,
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
 
                                 //),
 
@@ -126,7 +122,7 @@ class PublicProfileMoreView extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         // ActionCard(
@@ -178,7 +174,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
           // elevation: 16,
           style: TextStyle(
             // color: Theme.of(context).primaryColor,
-            color: Theme.of(context).textTheme.bodyText1!.color,
+            color: Theme.of(context).textTheme.bodyLarge!.color,
           ),
           underline: Container(
             height: 0,
@@ -219,7 +215,7 @@ class AlertDialogDeletePost extends StatelessWidget {
         title: Column(
           //align center
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             // add a red icon flutterremix error-warning-line
             Icon(
               FlutterRemix.error_warning_line,
@@ -230,7 +226,7 @@ class AlertDialogDeletePost extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            const Text(
+            Text(
               'Post löschen',
               //add fontwiehgt w500
               style: TextStyle(
@@ -251,28 +247,25 @@ class AlertDialogDeletePost extends StatelessWidget {
                 flex: 1,
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, 'Abbrechen'),
-                  child: const Text('Abbrechen'),
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
-                    shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.black, shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text('Abbrechen'),
                 ),
               ),
               Expanded(
                 flex: 1,
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('Löschen'),
                   //style the button red
                   style: TextButton.styleFrom(
-                    primary: Colors.red,
-                    // add round corner 20
-                    shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.red, shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text('Löschen'),
                 ),
               ),
             ],

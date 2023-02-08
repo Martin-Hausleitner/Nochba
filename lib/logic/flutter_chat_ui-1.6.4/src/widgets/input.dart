@@ -4,13 +4,11 @@ import 'package:flutter/services.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
-import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 
 import '../models/input_clear_mode.dart';
 import '../models/send_button_visibility_mode.dart';
 import 'attachment_button.dart';
 import 'inherited_chat_theme.dart';
-import 'inherited_l10n.dart';
 import 'input_text_field_controller.dart';
 import 'send_button.dart';
 
@@ -148,8 +146,8 @@ class _InputState extends State<Input> {
             query.viewInsets.bottom + query.padding.bottom,
           );
     final textPadding =
-        EdgeInsets.fromLTRB(0, 15, 10, 15).copyWith(left: 0, right: 0).add(
-              EdgeInsets.fromLTRB(
+        const EdgeInsets.fromLTRB(0, 15, 10, 15).copyWith(left: 0, right: 0).add(
+              const EdgeInsets.fromLTRB(
                 // widget.onAttachmentPressed != null ? 0 : 10,
                 10,
                 0,
@@ -162,7 +160,7 @@ class _InputState extends State<Input> {
     return SafeArea(
       child: Padding(
         padding: // left 8 right 8 bottom 8
-            EdgeInsets.fromLTRB(8, 0, 8, 8),
+            const EdgeInsets.fromLTRB(8, 0, 8, 8),
         child: Focus(
           autofocus: true,
           child: Material(
@@ -195,7 +193,7 @@ class _InputState extends State<Input> {
                                       widget.isAttachmentUploading ?? false,
                                   onPressed: widget.onAttachmentPressed,
                                   padding:
-                                      EdgeInsets.fromLTRB(18, 13.5, 5, 13.5),
+                                      const EdgeInsets.fromLTRB(18, 13.5, 5, 13.5),
                                 ),
                               Expanded(
                                 child: Padding(
@@ -218,15 +216,15 @@ class _InputState extends State<Input> {
                                                 .inputTextDecoration
                                                 .copyWith(
                                                   contentPadding:
-                                                      EdgeInsets.fromLTRB(
+                                                      const EdgeInsets.fromLTRB(
                                                           0, 0, 0, 0),
                                                   hintStyle: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText1!
+                                                      .bodyLarge!
                                                       .copyWith(
                                                         color: Theme.of(context)
                                                             .textTheme
-                                                            .bodyText1!
+                                                            .bodyLarge!
                                                             .color!
                                                             .withOpacity(0.5),
                                                         fontSize: 15,
@@ -243,11 +241,11 @@ class _InputState extends State<Input> {
                                         onTap: widget.options.onTextFieldTap,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1,
+                                            .bodyLarge,
                                         textCapitalization:
                                             TextCapitalization.sentences,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 6,
                                       ),
                                     ],
@@ -268,10 +266,10 @@ class _InputState extends State<Input> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: Theme.of(context).primaryColor,
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                               Radius.circular(100)),
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.send,
                                           color: Colors.white,
                                           size: 20,

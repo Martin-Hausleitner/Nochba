@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -11,6 +10,8 @@ import 'dashboard_controller.dart';
 import '../feed/feed_page.dart';
 
 class DashboardPage extends StatelessWidget {
+  const DashboardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
@@ -19,7 +20,7 @@ class DashboardPage extends StatelessWidget {
           body: SafeArea(
             child: IndexedStack(
               index: controller.tabIndex,
-              children: [
+              children: const [
                 FeedPage(),
                 NotificationsPage(),
                 // NewPostPage(),
@@ -48,7 +49,7 @@ class DashboardPage extends StatelessWidget {
                 ],
               ),
               child: BottomNavigationBar(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 // unselectedItemColor: Colors.black,
                 // selectedItemColor: Theme.of(context).primaryColor,
                 onTap: controller.changeTabIndex,
@@ -62,7 +63,7 @@ class DashboardPage extends StatelessWidget {
                 // backgroundColor: Colors.white,
                 elevation: 0,
                 items: [
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     icon: Icon(
                       FlutterRemix.home_2_line,
                     ),
@@ -72,7 +73,7 @@ class DashboardPage extends StatelessWidget {
                       // color: Theme.of(context).primaryColor,
                     ),
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     icon: Icon(FlutterRemix.notification_2_line),
                     label: '',
                     activeIcon: Icon(
@@ -86,8 +87,8 @@ class DashboardPage extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         shape: BoxShape.circle,
                       ),
-                      padding: EdgeInsets.all(11),
-                      child: Icon(
+                      padding: const EdgeInsets.all(11),
+                      child: const Icon(
                         //flutter plus
                         FlutterRemix.add_line,
                         size: 25,
@@ -98,7 +99,7 @@ class DashboardPage extends StatelessWidget {
                     label: '',
                   ),
 
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     icon: Icon(FlutterRemix.chat_1_line),
                     label: '',
                     activeIcon: Icon(
@@ -106,7 +107,7 @@ class DashboardPage extends StatelessWidget {
                       // color: Theme.of(context).primaryColor,
                     ),
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     icon: Icon(FlutterRemix.user_line),
                     label: '',
                     activeIcon: Icon(

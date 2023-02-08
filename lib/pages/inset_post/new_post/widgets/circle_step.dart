@@ -6,7 +6,7 @@ class CircleStep extends StatelessWidget {
   //add onTap
   final VoidCallback? onTap;
 
-  CircleStep(this.state, this.index, this.onTap);
+  const CircleStep(this.state, this.index, this.onTap, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class CircleStep extends StatelessWidget {
         child: Center(
           child: state == 1 || state == 2
               ? Text(index)
-              : Icon(
+              : const Icon(
                   Icons.check,
                   color: Colors.white,
                   size: 23,

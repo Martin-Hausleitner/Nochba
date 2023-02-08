@@ -53,7 +53,7 @@ class PrivateProfileController extends GetxController {
     try {
       return await _postRepository.getPostsOfCurrentUser();
     } on Exception catch (e) {
-      print('Error: ' + e.toString());
+      print('Error: $e');
       return Future.error('Die Posts können derzeit nicht geladen werden');
     }
   }
@@ -62,7 +62,7 @@ class PrivateProfileController extends GetxController {
     try {
       return await _postRepository.getMarkedPostsOfCurrentUser();
     } on Exception catch (e) {
-      print('Error: ' + e.toString());
+      print('Error: $e');
       return Future.error('Die Posts können derzeit nicht geladen werden');
     }
   }

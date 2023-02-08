@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
-import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/edit_avatar.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
@@ -32,21 +30,21 @@ class SignUpStep2View extends StatelessWidget {
               Row(
                 children: [
                   CircleStep(3, '1', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: true,
                   ),
                   CircleStep(1, '2', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '3', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '4', () {}),
                 ],
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               //tile small Wähle deien Kategorie
               Text(
                 'Gebe deinen Namen und ein Profilbild ein',
@@ -56,7 +54,7 @@ class SignUpStep2View extends StatelessWidget {
                     ),
               ),
               //tile small Schritt 1 von 3
-              SizedBox(height: 2),
+              const SizedBox(height: 2),
               Text(
                 'Schritt 2 von 4',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -65,7 +63,7 @@ class SignUpStep2View extends StatelessWidget {
                     // color: Theme.of(context).secondaryHeaderColor,
                     ),
               ),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               GetBuilder<SignUpController>(
                 builder: (c) => EditAvatar(
                   image: controller.image,
@@ -94,7 +92,7 @@ class SignUpStep2View extends StatelessWidget {
               //   ),
               // ),
 
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
 
               Form(
                   key: controller.formKey2,
@@ -108,7 +106,7 @@ class SignUpStep2View extends StatelessWidget {
                         autovalidateMode: AutovalidateMode.disabled,
                         textInputAction: TextInputAction.next,
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       LocooTextField(
                         label: 'Nachname',
                         controller: controller.lastNameController,
@@ -120,7 +118,7 @@ class SignUpStep2View extends StatelessWidget {
                   )),
               Padding(
                 padding: // right left 5
-                    EdgeInsets.only(
+                    const EdgeInsets.only(
                   top: 15,
                   left: 7,
                   right: 7,
@@ -155,7 +153,7 @@ class SignUpStep2View extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // NextElevatedButton(
               //   rtl: true,

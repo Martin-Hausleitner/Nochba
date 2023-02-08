@@ -59,7 +59,7 @@ class ActionCard extends StatelessWidget {
                           ),
 
                     Padding(
-                      padding: EdgeInsets.only(left: 8),
+                      padding: const EdgeInsets.only(left: 8),
                       child: Text(
                         title,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(

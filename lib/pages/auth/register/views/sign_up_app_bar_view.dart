@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
-import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 import '../../../inset_post/new_post/widgets/circle_step.dart';
@@ -41,21 +37,21 @@ class SignUpAppBarView extends StatelessWidget {
               Row(
                 children: [
                   CircleStep(1, '1', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '2', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '3', () {}),
-                  ProgressLine(
+                  const ProgressLine(
                     isFinished: false,
                   ),
                   CircleStep(2, '4', () {}),
                 ],
               ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
               'Enter your email and password',
@@ -65,9 +61,9 @@ class SignUpAppBarView extends StatelessWidget {
                   ),
             ),
             //tile small Schritt 1 von 3
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Text(
-              'Step ${step} of 4',
+              'Step $step of 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   // fontSize: 18,
                   // fontWeight: FontWeight.w600,

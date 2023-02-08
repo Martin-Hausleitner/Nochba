@@ -12,9 +12,7 @@ import 'package:http/http.dart' as http;
 // import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nochba/pages/chats/chat_controller.dart';
-import 'package:nochba/pages/chats/image_editor.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
-import 'package:mime/mime.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -40,7 +38,7 @@ class ChatPage extends GetView<ChatController> {
 
       // ignore: unnecessary_new
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(70.0),
         child: AppBar(
           toolbarHeight: 70,
           shadowColor: Colors.white,
@@ -62,7 +60,7 @@ class ChatPage extends GetView<ChatController> {
                 imageUrl: room.imageUrl,
                 radius: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Column(
@@ -98,7 +96,7 @@ class ChatPage extends GetView<ChatController> {
                         : Text(
                             '${room.users[1].firstName} ${room.users[1].lastName}'),*/
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
                   Row(
@@ -107,7 +105,7 @@ class ChatPage extends GetView<ChatController> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(right: 4),
+                        padding: const EdgeInsets.only(right: 4),
                         // show this svg:
                         child: Icon(
                           FlutterRemix.map_pin_line,
@@ -345,35 +343,33 @@ class ChatPage extends GetView<ChatController> {
 
     //final result = editedImage;
 
-    if (result != null) {
-      _setAttachmentUploading(true);
-      final file = File(result.path);
-      final size = file.lengthSync();
-      final bytes = await result.readAsBytes();
-      final image = await decodeImageFromList(bytes);
-      final name = result.name;
+    _setAttachmentUploading(true);
+    final file = File(result.path);
+    final size = file.lengthSync();
+    final bytes = await result.readAsBytes();
+    final image = await decodeImageFromList(bytes);
+    final name = result.name;
 
-      try {
-        final reference = FirebaseStorage.instance.ref(name);
-        await reference.putFile(file);
-        final uri = await reference.getDownloadURL();
+    try {
+      final reference = FirebaseStorage.instance.ref(name);
+      await reference.putFile(file);
+      final uri = await reference.getDownloadURL();
 
-        final message = types.PartialImage(
-          height: image.height.toDouble(),
-          name: name,
-          size: size,
-          uri: uri,
-          width: image.width.toDouble(),
-        );
+      final message = types.PartialImage(
+        height: image.height.toDouble(),
+        name: name,
+        size: size,
+        uri: uri,
+        width: image.width.toDouble(),
+      );
 
-        chat.FirebaseChatCore.instance.sendMessage(
-          message,
-          room.id,
-        );
-        _setAttachmentUploading(false);
-      } finally {
-        _setAttachmentUploading(false);
-      }
+      chat.FirebaseChatCore.instance.sendMessage(
+        message,
+        room.id,
+      );
+      _setAttachmentUploading(false);
+    } finally {
+      _setAttachmentUploading(false);
     }
   }
 

@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/views/public_profile/public_profile_controller.dart';
@@ -13,9 +11,9 @@ class UserInfo extends GetView<PublicProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    final String font = "SanFrancisco";
-    final double size = 20.0;
-    final double height = 45.0;
+    const String font = "SanFrancisco";
+    const double size = 20.0;
+    const double height = 45.0;
 
     // return a contianer with a title, a sizedbox, a widped Clip
     return Container(
@@ -28,7 +26,7 @@ class UserInfo extends GetView<PublicProfileController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 18,
                 ),
                 FutureBuilder<UserPublicInfo?>(
@@ -160,7 +158,7 @@ class UserInfo extends GetView<PublicProfileController> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 14,
                                           ),
                                           isBirthdayValid
@@ -278,7 +276,7 @@ class UserInfo extends GetView<PublicProfileController> {
                                         .onSurface
                                         .withOpacity(0.1),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   Text(
@@ -329,7 +327,7 @@ class BaseInfoRow extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           size: 17,
         ),
-        SizedBox(
+        const SizedBox(
           width: 8,
         ),
         Text(

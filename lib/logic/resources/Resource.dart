@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
-import 'package:nochba/logic/exceptions/LogicException.dart';
-import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
 import 'package:nochba/logic/interfaces/IModelMapper.dart';
 import 'package:nochba/logic/interfaces/IResource.dart';
 import 'package:nochba/logic/interfaces/IModel.dart';

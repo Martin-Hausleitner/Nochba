@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/logic/repositories/GenericRepository.dart';
 

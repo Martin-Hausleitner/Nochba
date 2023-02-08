@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class LocooTextField extends StatefulWidget {
   final double height;
@@ -47,7 +44,7 @@ class LocooTextField extends StatefulWidget {
 
 class _LocooTextFieldState extends State<LocooTextField> {
   // Use it to change color for border when textFiled in focus
-  FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
 
   // Color for border
   Color _borderColor = Colors.transparent;
@@ -102,7 +99,7 @@ class _LocooTextFieldState extends State<LocooTextField> {
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             fillColor: Colors.red,
             border: InputBorder.none,
             labelText: widget.label,

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
@@ -30,21 +27,21 @@ class SignUpStep3View extends StatelessWidget {
             Row(
               children: [
                 CircleStep(3, '1', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: true,
                 ),
                 CircleStep(3, '2', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: true,
                 ),
                 CircleStep(1, '3', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: false,
                 ),
                 CircleStep(2, '4', () {}),
               ],
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
               'Gebe deinen Adresse ein',
@@ -54,7 +51,7 @@ class SignUpStep3View extends StatelessWidget {
                   ),
             ),
             //tile small Schritt 1 von 3
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Text(
               'Schritt 3 von 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -63,7 +60,7 @@ class SignUpStep3View extends StatelessWidget {
                   // color: Theme.of(context).secondaryHeaderColor,
                   ),
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
 
             Form(
               key: controller.formKey3,
@@ -81,7 +78,7 @@ class SignUpStep3View extends StatelessWidget {
                           textInputAction: TextInputAction.next,
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: LocooTextField(
                           label: 'Nr.',
@@ -92,14 +89,14 @@ class SignUpStep3View extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   LocooTextField(
                     label: 'Stadt',
                     controller: controller.cityController,
                     validator: controller.validateAddress,
                     textInputAction: TextInputAction.next,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   LocooTextField(
                     label: 'Postleitzahl',
                     controller: controller.zipController,
@@ -110,7 +107,7 @@ class SignUpStep3View extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             BottomNavBar(controller: controller),
           ],

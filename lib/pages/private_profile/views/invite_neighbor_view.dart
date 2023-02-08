@@ -29,7 +29,7 @@ class InviteNeighborController extends GetxController {
     //get the shared preferences object
     final prefs = await SharedPreferences.getInstance();
     //set the lastPressTime to 0
-    this.lastPressTime.value = 0;
+    lastPressTime.value = 0;
     //save the lastPressTime using shared_preferences
     await prefs.setInt('lastPressTime', 0);
   }
@@ -113,6 +113,8 @@ class InviteNeighborController extends GetxController {
 }
 
 class InviteNeighborView extends StatelessWidget {
+  const InviteNeighborView({super.key});
+
   @override
   Widget build(BuildContext context) {
     final InviteNeighborController controller =
@@ -145,13 +147,13 @@ class InviteNeighborView extends StatelessWidget {
                       'Dein Einladungscode',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Obx(
                         () => QrImage(
                           data: controller.verificationCode.value,
@@ -165,7 +167,7 @@ class InviteNeighborView extends StatelessWidget {
                       //   size: 150.0,
                       // ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Spacer(),
                     Obx(
                       () => GestureDetector(
@@ -183,7 +185,7 @@ class InviteNeighborView extends StatelessWidget {
                           children: [
                             Text(controller.verificationCode.value),
                             // Text(verificationCode),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             //icon copy
                             Icon(
                               color: Theme.of(context).colorScheme.onSurface,
@@ -200,7 +202,7 @@ class InviteNeighborView extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         ActionCard(
           title: 'Einladungscode teilen',
           icon: FlutterRemix.share_box_line,

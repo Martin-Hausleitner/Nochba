@@ -1,22 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 // import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 // import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/pages/chats/chats_controller.dart';
 import 'package:nochba/pages/chats/widgets/chat_element.dart';
 
 import 'chat.dart';
-import 'firebase_options.dart';
 import 'users.dart';
-import 'util.dart';
 
 import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
@@ -29,7 +22,7 @@ class ChatsPage extends GetView<ChatsController> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       // A ScrollView that creates custom scroll effects using slivers.
       child: CupertinoTheme(
         data: CupertinoThemeData(
@@ -52,7 +45,7 @@ class ChatsPage extends GetView<ChatsController> {
                     ),
           ),
           // barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          barBackgroundColor: Theme.of(context).backgroundColor,
+          barBackgroundColor: Theme.of(context).colorScheme.background,
         ),
         child: CustomScrollView(
           // A list of sliver widgets.
@@ -67,7 +60,7 @@ class ChatsPage extends GetView<ChatsController> {
               // This title is visible in both collapsed and expanded states.
               // When the "middle" parameter is omitted, the widget provided
               // in the "largeTitle" parameter is used instead in the collapsed state.
-              largeTitle: Text(
+              largeTitle: const Text(
                 'Nachrichten',
               ),
 
@@ -85,7 +78,7 @@ class ChatsPage extends GetView<ChatsController> {
                       Get.to(() => const UsersPage());
                     },
                     padding:
-                        EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
+                        const EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
                     alignment: Alignment.centerRight,
                   ),
                   IconButton(
@@ -99,7 +92,7 @@ class ChatsPage extends GetView<ChatsController> {
                       Get.snackbar('Edit', 'Chat');
                     },
                     padding:
-                        EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
+                        const EdgeInsets.only(right: 3, left: 0, top: 3, bottom: 0),
                     alignment: Alignment.centerRight,
                   ),
                 ],
@@ -134,7 +127,7 @@ class ChatsPage extends GetView<ChatsController> {
                               .onSurface
                               .withOpacity(0.1),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(

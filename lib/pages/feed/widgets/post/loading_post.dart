@@ -96,7 +96,7 @@ class LoadingPost extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 13),
+                  const SizedBox(height: 13),
                   Container(
                     height: 18,
                     decoration: BoxDecoration(
@@ -107,7 +107,7 @@ class LoadingPost extends StatelessWidget {
                           .withOpacity(0.035),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Container(
                     height: 18,
                     decoration: BoxDecoration(
@@ -118,7 +118,7 @@ class LoadingPost extends StatelessWidget {
                           .withOpacity(0.035),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Container(
                     height: 18,
                     width: // 3/4 media width
@@ -131,7 +131,7 @@ class LoadingPost extends StatelessWidget {
                           .withOpacity(0.035),
                     ),
                   ),
-                  SizedBox(height: 13),
+                  const SizedBox(height: 13),
                   // row with 3 circles on the left and 1 on the right
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,7 +149,7 @@ class LoadingPost extends StatelessWidget {
                                   .withOpacity(0.035),
                             ),
                           ),
-                          SizedBox(width: 30),
+                          const SizedBox(width: 30),
                           Container(
                             height: 34,
                             width: 34,
@@ -161,7 +161,7 @@ class LoadingPost extends StatelessWidget {
                                   .withOpacity(0.035),
                             ),
                           ),
-                          SizedBox(width: 30),
+                          const SizedBox(width: 30),
                           Container(
                             height: 34,
                             width: 34,

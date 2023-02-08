@@ -1,12 +1,10 @@
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
-import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/CommentRepository.dart';
 import 'package:nochba/logic/repositories/LikedPostRepository.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
-import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 
 class ActionBarController extends GetxController {

@@ -1,26 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthExceptionHandler.dart';
 import 'package:nochba/logic/auth/AuthResultStatus.dart';
 import 'package:nochba/logic/models/ImageFile.dart';
-import 'package:nochba/logic/models/Notification.dart';
-import 'package:nochba/logic/models/Token.dart';
-import 'package:nochba/logic/models/UserInternInfoAddress.dart';
 import 'package:nochba/logic/models/UserPrivateInfoAddress.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPrivateInfoSettings.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/bookmark.dart';
-import 'package:nochba/logic/push_notifications.dart/PushNotificationService.dart';
 import 'package:nochba/logic/register/get_location_data.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/ResourceAccess.dart';
 import 'package:nochba/logic/models/user.dart' as models;
-import 'package:nochba/logic/repositories/TokenRepository.dart';
-import 'package:nochba/logic/repositories/UserInternInfoAddressRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoAddressRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoNameRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoSettingsRepository.dart';
@@ -142,7 +134,7 @@ class AuthService extends ResourceAccess {
       await userPublicInfoRepository.insert(
           UserPublicInfo(id: userPublicInfoRepository.reference),
           nexus: [uid]);
-    } on Exception catch (e) {
+    } on Exception {
       rethrow;
     }
 

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
-import 'package:get/get.dart';
-import 'package:nochba/shared/ui/cards/action_card.dart';
 
 import '../new_post_controller.dart';
 import '../widgets/back_outlined_button.dart';
@@ -40,23 +37,23 @@ class PublishedNewPostView extends StatelessWidget {
                             Theme.of(context).colorScheme.onSecondaryContainer,
                       ),
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
                 Row(
                   children: [
                     CircleStep(3, '1', () {
                       controller.jumpBack();
                     }),
-                    ProgressLine(
+                    const ProgressLine(
                       isFinished: true,
                     ),
                     CircleStep(3, '2', () {}),
-                    ProgressLine(
+                    const ProgressLine(
                       isFinished: true,
                     ),
                     CircleStep(3, '3', () {}),
                   ],
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
                 //tile small Wähle deien Kategorie
                 Text(
                   'Fertig',
@@ -66,7 +63,7 @@ class PublishedNewPostView extends StatelessWidget {
                       ),
                 ),
                 //tile small Schritt 1 von 3
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   'Schritt 3 von 3',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -75,7 +72,7 @@ class PublishedNewPostView extends StatelessWidget {
                       // color: Theme.of(context).secondaryHeaderColor,
                       ),
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
 
                 Expanded(
                   // color: Colors.red,
@@ -99,7 +96,7 @@ class PublishedNewPostView extends StatelessWidget {
                         ),
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Center(
                   child: Text(
                     'Dein Post wurde erfolgreich \nveröffentlicht',
@@ -126,7 +123,7 @@ class PublishedNewPostView extends StatelessWidget {
                 label: "Post Bearbeiten",
                 onPress: () => controller.pushEditPostView(),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               NextElevatedButton(
                 onPressed: //controller.addPost() and go to
                     () => controller.jumpBackToStartPage(),

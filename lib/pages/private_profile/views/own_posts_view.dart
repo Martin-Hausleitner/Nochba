@@ -1,15 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:nochba/logic/data_access.dart';
-import 'package:nochba/logic/models/post.dart';
 
 import 'package:nochba/pages/feed/widgets/post_card.dart' as widget;
 import 'package:nochba/logic/models/post.dart' as models;
-import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/pages/private_profile/private_profile_controller.dart';
 
 // Text(
@@ -73,7 +68,7 @@ class OwnPostsView extends StatelessWidget {
               // This title is visible in both collapsed and expanded states.
               // When the "middle" parameter is omitted, the widget provided
               // in the "largeTitle" parameter is used instead in the collapsed state.
-              largeTitle: Text(
+              largeTitle: const Text(
                 'Deine Posts',
               ),
               leading: Material(
@@ -93,7 +88,7 @@ class OwnPostsView extends StatelessWidget {
                 ),
               ),
               // padding left 10
-              padding: EdgeInsetsDirectional.only(
+              padding: const EdgeInsetsDirectional.only(
                 start: 12,
                 end: 10,
               ),

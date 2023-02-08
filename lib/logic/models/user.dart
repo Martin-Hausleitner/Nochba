@@ -161,7 +161,7 @@ class _User extends User {
           suburb: suburb == _Unset ? this.suburb : suburb as String?);
 
   @override
-  set id(String _id) {
+  set id(String id) {
     // TODO: implement id
   }
 }

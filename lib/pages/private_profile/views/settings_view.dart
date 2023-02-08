@@ -1,24 +1,16 @@
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:nochba/pages/private_profile/private_profile_page.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
-import 'package:nochba/shared/ui/cards/action_text_card.dart';
-import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
-import 'dart:math';
 
 // import 'package:confetti/confetti.dart';
 
-import 'settings/manage_account_view.dart';
 
 // Text(
 //                 'Settings',
@@ -46,7 +38,7 @@ class SettingsView extends StatelessWidget {
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
-        ActionCardTitle(
+        const ActionCardTitle(
           title: 'Konto',
         ),
         ActionCard(
@@ -92,7 +84,7 @@ class SettingsView extends StatelessWidget {
           onTap: _launchUrl,
         ),
         // SizedBox(height: 25),
-        ActionCardTitle(
+        const ActionCardTitle(
           title: 'Inhalte & Aktivität',
         ),
         ActionCard(
@@ -113,26 +105,28 @@ class SettingsView extends StatelessWidget {
           icon: FlutterRemix.group_line,
           onTap: _launchUrl,
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
 
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
 
         // Create a Center Text wih a love icon and a text of the current version of the app of the app
-        MadebyAndVersion(),
-        SizedBox(height: 15),
+        const MadebyAndVersion(),
+        const SizedBox(height: 15),
       ],
     );
   }
 }
 
 class BuildNumberWidget extends StatelessWidget {
+  const BuildNumberWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _getPackageInfo(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
 
         PackageInfo packageInfo = snapshot.data as PackageInfo;
@@ -172,7 +166,7 @@ class MadebyAndVersion extends StatelessWidget {
                   // add font size 12 and gray color
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-                Icon(
+                const Icon(
                   FlutterRemix.heart_3_fill,
                   color: Colors.red,
                   size: 14,
@@ -184,7 +178,7 @@ class MadebyAndVersion extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 3),
+            const SizedBox(height: 3),
             // display packageInfo.version in Text
 
             // FutureBuilder<PackageInfo>(
@@ -259,7 +253,7 @@ class ActionCardImpressum extends StatelessWidget {
                     //   color: Colors.black,
                     // ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         left: 7,
                         right: 6,
                       ),
@@ -274,7 +268,7 @@ class ActionCardImpressum extends StatelessWidget {
                     ),
 
                     Padding(
-                      padding: EdgeInsets.only(left: 8),
+                      padding: const EdgeInsets.only(left: 8),
                       child: Text(
                         'Impressum',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(

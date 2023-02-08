@@ -3,48 +3,46 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Theme {
   final ThemeData _darkTheme = ThemeData(
-      accentColor: Colors.red,
       brightness: Brightness.dark,
       primaryColor: Colors.amber,
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: Colors.amber,
         disabledColor: Colors.grey,
-      ));
+      ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.red));
 
   final ThemeData _lightTheme = ThemeData(
       //
-      accentColor: Colors.pink,
       brightness: Brightness.light,
       primaryColor: Colors.blue,
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: Colors.blue,
         disabledColor: Colors.grey,
-      ));
+      ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.pink));
 
   final TextTheme _textTheme = TextTheme(
-    headline1: GoogleFonts.inter(
+    displayLarge: GoogleFonts.inter(
         fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),
-    headline2: GoogleFonts.inter(
+    displayMedium: GoogleFonts.inter(
         fontSize: 61, fontWeight: FontWeight.w300, letterSpacing: -0.5),
-    headline3: GoogleFonts.inter(fontSize: 48, fontWeight: FontWeight.w400),
-    headline4: GoogleFonts.inter(
+    displaySmall: GoogleFonts.inter(fontSize: 48, fontWeight: FontWeight.w400),
+    headlineMedium: GoogleFonts.inter(
         fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-    headline5: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w400),
-    headline6: GoogleFonts.inter(
+    headlineSmall: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w400),
+    titleLarge: GoogleFonts.inter(
         fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
-    subtitle1: GoogleFonts.inter(
+    titleMedium: GoogleFonts.inter(
         fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
-    subtitle2: GoogleFonts.inter(
+    titleSmall: GoogleFonts.inter(
         fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-    bodyText1: GoogleFonts.inter(
+    bodyLarge: GoogleFonts.inter(
         fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
-    bodyText2: GoogleFonts.inter(
+    bodyMedium: GoogleFonts.inter(
         fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-    button: GoogleFonts.inter(
+    labelLarge: GoogleFonts.inter(
         fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
-    caption: GoogleFonts.inter(
+    bodySmall: GoogleFonts.inter(
         fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-    overline: GoogleFonts.inter(
+    labelSmall: GoogleFonts.inter(
         fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
   );
 }

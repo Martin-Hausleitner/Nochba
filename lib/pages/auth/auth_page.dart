@@ -3,8 +3,6 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/auth/login_page.dart';
 import 'package:nochba/pages/auth/auth_controller.dart';
-import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
-import 'package:nochba/shared/views/app_bar_big_view.dart';
 
 import 'sign_up_page.dart';
 
@@ -34,7 +32,7 @@ class AuthPage extends GetView<AuthController> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
                     'assets/images/auth_page_background.jpg'), // <-- BACKGROUND IMAGE
@@ -54,13 +52,13 @@ class AuthPage extends GetView<AuthController> {
                   children: [
                     Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
                             onPressed: () async =>
                                 controller.createDemoAccount(),
-                            icon: Icon(
+                            icon: const Icon(
                               FlutterRemix.user_add_line,
                               color: Colors.white,
                             ),
@@ -139,7 +137,7 @@ class AuthPage extends GetView<AuthController> {
                   // height: 140,
                   decoration: BoxDecoration(
                     color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(25),
                       topRight: Radius.circular(25),
                     ),
@@ -156,8 +154,7 @@ class AuthPage extends GetView<AuthController> {
                         // ),
                         OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(60),
-                              primary: Theme.of(context).colorScheme.onSurface,
+                              foregroundColor: Theme.of(context).colorScheme.onSurface, minimumSize: const Size.fromHeight(60),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -168,7 +165,7 @@ class AuthPage extends GetView<AuthController> {
                               'Anmelden',
                               style: Theme.of(context)
                                   .textTheme
-                                  .button
+                                  .labelLarge
                                   ?.copyWith(
                                     color:
                                         Theme.of(context).colorScheme.onSurface,
@@ -190,7 +187,7 @@ class AuthPage extends GetView<AuthController> {
                                         "Wir möchten Sie daran erinnern, dass alle während der Testphase in die App eingegebenen Daten nach Abschluss der Testphase verloren gehen können. Wir freuen uns sehr über Ihr Feedback, um die App für künftige Nutzer zu verbessern. Wir bitten Sie, uns unter project@nochba.com zu kontaktieren, wenn Sie Fehler oder Probleme mit den Funktionen der App feststellen. Wir danken für Ihr Verständnis und wünschen Ihnen viel Spaß mit der App!"),
                                     actions: [
                                       TextButton(
-                                        child: Text("LOS GEHT'S!"),
+                                        child: const Text("LOS GEHT'S!"),
                                         onPressed: () async => {
                                           await Get.to(
                                             () => const LoginPage(),
@@ -203,7 +200,7 @@ class AuthPage extends GetView<AuthController> {
                                 },
                               );
                             }),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         ElevatedButton(
@@ -214,16 +211,6 @@ class AuthPage extends GetView<AuthController> {
                               // gestureWidth: 100,
                             )
                           },
-                          child: Text(
-                            'Registrieren',
-                            style: Theme.of(context).textTheme.button?.copyWith(
-                                  color: Theme.of(context)
-                                      .buttonTheme
-                                      .colorScheme
-                                      ?.onPrimary,
-                                  letterSpacing: -0.07,
-                                ),
-                          ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             minimumSize: const Size.fromHeight(60),
@@ -234,6 +221,16 @@ class AuthPage extends GetView<AuthController> {
                             ),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 15),
+                          ),
+                          child: Text(
+                            'Registrieren',
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                  color: Theme.of(context)
+                                      .buttonTheme
+                                      .colorScheme
+                                      ?.onPrimary,
+                                  letterSpacing: -0.07,
+                                ),
                           ),
                         ),
                       ],

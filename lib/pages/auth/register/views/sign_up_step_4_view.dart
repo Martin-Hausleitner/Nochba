@@ -1,24 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
 import 'package:nochba/logic/register/get_location_data.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
-import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
-import 'package:cloud_functions/cloud_functions.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../../logic/register/check_if_safe_device.dart';
 import '../../../inset_post/new_post/widgets/circle_step.dart';
-import '../widgets/invite_code_input.dart';
 
 class SignUpStep4View extends StatelessWidget {
   const SignUpStep4View({super.key, required this.controller});
@@ -46,21 +38,21 @@ class SignUpStep4View extends StatelessWidget {
             Row(
               children: [
                 CircleStep(3, '1', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: true,
                 ),
                 CircleStep(3, '2', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: true,
                 ),
                 CircleStep(3, '3', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: true,
                 ),
                 CircleStep(1, '4', () {}),
               ],
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
               'Wähle deine Authoezierungs Methode aus',
@@ -70,7 +62,7 @@ class SignUpStep4View extends StatelessWidget {
                   ),
             ),
             //tile small Schritt 1 von 3
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Text(
               'Schritt 4 von 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -79,14 +71,14 @@ class SignUpStep4View extends StatelessWidget {
                   // color: Theme.of(context).secondaryHeaderColor,
                   ),
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             //TestLocation(),
             //TestSafeDevice(),
             //InviteCodeInput(),
 
             ChooserRadio(changeOption: controller.setVerificationOption),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             BottomNavBar(controller: controller),
           ],
@@ -141,6 +133,8 @@ class BottomNavBar extends StatelessWidget {
 }
 
 class TestLocation extends StatelessWidget {
+  const TestLocation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
@@ -201,6 +195,8 @@ class TestLocation extends StatelessWidget {
 // }
 
 class TestSafeDevice extends StatelessWidget {
+  const TestSafeDevice({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
@@ -267,8 +263,8 @@ class _ChooserRadioState extends State<ChooserRadio> {
                           // color: Colors.black.withOpacity(0.2)),
                           color: Theme.of(context).primaryColor),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
+                    const SizedBox(width: 10),
+                    const Expanded(
                         child: Text('Verifiziere dich mit deinen Standort')),
                   ],
                 ),
@@ -287,7 +283,7 @@ class _ChooserRadioState extends State<ChooserRadio> {
             ),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
             setState(() {
@@ -319,8 +315,8 @@ class _ChooserRadioState extends State<ChooserRadio> {
                           // color: Colors.black.withOpacity(0.2)),
                           color: Theme.of(context).primaryColor),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
+                    const SizedBox(width: 10),
+                    const Expanded(
                       child: Text(
                         'Verfiziere dich mit einem QR Code',
                       ),

@@ -37,7 +37,7 @@ class CategoryTile extends StatelessWidget {
                   size: 40,
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   title,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(

@@ -418,7 +418,7 @@ class _ChatState extends State<Chat> {
             size: 100,
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(

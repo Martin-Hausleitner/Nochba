@@ -5,9 +5,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
-import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
-import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 
 class ManageAccountView extends StatelessWidget {
   const ManageAccountView({
@@ -23,7 +21,7 @@ class ManageAccountView extends StatelessWidget {
       children: [
         ActionTextCard(
           title: 'Email',
-          icon: Icon(FlutterRemix.user_line),
+          icon: const Icon(FlutterRemix.user_line),
           onTap: () {
             Get.snackbar(
                 "Email ändern", "Diese Funktion ist noch nicht verfügbar");
@@ -56,7 +54,7 @@ class ManageAccountView extends StatelessWidget {
         ),
         ActionTextCard(
           title: 'Passwort',
-          icon: Icon(FlutterRemix.user_line),
+          icon: const Icon(FlutterRemix.user_line),
           onTap: () {
             Get.snackbar(
                 "Passwort ändern", "Diese Funktion ist noch nicht verfügbar");
@@ -90,7 +88,7 @@ class ManageAccountView extends StatelessWidget {
         ),
         ActionTextCard(
           title: 'Adresse',
-          icon: Icon(FlutterRemix.user_line),
+          icon: const Icon(FlutterRemix.user_line),
           onTap: () {
             // show me a alert that now you cant change your address
             Get.snackbar(
@@ -135,13 +133,13 @@ class ManageAccountView extends StatelessWidget {
           },
           text: 'Gutenbergstraße 1, 1234 Wien',
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         ActionTextCardRed(
           title: 'Account löschen',
-          icon: Icon(FlutterRemix.user_line),
+          icon: const Icon(FlutterRemix.user_line),
           onTap: () => showDialog<String>(
             context: context,
-            builder: (BuildContext context) => AlertDialogDeleteAccount(),
+            builder: (BuildContext context) => const AlertDialogDeleteAccount(),
           ),
           text: '',
         ),
@@ -167,7 +165,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
         title: Column(
           //align center
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             // add a red icon flutterremix error-warning-line
             Icon(
               FlutterRemix.error_warning_line,
@@ -178,7 +176,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            const Text(
+            Text(
               'Account löschen',
               //add fontwiehgt w500
               style: TextStyle(
@@ -199,28 +197,25 @@ class AlertDialogDeleteAccount extends StatelessWidget {
                 flex: 1,
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, 'Abbrechen'),
-                  child: const Text('Abbrechen'),
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
-                    shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.black, shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text('Abbrechen'),
                 ),
               ),
               Expanded(
                 flex: 1,
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('Löschen'),
                   //style the button red
                   style: TextButton.styleFrom(
-                    primary: Colors.red,
-                    // add round corner 20
-                    shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.red, shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  child: const Text('Löschen'),
                 ),
               ),
             ],

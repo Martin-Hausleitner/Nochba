@@ -1,14 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dotted_line/dotted_line.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
-import 'package:nochba/logic/models/post.dart';
-import 'package:nochba/logic/models/tag.dart';
-import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
-import 'package:nochba/views/new_post/tag_dialog.dart';
 
 import 'new_post_controller.dart';
 import 'views/new_post_subcategory_selection_view.dart';
@@ -25,7 +18,7 @@ class NewPostPage extends GetView<NewPostController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
 
       // appBar: AppBar(
       //   title: const Text('Add a post'),
@@ -69,21 +62,21 @@ class NewPostCategorySelectionView extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
           ),
-          SizedBox(height: 28),
+          const SizedBox(height: 28),
           Row(
             children: [
               CircleStep(1, '1', () {}),
-              ProgressLine(
+              const ProgressLine(
                 isFinished: false,
               ),
               CircleStep(2, '2', () {}),
-              ProgressLine(
+              const ProgressLine(
                 isFinished: false,
               ),
               CircleStep(2, '3', () {}),
             ],
           ),
-          SizedBox(height: 28),
+          const SizedBox(height: 28),
           //tile small Wähle deien Kategorie
           Text(
             'Wähle deine Kategorie',
@@ -93,7 +86,7 @@ class NewPostCategorySelectionView extends StatelessWidget {
                 ),
           ),
           //tile small Schritt 1 von 3
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           Text(
             'Schritt 1 von 3',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -102,7 +95,7 @@ class NewPostCategorySelectionView extends StatelessWidget {
                 // color: Theme.of(context).secondaryHeaderColor,
                 ),
           ),
-          SizedBox(height: 28),
+          const SizedBox(height: 28),
 
           Expanded(
             child: GridView.count(

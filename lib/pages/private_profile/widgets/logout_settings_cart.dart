@@ -33,12 +33,12 @@ class LogoutSettingsCard extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       FlutterRemix.logout_box_r_line,
                       color: Colors.red,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 8),
+                      padding: const EdgeInsets.only(left: 8),
                       child: Text(
                         "Abmelden",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(

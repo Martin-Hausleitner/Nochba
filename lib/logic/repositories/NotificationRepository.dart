@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:nochba/logic/exceptions/LogicException.dart';
 import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
 import 'package:nochba/logic/models/Notification.dart';

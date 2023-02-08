@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
@@ -29,21 +27,21 @@ class SignUpEmailView extends StatelessWidget {
             Row(
               children: [
                 CircleStep(1, '1', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: false,
                 ),
                 CircleStep(2, '2', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: false,
                 ),
                 CircleStep(2, '3', () {}),
-                ProgressLine(
+                const ProgressLine(
                   isFinished: false,
                 ),
                 CircleStep(2, '4', () {}),
               ],
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
               'Enter your email and password',
@@ -53,7 +51,7 @@ class SignUpEmailView extends StatelessWidget {
                   ),
             ),
             //tile small Schritt 1 von 3
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Text(
               'Step 4 of 4',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -62,23 +60,23 @@ class SignUpEmailView extends StatelessWidget {
                   // color: Theme.of(context).secondaryHeaderColor,
                   ),
             ),
-            SizedBox(height: 28),
-            LocooTextField(
+            const SizedBox(height: 28),
+            const LocooTextField(
               label: 'Email',
 
               // controller: controller.emailController,
               textInputAction: TextInputAction.next,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-            LocooTextField(
+            const LocooTextField(
               label: 'Passwort',
               textInputAction: TextInputAction.next,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: // right left 5
-                  EdgeInsets.only(
+                  const EdgeInsets.only(
                 top: 15,
                 left: 7,
                 right: 7,
@@ -99,7 +97,7 @@ class SignUpEmailView extends StatelessWidget {
                               ?.withOpacity(0.6)),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
 
                   //show a checkbox
                   Checkbox(
@@ -111,7 +109,7 @@ class SignUpEmailView extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             BottomNavBar(controller: controller),
           ],

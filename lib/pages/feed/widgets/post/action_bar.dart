@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/pages/comments/comment_page.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
@@ -59,10 +58,10 @@ class ActionBar extends GetView<ActionBarController> {
               }
 
               return Padding(
-                padding: EdgeInsets.only(left: 8, right: 18),
+                padding: const EdgeInsets.only(left: 8, right: 18),
                 child: Text(
-                  data != null ? '${data}' : '-',
-                  style: TextStyle(
+                  data != null ? '$data' : '-',
+                  style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: Colors.grey,
@@ -88,10 +87,10 @@ class ActionBar extends GetView<ActionBarController> {
               }
 
               return Padding(
-                padding: EdgeInsets.only(left: 8, right: 18),
+                padding: const EdgeInsets.only(left: 8, right: 18),
                 child: Text(
-                  data != null ? '${data}' : '-',
-                  style: TextStyle(
+                  data != null ? '$data' : '-',
+                  style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: Colors.grey,
@@ -131,13 +130,13 @@ class ActionBar extends GetView<ActionBarController> {
             }),
           ),
 
-          Spacer(),
+          const Spacer(),
           LocooCircleIconButton(
             icon: Icons.more_horiz,
             onPressed: () {
               showModalBottomSheet<dynamic>(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(25.0))),
                 context: context,

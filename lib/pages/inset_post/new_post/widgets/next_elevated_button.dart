@@ -22,7 +22,7 @@ class NextElevatedButton extends StatelessWidget {
       icon: Icon(icon),
       label: Text(
         label,
-        style: Theme.of(context).textTheme.button?.copyWith(
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
               color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
               letterSpacing: -0.07,
             ),

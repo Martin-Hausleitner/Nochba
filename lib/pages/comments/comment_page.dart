@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/logic/models/CommentFilter.dart';
-import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/pages/comments/comment_controller.dart';
 import 'package:nochba/pages/comments/widgets/comment_cart.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_chip.dart';
@@ -84,7 +83,7 @@ class CommentPage extends GetView<CommentController> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: Form(
                 key: controller.formKey,
                 child: Row(
@@ -96,14 +95,14 @@ class CommentPage extends GetView<CommentController> {
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.done,
                           decoration:
-                              InputDecoration(labelText: 'Enter your comment'),
+                              const InputDecoration(labelText: 'Enter your comment'),
                           autovalidateMode: AutovalidateMode.disabled,
                           validator: (value) => value != null && value.isEmpty
                               ? 'Enter your comment'
                               : null),
                     ),
                     IconButton(
-                        icon: Icon(Icons.send),
+                        icon: const Icon(Icons.send),
                         onPressed: () async =>
                             await controller.addComment(postId))
                   ],

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/services.dart';
 
 // create a stateless button with a text NEW and a background color of Colors.blue[100]
 class LocooTextButton extends StatelessWidget {
@@ -26,7 +23,7 @@ class LocooTextButton extends StatelessWidget {
       icon: Icon(icon),
       label: Text(
         label,
-        style: Theme.of(context).textTheme.button?.copyWith(
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
               color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
               letterSpacing: 0.00,
               fontWeight: FontWeight.w500,
@@ -111,7 +108,7 @@ class SimpleElevatedButtonWithIcon extends StatelessWidget {
       onPressed: onPressed as void Function()?,
       icon: Icon(iconData),
       label: label,
-      style: ElevatedButton.styleFrom(primary: color, padding: padding),
+      style: ElevatedButton.styleFrom(backgroundColor: color, padding: padding),
     );
   }
 }

@@ -3,16 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
-import 'package:nochba/pages/feed/widgets/post/loading_post.dart';
-import 'package:shimmer/shimmer.dart';
 
 import 'package:nochba/logic/models/post.dart' as models;
-import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/pages/feed/views/feed_post_filter_view.dart';
 import 'package:nochba/pages/feed/widgets/post_card.dart';
-import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 
-import '../../shared/range_slider/range_slider.dart';
 import 'feed_controller.dart';
 
 class FeedPage extends GetView<FeedController> {
@@ -29,9 +24,9 @@ class FeedPage extends GetView<FeedController> {
             Container(
               // height: 100,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 // color: Theme.of(context).colorScheme.onPrimary,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(22),
                   bottomRight: Radius.circular(22),
                 ),
@@ -114,14 +109,14 @@ class FeedPage extends GetView<FeedController> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
                                 controller.updateExtendedPostFilter();
                                 showModalBottomSheet<void>(
                                   backgroundColor:
                                       Theme.of(context).scaffoldBackgroundColor,
-                                  shape: RoundedRectangleBorder(
+                                  shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(25.0))),
                                   context: context,
@@ -148,7 +143,7 @@ class FeedPage extends GetView<FeedController> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
                         //Create a SingleChildScrollView with a row  of chips which can be selected. when seclected the color of the chip changes to primery
                       ],
@@ -161,7 +156,7 @@ class FeedPage extends GetView<FeedController> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          SizedBox(width: 14),
+                          const SizedBox(width: 14),
                           CategorieChip(
                             label: 'Alle',
                             category: CategoryOptions.None,
@@ -224,7 +219,7 @@ class FeedPage extends GetView<FeedController> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           } else if (snapshot.hasError) {
-                            return Center(
+                            return const Center(
                                 child: Text(
                                     'Die Suche ist derzeit nicht verfügbar',
                                     textAlign: TextAlign.center,

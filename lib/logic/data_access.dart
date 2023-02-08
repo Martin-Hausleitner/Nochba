@@ -6,12 +6,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/models/bookmark.dart';
-import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/logic/models/user.dart' as models;
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
-    as types;
 
 class DataAccess extends GetxService {
   final CollectionReference<Map<String, dynamic>> userdataCol =
@@ -239,7 +236,7 @@ class DataAccess extends GetxService {
     try {
       await notificationCol.doc(notificationId).delete();
       return true;
-    } on FirebaseException catch (e) {
+    } on FirebaseException {
       return false;
     }
   }

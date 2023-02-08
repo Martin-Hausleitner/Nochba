@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 
 class InviteCodeInput extends StatelessWidget {
+  const InviteCodeInput({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
@@ -24,7 +25,7 @@ class InviteCodeInput extends StatelessWidget {
           ),
           context: context,
           builder: (context) {
-            return Container(
+            return SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
               child: Stack(
                 children: [
@@ -45,7 +46,7 @@ class InviteCodeInput extends StatelessWidget {
                         children: [
                           Container(
                             height: 4000,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Colors.red,
                                 backgroundBlendMode: BlendMode
                                     .dstOut), // This one will handle background + difference out
@@ -56,7 +57,7 @@ class InviteCodeInput extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10),
                               height: 200,
                               width: 200,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.red,
                                 //red border only in the cornders
                               ),
@@ -67,7 +68,7 @@ class InviteCodeInput extends StatelessWidget {
                     ),
                   ),
 
-                  CloseButton(),
+                  const CloseButton(),
                   Align(
                     alignment: Alignment.topCenter,
                     child: Container(
@@ -149,7 +150,7 @@ class CloseButton extends StatelessWidget {
         width: 40,
         //round and color colorscheme background
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: // round
               BorderRadius.circular(100),
         ),
@@ -157,7 +158,7 @@ class CloseButton extends StatelessWidget {
         child: IconButton(
           splashColor: Colors.transparent,
           splashRadius: 0.00001,
-          icon: Icon(
+          icon: const Icon(
             Icons.close_rounded,
             color: Colors.black,
           ),
@@ -199,7 +200,7 @@ class EnterCodeManualButton extends StatelessWidget {
                 return Padding(
                   padding: MediaQuery.of(context).viewInsets,
                   child: SafeArea(
-                    child: Container(
+                    child: SizedBox(
                       height: 160,
                       child: Column(
                         children: [

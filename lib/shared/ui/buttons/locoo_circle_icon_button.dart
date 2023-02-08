@@ -8,7 +8,7 @@ class LocooCircleIconButton extends StatelessWidget {
 
   final VoidCallback? onPressed;
 
-  LocooCircleIconButton({
+  const LocooCircleIconButton({
     super.key,
     required this.icon,
     this.isPressed = false,

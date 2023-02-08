@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -9,7 +8,6 @@ import 'package:nochba/pages/feed/feed_controller.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_chip.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_title.dart';
-import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 
@@ -21,8 +19,8 @@ class FeedPostFilterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomSheetTitleCloseView(title: 'Filter', children: [
-      FilterRangeSlider(),
-      FilterTitle(label: 'Filtern nach Kategorie'),
+      const FilterRangeSlider(),
+      const FilterTitle(label: 'Filtern nach Kategorie'),
       Padding(
         padding: //horizontal 15
             const EdgeInsets.symmetric(horizontal: 15),
@@ -131,7 +129,7 @@ class FeedPostFilterView extends StatelessWidget {
           ),
         ),
       ),
-      FilterTitle(label: 'Sotieren nach'),
+      const FilterTitle(label: 'Sotieren nach'),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: GetBuilder<FeedController>(
@@ -157,7 +155,7 @@ class FeedPostFilterView extends StatelessWidget {
           ),
         ),
       ),
-      FilterTitle(label: 'Reihenfolge'),
+      const FilterTitle(label: 'Reihenfolge'),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: GetBuilder<FeedController>(
@@ -179,7 +177,7 @@ class FeedPostFilterView extends StatelessWidget {
           ),
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 30,
       ),
       Padding(
@@ -191,7 +189,7 @@ class FeedPostFilterView extends StatelessWidget {
           icon: FlutterRemix.check_line,
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 15,
       ),
     ]);

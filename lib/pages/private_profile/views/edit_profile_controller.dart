@@ -1,12 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/models/ImageFile.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
-import 'package:nochba/logic/models/UserPrivateInfoSettings.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoNameRepository.dart';
@@ -241,7 +239,7 @@ class EditProfileController extends GetxController {
     }
   }
 
-  RxList<String> _interests = <String>[].obs;
+  final RxList<String> _interests = <String>[].obs;
 
   List<String> getInterests(List<String>? interestsList) {
     _interests.clear();
@@ -278,7 +276,7 @@ class EditProfileController extends GetxController {
     }
   }
 
-  RxList<String> _offers = <String>[].obs;
+  final RxList<String> _offers = <String>[].obs;
 
   List<String> getOffers(List<String>? offersList) {
     _offers.clear();

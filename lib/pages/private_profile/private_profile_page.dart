@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
-import 'package:image/image.dart' as Image;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
-import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/pages/private_profile/views/own_posts_view.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -29,15 +27,16 @@ import 'views/edit_profile_view.dart';
 import 'views/invite_neighbor_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart' as http;
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
+  const PrivateProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final authAccess = Get.find<AuthAccess>();
     return CupertinoPageScaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       // A ScrollView that creates custom scroll effects using slivers.
       child: CupertinoTheme(
         data: CupertinoThemeData(
@@ -60,7 +59,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                     ),
           ),
           // barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          barBackgroundColor: Theme.of(context).backgroundColor,
+          barBackgroundColor: Theme.of(context).colorScheme.background,
         ),
         child: CustomScrollView(
           // A list of sliver widgets.
@@ -82,7 +81,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                       //align start
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         FutureBuilder<models.User?>(
@@ -142,7 +141,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                           }
                                           return Container();
                                         }),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 2,
                                     ),
                                     Row(
@@ -159,7 +158,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                               ?.color
                                               ?.withOpacity(0.6),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 3,
                                         ),
                                         Text(
@@ -229,14 +228,14 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                             }
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         // ActionCardTitle(
                         //   title: 'Dein Profil',
                         // ),
-                        InviteNeighborCard(),
-                        FeedbackTest(),
+                        const InviteNeighborCard(),
+                        const FeedbackTest(),
                         // GetDistanceFromLatLonInMeters(),
                         // VerifyButton(),
                         ActionCard(
@@ -285,7 +284,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         //     Get.snackbar("Pressed", "Pressed");
                         //   },
                         // ),
-                        ActionCardTitle(
+                        const ActionCardTitle(
                           title: 'Einstellungen',
                         ),
                         ActionCard(
@@ -296,7 +295,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                             Get.to(
                               fullscreenDialog: true,
                               transition: Transition.cupertino,
-                              EditProfileView(),
+                              const EditProfileView(),
                             );
                           },
                         ),
@@ -308,11 +307,11 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                             Get.to(
                               fullscreenDialog: true,
                               transition: Transition.cupertino,
-                              SettingsView(),
+                              const SettingsView(),
                             );
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         LogoutSettingsCard(
@@ -321,13 +320,13 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                             authAccess.signOut();
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 18,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 300,
                         ),
-                        CheckAddressWithDeviceLocation(),
+                        const CheckAddressWithDeviceLocation(),
                       ],
                     ),
                   ),
@@ -379,9 +378,7 @@ class FeedbackTest extends StatelessWidget {
         print("Card ID: $cardId");
 
       } else {
-        throw Exception("Failed to retrieve card ID: " +
-            response1.statusCode.toString() +
-            response1.reasonPhrase.toString());
+        throw Exception("Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
       }
     } catch (e) {
       print("Error: $e");
@@ -406,12 +403,11 @@ class FeedbackTest extends StatelessWidget {
     if (response.statusCode == 200) {
       print("Data successfully uploaded to Trello");
     } else {
-      throw Exception("Failed to upload data to Trello" +
-          response.statusCode.toString() +
-          response.reasonPhrase.toString());
+      throw Exception("Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
@@ -440,6 +436,8 @@ class FeedbackTest extends StatelessWidget {
 }
 
 class CheckAddressWithDeviceLocation extends StatelessWidget {
+  const CheckAddressWithDeviceLocation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
@@ -480,6 +478,8 @@ class CheckAddressWithDeviceLocation extends StatelessWidget {
 }
 
 class GenerateVerificationCode extends StatelessWidget {
+  const GenerateVerificationCode({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
@@ -513,6 +513,8 @@ class GenerateVerificationCode extends StatelessWidget {
 }
 
 class GetDistanceFromLatLonInMeters extends StatelessWidget {
+  const GetDistanceFromLatLonInMeters({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
@@ -556,10 +558,12 @@ class GetDistanceFromLatLonInMeters extends StatelessWidget {
 }
 
 class VerifyButton extends StatelessWidget {
+  const VerifyButton({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final String verificationCode = 'UTDSSp9nDi';
-    final String address = "Wüstenrotstrasse 1, 4020 Linz, Austria";
+    const String verificationCode = 'UTDSSp9nDi';
+    const String address = "Wüstenrotstrasse 1, 4020 Linz, Austria";
     return LocooTextButton(
       label: 'Verify',
       icon: Icons.arrow_back_rounded,
@@ -588,6 +592,8 @@ class VerifyButton extends StatelessWidget {
 }
 
 class InviteNeighborCard extends StatelessWidget {
+  const InviteNeighborCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -597,7 +603,7 @@ class InviteNeighborCard extends StatelessWidget {
           Get.to(
             fullscreenDialog: true,
             transition: Transition.cupertino,
-            InviteNeighborView(),
+            const InviteNeighborView(),
           );
         },
         child: Container(
@@ -627,7 +633,7 @@ class InviteNeighborCard extends StatelessWidget {
                     ),
 
                     Padding(
-                      padding: EdgeInsets.only(left: 8),
+                      padding: const EdgeInsets.only(left: 8),
                       child: Text(
                         "Nachbar einladen",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(

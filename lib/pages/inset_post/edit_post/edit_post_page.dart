@@ -1,10 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:nochba/logic/models/post.dart';
-import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
 import 'package:nochba/pages/inset_post/new_post/views/new_post_view.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/new_post_title.dart';
@@ -63,7 +58,7 @@ class _EditPostViewState extends State<EditPostView> {
       // align start
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         Expanded(
           child: ListView(
             children: [
@@ -162,7 +157,7 @@ class _EditPostViewState extends State<EditPostView> {
                             ),
                           ),
                           //tile small Schritt 1 von 3
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
 
                           LocooTextField(
                               controller: widget.controller.titleController,
@@ -173,7 +168,7 @@ class _EditPostViewState extends State<EditPostView> {
                                   value != null && value.isEmpty
                                       ? 'Enter a title'
                                       : null),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
 
                           LocooTextField(
                               maxLines: 10,
@@ -188,7 +183,7 @@ class _EditPostViewState extends State<EditPostView> {
                                       ? 'Enter a description'
                                       : null),
 
-                          NewPostTitle(label: 'Bild Hinzufügen'),
+                          const NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<EditPostController>(
                             builder: (c) => AddPhotoElement(
                               image: widget.controller.image,
@@ -197,7 +192,7 @@ class _EditPostViewState extends State<EditPostView> {
                               editImage: widget.controller.editImage,
                             ),
                           ),
-                          NewPostTitle(label: 'Tags'),
+                          const NewPostTitle(label: 'Tags'),
                           TagsElement(
                             tags: widget.controller.tags,
                             removeTag: widget.controller.removeTag,
@@ -207,12 +202,12 @@ class _EditPostViewState extends State<EditPostView> {
                         ],
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: // left 10 righ t10
-                          const EdgeInsets.symmetric(horizontal: 10),
+                          EdgeInsets.symmetric(horizontal: 10),
                       //child: FilterRangeSlider(),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -241,12 +236,12 @@ class EditPostButton extends StatelessWidget {
         child: ElevatedButton.icon(
           onPressed: //controller.addPost() and go to
               () => controller.updatePost(),
-          icon: Icon(
+          icon: const Icon(
             Icons.done_outlined,
           ),
           label: Text(
             'Aktualisieren',
-            style: Theme.of(context).textTheme.button?.copyWith(
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
                   letterSpacing: -0.07,
                 ),

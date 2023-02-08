@@ -13,7 +13,7 @@ class _TagDialogState extends State<TagDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Write a tag',
+      title: const Text('Write a tag',
                 textAlign: TextAlign.center, 
                 style: TextStyle(fontSize: 18)
               ),
@@ -26,7 +26,7 @@ class _TagDialogState extends State<TagDialog> {
               
               controller: textController,          
               textInputAction: TextInputAction.done,
-              decoration: InputDecoration(labelText: 'Tag'),
+              decoration: const InputDecoration(labelText: 'Tag'),
             ),
           ],
         )

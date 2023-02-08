@@ -1,15 +1,10 @@
-import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:nochba/pages/auth/auth_controller.dart';
 import 'package:nochba/pages/auth/login_controller.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
-import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
@@ -23,7 +18,7 @@ class LoginPage extends GetView<LoginController> {
       tailingIcon: Icons.close_rounded,
       onPressed: controller.getBack,
       title: 'Anmelden',
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       children: [
         if (kIsWeb)
           Column(
@@ -36,7 +31,7 @@ class LoginPage extends GetView<LoginController> {
                 'Nochba Beta',
                 textAlign: TextAlign.center,
                 style:
-                    const TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
+                    TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 20),
 
@@ -76,7 +71,7 @@ class LoginPage extends GetView<LoginController> {
                     icon: Icons.chevron_left_outlined,
                     label: 'Anmelden',
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   //add a small text 'Passwort vergessen'
                   Align(
@@ -127,11 +122,11 @@ class LoginPage extends GetView<LoginController> {
                     ),
                   ),
 
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
 
                   Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           thickness: 1,
                         ),
@@ -145,18 +140,17 @@ class LoginPage extends GetView<LoginController> {
                               Theme.of(context).textTheme.bodySmall?.copyWith(),
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                           child: Divider(
                         thickness: 1,
                       )),
                     ],
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
 
                   OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(60),
-                      primary: Theme.of(context).colorScheme.onSurface,
+                      foregroundColor: Theme.of(context).colorScheme.onSurface, minimumSize: const Size.fromHeight(60),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -169,7 +163,7 @@ class LoginPage extends GetView<LoginController> {
                     ),
                     label: Text(
                       'Mit Google anmelden',
-                      style: Theme.of(context).textTheme.button?.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context).colorScheme.onSurface,
                             letterSpacing: -0.07,
                           ),
@@ -181,7 +175,7 @@ class LoginPage extends GetView<LoginController> {
                       FocusScope.of(context).unfocus();
                     },
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   ElevatedButton.icon(
                     onPressed: //open snackbar
@@ -209,7 +203,7 @@ class LoginPage extends GetView<LoginController> {
 
                     label: Text(
                       'Mit Apple anmelden',
-                      style: Theme.of(context).textTheme.button?.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context)
                                 .buttonTheme
                                 .colorScheme
@@ -234,7 +228,7 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               /*RichText(
                 text: TextSpan(
                     style: const TextStyle(color: Colors.black, fontSize: 17),
@@ -334,7 +328,7 @@ class NextElevatedButton extends StatelessWidget {
         icon: Icon(icon),
         label: Text(
           label,
-          style: Theme.of(context).textTheme.button?.copyWith(
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: Theme.of(context).buttonTheme.colorScheme?.onPrimary,
                 letterSpacing: -0.07,
               ),

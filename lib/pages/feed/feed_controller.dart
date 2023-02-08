@@ -1,7 +1,5 @@
-import 'package:algolia/algolia.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:nochba/logic/algolia/AlgoliaApplication.dart';
 import 'package:nochba/logic/models/PostFilter.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/user.dart';
@@ -17,7 +15,7 @@ class FeedController extends GetxController {
     try {
       //return postRepository.getAllPosts(true);
       return postRepository.queryPosts(postFilter.value);
-    } on Exception catch (e) {
+    } on Exception {
       return Stream.error(Error);
     }
   }

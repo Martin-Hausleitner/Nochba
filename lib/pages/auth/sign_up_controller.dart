@@ -326,7 +326,7 @@ class SignUpController extends GetxController {
       }
 
       return result;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       Get.snackbar(
           'Achtung', 'Ein Fehler bei der Registrierung ist aufgetreten');
       return false;
@@ -343,7 +343,7 @@ class SignUpController extends GetxController {
       }
 
       return result;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       Get.snackbar(
           'Achtung', 'Ein Fehler bei der Registrierung ist aufgetreten');
       return false;
@@ -432,7 +432,7 @@ class SignUpController extends GetxController {
       ),
       context: context,
       builder: (context) {
-        return Container(
+        return SizedBox(
           height: MediaQuery.of(context).size.height * 0.8,
           child: Stack(
             children: [
@@ -453,7 +453,7 @@ class SignUpController extends GetxController {
                     children: [
                       Container(
                         height: 4000,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.red,
                             backgroundBlendMode: BlendMode
                                 .dstOut), // This one will handle background + difference out
@@ -464,7 +464,7 @@ class SignUpController extends GetxController {
                           margin: const EdgeInsets.only(top: 10),
                           height: 200,
                           width: 200,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.red,
                             //red border only in the cornders
                           ),
@@ -475,7 +475,7 @@ class SignUpController extends GetxController {
                 ),
               ),
 
-              ici.CloseButton(),
+              const ici.CloseButton(),
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(

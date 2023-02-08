@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nochba/logic/models/Comment.dart';
-import 'package:nochba/pages/comments/comment_controller.dart';
-import 'package:nochba/pages/comments/views/action_bar_more_view.dart';
 import 'package:nochba/pages/comments/widgets/action_bar.dart';
-import 'package:nochba/pages/comments/widgets/action_bar_controller.dart';
-import 'package:nochba/shared/ui/buttons/locoo_circle_icon_button.dart';
 import 'package:nochba/shared/ui/locoo_circle_avatar.dart';
 
 class CommentCard extends StatelessWidget {
@@ -29,7 +24,7 @@ class CommentCard extends StatelessWidget {
           imageUrl: comment.userImageUrl,
           radius: 20,
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Expanded(
@@ -61,13 +56,13 @@ class CommentCard extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         // Spacer(),
