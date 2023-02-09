@@ -13,6 +13,10 @@ class LocooTextField extends StatefulWidget {
   final bool autofocus;
   final void Function(String)? onFieldSubmitted;
   final Widget? suffixIcon;
+  final bool readOnly;
+  final void Function()? onTap;
+  final FocusNode? focusNode;
+  final bool? enableInteractiveSelection;
 
   const LocooTextField({
     super.key,
@@ -29,6 +33,10 @@ class LocooTextField extends StatefulWidget {
     this.onFieldSubmitted,
     this.height = 50,
     this.suffixIcon,
+    this.readOnly = false,
+    this.onTap,
+    this.focusNode,
+    this.enableInteractiveSelection,
   });
 
   // const LocooTextField({
@@ -86,8 +94,13 @@ class _LocooTextFieldState extends State<LocooTextField> {
           ),
         ),
         TextFormField(
+          // enabled: false,
+          enableInteractiveSelection: widget.enableInteractiveSelection,
+          onTap: widget.onTap,
+          readOnly: widget.readOnly,
           controller: widget.controller,
-          focusNode: _focusNode,
+          focusNode: //if focusNode is null use _focusNode
+              widget.focusNode ?? _focusNode,
           keyboardType: widget.keyboardType,
           maxLines: widget.maxLines,
           textInputAction: widget.textInputAction,
@@ -99,10 +112,20 @@ class _LocooTextFieldState extends State<LocooTextField> {
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            fillColor: Colors.red,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            // fillColor: Colors.red,
             border: InputBorder.none,
             labelText: widget.label,
+            labelStyle: TextStyle(
+              color: _focusNode.hasFocus
+                  ? Theme.of(context).primaryColor
+                  : // the same color as current
+                  Theme.of(context)
+                      .colorScheme
+                      .onSecondaryContainer
+                      .withOpacity(0.7),
+            ),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             suffixIcon: widget.suffixIcon,
           ),
@@ -128,4 +151,3 @@ class _LocooTextFieldState extends State<LocooTextField> {
 //     ),
 //   ),
 // ),
-
