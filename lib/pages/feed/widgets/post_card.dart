@@ -58,9 +58,11 @@ class Post extends GetView<PostCardController> {
               // Post title
               Row(
                 children: [
-                  DateDisplay(
-                    date: DateTime.now(),
-                  ),
+                  //show only if categor is event
+                  if (category == CategoryOptions.Event)
+                    DateDisplay(
+                      date: DateTime.now(),
+                    ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,67 +134,22 @@ class Post extends GetView<PostCardController> {
               ),
 
               const SizedBox(height: spacingBetween),
-
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              FlutterRemix.calendar_line,
-                              color: Colors.grey[400],
-                              size: 18,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            // Text('${DateTime.now().toString()}'),
-                            //format format like: 10. Februar 2021
-                            Text(DateFormat('d. MMMM yyyy')
-                                .format(post.createdAt.toDate())),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              FlutterRemix.time_line,
-                              color: Colors.grey[400],
-                              size: 18,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text('09:00 - 10:00'),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              FlutterRemix.map_pin_line,
-                              color: Colors.grey[400],
-                              size: 18,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text('San Francisco'),
-                          ],
-                        ),
-                      ],
+              if (category == CategoryOptions.Event)
+                EventInfo(
+                  startDate: DateTime.now(),
+                  endDate: DateTime.now().add(
+                    Duration( 
+                      // days: 1,
+                      hours: 23,
+                      minutes: 59,
+                      seconds: 59,
                     ),
                   ),
-                ],
-              ),
+                  location: 'Hamburg',
+                ),
               const SizedBox(height: spacingBetween),
 
               Discription(postDescription: post.description),
-
-              //when the catogory is Suche the button2 is visible
-
-              // place a dark green button with a text "anschreiben" and a comment icon on the left side of the button
 
               // Post Image
               post.imageUrl != ''
@@ -240,6 +197,81 @@ class Post extends GetView<PostCardController> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class EventInfo extends StatelessWidget {
+  //start date and end date
+  final DateTime startDate;
+  final DateTime endDate;
+  final String location;
+
+  const EventInfo(
+      {super.key,
+      required this.startDate,
+      required this.endDate,
+      this.location = ''});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    FlutterRemix.calendar_line,
+                    color: Colors.grey[400],
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  if (startDate.difference(endDate).inDays < 0) ...[
+                    Text(
+                        '${DateFormat('d.M.yyyy').format(startDate)} ${DateFormat('HH:mm').format(startDate)} - ${DateFormat('d.M.yyyy').format(endDate)} ${DateFormat('HH:mm').format(endDate)}'),
+                  ] else ...[
+                    Text(DateFormat('d. MMMM yyyy').format(startDate)),
+                  ],
+                ],
+              ),
+              if (startDate.difference(endDate).inDays == 0)
+                Row(
+                  children: [
+                    Icon(
+                      FlutterRemix.time_line,
+                      color: Colors.grey[400],
+                      size: 18,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                        '${DateFormat('HH:mm').format(startDate)} - ${DateFormat('HH:mm').format(endDate)}'),
+                  ],
+                ),
+              if (location != '')
+                Row(
+                  children: [
+                    Icon(
+                      FlutterRemix.map_pin_line,
+                      color: Colors.grey[400],
+                      size: 18,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(location),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
