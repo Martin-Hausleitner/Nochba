@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/publish_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 import '../new_post_controller.dart';
@@ -123,19 +123,71 @@ class NewPostView extends StatelessWidget {
                                       : null),
                           // SizedBox(height: 10),
 
-                          // Center(
-                          //     child: InkWell(
-                          //   onTap: () => controller.showTagDialog(context),
-                          //   child: Container(
-                          //     padding: const EdgeInsets.all(8),
-                          //     decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(20),
-                          //       color: Colors.lightGreen,
-                          //     ),
-                          //     child: Icon(Icons.add, color: Colors.white),
-                          //   ),
-                          // )),
-                          // TagsEditor(),
+                          // if (controller.categoryName == 'Event')
+
+                          const SizedBox(height: 10),
+                          LocooTextField(
+                            // controller: controller.locationController,
+                            textInputAction: TextInputAction.next,
+                            label: 'Ort',
+                            autovalidateMode: AutovalidateMode.disabled,
+                          ),
+
+                          const SizedBox(height: 10),
+                          Container(
+                            height: 50,
+                            width: double.infinity,
+                            // decoration: BoxDecoration(
+                            //   color: Theme.of(context).colorScheme.error,
+                            //   borderRadius: BorderRadius.circular(10),
+                            // ),
+                            // top left Datum as locoo textfield and in the file the date
+                            child: LocooTextField(
+                              label: 'Datum',
+                              readOnly: true,
+                              enableInteractiveSelection: false,
+                              focusNode: FocusNode(),
+                              // text inside the textfield
+
+                              onTap: () async {
+                                List<DateTime>? dateTimeList =
+                                    await showOmniDateTimeRangePicker(
+                                  context: context,
+                                  type: OmniDateTimePickerType.dateAndTime,
+                                  primaryColor: Theme.of(context).primaryColor,
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  calendarTextColor: Colors.black,
+                                  tabTextColor: Colors.black,
+                                  unselectedTabBackgroundColor: // gray 300 color
+                                      Colors.grey[300],
+                                  buttonTextColor: Colors.black,
+                                  timeSpinnerTextStyle: const TextStyle(
+                                      color: Colors.black, fontSize: 18),
+                                  timeSpinnerHighlightedTextStyle:
+                                      const TextStyle(
+                                          color: Colors.black, fontSize: 24),
+                                  is24HourMode: true,
+                                  isShowSeconds: false,
+                                  startInitialDate: DateTime.now(),
+                                  startFirstDate: DateTime(1600)
+                                      .subtract(const Duration(days: 3652)),
+                                  startLastDate: DateTime.now().add(
+                                    const Duration(days: 3652),
+                                  ),
+                                  endInitialDate: DateTime.now()
+                                      .add(const Duration(hours: 1)),
+                                  endFirstDate: DateTime(1600)
+                                      .subtract(const Duration(days: 3652)),
+                                  endLastDate: DateTime.now().add(
+                                    const Duration(days: 3652),
+                                  ),
+                                  borderRadius: const Radius.circular(16),
+                                );
+                              },
+                            ),
+                          ),
+
                           const NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<NewPostController>(
                             builder: (c) => AddPhotoElement(
@@ -697,7 +749,8 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -81,6 +81,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   shake: ^2.2.0
   pinch_zoom: ^1.0.0
+  omni_datetime_picker: ^0.1.4
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
