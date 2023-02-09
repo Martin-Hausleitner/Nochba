@@ -123,26 +123,16 @@ class NewPostView extends StatelessWidget {
                                       : null),
                           // SizedBox(height: 10),
 
-                          // if (controller.categoryName == 'Event')
-
-                          const SizedBox(height: 10),
-                          LocooTextField(
-                            // controller: controller.locationController,
-                            textInputAction: TextInputAction.next,
-                            label: 'Ort',
-                            autovalidateMode: AutovalidateMode.disabled,
-                          ),
-
-                          const SizedBox(height: 10),
-                          Container(
-                            height: 50,
-                            width: double.infinity,
-                            // decoration: BoxDecoration(
-                            //   color: Theme.of(context).colorScheme.error,
-                            //   borderRadius: BorderRadius.circular(10),
-                            // ),
-                            // top left Datum as locoo textfield and in the file the date
-                            child: LocooTextField(
+                          if (controller.categoryName == 'Event') ...[
+                            const SizedBox(height: 10),
+                            LocooTextField(
+                              // controller: controller.locationController,
+                              textInputAction: TextInputAction.next,
+                              label: 'Ort',
+                              autovalidateMode: AutovalidateMode.disabled,
+                            ),
+                            const SizedBox(height: 10),
+                            LocooTextField(
                               label: 'Datum',
                               readOnly: true,
                               enableInteractiveSelection: false,
@@ -186,7 +176,7 @@ class NewPostView extends StatelessWidget {
                                 );
                               },
                             ),
-                          ),
+                          ],
 
                           const NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<NewPostController>(
