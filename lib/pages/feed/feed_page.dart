@@ -295,10 +295,35 @@ class PostList extends StatelessWidget {
                 const SizedBox(height: 0),
           );
         } else if (snapshot.hasError) {
-          return const Center(
-              child: Text('Die Posts sind derzeit nicht verfügbar',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300)));
+          return Center(
+            child: Column(
+              //center
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                // add a forum icon
+
+                Icon(
+                  // errpr info icon
+
+                  Icons.error_outline_outlined,
+
+                  size: 100,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                ),
+                Text(
+                  'Es konnten keine Posts geladen werden',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.15),
+                      ),
+                ),
+              ],
+            ),
+          );
         } else if (snapshot.hasData) {
           final posts = snapshot.data!;
 
@@ -310,9 +335,6 @@ class PostList extends StatelessWidget {
 
                 children: [
                   // add a forum icon
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.25,
-                  ),
 
                   Icon(
                     Icons.article_outlined,
