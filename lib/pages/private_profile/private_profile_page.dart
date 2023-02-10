@@ -5,6 +5,8 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shimmer/shimmer.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -84,13 +86,14 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         const SizedBox(
                           height: 20,
                         ),
-                        FutureBuilder<models.User?>(
-                          future: controller.getCurrentUser(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final data = snapshot.data!;
-                              return Center(
-                                child: Column(
+
+                        Center(
+                          child: FutureBuilder<models.User?>(
+                            future: controller.getCurrentUser(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final data = snapshot.data!;
+                                return Column(
                                   children: [
                                     // CircleAvatar(
                                     //   radius: 50,
@@ -214,19 +217,28 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                     //   ),
                                     // )
                                   ],
-                                ),
-                              );
-                            } else if (snapshot.hasError) {
-                              return const Center(
-                                child: Text(
-                                    'Das Profil ist momentan nicht verfügbar'),
-                              );
-                            } else {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                          },
+                                );
+                              } else if (snapshot.hasError) {
+                                // return a red info icon whith a text below with the error
+                                return Text(
+                                  'Der Name kann zurzeit nicht geladen werden',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        // fontSize: 30,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: -0.3,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondaryContainer,
+                                      ),
+                                );
+                              } else {
+                                return LoadingProfile();
+                              }
+                            },
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -335,6 +347,54 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class LoadingProfile extends StatelessWidget {
+  const LoadingProfile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Theme.of(context).colorScheme.onSurface,
+      highlightColor: Theme.of(context).colorScheme.onPrimary,
+      child: Column(
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.035),
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: 170,
+            height: 22,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.035),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: 120,
+            height: 16,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.035),
+            ),
+          ),
+        ],
       ),
     );
   }

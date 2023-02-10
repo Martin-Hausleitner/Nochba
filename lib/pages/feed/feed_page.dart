@@ -6,8 +6,8 @@ import 'package:nochba/logic/models/category.dart';
 
 import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/pages/feed/views/feed_post_filter_view.dart';
+import 'package:nochba/pages/feed/widgets/post/loading_post.dart';
 import 'package:nochba/pages/feed/widgets/post_card.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'feed_controller.dart';
 
@@ -106,11 +106,10 @@ class FilterButton extends StatelessWidget {
           onTap: () {
             controller.updateExtendedPostFilter();
             showModalBottomSheet<void>(
-              backgroundColor:
-                  Theme.of(context).scaffoldBackgroundColor,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(25.0))),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(25.0))),
               context: context,
               isScrollControlled: true,
               builder: (BuildContext context) {
@@ -278,15 +277,23 @@ class PostList extends StatelessWidget {
 
   final FeedController controller;
 
-  
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<models.Post>>(
       stream: controller.getPosts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return //list of 2 LoadingPost
+              ListView.separated(
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 2,
+            itemBuilder: (BuildContext context, int index) {
+              return const LoadingPost();
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(height: 0),
+          );
         } else if (snapshot.hasError) {
           return const Center(
               child: Text('Die Posts sind derzeit nicht verfügbar',
