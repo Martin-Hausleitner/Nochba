@@ -111,20 +111,20 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                         future: controller.getCurrentUserName(),
                                         builder: (context, snapshot) {
                                           if (snapshot.hasError) {
-                                            return Text(
-                                              'Der Name kann zurzeit nicht geladen werden',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge
-                                                  ?.copyWith(
-                                                    // fontSize: 30,
-                                                    fontWeight: FontWeight.w700,
-                                                    letterSpacing: -0.3,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                                  ),
-                                            );
+                                            // return Text(
+                                            //   'Der Name kann zurzeit nicht geladen werden',
+                                            //   style: Theme.of(context)
+                                            //       .textTheme
+                                            //       .titleLarge
+                                            //       ?.copyWith(
+                                            //         // fontSize: 30,
+                                            //         fontWeight: FontWeight.w700,
+                                            //         letterSpacing: -0.3,
+                                            //         color: Theme.of(context)
+                                            //             .colorScheme
+                                            //             .onSecondaryContainer,
+                                            //       ),
+                                            // );
                                           } else if (snapshot.hasData) {
                                             final data2 = snapshot.data!;
                                             return Text(
@@ -235,7 +235,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                       ),
                                 );
                               } else {
-                                return LoadingProfile();
+                                return LoadingProfileName();
                               }
                             },
                           ),
@@ -352,8 +352,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
   }
 }
 
-class LoadingProfile extends StatelessWidget {
-  const LoadingProfile({
+class LoadingProfileName extends StatelessWidget {
+  const LoadingProfileName({
     super.key,
   });
 

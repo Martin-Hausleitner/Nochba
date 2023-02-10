@@ -7,7 +7,6 @@ import * as logger from "firebase-functions/logger";
 const db = admin.firestore();
 
 export const getDistanceFromTwoUsers = functions.region('europe-west1').https.onCall(
-// export const getDistanceFromTwoUsers = functions.https.onCall(
   async (data, context) => {
     if (!context.auth) {
       throw new functions.https.HttpsError(

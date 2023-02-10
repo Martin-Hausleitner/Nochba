@@ -1,16 +1,9 @@
-// Import the Firebase and Firestore libraries, as well as the FieldValue type
-// from the Firestore library
+
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { FieldValue, GeoPoint } from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
-
-// Import some helper functions for getting coordinates from an address and
-// calculating the distance between two sets of coordinates
-// import { getCoordinatesFromAddress } from "../functions/getCoordinatesFromAddress";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
-
-// Import a function for verifying a verification code
 import { verifyVerificationCode } from "../functions/verifyVerificationCode";
 import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFromAddress";
 import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";

@@ -25,14 +25,10 @@ export const generateVerificationCode = functions
     const uid = context.auth.uid;
 
     const userRef = db.collection("users").doc(uid);
-    // const userInternRef = userRef.collection("intern").doc("address");
-    // const userInternDoc = await userInternRef.get();
     const userPrivateRef = userRef.collection("private").doc("codes");
     const userPrivateDoc = await userPrivateRef.get();
-    // const coordinates = userInternDoc.get("coords");
     logger.info(`User: ${uid} generating verification code.`);
 
-    // get /users/Hs7OuEPhToXg6qPw1ejjuTOFgDo1/userPrivateInfo/Hs7OuEPhToXg6qPw1ejjuTOFgDo1/ lastGeneratedCode
     const lastGeneratedCodeDate = userPrivateDoc.get("lastGeneratedCodeDate");
     if (lastGeneratedCodeDate && lastGeneratedCodeDate !== null) {
       const currentTimestamp = Timestamp.fromDate(new Date());

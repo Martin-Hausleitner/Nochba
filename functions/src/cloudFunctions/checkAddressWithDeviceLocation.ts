@@ -1,5 +1,4 @@
 import * as functions from "firebase-functions";
-// import { getCoordinatesFromAddress } from "../functions/getCoordinatesFromAddress";
 import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFromAddress";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 import * as admin from "firebase-admin";
@@ -12,9 +11,6 @@ const MAX_DISTANCE_METERS = 4444000;
 const db = admin.firestore();
 
 export const checkAddressWithDeviceLocation = functions.region('europe-west1')
-  // .runWith({
-  //   enforceAppCheck: false, // Requests without valid App Check tokens will be rejected.
-  // })
   .https.onCall(async (data, context) => {
     if (!context.auth) {
       throw new functions.https.HttpsError(
@@ -56,11 +52,9 @@ export const checkAddressWithDeviceLocation = functions.region('europe-west1')
       );
     }
 
-    // try addressCoordinates
     let addressCoordinates;
     try {
       addressCoordinates = await getOSMCoordinatesFromAddress(address);
-      // addressCoordinates = await getCoordinatesFromAddress(address);
     } catch (error) {
       throw new functions.https.HttpsError(
         "invalid-argument",
@@ -114,8 +108,6 @@ export const checkAddressWithDeviceLocation = functions.region('europe-west1')
 
     await userInternAddressRef.set({
       coords: addressCoordinates,
-      // deviceCoordinates: deviceCoordinates,
-      // distanceInMeter: distance,
     });
 
     const userInternVerificationRef = db
