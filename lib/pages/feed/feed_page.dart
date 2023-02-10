@@ -7,6 +7,7 @@ import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/pages/feed/views/feed_post_filter_view.dart';
 import 'package:nochba/pages/feed/widgets/post_card.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'feed_controller.dart';
 
@@ -149,62 +150,7 @@ class FeedPage extends GetView<FeedController> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: //left 14
-                        const EdgeInsets.only(bottom: 10),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 14),
-                          CategorieChip(
-                            label: 'Alle',
-                            category: CategoryOptions.None,
-                            isSelected: controller.isCategoryChipSelected,
-                            onTap: controller.selectCategoryChip,
-                          ),
-                          const SizedBox(width: 06),
-                          CategorieChip(
-                            label: 'Mitteilung',
-                            category: CategoryOptions.Message,
-                            isSelected: controller.isCategoryChipSelected,
-                            isIncluded:
-                                controller.isCategoryChipAsMainCategoryIncluded,
-                            onTap: controller.selectCategoryChip,
-                          ),
-                          const SizedBox(width: 06),
-                          CategorieChip(
-                            label: 'Suche',
-                            category: CategoryOptions.Search,
-                            isSelected: controller.isCategoryChipSelected,
-                            isIncluded:
-                                controller.isCategoryChipAsMainCategoryIncluded,
-                            onTap: controller.selectCategoryChip,
-                          ),
-                          const SizedBox(width: 06),
-                          CategorieChip(
-                            label: 'Ausleihen',
-                            category: CategoryOptions.Lending,
-                            isSelected: controller.isCategoryChipSelected,
-                            isIncluded:
-                                controller.isCategoryChipAsMainCategoryIncluded,
-                            onTap: controller.selectCategoryChip,
-                          ),
-                          const SizedBox(width: 06),
-                          CategorieChip(
-                            label: 'Event',
-                            category: CategoryOptions.Event,
-                            isSelected: controller.isCategoryChipSelected,
-                            isIncluded:
-                                controller.isCategoryChipAsMainCategoryIncluded,
-                            onTap: controller.selectCategoryChip,
-                          ),
-                          const SizedBox(width: 06),
-                          const SizedBox(width: 14),
-                        ],
-                      ),
-                    ),
-                  ),
+                  CategoryChooser(controller: controller),
                 ],
               ),
             ),
@@ -252,7 +198,7 @@ class FeedPage extends GetView<FeedController> {
                                           .withOpacity(0.1),
                                     ),
                                     Text(
-                                      'Es wurde nichts auf die Suche gefunden',
+                                      'Es wurde nichts in der Suche gefunden',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
@@ -374,6 +320,73 @@ class FeedPage extends GetView<FeedController> {
                       ),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryChooser extends StatelessWidget {
+  const CategoryChooser({
+    super.key,
+    required this.controller,
+    
+  });
+
+  final FeedController controller;
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: //left 14
+          const EdgeInsets.only(bottom: 10),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            const SizedBox(width: 14),
+            CategorieChip(
+              label: 'Alle',
+              category: CategoryOptions.None,
+              isSelected: controller.isCategoryChipSelected,
+              onTap: controller.selectCategoryChip,
+            ),
+            const SizedBox(width: 06),
+            CategorieChip(
+              label: 'Mitteilung',
+              category: CategoryOptions.Message,
+              isSelected: controller.isCategoryChipSelected,
+              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+              onTap: controller.selectCategoryChip,
+            ),
+            const SizedBox(width: 06),
+            CategorieChip(
+              label: 'Suche',
+              category: CategoryOptions.Search,
+              isSelected: controller.isCategoryChipSelected,
+              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+              onTap: controller.selectCategoryChip,
+            ),
+            const SizedBox(width: 06),
+            CategorieChip(
+              label: 'Ausleihen',
+              category: CategoryOptions.Lending,
+              isSelected: controller.isCategoryChipSelected,
+              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+              onTap: controller.selectCategoryChip,
+            ),
+            const SizedBox(width: 06),
+            CategorieChip(
+              label: 'Event',
+              category: CategoryOptions.Event,
+              isSelected: controller.isCategoryChipSelected,
+              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+              onTap: controller.selectCategoryChip,
+            ),
+            const SizedBox(width: 06),
+            const SizedBox(width: 14),
           ],
         ),
       ),
