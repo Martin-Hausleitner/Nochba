@@ -1,12 +1,12 @@
-name: nochba
-description: A new Flutter project.
+name: Nochba
+description: Neighbourhood Social Network
 
 publish_to: "none"
 
-version: 1.0.0+1
+version: 0.0.1+1
 
 environment:
-  sdk: ">=2.17.5 <3.7.0"
+  sdk: ">=2.17.5 <3.7.3"
 
 dependencies:
   flutter:
