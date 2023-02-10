@@ -249,6 +249,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         // ),
                         const InviteNeighborCard(),
                         const FeedbackTest(),
+                        TranslationWidget(),
                         // GetDistanceFromLatLonInMeters(),
                         // VerifyButton(),
                         ActionCard(
@@ -726,24 +727,69 @@ class TranslationWidget extends StatefulWidget {
 class _TranslationWidgetState extends State<TranslationWidget> {
   final gt = SimplyTranslator(EngineType.google);
 
-  String _germanText = "Er läuft schnell.";
+  String _germanText = "Hallo Welt!";
   String _translatedText = "";
+  bool _showOriginal = true;
+  bool _loading = false;
+  int _retryCount = 0;
+  
+  void _translateText() {
+    setState(() {
+      _showOriginal = !_showOriginal;
+    });
 
-  void _translateText() async {
-    _translatedText = await gt.trSimply(_germanText, "de", 'en');
-    setState(() {});
+    if (!_showOriginal) {
+      _translateTextAsync();
+    }
+  }
+
+  void _translateTextAsync() async {
+    if (mounted) {
+      setState(() {
+        _loading = true;
+      });
+      try {
+        _translatedText = await gt.trSimply(_germanText, null, "en");
+        if (mounted) {
+          setState(() {
+            _loading = false;
+          });
+        }
+      } catch (e) {
+        if (_retryCount < 2) {
+          setState(() {
+            _retryCount++;
+            print("retrying");
+          });
+          _translateTextAsync();
+        } else {
+          if (mounted) {
+            setState(() {
+              _loading = false;
+            });
+          }
+        }
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _translateText();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(_germanText),
+        _loading
+            ? CircularProgressIndicator()
+            : Text(_showOriginal ? _germanText : _translatedText),
         TextButton(
           child: Text("Translate"),
           onPressed: _translateText,
         ),
-        Text(_translatedText),
       ],
     );
   }
