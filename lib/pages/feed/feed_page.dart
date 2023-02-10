@@ -63,43 +63,7 @@ class FeedPage extends GetView<FeedController> {
                         //   ),
                         // ),
                         // const SizedBox(height: 30),
-                        Row(
-                          children: [
-                            SearchBar(controller: controller),
-                            const SizedBox(width: 10),
-                            GestureDetector(
-                              onTap: () {
-                                controller.updateExtendedPostFilter();
-                                showModalBottomSheet<void>(
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(25.0))),
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (BuildContext context) {
-                                    return FeedPostFilterView(
-                                      controller: controller,
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: const Icon(
-                                  FlutterRemix.filter_3_line,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        FilterButton(controller: controller),
                         const SizedBox(height: 10),
 
                         //Create a SingleChildScrollView with a row  of chips which can be selected. when seclected the color of the chip changes to primery
@@ -120,6 +84,56 @@ class FeedPage extends GetView<FeedController> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FilterButton extends StatelessWidget {
+  const FilterButton({
+    super.key,
+    required this.controller,
+  });
+
+  final FeedController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SearchBar(controller: controller),
+        const SizedBox(width: 10),
+        GestureDetector(
+          onTap: () {
+            controller.updateExtendedPostFilter();
+            showModalBottomSheet<void>(
+              backgroundColor:
+                  Theme.of(context).scaffoldBackgroundColor,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(25.0))),
+              context: context,
+              isScrollControlled: true,
+              builder: (BuildContext context) {
+                return FeedPostFilterView(
+                  controller: controller,
+                );
+              },
+            );
+          },
+          child: Container(
+            height: 38,
+            width: 38,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: const Icon(
+              FlutterRemix.filter_3_line,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
