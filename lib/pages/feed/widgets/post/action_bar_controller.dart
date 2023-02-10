@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
+import 'package:nochba/logic/models/Report.dart';
 import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/CommentRepository.dart';
 import 'package:nochba/logic/repositories/LikedPostRepository.dart';
 import 'package:nochba/logic/repositories/PostRepository.dart';
+import 'package:nochba/logic/repositories/ReportRepository.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 
 class ActionBarController extends GetxController {
@@ -103,6 +106,38 @@ class ActionBarController extends GetxController {
     } on Exception {
       Get.snackbar(
           'Löschen fehlgeschlagen', 'Der Post konnte nicht gelöscht werden');
+    }
+  }
+
+  final _reportRepository = Get.find<ReportRepository>();
+
+  List<String> get reasonsForReport => Report.reasonsForReport;
+
+  String? selectedReasonForReport;
+
+  void selectReasonForReport(String? reason) {
+    selectedReasonForReport = reason;
+    update(['ReportPostDropDown']);
+  }
+
+  Future<void> reportPost(String postId) async {
+    try {
+      if (selectedReasonForReport != null) {
+        var report = Report(
+            fromUser: _authService.uid,
+            reportedId: postId,
+            type: ReportType.post,
+            reason: selectedReasonForReport!,
+            createdAt: Timestamp.now());
+
+        return await _reportRepository.insert(report);
+      } else {
+        Get.snackbar('Grund nicht ausgewählt',
+            'Bitte wählen Sie einen Grund für die Meldung aus.');
+      }
+    } catch (e) {
+      Get.snackbar('Melden fehlgeschlagen',
+          'Das Melden des Posts ist leider fehlgeschlagen.');
     }
   }
 }

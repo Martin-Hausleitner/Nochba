@@ -7,6 +7,7 @@ import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/logic/models/LikedComment.dart';
 import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/logic/models/Notification.dart';
+import 'package:nochba/logic/models/Report.dart';
 import 'package:nochba/logic/models/Token.dart';
 import 'package:nochba/logic/models/UserInternInfoAddress.dart';
 import 'package:nochba/logic/models/UserPrivateInfoAddress.dart';
@@ -56,6 +57,9 @@ class ResourceContext {
         getCollectionName: getCollectionName(), modelMapper: modelMapper);
     commentResource = Resource<Comment>(
         getCollectionName: getCollectionName(), modelMapper: modelMapper);
+
+    reportResource = Resource<Report>(
+        getCollectionName: getCollectionName(), modelMapper: modelMapper);
   }
 
   final config = const ResourceConfig();
@@ -77,6 +81,7 @@ class ResourceContext {
   late Resource<Token> tokenResource;
   late Resource<Notification> notificationResource;
   late Resource<Comment> commentResource;
+  late Resource<Report> reportResource;
 
   String Function(Type type, {List<String>? nexus}) getCollectionName() =>
       (Type type, {List<String>? nexus}) {
@@ -119,6 +124,8 @@ class ResourceContext {
             nexus != null &&
             nexus.length == 1) {
           return '${config.postsCollectionName}/${nexus[0]}/${config.commentsCollectionName}';
+        } else if (type == typeOf<Report>()) {
+          return config.reportsCollectionName;
         } else {
           return '';
         }
@@ -151,6 +158,8 @@ class ResourceContext {
       return notificationResource as Resource<T>;
     } else if (typeOf<T>() == typeOf<Comment>()) {
       return commentResource as Resource<T>;
+    } else if (typeOf<T>() == typeOf<Report>()) {
+      return reportResource as Resource<T>;
     } else {
       throw const LogicException(LogicExceptionType.dataAccess,
           message: 'Data-Access not available');

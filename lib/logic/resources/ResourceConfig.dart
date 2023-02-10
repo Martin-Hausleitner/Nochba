@@ -39,4 +39,7 @@ class ResourceConfig {
 
   /// Property to set comments comments name.
   final String commentsCollectionName = 'comments';
+
+  /// Property to set reports collection name.
+  final String reportsCollectionName = 'reports';
 }

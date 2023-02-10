@@ -12,7 +12,7 @@ class Post implements IModel {
   final String category;
   final List<String> tags;
   final int likes;
-  final int range;
+  final double range;
 
   // Unmapped fields
   String userName;

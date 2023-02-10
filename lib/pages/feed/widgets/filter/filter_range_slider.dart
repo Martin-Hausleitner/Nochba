@@ -4,18 +4,19 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'filter_title.dart';
 
 class FilterRangeSlider extends StatefulWidget {
-  const FilterRangeSlider({super.key});
+  const FilterRangeSlider(
+      {super.key, required this.sliderValue, required this.onChanged});
 
-  // final double sliderValue;
-  // final Function(double) onChanged;
+  final double sliderValue;
+  final void Function(double) onChanged;
 
   @override
   State<FilterRangeSlider> createState() => _FilterRangeSliderState();
 }
 
 class _FilterRangeSliderState extends State<FilterRangeSlider> {
-  double _currentSliderValue = 20;
-  OverlayEntry? _overlayEntry;
+  // double _currentSliderValue = 20;
+  // OverlayEntry? _overlayEntry;
   var bottomSheetKey = GlobalKey();
 
   @override
@@ -40,17 +41,13 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Slider(
-            value: _currentSliderValue,
+            value: widget.sliderValue,
             max: 100,
             divisions: 5,
-            label: _currentSliderValue == 0
+            label: widget.sliderValue == 0
                 ? 'eignes Haus'
-                : '${_currentSliderValue.round()}',
-            onChanged: (value) {
-              setState(() {
-                _currentSliderValue = value;
-              });
-            },
+                : '${widget.sliderValue.round()}',
+            onChanged: widget.onChanged,
             // onChangeStart: (double value) {
             //   showOverlay();
             // },

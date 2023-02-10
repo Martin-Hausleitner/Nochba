@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
 import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/pages/comments/widgets/action_bar_controller.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
@@ -66,7 +67,16 @@ class ActionBarMore extends StatelessWidget {
                                 // ),
                                 const SizedBox(height: 5),
 
-                                const DropdownButtonExample(),
+                                GetBuilder<CommentActionBarController>(
+                                  id: 'ReportCommentDropDown',
+                                  builder: (c) => DropdownButtonExample(
+                                    dropDownValues: controller.reasonsForReport,
+                                    selectedValue:
+                                        controller.selectedReasonForReport,
+                                    selectValue:
+                                        controller.selectReasonForReport,
+                                  ),
+                                ),
                                 const SizedBox(height: 10),
 
                                 LocooTextField(
@@ -83,8 +93,9 @@ class ActionBarMore extends StatelessWidget {
                                             : null),
                                 const SizedBox(height: 10),
                                 LocooTextButton(
-                                  label: 'Post Melden',
-                                  onPressed: () {},
+                                  label: 'Kommentar Melden',
+                                  onPressed: () async => await controller
+                                      .reportComment(comment.id),
                                   icon: FlutterRemix.flag_line,
                                 ),
                                 const SizedBox(height: 10),
