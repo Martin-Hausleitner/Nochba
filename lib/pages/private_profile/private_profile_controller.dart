@@ -9,12 +9,6 @@ import 'package:nochba/logic/repositories/UserRepository.dart';
 import 'package:nochba/views/public_profile/public_profile_view.dart';
 
 class PrivateProfileController extends GetxController {
-  var counter = 0.obs;
-
-  void increaseCounter() {
-    counter.value += 1;
-  }
-
   final _userRepository = Get.find<UserRepository>();
   final _userPrivateInfoNameRepository =
       Get.find<UserPrivateInfoNameRepository>();
@@ -65,5 +59,9 @@ class PrivateProfileController extends GetxController {
       print('Error: $e');
       return Future.error('Die Posts können derzeit nicht geladen werden');
     }
+  }
+
+  Future signOut() async {
+    await _authService.signOut();
   }
 }

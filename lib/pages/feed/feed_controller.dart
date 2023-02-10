@@ -46,6 +46,13 @@ class FeedController extends GetxController {
   Rx<PostFilter> postFilter = PostFilter().obs;
   Rx<PostFilter> extendedPostFilter = PostFilter().obs;
 
+  void onSliderValueChanged(double newValue) {
+    extendedPostFilter.value.changeRange(newValue);
+    update(['PostFilterRangeSlider']);
+  }
+
+  double get sliderValue => extendedPostFilter.value.range;
+
   void updateExtendedPostFilter() {
     extendedPostFilter.value = postFilter.value.createCopy();
     update();

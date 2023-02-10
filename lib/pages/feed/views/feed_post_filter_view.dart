@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -19,7 +18,12 @@ class FeedPostFilterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomSheetTitleCloseView(title: 'Filter', children: [
-      const FilterRangeSlider(),
+      GetBuilder<FeedController>(
+          id: 'PostFilterRangeSlider',
+          builder: (c) => FilterRangeSlider(
+                sliderValue: controller.sliderValue,
+                onChanged: controller.onSliderValueChanged,
+              )),
       const FilterTitle(label: 'Filtern nach Kategorie'),
       Padding(
         padding: //horizontal 15

@@ -200,11 +200,15 @@ class NewPostView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: // left 10 righ t10
-                          EdgeInsets.symmetric(horizontal: 10),
-                      child: FilterRangeSlider(),
-                    ),
+                    Padding(
+                        padding: // left 10 righ t10
+                            EdgeInsets.symmetric(horizontal: 10),
+                        child: GetBuilder<NewPostController>(
+                          id: 'PostRangeSlider',
+                          builder: (c) => FilterRangeSlider(
+                              sliderValue: controller.sliderValue,
+                              onChanged: controller.onSliderValueChanged),
+                        )),
                     const SizedBox(height: 20),
                   ],
                 ),

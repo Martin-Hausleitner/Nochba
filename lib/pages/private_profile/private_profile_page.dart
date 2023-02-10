@@ -327,10 +327,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           height: 30,
                         ),
                         LogoutSettingsCard(
-                          onTap: () {
-                            //Get.snackbar("Pressed", "Pressed");
-                            authAccess.signOut();
-                          },
+                          onTap: () async => await controller.signOut(),
                         ),
                         const SizedBox(
                           height: 18,

@@ -108,17 +108,17 @@ class NewPostController extends InsetPostController {
           ? ''
           : await storageService.uploadPostImageToStorage(imageName, image!);
       final post = Post(
-        uid: FirebaseAuth.instance.currentUser!.uid,
-        title: titleController.text.trim(),
-        description: descriptionController.text.trim(),
-        imageUrl: imageUrl,
-        createdAt: Timestamp.now(),
-        category: subCategory != CategoryOptions.None
-            ? subCategory.name.toString()
-            : category.name.toString(),
-        tags: [...tags..sort()],
-        likes: 0,
-      );
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          title: titleController.text.trim(),
+          description: descriptionController.text.trim(),
+          imageUrl: imageUrl,
+          createdAt: Timestamp.now(),
+          category: subCategory != CategoryOptions.None
+              ? subCategory.name.toString()
+              : category.name.toString(),
+          tags: [...tags..sort()],
+          likes: 0,
+          range: sliderValue);
 
       await postRepository.insert(post);
       postId = post.id;

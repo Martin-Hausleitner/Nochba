@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
 import 'package:nochba/logic/models/post.dart';
 import 'package:nochba/pages/feed/views/action_bar_more/alert_dialog_delete.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar_controller.dart';
@@ -65,7 +66,16 @@ class ActionBarMore extends StatelessWidget {
                                 // ),
                                 const SizedBox(height: 5),
 
-                                const DropdownButtonExample(),
+                                GetBuilder<ActionBarController>(
+                                  id: 'ReportPostDropDown',
+                                  builder: (c) => DropdownButtonExample(
+                                    dropDownValues: controller.reasonsForReport,
+                                    selectedValue:
+                                        controller.selectedReasonForReport,
+                                    selectValue:
+                                        controller.selectReasonForReport,
+                                  ),
+                                ),
                                 const SizedBox(height: 10),
 
                                 LocooTextField(
@@ -83,7 +93,8 @@ class ActionBarMore extends StatelessWidget {
                                 const SizedBox(height: 10),
                                 LocooTextButton(
                                   label: 'Post Melden',
-                                  onPressed: () {},
+                                  onPressed: () async =>
+                                      await controller.reportPost(post.id),
                                   icon: FlutterRemix.flag_line,
                                 ),
                                 const SizedBox(height: 10),
@@ -145,24 +156,22 @@ class ActionBarMore extends StatelessWidget {
   }
 }
 
-const List<String> list = <String>[
-  'Unangebrachter Inhalt',
-  'Belästigung',
-  'Betrug',
-  'Spam',
-  'Sonstiges'
-];
-
 class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
+  const DropdownButtonExample(
+      {super.key,
+      required this.dropDownValues,
+      required this.selectedValue,
+      required this.selectValue});
+
+  final List<String> dropDownValues;
+  final String? selectedValue;
+  final Function(String?) selectValue;
 
   @override
   State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
 }
 
 class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  String dropdownValue = list.first;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -175,7 +184,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         padding: // left right 5 top 5 bottom 5
             const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 2),
         child: DropdownButton<String>(
-          value: dropdownValue,
+          value: widget.selectedValue,
           isExpanded: true,
           icon: const Icon(
             Icons.expand_more_outlined,
@@ -189,13 +198,9 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
             height: 0,
             // color: Theme.of(context).primaryColor,
           ),
-          onChanged: (String? value) {
-            // This is called when the user selects an item.
-            setState(() {
-              dropdownValue = value!;
-            });
-          },
-          items: list.map<DropdownMenuItem<String>>((String value) {
+          onChanged: widget.selectValue,
+          items: widget.dropDownValues
+              .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),

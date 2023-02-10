@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/LikedComment.dart';
+import 'package:nochba/logic/models/Report.dart';
 import 'package:nochba/logic/repositories/CommentRepository.dart';
 import 'package:nochba/logic/repositories/LikedCommentRepository.dart';
+import 'package:nochba/logic/repositories/ReportRepository.dart';
 
 class CommentActionBarController extends GetxController {
   final _likedCommentRepository = Get.find<LikedCommentRepository>();
@@ -74,6 +77,38 @@ class CommentActionBarController extends GetxController {
     } on Exception {
       Get.snackbar('Löschen fehlgeschlagen',
           'Der Kommentar konnte nicht gelöscht werden');
+    }
+  }
+
+  final _reportRepository = Get.find<ReportRepository>();
+
+  List<String> get reasonsForReport => Report.reasonsForReport;
+
+  String? selectedReasonForReport;
+
+  void selectReasonForReport(String? reason) {
+    selectedReasonForReport = reason;
+    update(['ReportCommentDropDown']);
+  }
+
+  Future<void> reportComment(String commentId) async {
+    try {
+      if (selectedReasonForReport != null) {
+        var report = Report(
+            fromUser: _authService.uid,
+            reportedId: commentId,
+            type: ReportType.comment,
+            reason: selectedReasonForReport!,
+            createdAt: Timestamp.now());
+
+        return await _reportRepository.insert(report);
+      } else {
+        Get.snackbar('Grund nicht ausgewählt',
+            'Bitte wählen Sie einen Grund für die Meldung aus.');
+      }
+    } catch (e) {
+      Get.snackbar('Melden fehlgeschlagen',
+          'Das Melden des Posts ist leider fehlgeschlagen.');
     }
   }
 

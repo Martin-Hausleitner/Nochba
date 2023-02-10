@@ -3,11 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/pages/private_profile/views/settings/manage_account_controller.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 
-class ManageAccountView extends StatelessWidget {
+class ManageAccountView extends GetView<ManageAccountController> {
   const ManageAccountView({
     Key? key,
   }) : super(key: key);
@@ -139,7 +140,9 @@ class ManageAccountView extends StatelessWidget {
           icon: const Icon(FlutterRemix.user_line),
           onTap: () => showDialog<String>(
             context: context,
-            builder: (BuildContext context) => const AlertDialogDeleteAccount(),
+            builder: (BuildContext context) => AlertDialogDeleteAccount(
+              onDelete: controller.deleteAccount,
+            ),
           ),
           text: '',
         ),
@@ -149,9 +152,10 @@ class ManageAccountView extends StatelessWidget {
 }
 
 class AlertDialogDeleteAccount extends StatelessWidget {
-  const AlertDialogDeleteAccount({
-    Key? key,
-  }) : super(key: key);
+  const AlertDialogDeleteAccount({Key? key, required this.onDelete})
+      : super(key: key);
+
+  final Future Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +202,8 @@ class AlertDialogDeleteAccount extends StatelessWidget {
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, 'Abbrechen'),
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -208,10 +213,14 @@ class AlertDialogDeleteAccount extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
+                  onPressed: () async {
+                    await onDelete();
+                    Navigator.pop(context, 'OK');
+                  },
                   //style the button red
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.red, shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
