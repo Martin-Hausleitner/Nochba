@@ -29,7 +29,9 @@ class NotificationsPage extends GetView<NotificationsController> {
         IconButton(
           splashRadius: 0.01,
           icon: Icon(
-            FlutterRemix.settings_3_line,
+            FlutterRemix.delete_bin_line,
+
+            // FlutterRemix.settings_3_line,
             size: 24,
             color: Theme.of(context).buttonTheme.colorScheme?.primary,
           ),
@@ -47,14 +49,15 @@ class NotificationsPage extends GetView<NotificationsController> {
           child: IconButton(
             splashRadius: 0.01,
             icon: Icon(
-              FlutterRemix.pencil_line,
+              FlutterRemix.settings_3_line,
               size: 24,
               color: Theme.of(context).buttonTheme.colorScheme?.primary,
             ),
             onPressed: () {
               Get.snackbar('dd', 'message');
             },
-            padding: const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
+            padding:
+                const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
             alignment: Alignment.centerRight,
           ),
         ),

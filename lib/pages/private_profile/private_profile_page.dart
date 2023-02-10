@@ -6,6 +6,7 @@ import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:simplytranslate/simplytranslate.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -716,6 +717,37 @@ class InviteNeighborCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TranslationWidget extends StatefulWidget {
+  @override
+  _TranslationWidgetState createState() => _TranslationWidgetState();
+}
+
+class _TranslationWidgetState extends State<TranslationWidget> {
+  final gt = SimplyTranslator(EngineType.google);
+
+  String _germanText = "Er läuft schnell.";
+  String _translatedText = "";
+
+  void _translateText() async {
+    _translatedText = await gt.trSimply(_germanText, "de", 'en');
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(_germanText),
+        TextButton(
+          child: Text("Translate"),
+          onPressed: _translateText,
+        ),
+        Text(_translatedText),
+      ],
     );
   }
 }
