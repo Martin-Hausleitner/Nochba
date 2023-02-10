@@ -278,6 +278,8 @@ class PostList extends StatelessWidget {
 
   final FeedController controller;
 
+  
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<models.Post>>(
