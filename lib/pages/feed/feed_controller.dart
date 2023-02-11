@@ -15,8 +15,8 @@ class FeedController extends GetxController {
     try {
       //return postRepository.getAllPosts(true);
       return postRepository.queryPosts(postFilter.value);
-    } on Exception {
-      return Stream.error(Error);
+    } on Exception catch (e) {
+      return Stream.error(e);
     }
   }
 

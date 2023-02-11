@@ -59,6 +59,6 @@ class Post implements IModel {
         tags: List.castFrom<dynamic, String>(json[
             'tags']) /*tags: json['tags'] == null ? [] : json['tags'].map<String>((e) => e as String).toList()*/,
         likes: json['likes'] /*List.castFrom<dynamic, String>(json['liked'])*/,
-        range: json['range'],
+        range: json['range'].toDouble(),
       );
 }
