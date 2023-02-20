@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/pages/private_profile/views/settings/manage_notification_view.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
@@ -9,8 +9,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
 
-// import 'package:confetti/confetti.dart';
+import 'settings/language_selector_view.dart';
+import 'settings/manage_account_view.dart';
 
+// import 'package:confetti/confetti.dart';
 
 // Text(
 //                 'Settings',
@@ -50,8 +52,14 @@ class SettingsView extends StatelessWidget {
             //   // ManageAccountView(),
             //   fullscreenDialog: true,
             //   transition: Transition.cupertino,
+            //   //showdialog alertdialog that its not avaivle now
+
             //   ManageAccountView(),
             // );
+            //create a get snackbar in wih a red i iconwith text konto verwlung
+            //noch nicht verfügbar
+            Get.snackbar(
+                "Konto verwalten", "Konto verwalten ist noch nicht verfügbar");
           },
         ),
 
@@ -59,15 +67,18 @@ class SettingsView extends StatelessWidget {
           title: 'Benachrichtigungen',
           icon: FlutterRemix.notification_2_line,
           onTap: () {
-            Get.snackbar("Pressed", "Pressed");
+            Get.to(
+              ManageNotificationView(),
+            );
           },
         ),
         ActionCard(
           title: 'Sprache',
           icon: Icons.translate_rounded,
           onTap: () {
-            Get.snackbar(
-                "Sprache wählen", "Aktuell kann nur Deutsch gewählt werden");
+            Get.to(
+              LanguageSelectorView(),
+            );
           },
         ),
         ActionCard(
