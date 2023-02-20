@@ -4,6 +4,7 @@ import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:nochba/pages/auth/auth_page.dart';
 import 'package:nochba/pages/dashboard/dashboard_page.dart';
@@ -54,7 +55,8 @@ class _HomePageState extends State<HomePage> {
           cardId = responseJson["id"];
           print("Card ID: $cardId");
         } else {
-          throw Exception("Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
+          throw Exception(
+              "Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
         }
       } catch (e) {
         print("Error: $e");
@@ -79,19 +81,106 @@ class _HomePageState extends State<HomePage> {
       if (response.statusCode == 200) {
         print("Data successfully uploaded to Trello");
       } else {
-        throw Exception("Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
+        throw Exception(
+            "Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
       }
     }
 
     ShakeDetector detector = ShakeDetector.autoStart(
-      onPhoneShake: () {
-        BetterFeedback.of(context).show(
-          (UserFeedback feedback) async {
-            print(feedback.text);
-            uploadDataToTrello(feedback.text, feedback.screenshot);
-          },
-        );
-      },
+      onPhoneShake: //open a alertdialog
+          () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Schütteln um Feedback zu senden'),
+          content: const Text(
+              'Du hast dein Gerät geschüttelt! Deine Verbesserungsideen sind uns wichtig. Schicke uns dein Feedback.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Abrechen'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                BetterFeedback.of(context).show(
+                  (UserFeedback feedback) async {
+                    print(feedback.text);
+                    uploadDataToTrello(feedback.text, feedback.screenshot);
+                  },
+                );
+              },
+              child: const Text('Senden'),
+            ),
+          ],
+        ),
+      ),
+      //       () {
+      // print('2222');
+      // Get.snackbar('sdsd', 'sdssdsd');
+      // showDialog(
+      //   context: context,
+      //   builder: (context) => AlertDialog(
+      //     title: const Text('Schütteln um Feedback zu senden'),
+      //     content: const Text(
+      //         'Du hast dein Gerät geschüttelt! Deine Verbesserungsideen sind uns wichtig. Schicke uns dein Feedback.'),
+      //     actions: [
+      //       TextButton(
+      //         onPressed: () {
+      //           Navigator.of(context).pop();
+      //         },
+      //         child: const Text('Abrechen'),
+      //       ),
+      //       TextButton(
+      //         onPressed: () {
+      //           Navigator.of(context).pop();
+      //           BetterFeedback.of(context).show(
+      //             (UserFeedback feedback) async {
+      //               print(feedback.text);
+      //               uploadDataToTrello(feedback.text, feedback.screenshot);
+      //             },
+      //           );
+      //         },
+      //         child: const Text('Senden'),
+      //       ),
+      //     ],
+      //   ),
+      // );
+      // }
+
+      // AlertDialog(
+      //   title: const Text('Schütteln um Feedback zu senden'),
+      //   content: const Text(
+      //       'Du hast dein Gerät geschüttelt! Deine Verbesserungsideen sind uns wichtig. Schicke uns dein Feedback.'),
+      //   actions: [
+      //     TextButton(
+      //       onPressed: () {
+      //         Navigator.of(context).pop();
+      //       },
+      //       child: const Text('Abrechen'),
+      //     ),
+      //     TextButton(
+      //       onPressed: () {
+      //         Navigator.of(context).pop();
+      //         BetterFeedback.of(context).show(
+      //           (UserFeedback feedback) async {
+      //             print(feedback.text);
+      //             uploadDataToTrello(feedback.text, feedback.screenshot);
+      //           },
+      //         );
+      //       },
+      //       child: const Text('Senden'),
+      //     ),
+      //   ],
+      // );
+      // BetterFeedback.of(context).show(
+      //   (UserFeedback feedback) async {
+      //     print(feedback.text);
+      //     uploadDataToTrello(feedback.text, feedback.screenshot);
+      //   },
+      // );
+      // },
       // minimumShakeCount: 1,
       // shakeSlopTimeMS: 500,
       // shakeCountResetTime: 3000,
