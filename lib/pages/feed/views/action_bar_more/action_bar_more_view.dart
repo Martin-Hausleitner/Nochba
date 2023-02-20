@@ -25,10 +25,20 @@ class ActionBarMore extends StatelessWidget {
     return BottomSheetTitleCloseView(
       title: 'Mehr',
       children: [
+        SizedBox(
+          height: 10,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
+              ActionCard(
+                title: 'Beitrag Übersetzten',
+                icon: Icons.translate_outlined,
+                onTap: //snackbar
+                    () =>
+                        Get.snackbar('Übersetzung', 'Übersetzung wird geladen'),
+              ),
               ActionCard(
                 title: 'Post melden',
                 icon: FlutterRemix.flag_line,
