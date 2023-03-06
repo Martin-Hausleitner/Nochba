@@ -13,6 +13,31 @@ class InsetPostController extends GetxController {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
+  final eventKey = GlobalKey<FormState>();
+  final eventLocationController = TextEditingController();
+  final eventTimeController = TextEditingController();
+  List<DateTime>? eventTime;
+  void setEventTime(List<DateTime>? eventTimeList) {
+    if (eventTimeList != null && eventTimeList.length == 2) {
+      eventTime = eventTimeList;
+
+      String firstDate =
+          '${eventTimeList[0].day.toString().length == 2 ? eventTimeList[0].day : '0${eventTimeList[0].day}'}.${eventTimeList[0].month.toString().length == 2 ? eventTimeList[0].month : '0${eventTimeList[0].month}'}.${eventTimeList[0].year}';
+
+      String firstDateTime =
+          '${eventTimeList[0].hour.toString().length == 2 ? eventTimeList[0].hour : '0${eventTimeList[0].hour}'}:${eventTimeList[0].minute.toString().length == 2 ? eventTimeList[0].minute : '0${eventTimeList[0].minute}'}';
+
+      String secondDate =
+          '${eventTimeList[1].day.toString().length == 2 ? eventTimeList[1].day : '0${eventTimeList[1].day}'}.${eventTimeList[1].month.toString().length == 2 ? eventTimeList[1].month : '0${eventTimeList[1].month}'}.${eventTimeList[1].year}';
+
+      String secondDateTime =
+          '${eventTimeList[1].hour.toString().length == 2 ? eventTimeList[1].hour : '0${eventTimeList[1].hour}'}:${eventTimeList[1].minute.toString().length == 2 ? eventTimeList[1].minute : '0${eventTimeList[1].minute}'}';
+
+      eventTimeController.text =
+          '$firstDate $firstDateTime - $secondDate $secondDateTime';
+    }
+  }
+
   final Rx<CategoryOptions> _category = CategoryOptions.None.obs;
   final Rx<CategoryOptions> _subCategory = CategoryOptions.None.obs;
 

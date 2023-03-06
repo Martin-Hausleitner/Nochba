@@ -14,25 +14,34 @@ class Post implements IModel {
   final int likes;
   final double range;
 
+  // Fields of Event
+  final Timestamp? eventBeginTime;
+  final Timestamp? eventEndTime;
+  final String? eventLocation;
+
   // Unmapped fields
   String userName;
   String userImageUrl;
   String suburb;
 
-  Post(
-      {this.id = '',
-      required this.uid,
-      required this.title,
-      required this.description,
-      this.imageUrl = '',
-      required this.createdAt,
-      required this.category,
-      required this.tags,
-      required this.likes,
-      this.userName = '',
-      this.userImageUrl = '',
-      this.suburb = '',
-      this.range = 10});
+  Post({
+    this.id = '',
+    required this.uid,
+    required this.title,
+    required this.description,
+    this.imageUrl = '',
+    required this.createdAt,
+    required this.category,
+    required this.tags,
+    required this.likes,
+    this.userName = '',
+    this.userImageUrl = '',
+    this.suburb = '',
+    this.range = 10,
+    this.eventLocation,
+    this.eventBeginTime,
+    this.eventEndTime,
+  });
 
   @override
   Map<String, dynamic> toJson() => {
@@ -46,6 +55,9 @@ class Post implements IModel {
         'tags': tags,
         'likes': likes,
         'range': range,
+        'eventLocation': eventLocation,
+        'eventBeginTime': eventBeginTime,
+        'eventEndTime': eventEndTime,
       };
 
   factory Post.fromJson(String id, Map<String, dynamic> json) => Post(
@@ -60,5 +72,8 @@ class Post implements IModel {
             'tags']) /*tags: json['tags'] == null ? [] : json['tags'].map<String>((e) => e as String).toList()*/,
         likes: json['likes'] /*List.castFrom<dynamic, String>(json['liked'])*/,
         range: json['range'].toDouble(),
+        eventLocation: json['eventLocation'],
+        eventBeginTime: json['eventBeginTime'],
+        eventEndTime: json['eventEndTime'],
       );
 }

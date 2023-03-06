@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/Report.dart';
@@ -115,29 +116,48 @@ class ActionBarController extends GetxController {
 
   String? selectedReasonForReport;
 
+  final reportKey = GlobalKey<FormState>();
+  TextEditingController reportTextController = TextEditingController();
+
   void selectReasonForReport(String? reason) {
     selectedReasonForReport = reason;
     update(['ReportPostDropDown']);
   }
 
-  Future<void> reportPost(String postId) async {
+  Future onPressReportSend(String postId) async {
     try {
-      if (selectedReasonForReport != null) {
-        var report = Report(
-            fromUser: _authService.uid,
-            reportedId: postId,
-            type: ReportType.post,
-            reason: selectedReasonForReport!,
-            createdAt: Timestamp.now());
-
-        return await _reportRepository.insert(report);
-      } else {
+      if (selectedReasonForReport == null) {
         Get.snackbar('Grund nicht ausgewählt',
             'Bitte wählen Sie einen Grund für die Meldung aus.');
+        return;
       }
+
+      if (!reportKey.currentState!.validate()) {
+        return;
+      }
+
+      var report = Report(
+          fromUser: _authService.uid,
+          reportedId: postId,
+          type: ReportType.post,
+          reason: selectedReasonForReport!,
+          text: reportTextController.text,
+          createdAt: Timestamp.now());
+
+      await _reportRepository.insert(report);
+
+      Get.back();
+
+      Get.snackbar('Meldung abgeschickt', 'Der Post wurde gemeldet.');
     } catch (e) {
       Get.snackbar('Melden fehlgeschlagen',
           'Das Melden des Posts ist leider fehlgeschlagen.');
     }
+  }
+
+  @override
+  void dispose() {
+    reportTextController.dispose();
+    super.dispose();
   }
 }

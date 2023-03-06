@@ -10,6 +10,7 @@ class Report implements IModel {
   final String reportedId;
   final ReportType type;
   final String reason;
+  final String text;
   final Timestamp createdAt;
   final bool visible;
 
@@ -19,6 +20,7 @@ class Report implements IModel {
     required this.reportedId,
     required this.type,
     required this.reason,
+    required this.text,
     required this.createdAt,
     this.visible = true,
   });
@@ -29,6 +31,7 @@ class Report implements IModel {
         'reportedId': reportedId,
         'type': type.name,
         'reason': reason,
+        'text': text,
         'createdAt': createdAt,
         'visible': visible,
       };
@@ -39,6 +42,7 @@ class Report implements IModel {
         reportedId: json['reportedId'],
         type: getReportType(json['type']),
         reason: json['reason'],
+        text: json['text'],
         createdAt: json['createdAt'],
         visible: json['visible'],
       );

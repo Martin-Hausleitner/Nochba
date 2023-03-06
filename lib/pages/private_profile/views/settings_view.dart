@@ -47,19 +47,15 @@ class SettingsView extends StatelessWidget {
           title: 'Konto verwalten',
           icon: FlutterRemix.user_line,
           onTap: () {
-            // Get.to(
-            //   // routeName: 'test',
-            //   // ManageAccountView(),
-            //   fullscreenDialog: true,
-            //   transition: Transition.cupertino,
-            //   //showdialog alertdialog that its not avaivle now
+            Get.to(
+              // routeName: 'test',
+              // ManageAccountView(),
+              fullscreenDialog: true,
+              transition: Transition.cupertino,
+              //showdialog alertdialog that its not avaivle now
 
-            //   ManageAccountView(),
-            // );
-            //create a get snackbar in wih a red i iconwith text konto verwlung
-            //noch nicht verfügbar
-            Get.snackbar(
-                "Konto verwalten", "Konto verwalten ist noch nicht verfügbar");
+              const ManageAccountView(),
+            );
           },
         ),
 
@@ -68,7 +64,7 @@ class SettingsView extends StatelessWidget {
           icon: FlutterRemix.notification_2_line,
           onTap: () {
             Get.to(
-              ManageNotificationView(),
+              const ManageNotificationView(),
             );
           },
         ),

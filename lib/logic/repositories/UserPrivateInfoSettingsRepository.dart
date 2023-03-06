@@ -71,4 +71,22 @@ class UserPrivateInfoSettingsRepository
       rethrow;
     }
   }
+
+  Stream<bool?> getPermReqBeforeChatOfCurrentUser() {
+    try {
+      return getFieldAsStream(reference, 'permReqBeforeChat',
+          nexus: [resourceContext.uid]);
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Future<void> updatePermReqBeforeChatOfCurrentUser(bool value) async {
+    try {
+      return await updateFields(reference, {"permReqBeforeChat": value},
+          nexus: [resourceContext.uid]);
+    } on Exception {
+      rethrow;
+    }
+  }
 }

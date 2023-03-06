@@ -103,7 +103,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Text(
-                      '${user.firstName} ${user.lastName}',
+                      user.fullName ?? '',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.w800,
                           ),
@@ -205,7 +205,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                     height: 12,
                   ),
 
-                  ProfileContent(userId: userId),
+                  ProfileContent(controller: controller, userId: userId),
 
                   // add a tabbarview
 

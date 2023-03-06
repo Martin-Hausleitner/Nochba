@@ -7,6 +7,7 @@ import 'package:nochba/logic/models/Comment.dart';
 import 'package:nochba/logic/models/LikedComment.dart';
 import 'package:nochba/logic/models/LikedPost.dart';
 import 'package:nochba/logic/models/Notification.dart';
+import 'package:nochba/logic/models/Report.dart';
 import 'package:nochba/logic/models/Token.dart';
 import 'package:nochba/logic/models/UserInternInfoAddress.dart';
 import 'package:nochba/logic/models/UserPrivateInfoAddress.dart';
@@ -44,6 +45,8 @@ class ModelMapper implements IModelMapper {
       return (model as Token).toJson();
     } else if (typeOf<T>() == typeOf<Notification>()) {
       return (model as Notification).toJson();
+    } else if (typeOf<T>() == typeOf<Report>()) {
+      return (model as Report).toJson();
     } else if (typeOf<T>() == typeOf<Comment>()) {
       return (model as Comment).toJson();
     } else {
@@ -78,6 +81,8 @@ class ModelMapper implements IModelMapper {
       return Token.fromJson(id, json) as T;
     } else if (typeOf<T>() == typeOf<Notification>()) {
       return Notification.fromJson(id, json) as T;
+    } else if (typeOf<T>() == typeOf<Report>()) {
+      return Report.fromJson(id, json) as T;
     } else if (typeOf<T>() == typeOf<Comment>()) {
       return Comment.fromJson(id, json) as T;
     } else {

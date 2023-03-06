@@ -61,7 +61,9 @@ class Post extends GetView<PostCardController> {
                   //show only if categor is event
                   if (category == CategoryOptions.Event)
                     DateDisplay(
-                      date: DateTime.now(),
+                      date: post.eventBeginTime != null
+                          ? post.eventBeginTime!.toDate()
+                          : DateTime.now(),
                     ),
                   Expanded(
                     child: Column(
@@ -136,16 +138,20 @@ class Post extends GetView<PostCardController> {
               const SizedBox(height: spacingBetween),
               if (category == CategoryOptions.Event)
                 EventInfo(
-                  startDate: DateTime.now(),
-                  endDate: DateTime.now().add(
-                    Duration( 
-                      // days: 1,
-                      hours: 23,
-                      minutes: 59,
-                      seconds: 59,
-                    ),
-                  ),
-                  location: 'Hamburg',
+                  startDate: post.eventBeginTime != null
+                      ? post.eventBeginTime!.toDate()
+                      : DateTime.now(),
+                  endDate: post.eventEndTime != null
+                      ? post.eventEndTime!.toDate()
+                      : DateTime.now().add(
+                          Duration(
+                            // days: 1,
+                            hours: 23,
+                            minutes: 59,
+                            seconds: 59,
+                          ),
+                        ),
+                  location: post.eventLocation ?? '',
                 ),
               const SizedBox(height: spacingBetween),
 

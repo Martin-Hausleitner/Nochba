@@ -88,24 +88,32 @@ class ActionBarMore extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 10),
 
-                                LocooTextField(
-                                    maxLines: 10,
-                                    height: 220,
-                                    // controller:
-                                    // controller.descriptionController,
-                                    // textInputAction: TextInputAction.next,
-                                    label: 'Beschreibung',
-                                    autovalidateMode: AutovalidateMode.disabled,
-                                    validator: (value) =>
-                                        value != null && value.isEmpty
-                                            ? 'Enter a description'
-                                            : null),
-                                const SizedBox(height: 10),
-                                LocooTextButton(
-                                  label: 'Post Melden',
-                                  onPressed: () async =>
-                                      await controller.reportPost(post.id),
-                                  icon: FlutterRemix.flag_line,
+                                Form(
+                                  key: controller.reportKey,
+                                  child: Column(
+                                    children: [
+                                      LocooTextField(
+                                          maxLines: 10,
+                                          height: 220,
+                                          // controller:
+                                          // controller.descriptionController,
+                                          // textInputAction: TextInputAction.next,
+                                          label: 'Beschreibung',
+                                          autovalidateMode:
+                                              AutovalidateMode.disabled,
+                                          validator: (value) =>
+                                              value != null && value.isEmpty
+                                                  ? 'Enter a description'
+                                                  : null),
+                                      const SizedBox(height: 10),
+                                      LocooTextButton(
+                                        label: 'Post Melden',
+                                        onPressed: () async => await controller
+                                            .onPressReportSend(post.id),
+                                        icon: FlutterRemix.flag_line,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(height: 10),
 
@@ -186,7 +194,8 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        // border: Border.all(color: _borderColor, width: 1.5),
+        border:
+            widget.selectedValue == null ? Border.all(color: Colors.red) : null,
         borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
       ),

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/private_profile/views/settings/manage_account_controller.dart';
+import 'package:nochba/shared/ui/buttons/text_field_remove_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
+import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 
 class ManageAccountView extends GetView<ManageAccountController> {
   const ManageAccountView({
@@ -20,72 +23,126 @@ class ManageAccountView extends GetView<ManageAccountController> {
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
-        ActionTextCard(
-          title: 'Email',
-          icon: const Icon(FlutterRemix.user_line),
-          onTap: () {
-            Get.snackbar(
-                "Email ändern", "Diese Funktion ist noch nicht verfügbar");
-            // showModalBottomSheet<void>(
-            //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            //   shape: RoundedRectangleBorder(
-            //       borderRadius:
-            //           BorderRadius.vertical(top: Radius.circular(25.0))),
-            //   context: context,
-            //   isScrollControlled: true,
-            //   builder: (BuildContext context) {
-            //     return BottomSheetCloseSaveView(
-            //       onSave: () {},
-            //       children: [
-            //         LocooTextField(
-            //           label: 'Email',
-            //           autofocus: true,
-            //           controller: TextEditingController(text: 'test@test.at'),
-            //         ),
-            //         SizedBox(height: 10),
-            //         SizedBox(
-            //           height: 15,
-            //         ),
-            //       ],
-            //     );
-            //   },
-            // );
+        StreamBuilder<String?>(
+          stream: controller.getEmail(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final email = snapshot.data!;
+              return ActionTextCard(
+                title: 'Email',
+                icon: const Icon(FlutterRemix.user_line),
+                onTap: () {
+                  showModalBottomSheet<void>(
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(25.0))),
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return BottomSheetCloseSaveView(
+                        onSave: () async =>
+                            await controller.updateEmailOfCurrentUser(),
+                        children: [
+                          Form(
+                            key: controller.emailKey,
+                            child: Column(
+                              children: [
+                                LocooTextField(
+                                  label: 'Neue Email eingeben',
+                                  suffixIcon: TextFieldRemoveTextButton(
+                                    onPressed: () =>
+                                        controller.emailTextController.clear(),
+                                  ),
+                                  autofocus: true,
+                                  controller:
+                                      controller.getEmailTextController(email),
+                                  validator: controller.validateEmail,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                ),
+                                const SizedBox(height: 10),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                text: email,
+              );
+            } else {
+              return ActionTextCard(
+                title: 'Email',
+                icon: const Icon(FlutterRemix.user_line),
+                onTap: () {
+                  Get.snackbar("Email nicht aufrufbar",
+                      "Ihre Email ist im Moment nicht aufrufbar");
+                },
+                text: 'Derzeit nicht verfügbar',
+              );
+            }
           },
-          text: 'Test@test.at',
         ),
         ActionTextCard(
           title: 'Passwort',
           icon: const Icon(FlutterRemix.user_line),
           onTap: () {
-            Get.snackbar(
-                "Passwort ändern", "Diese Funktion ist noch nicht verfügbar");
-
-            // showModalBottomSheet<void>(
-            //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            //   shape: RoundedRectangleBorder(
-            //       borderRadius:
-            //           BorderRadius.vertical(top: Radius.circular(25.0))),
-            //   context: context,
-            //   isScrollControlled: true,
-            //   builder: (BuildContext context) {
-            //     return BottomSheetCloseSaveView(
-            //       onSave: () {},
-            //       children: [
-            //         LocooTextField(
-            //           label: 'Passwort',
-            //           autofocus: true,
-            //           controller: TextEditingController(text: 'test'),
-            //         ),
-            //         SizedBox(height: 10),
-            //         SizedBox(
-            //           height: 15,
-            //         ),
-            //       ],
-            //     );
-            //   },
-            // );
+            showModalBottomSheet<void>(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(25.0))),
+              context: context,
+              isScrollControlled: true,
+              builder: (BuildContext context) {
+                return BottomSheetCloseSaveView(
+                  onSave: () async =>
+                      await controller.updatePasswordOfCurrentUser(),
+                  children: [
+                    Form(
+                      key: controller.passwordKey,
+                      child: Column(
+                        children: [
+                          LocooTextField(
+                            label: 'Neues Passwort eingeben',
+                            textInputAction: TextInputAction.next,
+                            autofocus: true,
+                            controller: controller.firstPasswordTextController,
+                            validator: controller.validatePassword,
+                            autovalidateMode: AutovalidateMode.disabled,
+                            suffixIcon: TextFieldRemoveTextButton(
+                              onPressed: () => controller
+                                  .firstPasswordTextController
+                                  .clear(),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          LocooTextField(
+                            label: 'Erneut neues Passwort eingeben',
+                            textInputAction: TextInputAction.done,
+                            controller: controller.secondPasswordTextController,
+                            validator: controller.validatePassword,
+                            autovalidateMode: AutovalidateMode.disabled,
+                            suffixIcon: TextFieldRemoveTextButton(
+                              onPressed: () => controller
+                                  .secondPasswordTextController
+                                  .clear(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
           },
-          text: '⦁⦁⦁⦁⦁⦁⦁⦁⦁',
+          text: '⦁⦁⦁⦁⦁⦁',
         ),
         ActionTextCard(
           title: 'Adresse',
@@ -138,12 +195,7 @@ class ManageAccountView extends GetView<ManageAccountController> {
         ActionTextCardRed(
           title: 'Account löschen',
           icon: const Icon(FlutterRemix.user_line),
-          onTap: () => showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialogDeleteAccount(
-              onDelete: controller.deleteAccount,
-            ),
-          ),
+          onTap: () async => await controller.onDeleteAccountTap(context),
           text: '',
         ),
       ],
@@ -200,7 +252,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: TextButton(
-                  onPressed: () => Navigator.pop(context, 'Abbrechen'),
+                  onPressed: () => Navigator.pop(context, false),
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -215,7 +267,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
                 child: TextButton(
                   onPressed: () async {
                     await onDelete();
-                    Navigator.pop(context, 'OK');
+                    Navigator.pop(context, true);
                   },
                   //style the button red
                   style: TextButton.styleFrom(

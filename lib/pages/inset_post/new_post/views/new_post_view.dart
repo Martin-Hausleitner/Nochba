@@ -99,82 +99,112 @@ class NewPostView extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
 
-                          LocooTextField(
-                              controller: controller.titleController,
-                              textInputAction: TextInputAction.next,
-                              label: 'Titel',
-                              autovalidateMode: AutovalidateMode.disabled,
-                              validator: (value) =>
-                                  value != null && value.isEmpty
-                                      ? 'Enter a title'
-                                      : null),
-                          const SizedBox(height: 10),
+                          Form(
+                            key: controller.formKey,
+                            child: Column(
+                              children: [
+                                LocooTextField(
+                                    controller: controller.titleController,
+                                    textInputAction: TextInputAction.next,
+                                    label: 'Titel',
+                                    autovalidateMode: AutovalidateMode.disabled,
+                                    validator: (value) =>
+                                        value != null && value.isEmpty
+                                            ? 'Geben Sie einen Titel ein'
+                                            : null),
+                                const SizedBox(height: 10),
+                                LocooTextField(
+                                    maxLines: 10,
+                                    height: 220,
+                                    controller:
+                                        controller.descriptionController,
+                                    // textInputAction: TextInputAction.next,
+                                    label: 'Beschreibung',
+                                    autovalidateMode: AutovalidateMode.disabled,
+                                    validator: (value) =>
+                                        value != null && value.isEmpty
+                                            ? 'Geben Sie eine Beschreibung ein'
+                                            : null),
+                              ],
+                            ),
+                          ),
 
-                          LocooTextField(
-                              maxLines: 10,
-                              height: 220,
-                              controller: controller.descriptionController,
-                              // textInputAction: TextInputAction.next,
-                              label: 'Beschreibung',
-                              autovalidateMode: AutovalidateMode.disabled,
-                              validator: (value) =>
-                                  value != null && value.isEmpty
-                                      ? 'Enter a description'
-                                      : null),
                           // SizedBox(height: 10),
 
                           if (controller.categoryName == 'Event') ...[
                             const SizedBox(height: 10),
-                            LocooTextField(
-                              // controller: controller.locationController,
-                              textInputAction: TextInputAction.next,
-                              label: 'Ort',
-                              autovalidateMode: AutovalidateMode.disabled,
-                            ),
-                            const SizedBox(height: 10),
-                            LocooTextField(
-                              label: 'Datum',
-                              readOnly: true,
-                              enableInteractiveSelection: false,
-                              focusNode: FocusNode(),
-                              // text inside the textfield
+                            Form(
+                              key: controller.eventKey,
+                              child: Column(
+                                children: [
+                                  LocooTextField(
+                                      controller:
+                                          controller.eventLocationController,
+                                      textInputAction: TextInputAction.next,
+                                      label: 'Ort',
+                                      autovalidateMode:
+                                          AutovalidateMode.disabled,
+                                      validator: (value) =>
+                                          value != null && value.isEmpty
+                                              ? 'Geben Sie einen Ort ein'
+                                              : null),
+                                  const SizedBox(height: 10),
+                                  LocooTextField(
+                                    controller: controller.eventTimeController,
+                                    label: 'Datum',
+                                    readOnly: true,
+                                    enableInteractiveSelection: false,
+                                    focusNode: FocusNode(),
+                                    autovalidateMode: AutovalidateMode.disabled,
+                                    validator: (value) =>
+                                        value != null && value.isEmpty
+                                            ? 'Geben Sie eine Zeit ein'
+                                            : null,
+                                    // text inside the textfield
 
-                              onTap: () async {
-                                List<DateTime>? dateTimeList =
-                                    await showOmniDateTimeRangePicker(
-                                  context: context,
-                                  type: OmniDateTimePickerType.dateAndTime,
-                                  primaryColor: Theme.of(context).primaryColor,
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  calendarTextColor: Colors.black,
-                                  tabTextColor: Colors.black,
-                                  unselectedTabBackgroundColor: // gray 300 color
-                                      Colors.grey[300],
-                                  buttonTextColor: Colors.black,
-                                  timeSpinnerTextStyle: const TextStyle(
-                                      color: Colors.black, fontSize: 18),
-                                  timeSpinnerHighlightedTextStyle:
-                                      const TextStyle(
-                                          color: Colors.black, fontSize: 24),
-                                  is24HourMode: true,
-                                  isShowSeconds: false,
-                                  startInitialDate: DateTime.now(),
-                                  startFirstDate: DateTime(1600)
-                                      .subtract(const Duration(days: 3652)),
-                                  startLastDate: DateTime.now().add(
-                                    const Duration(days: 3652),
+                                    onTap: () async {
+                                      List<DateTime>? dateTimeList =
+                                          await showOmniDateTimeRangePicker(
+                                        context: context,
+                                        type:
+                                            OmniDateTimePickerType.dateAndTime,
+                                        primaryColor:
+                                            Theme.of(context).primaryColor,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        calendarTextColor: Colors.black,
+                                        tabTextColor: Colors.black,
+                                        unselectedTabBackgroundColor: // gray 300 color
+                                            Colors.grey[300],
+                                        buttonTextColor: Colors.black,
+                                        timeSpinnerTextStyle: const TextStyle(
+                                            color: Colors.black, fontSize: 18),
+                                        timeSpinnerHighlightedTextStyle:
+                                            const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 24),
+                                        is24HourMode: true,
+                                        isShowSeconds: false,
+                                        startInitialDate: DateTime.now(),
+                                        startFirstDate: DateTime(1600).subtract(
+                                            const Duration(days: 3652)),
+                                        startLastDate: DateTime.now().add(
+                                          const Duration(days: 3652),
+                                        ),
+                                        endInitialDate: DateTime.now()
+                                            .add(const Duration(hours: 1)),
+                                        endFirstDate: DateTime(1600).subtract(
+                                            const Duration(days: 3652)),
+                                        endLastDate: DateTime.now().add(
+                                          const Duration(days: 3652),
+                                        ),
+                                        borderRadius: const Radius.circular(16),
+                                      );
+                                      controller.setEventTime(dateTimeList);
+                                    },
                                   ),
-                                  endInitialDate: DateTime.now()
-                                      .add(const Duration(hours: 1)),
-                                  endFirstDate: DateTime(1600)
-                                      .subtract(const Duration(days: 3652)),
-                                  endLastDate: DateTime.now().add(
-                                    const Duration(days: 3652),
-                                  ),
-                                  borderRadius: const Radius.circular(16),
-                                );
-                              },
+                                ],
+                              ),
                             ),
                           ],
 
