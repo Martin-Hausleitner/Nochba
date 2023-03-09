@@ -86,35 +86,49 @@ class CommentActionBarController extends GetxController {
 
   String? selectedReasonForReport;
 
+  final reportKey = GlobalKey<FormState>();
+  TextEditingController reportTextController = TextEditingController();
+
   void selectReasonForReport(String? reason) {
     selectedReasonForReport = reason;
     update(['ReportCommentDropDown']);
   }
 
-  Future<void> reportComment(String commentId) async {
+  Future onPressReportSend(String commentId) async {
     try {
-      if (selectedReasonForReport != null) {
-        var report = Report(
-            fromUser: _authService.uid,
-            reportedId: commentId,
-            type: ReportType.comment,
-            reason: selectedReasonForReport!,
-            createdAt: Timestamp.now());
-
-        return await _reportRepository.insert(report);
-      } else {
+      if (selectedReasonForReport == null) {
         Get.snackbar('Grund nicht ausgewählt',
             'Bitte wählen Sie einen Grund für die Meldung aus.');
+        return;
       }
+
+      if (!reportKey.currentState!.validate()) {
+        return;
+      }
+
+      var report = Report(
+          fromUser: _authService.uid,
+          reportedId: commentId,
+          type: ReportType.comment,
+          reason: selectedReasonForReport!,
+          text: reportTextController.text,
+          createdAt: Timestamp.now());
+
+      await _reportRepository.insert(report);
+
+      Get.back();
+
+      Get.snackbar('Meldung abgeschickt', 'Der Kommentar wurde gemeldet.');
     } catch (e) {
       Get.snackbar('Melden fehlgeschlagen',
-          'Das Melden des Posts ist leider fehlgeschlagen.');
+          'Das Melden des Kommentars ist leider fehlgeschlagen.');
     }
   }
 
   @override
   void dispose() {
     updateTextController.dispose();
+    reportTextController.dispose();
     super.dispose();
   }
 }

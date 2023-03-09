@@ -97,8 +97,38 @@ class NewPostController extends InsetPostController {
   final postRepository = Get.find<PostRepository>();
 
   addPost() async {
-    //final isValid = formKey.currentState!.validate();
-    if (/*!isValid ||*/ category == CategoryOptions.None) return;
+    if (category == CategoryOptions.None) {
+      Get.snackbar('Posten nicht möglich',
+          'Wählen Sie bitte eine gültige Kategorie aus');
+      return;
+    } else if (!formKey.currentState!.validate()) {
+      Get.snackbar('Posten nicht möglich',
+          'Füllen Sie bitte die Eingabefelder richtig aus');
+      return;
+    }
+
+    if (category == CategoryOptions.Event) {
+      if (!eventKey.currentState!.validate()) {
+        Get.snackbar('Posten nicht möglich',
+            'Füllen Sie bitte die Eingabefelder zum Event richtig aus');
+        return;
+      }
+      if (eventTime != null) {
+        if (eventTime!.length != 2) {
+          Get.snackbar(
+              'Posten nicht möglich', 'Geben Sie bitte zwei gültige Daten an');
+          return;
+        } else if (eventTime![0].isAfter(eventTime![1])) {
+          Get.snackbar('Posten nicht möglich',
+              'Das erste Datum muss früher sein als das zweite');
+          return;
+        }
+      } else {
+        Get.snackbar(
+            'Posten nicht möglich', 'Füllen Sie bitte das Datumfeld aus');
+        return;
+      }
+    }
 
     isLoading = true;
     update();
@@ -107,18 +137,29 @@ class NewPostController extends InsetPostController {
       final imageUrl = image == null
           ? ''
           : await storageService.uploadPostImageToStorage(imageName, image!);
+
       final post = Post(
-          uid: FirebaseAuth.instance.currentUser!.uid,
-          title: titleController.text.trim(),
-          description: descriptionController.text.trim(),
-          imageUrl: imageUrl,
-          createdAt: Timestamp.now(),
-          category: subCategory != CategoryOptions.None
-              ? subCategory.name.toString()
-              : category.name.toString(),
-          tags: [...tags..sort()],
-          likes: 0,
-          range: sliderValue);
+        uid: FirebaseAuth.instance.currentUser!.uid,
+        title: titleController.text.trim(),
+        description: descriptionController.text.trim(),
+        imageUrl: imageUrl,
+        createdAt: Timestamp.now(),
+        category: subCategory != CategoryOptions.None
+            ? subCategory.name.toString()
+            : category.name.toString(),
+        tags: [...tags..sort()],
+        likes: 0,
+        range: sliderValue,
+        eventLocation: category == CategoryOptions.Event
+            ? eventLocationController.text.trim()
+            : null,
+        eventBeginTime: category == CategoryOptions.Event
+            ? Timestamp.fromDate(eventTime![0])
+            : null,
+        eventEndTime: category == CategoryOptions.Event
+            ? Timestamp.fromDate(eventTime![1])
+            : null,
+      );
 
       await postRepository.insert(post);
       postId = post.id;

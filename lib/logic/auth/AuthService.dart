@@ -1,18 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthExceptionHandler.dart';
 import 'package:nochba/logic/auth/AuthResultStatus.dart';
 import 'package:nochba/logic/models/ImageFile.dart';
+import 'package:nochba/logic/models/Token.dart';
 import 'package:nochba/logic/models/UserPrivateInfoAddress.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPrivateInfoSettings.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/bookmark.dart';
+import 'package:nochba/logic/push_notifications.dart/PushNotificationService.dart';
 import 'package:nochba/logic/register/get_location_data.dart';
 import 'package:nochba/logic/repositories/BookMarkRepository.dart';
 import 'package:nochba/logic/repositories/ResourceAccess.dart';
 import 'package:nochba/logic/models/user.dart' as models;
+import 'package:nochba/logic/repositories/TokenRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoAddressRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoNameRepository.dart';
 import 'package:nochba/logic/repositories/UserPrivateInfoSettingsRepository.dart';
@@ -41,21 +45,21 @@ class AuthService extends ResourceAccess {
     return true;
   }
 
-  Future<AuthResultStatus> signIn2(String email, String password) async {
-    if ((email.isEmpty && !GetUtils.isEmail(email)) ||
-        (password.isEmpty && password.length < 6)) {
-      return AuthResultStatus.invalidEmailAndPassword;
-    }
+  // Future<AuthResultStatus> signIn2(String email, String password) async {
+  //   if ((email.isEmpty && !GetUtils.isEmail(email)) ||
+  //       (password.isEmpty && password.length < 6)) {
+  //     return AuthResultStatus.invalidEmailAndPassword;
+  //   }
 
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+  //   try {
+  //     await FirebaseAuth.instance
+  //         .signInWithEmailAndPassword(email: email, password: password);
 
-      return AuthResultStatus.successful;
-    } on FirebaseAuthException catch (e) {
-      return AuthExceptionHandler.handleException(e);
-    }
-  }
+  //     return AuthResultStatus.successful;
+  //   } on FirebaseAuthException catch (e) {
+  //     return AuthExceptionHandler.handleException(e);
+  //   }
+  // }
 
   //////
 
@@ -134,7 +138,17 @@ class AuthService extends ResourceAccess {
       await userPublicInfoRepository.insert(
           UserPublicInfo(id: userPublicInfoRepository.reference),
           nexus: [uid]);
-    } on Exception {
+
+      // final pushNotificationService = PushNotificationService();
+      // final token = await pushNotificationService.getToken();
+
+      // final tokenRepository = Get.find<TokenRepository>();
+      // await tokenRepository.insert(Token(
+      //     id: uid,
+      //     token: token ?? '',
+      //     createdAt: FieldValue.serverTimestamp()));
+    } on Exception catch (e) {
+      print('Fehler beim erzeugen des Users: ' + e.toString());
       rethrow;
     }
 
@@ -289,7 +303,7 @@ class AuthService extends ResourceAccess {
     }
 
     final userRepository = Get.find<UserRepository>();
-    userRepository.delete(uid);
+    await userRepository.delete(uid);
     await _firebaseUser!.delete();
 
     return true;
@@ -405,12 +419,35 @@ class AuthService extends ResourceAccess {
       // } catch (e) {
       //   print('Hier ist der Fehler | ' + e.toString());
       // }
-
     } on Exception catch (e) {
       Get.snackbar('Error', e.toString());
     }
 
     return true;
+  }
+
+  String? getEmailOfCurrentUser() {
+    if (_firebaseUser == null) {
+      return null;
+    }
+
+    return _firebaseUser!.email;
+  }
+
+  Future<void> updateEmailOfCurrentUser(String email) async {
+    if (_firebaseUser == null) {
+      return;
+    }
+
+    return await _firebaseUser!.updateEmail(email.trim());
+  }
+
+  Future<void> updatePasswordOfCurrentUser(String password) async {
+    if (_firebaseUser == null) {
+      return;
+    }
+
+    return await _firebaseUser!.updatePassword(password.trim());
   }
 
   Future<void> signOut() async {

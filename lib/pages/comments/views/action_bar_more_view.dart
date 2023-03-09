@@ -79,25 +79,37 @@ class ActionBarMore extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 10),
 
-                                LocooTextField(
-                                    maxLines: 10,
-                                    height: 220,
-                                    // controller:
-                                    // controller.descriptionController,
-                                    // textInputAction: TextInputAction.next,
-                                    label: 'Beschreibung',
-                                    autovalidateMode: AutovalidateMode.disabled,
-                                    validator: (value) =>
-                                        value != null && value.isEmpty
-                                            ? 'Enter a description'
-                                            : null),
-                                const SizedBox(height: 10),
-                                LocooTextButton(
-                                  label: 'Kommentar Melden',
-                                  onPressed: () async => await controller
-                                      .reportComment(comment.id),
-                                  icon: FlutterRemix.flag_line,
-                                ),
+                                Form(
+                                    key: controller.reportKey,
+                                    child: Column(
+                                      children: [
+                                        LocooTextField(
+                                            maxLines: 10,
+                                            height: 220,
+                                            // controller:
+                                            // controller.descriptionController,
+                                            // textInputAction: TextInputAction.next,
+                                            label: 'Beschreibung',
+                                            autovalidateMode:
+                                                AutovalidateMode.disabled,
+                                            controller:
+                                                controller.reportTextController,
+                                            validator: (value) => value !=
+                                                        null &&
+                                                    value.isEmpty
+                                                ? 'Geben Sie eine Beschreibung ein'
+                                                : null),
+                                        const SizedBox(height: 10),
+                                        LocooTextButton(
+                                          label: 'Kommentar Melden',
+                                          onPressed: () async =>
+                                              await controller
+                                                  .onPressReportSend(
+                                                      comment.id),
+                                          icon: FlutterRemix.flag_line,
+                                        ),
+                                      ],
+                                    )),
                                 const SizedBox(height: 10),
 
                                 //),

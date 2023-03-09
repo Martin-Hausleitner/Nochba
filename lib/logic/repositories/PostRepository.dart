@@ -170,16 +170,16 @@ class PostRepository extends GenericRepository<Post> {
         whereIsEqualTo: {'uid': resourceContext.uid});
   }
 
+  Stream<List<Post>> getPostsOfUserAsStream(String uid) {
+    return queryAsStream(const MapEntry('createdAt', true),
+        whereIsEqualTo: {'uid': uid});
+  }
+
   Future<List<Post>> getMarkedPostsOfCurrentUser() async {
     final bookMarkRepository = Get.find<BookMarkRepository>();
     final uid = resourceContext.uid;
     final bookMark = await bookMarkRepository
         .get(bookMarkRepository.reference, nexus: [uid]);
-    Get.snackbar(
-        bookMark == null ? 'Null' : bookMark.toString(),
-        bookMark != null && bookMark.posts.isNotEmpty
-            ? bookMark.posts.length.toString()
-            : '0');
     if (bookMark != null && bookMark.posts.isNotEmpty) {
       final postIds = bookMark.posts;
       final posts = await query(const MapEntry('createdAt', true),

@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:nochba/logic/exceptions/LogicException.dart';
 import 'package:nochba/logic/exceptions/LogicExceptionType.dart';
+import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/firebase_chat_core.dart';
 import 'package:nochba/logic/models/Notification.dart';
 import 'package:nochba/logic/repositories/GenericRepository.dart';
+import 'package:nochba/logic/repositories/UserPrivateInfoSettingsRepository.dart';
+import 'package:nochba/logic/repositories/UserRepository.dart';
+import 'package:nochba/pages/chats/chat.dart';
 
 class NotificationRepository extends GenericRepository<Notification> {
   NotificationRepository(super.resourceContext);
@@ -50,29 +55,68 @@ class NotificationRepository extends GenericRepository<Notification> {
 
   Future<void> sendPostRequestNotificationFromCurrentUser(
       String toUserId, String postId) async {
-    final notification = Notification(
-        fromUser: resourceContext.uid,
-        toUser: toUserId,
-        type: NotificationType.postRequest,
-        postId: postId,
-        createdAt: Timestamp.now());
+    final userPrivateInfoSettingsRepository =
+        Get.find<UserPrivateInfoSettingsRepository>();
 
-    return await insert(notification, nexus: [toUserId]);
+    Get.snackbar('Hallo', 'wird geprüft');
+
+    try {
+      var setting = await userPrivateInfoSettingsRepository.get(toUserId);
+    } on Exception {
+      Get.snackbar('Hallo', 'ist fehlgeschlagen');
+    }
+
+    var setting = await userPrivateInfoSettingsRepository.get(toUserId);
+
+    Get.snackbar('Moin', setting != null ? setting.toString() : 'null');
+
+    if (setting != null && setting.permReqBeforeChat == false) {
+      var userRepository = Get.find<UserRepository>();
+      var user = await userRepository.get(toUserId);
+      if (user != null) {
+        final room = await FirebaseChatCore.instance.createRoom(user);
+        await Get.to(() => ChatPage(room: room));
+      }
+    } else {
+      final notification = Notification(
+          fromUser: resourceContext.uid,
+          toUser: toUserId,
+          type: NotificationType.postRequest,
+          postId: postId,
+          createdAt: Timestamp.now());
+
+      return await insert(notification, nexus: [toUserId]);
+    }
   }
 
   Future<void> sendChatRequestNotificationFromCurrentUser(
       String toUserId) async {
-    final notification = Notification(
-        fromUser: resourceContext.uid,
-        toUser: toUserId,
-        type: NotificationType.chatRequest,
-        postId: null,
-        createdAt: Timestamp.now());
+    final userPrivateInfoSettingsRepository =
+        Get.find<UserPrivateInfoSettingsRepository>();
 
-    return await insert(notification, nexus: [toUserId]);
+    var setting = await userPrivateInfoSettingsRepository.get(toUserId);
+
+    if (setting != null && setting.permReqBeforeChat == false) {
+      var userRepository = Get.find<UserRepository>();
+      var user = await userRepository.get(toUserId);
+      if (user != null) {
+        final room = await FirebaseChatCore.instance.createRoom(user);
+        await Get.to(() => ChatPage(room: room));
+      }
+    } else {
+      final notification = Notification(
+          fromUser: resourceContext.uid,
+          toUser: toUserId,
+          type: NotificationType.chatRequest,
+          postId: null,
+          createdAt: Timestamp.now());
+
+      return await insert(notification, nexus: [toUserId]);
+    }
   }
 
-  Future<void> takeNotificationOff(String id) {
-    return updateFields(id, {'visible': false}, nexus: [resourceContext.uid]);
+  Future<void> takeNotificationOff(String id) async {
+    return await updateFields(id, {'visible': false},
+        nexus: [resourceContext.uid]);
   }
 }

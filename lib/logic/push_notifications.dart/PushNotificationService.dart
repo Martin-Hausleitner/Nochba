@@ -1,10 +1,9 @@
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
-  Future<String?> getToken() => _fcm.getToken();
+  Future<String?> getToken() async => await _fcm.getToken();
 
   // Future initialize() async {
   //   // if (Platform.isIOS) {

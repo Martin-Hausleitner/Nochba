@@ -12,7 +12,7 @@ class PostCardController extends GetxController {
       return await notificationRepository
           .sendPostRequestNotificationFromCurrentUser(toUserId, postId);
     } on Exception {
-      return Future.error(Error);
+      Get.snackbar('Fehlgeschlagen', 'Das Anschreiben ist fehlgeschlagen');
     }
   }
 

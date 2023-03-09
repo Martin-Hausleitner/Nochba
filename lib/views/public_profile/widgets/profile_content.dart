@@ -7,6 +7,7 @@ import 'package:nochba/logic/data_access.dart';
 import 'package:nochba/logic/models/post.dart' as models;
 
 import 'package:nochba/pages/feed/widgets/post_card.dart';
+import 'package:nochba/views/public_profile/public_profile_controller.dart';
 
 import 'user_info.dart';
 
@@ -14,15 +15,15 @@ import 'user_info.dart';
 
 class ProfileContent extends StatelessWidget {
   final String userId;
+  final PublicProfileController controller;
   const ProfileContent({
+    required this.controller,
     required this.userId,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dataAccess = Get.find<DataAccess>();
-
     return Expanded(
       // width: width,
       // height: height,
@@ -85,14 +86,17 @@ class ProfileContent extends StatelessWidget {
               const SizedBox(height: 6),
               Container(
                 child: StreamBuilder<List<models.Post>>(
-                  stream: dataAccess.getPostsOfUser(userId),
+                  stream: controller.getPostsOfUser(userId),
                   builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text(
-                          'Something went wrong: ${snapshot.error.toString()}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 32, fontWeight: FontWeight.w300));
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return const Center(
+                        child: Text('Die Posts sind derzeit nicht verfügbar',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.w300)),
+                      );
                     } else if (snapshot.hasData) {
                       final posts = snapshot.data!;
 
@@ -150,7 +154,7 @@ class ProfileContent extends StatelessWidget {
                             const SizedBox(height: 3),
                       );
                     } else {
-                      return const Center(child: CircularProgressIndicator());
+                      return Container();
                       // return const Text('There are no posts in the moment',
                       //   textAlign: TextAlign.center,
                       //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));

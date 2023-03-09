@@ -45,12 +45,28 @@ class ManageNotificationView extends GetView<ManageAccountController> {
                   ),
                   Transform.scale(
                     scale: 0.8,
-                    child: CupertinoSwitch(
-                      activeColor: Theme.of(context).primaryColor,
-                      value: true,
-                      onChanged: (bool value) {},
-                      // value: controller.showLastName,
-                      // onChanged: controller.setShowLastName,
+                    child: StreamBuilder<bool?>(
+                      stream: controller.getPermReqBeforeChatOfCurrentUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final data = snapshot.data!;
+                          return CupertinoSwitch(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: data,
+                            onChanged: (value) async => await controller
+                                .updatePermReqBeforeChatOfCurrentUser(value),
+                          );
+                        } else {
+                          return CupertinoSwitch(
+                            activeColor: Theme.of(context).disabledColor,
+                            value: true,
+                            onChanged: (value) {
+                              Get.snackbar('Nicht möglich',
+                                  'Das Umschalten ist derzeit nicht möglich');
+                            },
+                          );
+                        }
+                      },
                     ),
                   ),
                 ],
