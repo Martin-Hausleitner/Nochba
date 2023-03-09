@@ -408,6 +408,8 @@ class NewWidget extends StatelessWidget {
           await Add2Calendar.addEvent2Cal(
             buildEvent(),
           );
+          print("lolllllll");
+
         } catch (e) {
           print("lolllllll" + e.toString());
         }
