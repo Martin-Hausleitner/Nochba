@@ -31,6 +31,9 @@ import 'views/invite_neighbor_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 import 'package:http/http.dart' as http;
+import 'package:add_2_calendar/add_2_calendar.dart';
+
+import 'package:add_2_calendar/add_2_calendar.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   const PrivateProfilePage({super.key});
@@ -248,8 +251,11 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         //   title: 'Dein Profil',
                         // ),
                         const InviteNeighborCard(),
+                        //button
+                        NewWidget(),
+
                         // const FeedbackTest(),
-                        // TranslationWidget(),
+                        TranslationWidget(),
                         // // GetDistanceFromLatLonInMeters(),
                         // // VerifyButton(),
                         ActionCard(
@@ -347,6 +353,65 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    super.key,
+  });
+
+  Event buildEvent({Recurrence? recurrence}) {
+    return Event(
+      title: 'Test eventeee',
+      description: 'example',
+      location: 'Flutter app',
+      startDate: DateTime.now(),
+      endDate: DateTime.now().add(Duration(minutes: 30)),
+      allDay: false,
+      iosParams: IOSParams(
+        reminder: Duration(minutes: 40),
+        url: "http://example.com",
+      ),
+      androidParams: AndroidParams(
+        emailInvites: ["test@example.com"],
+      ),
+      recurrence: recurrence,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Event event = Event(
+      title: 'Event title',
+      description: 'Event description',
+      location: 'Event location',
+      startDate: DateTime.now(),
+      endDate: DateTime.now().add(Duration(minutes: 30)),
+      // iosParams: const IOSParams(
+      //   reminder: Duration(
+      //       /* Ex. hours:1 */), // on iOS, you can set alarm notification after your event.
+      //   url:
+      //       'https://www.example.com', // on iOS, you can set url to your event.
+      // ),
+      // androidParams: const AndroidParams(
+      //   emailInvites: [], // on Android, you can add invite emails to your event.
+      // ),
+    );
+
+    return TextButton(
+      child: Text("Add caleneder"),
+      //on press try catch : Add2Calendar.addEvent2Cal(event)
+      onPressed: () async {
+        try {
+          await Add2Calendar.addEvent2Cal(
+            buildEvent(),
+          );
+        } catch (e) {
+          print("lolllllll" + e.toString());
+        }
+      },
     );
   }
 }
@@ -732,7 +797,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
   bool _showOriginal = true;
   bool _loading = false;
   int _retryCount = 0;
-  
+
   void _translateText() {
     setState(() {
       _showOriginal = !_showOriginal;

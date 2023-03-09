@@ -84,6 +84,7 @@ dependencies:
   omni_datetime_picker: ^0.1.4
   pull_to_refresh: ^2.0.0
   simplytranslate: ^1.2.2
+  add_2_calendar: ^2.2.3
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2
