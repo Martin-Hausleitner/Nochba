@@ -128,8 +128,8 @@ class PublishedNewPostView extends StatelessWidget {
                 onPressed: //controller.addPost() and go to
                     () => controller.jumpBackToStartPage(),
                 controller: controller,
-                icon: FlutterRemix.home_2_line,
-                label: 'Zurück zum Feed',
+                icon: Icons.add,
+                label: 'Neuen Beitrag erstellen',
               ),
             ],
           ),
