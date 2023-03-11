@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nochba/logic/flutter_chat_ui-1.6.4/src/chat_theme.dart';
+import 'package:simplytranslate/simplytranslate.dart';
 
 class Discription extends StatelessWidget {
   const Discription({
@@ -10,27 +12,62 @@ class Discription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String translatedText = "";
     return Stack(
       alignment: const Alignment(1, 1),
       children: [
-        //align text left
+        // align text left
         Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            //print postDescription.split('\n').length as string
-            postDescription,
-
-            maxLines: 3,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.color
-                      ?.withOpacity(0.7),
-                  letterSpacing: -0.1,
-                ),
+          child: Column(
+            children: [
+              TextButton(
+                child: Text("Click to translate post", 
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith( color: colors.first, letterSpacing: -0.1)),
+                onPressed: () async {
+                  final gt = SimplyTranslator(EngineType.google);
+                  Translation libTranslate = await gt.translateSimply(postDescription);
+                  translatedText = libTranslate.translations.text;
+                  print(translatedText);
+                },
+              ),
+              Text(
+                postDescription,
+                maxLines: 3,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.color
+                          ?.withOpacity(0.7),
+                      letterSpacing: -0.1,
+                    ),
+              ),
+              Text(
+                // TRANSLATED POST
+                translatedText,
+                maxLines: 3,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.color
+                          ?.withOpacity(0.7),
+                      letterSpacing: -0.1,
+                    ),
+              )
+            ],
           ),
         ),
+        // COMMENTED OUT
+      ],
+    );
+  }
+}
+
+
+
 
         // SizedBox(
         //   height: 16,
@@ -95,7 +132,3 @@ class Discription extends StatelessWidget {
         //     ),
         //   ),
         // ),
-      ],
-    );
-  }
-}

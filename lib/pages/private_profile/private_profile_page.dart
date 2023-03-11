@@ -793,8 +793,9 @@ class TranslationWidget extends StatefulWidget {
 
 class _TranslationWidgetState extends State<TranslationWidget> {
   final gt = SimplyTranslator(EngineType.google);
+  
 
-  String _germanText = "Hallo Welt!";
+  String _germanText = "Er läuft schnell.";
   String _translatedText = "";
   bool _showOriginal = true;
   bool _loading = false;
@@ -816,7 +817,8 @@ class _TranslationWidgetState extends State<TranslationWidget> {
         _loading = true;
       });
       try {
-        _translatedText = await gt.trSimply(_germanText, null, "en");
+        Translation libTranslate = await gt.translateSimply(_germanText);
+        _translatedText = libTranslate.translations.text;
         if (mounted) {
           setState(() {
             _loading = false;

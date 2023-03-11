@@ -156,7 +156,7 @@ class Post extends GetView<PostCardController> {
               const SizedBox(height: spacingBetween),
 
               Discription(postDescription: post.description),
-
+              
               // Post Image
               post.imageUrl != ''
                   ? Padding(
@@ -357,3 +357,4 @@ class DateDisplay extends StatelessWidget {
     );
   }
 }
+
