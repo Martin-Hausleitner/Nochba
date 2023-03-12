@@ -156,8 +156,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                             if (notification.type ==
                                 NotificationType.chatRequest) {
                               return NotificationElement(
-                                authorName:
-                                    '${user.firstName} ${user.lastName}',
+                                authorName: '${user.fullName}',
                                 imageUrl: user.imageUrl,
                                 notificationText: 'möchte mit dir schreiben',
                                 time:
@@ -178,8 +177,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                                     final post = snapshot.data!;
                                     final createdAt = post.createdAt.toDate();
                                     return NotificationElement(
-                                      authorName:
-                                          '${user.firstName} ${user.lastName}',
+                                      authorName: '${user.fullName}',
                                       imageUrl: user.imageUrl,
                                       notificationText:
                                           'möchte dich wegen deinem Post "${post.title}", den du am ${createdAt.day}.${createdAt.month}.${createdAt.year} erstellt hast, anschreiben',

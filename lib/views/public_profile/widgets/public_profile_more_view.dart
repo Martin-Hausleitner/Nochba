@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
+import 'package:nochba/pages/feed/views/action_bar_more/action_bar_more_view.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
@@ -64,27 +66,49 @@ class PublicProfileMoreView extends StatelessWidget {
                                 // ),
                                 const SizedBox(height: 5),
 
-                                const DropdownButtonExample(),
+                                GetBuilder<PublicProfileController>(
+                                  id: 'ReportUserDropDown',
+                                  builder: (c) => DropdownButtonExample(
+                                    dropDownValues: controller.reasonsForReport,
+                                    selectedValue:
+                                        controller.selectedReasonForReport,
+                                    selectValue:
+                                        controller.selectReasonForReport,
+                                  ),
+                                ),
+
                                 const SizedBox(height: 10),
 
-                                LocooTextField(
-                                    maxLines: 10,
-                                    height: 220,
-                                    // controller:
-                                    // controller.descriptionController,
-                                    // textInputAction: TextInputAction.next,
-                                    label: 'Beschreibung',
-                                    autovalidateMode: AutovalidateMode.disabled,
-                                    validator: (value) =>
-                                        value != null && value.isEmpty
-                                            ? 'Enter a description'
-                                            : null),
-                                const SizedBox(height: 10),
-                                LocooTextButton(
-                                  label: 'Profil Melden',
-                                  onPressed: () {},
-                                  icon: FlutterRemix.flag_line,
+                                Form(
+                                  key: controller.reportKey,
+                                  child: Column(
+                                    children: [
+                                      LocooTextField(
+                                          maxLines: 10,
+                                          height: 220,
+                                          // controller:
+                                          // controller.descriptionController,
+                                          // textInputAction: TextInputAction.next,
+                                          label: 'Beschreibung',
+                                          autovalidateMode:
+                                              AutovalidateMode.disabled,
+                                          controller:
+                                              controller.reportTextController,
+                                          validator: (value) =>
+                                              value != null && value.isEmpty
+                                                  ? 'Enter a description'
+                                                  : null),
+                                      const SizedBox(height: 10),
+                                      LocooTextButton(
+                                        label: 'Profil Melden',
+                                        onPressed: () async => await controller
+                                            .onPressReportSend(userId),
+                                        icon: FlutterRemix.flag_line,
+                                      ),
+                                    ],
+                                  ),
                                 ),
+
                                 const SizedBox(height: 10),
 
                                 //),
@@ -144,59 +168,59 @@ const List<String> list = <String>[
   'Sonstiges'
 ];
 
-class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
+// class DropdownButtonExample extends StatefulWidget {
+//   const DropdownButtonExample({super.key});
 
-  @override
-  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
-}
+//   @override
+//   State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
+// }
 
-class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  String dropdownValue = list.first;
+// class _DropdownButtonExampleState extends State<DropdownButtonExample> {
+//   String dropdownValue = list.first;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        // border: Border.all(color: _borderColor, width: 1.5),
-        borderRadius: BorderRadius.circular(12),
-        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-      ),
-      child: Padding(
-        padding: // left right 5 top 5 bottom 5
-            const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 2),
-        child: DropdownButton<String>(
-          value: dropdownValue,
-          isExpanded: true,
-          icon: const Icon(
-            Icons.expand_more_outlined,
-          ),
-          // elevation: 16,
-          style: TextStyle(
-            // color: Theme.of(context).primaryColor,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
-          ),
-          underline: Container(
-            height: 0,
-            // color: Theme.of(context).primaryColor,
-          ),
-          onChanged: (String? value) {
-            // This is called when the user selects an item.
-            setState(() {
-              dropdownValue = value!;
-            });
-          },
-          items: list.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         // border: Border.all(color: _borderColor, width: 1.5),
+//         borderRadius: BorderRadius.circular(12),
+//         color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+//       ),
+//       child: Padding(
+//         padding: // left right 5 top 5 bottom 5
+//             const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 2),
+//         child: DropdownButton<String>(
+//           value: dropdownValue,
+//           isExpanded: true,
+//           icon: const Icon(
+//             Icons.expand_more_outlined,
+//           ),
+//           // elevation: 16,
+//           style: TextStyle(
+//             // color: Theme.of(context).primaryColor,
+//             color: Theme.of(context).textTheme.bodyLarge!.color,
+//           ),
+//           underline: Container(
+//             height: 0,
+//             // color: Theme.of(context).primaryColor,
+//           ),
+//           onChanged: (String? value) {
+//             // This is called when the user selects an item.
+//             setState(() {
+//               dropdownValue = value!;
+//             });
+//           },
+//           items: list.map<DropdownMenuItem<String>>((String value) {
+//             return DropdownMenuItem<String>(
+//               value: value,
+//               child: Text(value),
+//             );
+//           }).toList(),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class AlertDialogDeletePost extends StatelessWidget {
   const AlertDialogDeletePost({
@@ -248,7 +272,8 @@ class AlertDialogDeletePost extends StatelessWidget {
                 child: TextButton(
                   onPressed: () => Navigator.pop(context, 'Abbrechen'),
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -261,7 +286,8 @@ class AlertDialogDeletePost extends StatelessWidget {
                   onPressed: () => Navigator.pop(context, 'OK'),
                   //style the button red
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.red, shape: RoundedRectangleBorder(
+                    foregroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),

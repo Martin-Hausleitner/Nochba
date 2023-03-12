@@ -80,7 +80,7 @@ class InsetPostController extends GetxController {
   String get imageName => imageFile.name;
   Uint8List? get image => imageFile.file;
 
-  double sliderValue = 20.0;
+  double sliderValue = 400.0;
 
   void onSliderValueChanged(double newValue) {
     sliderValue = newValue;

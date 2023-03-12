@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:get/get.dart';
 import 'package:nochba/shared/ui/buttons/locoo_circular_icon_button.dart';
 
 class BottomSheetCloseSaveView extends StatelessWidget {
   //children
   final List<Widget> children;
-  final VoidCallback onSave;
+  final Future<bool> Function() onSave;
 
   const BottomSheetCloseSaveView(
       {super.key, required this.children, required this.onSave});
@@ -54,9 +55,15 @@ class BottomSheetCloseSaveView extends StatelessWidget {
                     // ),
                     ElevatedButton.icon(
                       // onPressed triggers onSave and navigation pop
-                      onPressed: () {
-                        onSave();
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        try {
+                          final successful = await onSave();
+                          if (successful) {
+                            Navigator.pop(context);
+                          }
+                        } catch (e) {
+                          Get.snackbar('Fehlgeschlagen', e.toString());
+                        }
                       },
 
                       //() => Navigator.pop(context),

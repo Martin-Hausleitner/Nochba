@@ -30,6 +30,8 @@ class EditPostController extends InsetPostController {
       setCategory(CategoryModul.getMainCategoryOfSubCategory(tmp));
       setSubCategory(tmp);
     }
+    onSliderValueChanged(oldPost!.range);
+    update();
     //Get.snackbar(category.name, subCategory.name);
 
     refreshCategoryName();
@@ -48,29 +50,79 @@ class EditPostController extends InsetPostController {
   List<CategoryOptions> getSubCategoriesOf(CategoryOptions categoryOptions) =>
       CategoryModul.getSubCategoriesOfMainCategory(categoryOptions);
 
+  List<CategoryOptions> getSubCategoriesOfSelectedCategory() {
+    return CategoryModul.isMainCategory(category) == true
+        ? CategoryModul.getSubCategoriesOfMainCategory(category)
+        : [];
+  }
+
   selectCategory(CategoryOptions categoryOption) {
-    if (CategoryModul.isMainCategory(categoryOption) &&
-        CategoryModul.getSubCategoriesOfMainCategory(categoryOption).isEmpty) {
+    if (CategoryModul.isMainCategory(categoryOption)) {
       setCategory(categoryOption);
-      setSubCategory(CategoryOptions.None);
+
+      if (hasSelectedCategorySubCategories()) {
+        setSubCategory(getSubCategoriesOf(category).first);
+      } else {
+        setSubCategory(CategoryOptions.None);
+      }
     } else if (CategoryModul.isSubCategory(categoryOption)) {
       setSubCategory(categoryOption);
       setCategory(CategoryModul.getMainCategoryOfSubCategory(categoryOption));
     }
     refreshCategoryName();
+    update();
+  }
+
+  String getCategoryName(CategoryOptions categoryOption) {
+    return CategoryModul.getCategoryName(categoryOption);
   }
 
   bool isMainCategorySelected(CategoryOptions value) =>
       (CategoryModul.isMainCategory(value) && value == category);
 
+  bool hasSelectedCategorySubCategories() =>
+      (CategoryModul.hasCategorySubCategories(category));
+
   bool isSubCategorySelected(CategoryOptions value) =>
       (CategoryModul.isSubCategory(value) && value == subCategory);
 
   updatePost() async {
-    //final isValid = formKey.currentState!.validate();
-    if (/*!isValid ||*/ category == CategoryOptions.None || oldPost == null) {
+    if (category == CategoryOptions.None) {
+      Get.snackbar('Aktualisieren nicht möglich',
+          'Wählen Sie bitte eine gültige Kategorie aus');
       return;
+    } else if (!formKey.currentState!.validate()) {
+      Get.snackbar('Aktualisieren nicht möglich',
+          'Füllen Sie bitte die Eingabefelder richtig aus');
+      return;
+    } else if (oldPost == null) {
+      Get.snackbar(
+          'Aktualisieren nicht möglich', 'Das ist ein ungültiger Post');
     }
+
+    if (category == CategoryOptions.Event) {
+      if (!eventKey.currentState!.validate()) {
+        Get.snackbar('Posten nicht möglich',
+            'Füllen Sie bitte die Eingabefelder zum Event richtig aus');
+        return;
+      }
+      if (eventTime != null) {
+        if (eventTime!.length != 2) {
+          Get.snackbar(
+              'Posten nicht möglich', 'Geben Sie bitte zwei gültige Daten an');
+          return;
+        } else if (eventTime![0].isAfter(eventTime![1])) {
+          Get.snackbar('Posten nicht möglich',
+              'Das erste Datum muss früher sein als das zweite');
+          return;
+        }
+      } else {
+        Get.snackbar(
+            'Posten nicht möglich', 'Füllen Sie bitte das Datumfeld aus');
+        return;
+      }
+    }
+
     try {
       /*if ((imageFileOfOldPost != null &&
               imageName.isNotEmpty &&
@@ -89,18 +141,18 @@ class EditPostController extends InsetPostController {
               : oldPost!.imageUrl;
 
       final post = Post(
-        id: oldPost!.id,
-        uid: FirebaseAuth.instance.currentUser!.uid,
-        title: titleController.text.trim(),
-        description: descriptionController.text.trim(),
-        createdAt: oldPost!.createdAt,
-        imageUrl: imageUrl,
-        category: subCategory != CategoryOptions.None
-            ? subCategory.name.toString()
-            : category.name.toString(),
-        tags: [...tags..sort()],
-        likes: 0,
-      );
+          id: oldPost!.id,
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          title: titleController.text.trim(),
+          description: descriptionController.text.trim(),
+          createdAt: oldPost!.createdAt,
+          imageUrl: imageUrl,
+          category: subCategory != CategoryOptions.None
+              ? subCategory.name.toString()
+              : category.name.toString(),
+          tags: [...tags..sort()],
+          likes: 0,
+          range: sliderValue);
 
       postRepository.update(post);
       Get.back();

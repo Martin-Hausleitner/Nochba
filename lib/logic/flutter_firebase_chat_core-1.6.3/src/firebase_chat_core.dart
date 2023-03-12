@@ -23,7 +23,6 @@ import 'package:nochba/logic/flutter_chat_types-3.4.5/src/messages/partial_text.
 import 'package:nochba/logic/flutter_chat_types-3.4.5/src/messages/text_message.dart'
     as types;
 
-
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/src/util.dart';
 
 import 'firebase_chat_core_config.dart';
@@ -201,7 +200,7 @@ class FirebaseChatCore {
 
     return types.Room(
       id: room.id,
-      name: '${otherUser.firstName} ${otherUser.lastName}',
+      name: '${otherUser.fullName}',
       imageUrl: otherUser.imageUrl,
       metadata: metadata,
       type: types.RoomType.direct,

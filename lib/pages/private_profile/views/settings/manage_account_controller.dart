@@ -24,8 +24,8 @@ class ManageAccountController extends GetxController {
     }
   }
 
-  Stream<String?> getEmail() {
-    return Stream.value(_authService.getEmailOfCurrentUser());
+  Future<String?> getEmailOfCurrentUser() {
+    return Future.value(_authService.getEmailOfCurrentUser());
   }
 
   TextEditingController emailTextController = TextEditingController();
@@ -45,27 +45,31 @@ class ManageAccountController extends GetxController {
             : null;
   }
 
-  Future<void> updateEmailOfCurrentUser() async {
+  Future<bool> updateEmailOfCurrentUser() async {
     if (!emailKey.currentState!.validate()) {
-      return;
+      return false;
     }
 
     try {
-      return await _authService
-          .updateEmailOfCurrentUser(emailTextController.text);
+      await _authService.updateEmailOfCurrentUser(emailTextController.text);
+
+      final newEmail = await getEmailOfCurrentUser();
+      emailTextController.text = newEmail ?? '';
     } on FirebaseException catch (e) {
+      String errorText = '';
       if (e.code == 'invalid-email') {
-        Get.snackbar(
-            'Ungültige Email', 'Bitte geben Sie eine gültige Email an');
+        errorText = 'Bitte geben Sie eine gültige Email an';
       } else if (e.code == 'email-already-in-use') {
-        Get.snackbar(
-            'Email vergeben', 'Die angegebene Email ist schon vergeben');
+        errorText = 'Die angegebene Email ist schon vergeben';
       } else if (e.code == 'requires-recent-login') {
-        Get.snackbar('Nicht eingeloggt', 'Sie sind nicht angemeldet');
+        errorText = 'Sie benötigen eine kürzliche Anmeldung';
       } else {
-        Get.snackbar('Error', '$e');
+        errorText = e.toString();
       }
+      return Future.error(errorText);
     }
+
+    return true;
   }
 
   TextEditingController firstPasswordTextController = TextEditingController();
@@ -81,29 +85,34 @@ class ManageAccountController extends GetxController {
             : null;
   }
 
-  Future<void> updatePasswordOfCurrentUser() async {
+  Future<bool> updatePasswordOfCurrentUser() async {
     if (!passwordKey.currentState!.validate()) {
-      return;
+      return false;
     }
     if (firstPasswordTextController.text.trim() !=
         secondPasswordTextController.text.trim()) {
-      Get.snackbar(
-          'Ungleiche Passwörter', 'Die Passwörter müssen die gleichen sein');
+      return Future.error('Die Passwörter müssen gleich sein');
     }
 
     try {
-      return await _authService
+      await _authService
           .updatePasswordOfCurrentUser(firstPasswordTextController.text.trim());
+
+      firstPasswordTextController.clear();
+      secondPasswordTextController.clear();
     } on FirebaseException catch (e) {
+      String errorText = '';
       if (e.code == 'weak-password') {
-        Get.snackbar('Schwaches Passwort',
-            'Dass Passwort muss länger als 6 Zeichen lang sein');
+        errorText = 'Dass Passwort muss länger als 6 Zeichen lang sein';
       } else if (e.code == 'requires-recent-login') {
-        Get.snackbar('Nicht eingeloggt', 'Sie sind nicht angemeldet');
+        errorText = 'Sie benötigen eine kürzliche Anmeldung';
       } else {
-        Get.snackbar('Error', '$e');
+        errorText = e.toString();
       }
+      return Future.error(errorText);
     }
+
+    return true;
   }
 
   final _userPrivateInfoSettingsRepository =

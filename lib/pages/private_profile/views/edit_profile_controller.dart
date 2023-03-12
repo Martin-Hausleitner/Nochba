@@ -174,7 +174,7 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future<void> updateNameOfCurrentUser() async {
+  Future<bool> updateNameOfCurrentUser() async {
     try {
       await userPrivateInfoNameRepository.updateNameOfCurrentUser(
           firstNameTextController.text.trim(),
@@ -182,8 +182,10 @@ class EditProfileController extends GetxController {
       //firstNameTextController.clear();
       //lastNameTextController.clear();
     } on Exception {
-      return Future.error(Error);
+      return Future.error('Der Name konnte nicht aktualisiert werden');
     }
+
+    return true;
   }
 
   Future<void> updateSettingForLastNameOfCurrentUser(bool value) async {
@@ -195,48 +197,53 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future<void> updateProfessionOfCurrentUser() async {
+  Future<bool> updateProfessionOfCurrentUser() async {
     try {
       await userPublicInfoRepository
           .updateProfessionOfCurrentUser(professionTextController.text.trim());
       //professionTextController.clear();
     } on Exception {
-      return Future.error(Error);
+      return Future.error('Der Beruf konnte nicht aktualisiert werden');
     }
+
+    return true;
   }
 
-  Future<void> updateBioOfCurrentUser() async {
+  Future<bool> updateBioOfCurrentUser() async {
     try {
       await userPublicInfoRepository
           .updateBioOfCurrentUser(bioTextController.text.trim());
     } on Exception {
-      return Future.error(Error);
+      return Future.error('Die Bio konnte nicht aktualisiert werden');
     }
+
+    return true;
   }
 
-  Future<void> updateBirthDayOfCurrentUser() async {
+  Future<bool> updateBirthDayOfCurrentUser() async {
     try {
       await userPublicInfoRepository
           .updateBirthDayOfCurrentUser(birthdayDateController.selectedDate);
       Get.snackbar('Erfolgreich',
           'Das Aktualisieren vom Geburtstag hat Erfolgreich funktioniert');
     } on Exception {
-      Get.snackbar('Fehlgeschlagen',
-          'Das Aktualisieren vom Geburtstag ist leider fehlgeschlagen');
-      return Future.error(Error);
+      return Future.error('Der Geburtstag konnte nicht aktualisiert werden');
     }
+
+    return true;
   }
 
-  Future<void> updateNeighbourhoodMemberSinceOfCurrentUser() async {
+  Future<bool> updateNeighbourhoodMemberSinceOfCurrentUser() async {
     try {
       await userPublicInfoRepository
           .updateNeighbourhoodMemberSinceOfCurrentUser(
               neighbourhoodMemberSinceController.selectedDate);
     } on Exception {
-      Get.snackbar('Fehlgeschlagen',
-          'Das Aktualisieren vom Zeitpunkt, seit dem du der Nachbarschaft beigetreten bist, ist leider fehlgeschlagen');
-      return Future.error(Error);
+      return Future.error(
+          'Das Datum, seit dem du der Nachbarschaft beigetreten bist, konnte nicht aktualisiert werden');
     }
+
+    return true;
   }
 
   final RxList<String> _interests = <String>[].obs;
@@ -268,12 +275,14 @@ class EditProfileController extends GetxController {
     addInterest(result);
   }
 
-  Future<void> updateInterestsOfCurrentUser() async {
+  Future<bool> updateInterestsOfCurrentUser() async {
     try {
       await userPublicInfoRepository.updateInterestsOfCurrentUser(_interests);
     } on Exception {
-      return Future.error(Error);
+      return Future.error('Deine Interessen konnten nicht aktualisiert werden');
     }
+
+    return true;
   }
 
   final RxList<String> _offers = <String>[].obs;
@@ -305,11 +314,13 @@ class EditProfileController extends GetxController {
     addOffer(result);
   }
 
-  Future<void> updateOffersOfCurrentUser() async {
+  Future<bool> updateOffersOfCurrentUser() async {
     try {
       await userPublicInfoRepository.updateOffersOfCurrentUser(_offers);
     } on Exception {
-      return Future.error(Error);
+      return Future.error('Das Feld konnte nicht aktualisiert werden');
     }
+
+    return true;
   }
 }
