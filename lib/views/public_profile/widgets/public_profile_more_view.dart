@@ -26,7 +26,9 @@ class PublicProfileMoreView extends StatelessWidget {
       title: 'Mehr',
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: //const EdgeInsets.symmetric(horizontal: 15), top 10 left 15 right 15
+              const EdgeInsets.only(top: 10, left: 15, right: 15),
+             
           child: Column(
             children: [
               ActionCard(
