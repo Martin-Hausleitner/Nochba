@@ -132,55 +132,55 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasData) {
           return const DashboardPage();
         } else {
-          // return const AuthPage();
-          return Scaffold(
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        Lottie.asset(
-                          'assets/lottie/shake.json',
-                          width: 200,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Early Access',
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: -0.5,
-                                // color: Theme.of(context).colorScheme.onSecondaryContainer,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                              ),
-                    ),
-                    Text(
-                      'Dies ist eine Early-Access-Version, die Bugs enthalten kann.',
-                      style: TextStyle(fontSize: 18),
-                      // textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(() => const AuthPage());
-                      },
-                      child: const Text('Login'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return const AuthPage();
+          // return Scaffold(
+          //   body: Center(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Column(
+          //         // mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           Column(
+          //             children: [
+          //               Lottie.asset(
+          //                 'assets/lottie/shake.json',
+          //                 width: 200,
+          //                 height: 200,
+          //                 fit: BoxFit.cover,
+          //               ),
+          //             ],
+          //           ),
+          //           const SizedBox(height: 20),
+          //           Text(
+          //             'Early Access',
+          //             style:
+          //                 Theme.of(context).textTheme.headlineMedium?.copyWith(
+          //                       fontSize: 30,
+          //                       fontWeight: FontWeight.w800,
+          //                       letterSpacing: -0.5,
+          //                       // color: Theme.of(context).colorScheme.onSecondaryContainer,
+          //                       color: Theme.of(context)
+          //                           .colorScheme
+          //                           .onSecondaryContainer,
+          //                     ),
+          //           ),
+          //           Text(
+          //             'Dies ist eine Early-Access-Version, die Bugs enthalten kann.',
+          //             style: TextStyle(fontSize: 18),
+          //             // textAlign: TextAlign.center,
+          //           ),
+          //           const SizedBox(height: 20),
+          //           ElevatedButton(
+          //             onPressed: () {
+          //               Get.to(() => const AuthPage());
+          //             },
+          //             child: const Text('Login'),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // );
         }
       },
     );
