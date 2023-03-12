@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 //import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 //import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -128,6 +129,32 @@ class ChatPage extends GetView<ChatController> {
                               fontSize: 13,
                             ),
                       ),
+                      // const SizedBox(
+                      //   width: 8,
+                      // ),
+                      // SvgPicture.asset(
+                      //   'assets/icons/housing_distance.svg',
+                      //   color: Theme.of(context)
+                      //       .colorScheme
+                      //       .onSurface
+                      //       .withOpacity(0.55),
+                      //   height: 12,
+                      //   // semanticsLabel: 'A red up arrow',
+                      // ),
+                      // const SizedBox(
+                      //   width: 4,
+                      // ),
+                      // Text(
+                      //   '200m',
+                      //   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      //         color: Theme.of(context)
+                      //             .textTheme
+                      //             .bodyMedium
+                      //             ?.color
+                      //             ?.withOpacity(0.5),
+                      //         fontSize: 13,
+                      //       ),
+                      // ),
                     ],
                   ),
                 ],
