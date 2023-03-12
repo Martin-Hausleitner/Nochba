@@ -23,6 +23,10 @@ import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
     as chat;
 import 'package:nochba/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart' as ui;
+import 'package:nochba/views/public_profile/public_profile_view.dart';
+
+import '../../shared/ui/cards/action_card.dart';
+import '../../shared/views/bottom_sheet_title_close_view.dart';
 
 class ChatPage extends GetView<ChatController> {
   const ChatPage({Key? key, required this.room}) : super(key: key);
@@ -46,120 +50,130 @@ class ChatPage extends GetView<ChatController> {
           elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              // CircleAvatar(
-              //   radius: 22,
-              //   backgroundColor: Colors.white,
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(1), // Border radius
-              //     child: ClipOval(child: displayProfileImage()),
-              //   ),
-              // ),
-              LocooCircleAvatar(
-                imageUrl: room.imageUrl,
-                radius: 20,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                //align left
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    // padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '${room.name}',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.w600,
+          title: GestureDetector(
+            onTap: () {
+              Get.to(PublicProfileView(userId: room.users[0].id));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // CircleAvatar(
+                //   radius: 22,
+                //   backgroundColor: Colors.white,
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(1), // Border radius
+                //     child: ClipOval(child: displayProfileImage()),
+                //   ),
+                // ),
+                LocooCircleAvatar(
+                  imageUrl: room.imageUrl,
+                  radius: 20,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  //align left
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      // padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${room.name}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.w600,
 
-                            // fontWeight: FontWeight.w600,
-                          ),
-                    ),
-
-                    /*room.name == fullname
-                        ? Text(
-                            '${room.users[0].firstName} ${room.users[0].lastName}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  fontWeight: FontWeight.w600,
-
-                                  // fontWeight: FontWeight.w600,
-                                ),
-                          )
-                        : Text(
-                            '${room.users[1].firstName} ${room.users[1].lastName}'),*/
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  Row(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    //center
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 4),
-                        // show this svg:
-                        child: Icon(
-                          FlutterRemix.map_pin_line,
-                          size: 12,
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.color
-                              ?.withOpacity(0.5),
-                        ),
-                      ),
-                      Text(
-                        'Auwiesen',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.color
-                                  ?.withOpacity(0.5),
-                              fontSize: 13,
+                              // fontWeight: FontWeight.w600,
                             ),
                       ),
-                      // const SizedBox(
-                      //   width: 8,
-                      // ),
-                      // SvgPicture.asset(
-                      //   'assets/icons/housing_distance.svg',
-                      //   color: Theme.of(context)
-                      //       .colorScheme
-                      //       .onSurface
-                      //       .withOpacity(0.55),
-                      //   height: 12,
-                      //   // semanticsLabel: 'A red up arrow',
-                      // ),
-                      // const SizedBox(
-                      //   width: 4,
-                      // ),
-                      // Text(
-                      //   '200m',
-                      //   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      //         color: Theme.of(context)
-                      //             .textTheme
-                      //             .bodyMedium
-                      //             ?.color
-                      //             ?.withOpacity(0.5),
-                      //         fontSize: 13,
-                      //       ),
-                      // ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+
+                      /*room.name == fullname
+                          ? Text(
+                              '${room.users[0].firstName} ${room.users[0].lastName}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontWeight: FontWeight.w600,
+          
+                                    // fontWeight: FontWeight.w600,
+                                  ),
+                            )
+                          : Text(
+                              '${room.users[1].firstName} ${room.users[1].lastName}'),*/
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      //center
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 4),
+                          // show this svg:
+                          child: Icon(
+                            FlutterRemix.map_pin_line,
+                            size: 12,
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.color
+                                ?.withOpacity(0.5),
+                          ),
+                        ),
+                        Text(
+                          'Auwiesen',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.5),
+                                    fontSize: 13,
+                                  ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        SvgPicture.asset(
+                          'assets/icons/housing_distance.svg',
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.55),
+                          height: 12,
+                          // semanticsLabel: 'A red up arrow',
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          '200m',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.5),
+                                    fontSize: 13,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           leading: IconButton(
             splashRadius: 0.001,
@@ -208,112 +222,140 @@ class ChatPage extends GetView<ChatController> {
 
   void _handleAtachmentPressed(BuildContext context) {
     showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
       context: context,
       builder: (BuildContext context) => SafeArea(
-        child: SizedBox(
-          height: 344,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextButton(
-                onPressed: () async {
-                  Navigator.pop(context);
-                  _handleImageSelection(context);
-
-                  // var result = await ImagePicker().pickImage(
-                  //   imageQuality: 70,
-                  //   maxWidth: 1440,
-                  //   source: ImageSource.gallery,
-                  // );
-
-                  // var imageData = await result!.readAsBytes();
-
-                  // ignore: use_build_context_synchronously
-                  //var editedImage = await Navigator.push(
-                  //context,
-                  //MaterialPageRoute(
-                  //builder: (context) => ImageEditorExample(),
-                  //),
-                  //);
-
-                  // // replace with edited image
-                  // if (editedImage != null) {
-                  //   // Convert edited image to xfile
-                  //   result = XFile.fromData(editedImage);
-                  // }
-
-                  // if (result != null) {
-                  //   _setAttachmentUploading(true);
-                  //   // save edited image to local storage
-                  //   //final file = await File('storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg').copy(
-                  //   //    'storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg');
-                  //   // convert xfile to file
-
-                  //   final file = File(result.path);
-                  //   final size = file.lengthSync();
-                  //   final bytes = await result.readAsBytes();
-                  //   final image = await decodeImageFromList(bytes);
-                  //   final name = result.name;
-
-                  //   try {
-                  //     final reference = FirebaseStorage.instance.ref(name);
-                  //     await reference.putFile(file);
-                  //     final uri = await reference.getDownloadURL();
-
-                  //     final message = types.PartialImage(
-                  //       height: image.height.toDouble(),
-                  //       name: name,
-                  //       size: size,
-                  //       uri: uri,
-                  //       width: image.width.toDouble(),
-                  //     );
-
-                  //     chat.FirebaseChatCore.instance.sendMessage(
-                  //       message,
-                  //       room.id,
-                  //     );
-                  //     _setAttachmentUploading(false);
-                  //   } finally {
-                  //     _setAttachmentUploading(false);
-                  //   }
-                  // }
-                },
-                child: const Align(
-                  heightFactor: 2.5,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Select Photo',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+        child: BottomSheetTitleCloseView(
+          title: 'Add Attachment',
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  ActionCard(
+                    title: 'Select Photo',
+                    icon: FlutterRemix.image_add_line,
+                    //open EditProfileView() widget
+                    onTap: () async {
+                      Navigator.pop(context);
+                      _handleImageSelection(context);
+                    },
                   ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleFileSelection();
-                },
-                child: const Align(
-                  heightFactor: 2.5,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Select File',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  const SizedBox(
+                    height: 2,
                   ),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Align(
-                  heightFactor: 2.5,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ActionCard(
+                    title: 'Take Photo',
+                    icon: FlutterRemix.camera_line,
+                    //open EditProfileView() widget
+                    onTap: () async {
+                      Navigator.pop(context);
+                      _handleTakePhoto(context);
+                    },
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+            // TextButton(
+            //   onPressed: () async {
+            //     Navigator.pop(context);
+            //     _handleImageSelection(context);
+
+            //     // var result = await ImagePicker().pickImage(
+            //     //   imageQuality: 70,
+            //     //   maxWidth: 1440,
+            //     //   source: ImageSource.gallery,
+            //     // );
+
+            //     // var imageData = await result!.readAsBytes();
+
+            //     // ignore: use_build_context_synchronously
+            //     //var editedImage = await Navigator.push(
+            //     //context,
+            //     //MaterialPageRoute(
+            //     //builder: (context) => ImageEditorExample(),
+            //     //),
+            //     //);
+
+            //     // // replace with edited image
+            //     // if (editedImage != null) {
+            //     //   // Convert edited image to xfile
+            //     //   result = XFile.fromData(editedImage);
+            //     // }
+
+            //     // if (result != null) {
+            //     //   _setAttachmentUploading(true);
+            //     //   // save edited image to local storage
+            //     //   //final file = await File('storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg').copy(
+            //     //   //    'storage/emulated/0/${DateTime.now().millisecondsSinceEpoch}.jpg');
+            //     //   // convert xfile to file
+
+            //     //   final file = File(result.path);
+            //     //   final size = file.lengthSync();
+            //     //   final bytes = await result.readAsBytes();
+            //     //   final image = await decodeImageFromList(bytes);
+            //     //   final name = result.name;
+
+            //     //   try {
+            //     //     final reference = FirebaseStorage.instance.ref(name);
+            //     //     await reference.putFile(file);
+            //     //     final uri = await reference.getDownloadURL();
+
+            //     //     final message = types.PartialImage(
+            //     //       height: image.height.toDouble(),
+            //     //       name: name,
+            //     //       size: size,
+            //     //       uri: uri,
+            //     //       width: image.width.toDouble(),
+            //     //     );
+
+            //     //     chat.FirebaseChatCore.instance.sendMessage(
+            //     //       message,
+            //     //       room.id,
+            //     //     );
+            //     //     _setAttachmentUploading(false);
+            //     //   } finally {
+            //     //     _setAttachmentUploading(false);
+            //     //   }
+            //     // }
+            //   },
+            //   child: const Align(
+            //     heightFactor: 2.5,
+            //     alignment: Alignment.centerLeft,
+            //     child: Text(
+            //       'Select Photo',
+            //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+            //     ),
+            //   ),
+            // ),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.pop(context);
+            //     _handleFileSelection();
+            //   },
+            //   child: const Align(
+            //     heightFactor: 2.5,
+            //     alignment: Alignment.centerLeft,
+            //     child: Text(
+            //       'Select File',
+            //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+            //     ),
+            //   ),
+            // ),
+            // TextButton(
+            //   onPressed: () => Navigator.pop(context),
+            //   child: const Align(
+            //     heightFactor: 2.5,
+            //     alignment: Alignment.centerLeft,
+            //     child: Text(
+            //       'Cancel',
+            //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );
@@ -348,6 +390,55 @@ class ChatPage extends GetView<ChatController> {
     //     _setAttachmentUploading(false);
     //   }
     // }
+  }
+
+  void _handleTakePhoto(BuildContext context) async {
+    var result = await ImagePicker().pickImage(
+      imageQuality: 70,
+      maxWidth: 1440,
+      source: ImageSource.camera,
+    );
+
+    final image = await result!.readAsBytes();
+    if (image == null) {
+      Get.snackbar("null", "null");
+    }
+    //final editedImage = await Navigator.push(
+    //  context,
+    //  MaterialPageRoute(
+    //    builder: (context) => const ImageEditorExample(),
+    //  ),
+    //);
+
+    //final result = editedImage;
+
+    if (result != null) {
+      _setAttachmentUploading(true);
+      final file = File(result.path);
+      final size = file.lengthSync();
+      final bytes = await result.readAsBytes();
+      final image = await decodeImageFromList(bytes);
+      final name = result.name;
+
+      try {
+        final reference = FirebaseStorage.instance.ref(name);
+        await reference.putFile(file);
+        final uri = await reference.getDownloadURL();
+
+        final message = types.PartialImage(
+          height: image.height.toDouble(),
+          name: name,
+          size: size,
+          uri: uri,
+          width: image.width.toDouble(),
+        );
+
+        chat.FirebaseChatCore.instance.sendMessage(message, room.id);
+        _setAttachmentUploading(false);
+      } finally {
+        _setAttachmentUploading(false);
+      }
+    }
   }
 
   void _handleImageSelection(BuildContext context) async {
