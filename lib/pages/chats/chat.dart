@@ -243,9 +243,9 @@ class ChatPage extends GetView<ChatController> {
                       _handleImageSelection(context);
                     },
                   ),
-                  const SizedBox(
-                    height: 2,
-                  ),
+                  // const SizedBox(
+                  //   height: 2,
+                  // ),
                   ActionCard(
                     title: 'Take Photo',
                     icon: FlutterRemix.camera_line,

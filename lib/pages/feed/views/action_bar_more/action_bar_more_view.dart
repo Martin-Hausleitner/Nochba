@@ -196,8 +196,8 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border:
-            widget.selectedValue == null ? Border.all(color: Colors.red) : null,
+        // border:
+            // widget.selectedValue == null ? Border.all(color: Colors.red) : null,
         borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
       ),

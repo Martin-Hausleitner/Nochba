@@ -55,7 +55,7 @@ class EditPostView extends StatelessWidget {
       // align start
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 30),
+        // const SizedBox(height: 30),
         Expanded(
           child: ListView(
             children: [
@@ -68,6 +68,8 @@ class EditPostView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const SizedBox(height: 30),
+
                           // Obx(
                           //   () => Text(
                           //     widget.controller.categoryName
@@ -88,130 +90,20 @@ class EditPostView extends StatelessWidget {
                           //const SizedBox(height: 10),
                           GetBuilder<EditPostController>(
                             builder: (c) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // algin start
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withOpacity(0.05),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Kategorie',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer
-                                                .withOpacity(0.7),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Row(
-                                          children: controller.mainCategories
-                                              .asMap()
-                                              .entries
-                                              .map(
-                                                (entry) => CategorieChip(
-                                                    label: controller
-                                                        .getCategoryName(
-                                                            entry.value),
-                                                    category: entry.value,
-                                                    isSelected: controller
-                                                        .isMainCategorySelected,
-                                                    onTap: controller
-                                                        .selectCategory),
-                                              )
-                                              .fold(
-                                                  [],
-                                                  (previousValue, element) => [
-                                                        ...previousValue,
-                                                        ...[
-                                                          element,
-                                                          const SizedBox(
-                                                              width: 10)
-                                                        ]
-                                                      ]),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                CategoryChooser(controller: controller),
                                 if (controller
                                     .hasSelectedCategorySubCategories()) ...[
                                   const SizedBox(height: 10),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface
-                                            .withOpacity(0.05),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Unterkategorie',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer
-                                                  .withOpacity(0.7),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Row(
-                                            children: controller
-                                                .getSubCategoriesOfSelectedCategory()
-                                                .asMap()
-                                                .entries
-                                                .map(
-                                                  (entry) => CategorieChip(
-                                                      label: controller
-                                                          .getCategoryName(
-                                                              entry.value),
-                                                      category: entry.value,
-                                                      isSelected: controller
-                                                          .isSubCategorySelected,
-                                                      onTap: controller
-                                                          .selectCategory),
-                                                )
-                                                .fold(
-                                                    [],
-                                                    (previousValue, element) =>
-                                                        [
-                                                          ...previousValue,
-                                                          ...[
-                                                            element,
-                                                            const SizedBox(
-                                                                width: 10)
-                                                          ]
-                                                        ]),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                  SubCategoryChooser(controller: controller),
                                 ]
                               ],
                             ),
                           ),
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 10),
                           Form(
                             key: controller.formKey,
                             child: Column(
@@ -252,82 +144,9 @@ class EditPostView extends StatelessWidget {
                                     key: controller.eventKey,
                                     child: Column(
                                       children: [
-                                        LocooTextField(
-                                            controller: controller
-                                                .eventLocationController,
-                                            textInputAction:
-                                                TextInputAction.next,
-                                            label: 'Ort',
-                                            autovalidateMode:
-                                                AutovalidateMode.disabled,
-                                            validator: (value) =>
-                                                value != null && value.isEmpty
-                                                    ? 'Geben Sie einen Ort ein'
-                                                    : null),
+                                        Location(controller: controller),
                                         const SizedBox(height: 10),
-                                        LocooTextField(
-                                          controller:
-                                              controller.eventTimeController,
-                                          label: 'Datum',
-                                          readOnly: true,
-                                          enableInteractiveSelection: false,
-                                          focusNode: FocusNode(),
-                                          autovalidateMode:
-                                              AutovalidateMode.disabled,
-                                          validator: (value) =>
-                                              value != null && value.isEmpty
-                                                  ? 'Geben Sie eine Zeit ein'
-                                                  : null,
-                                          // text inside the textfield
-
-                                          onTap: () async {
-                                            List<DateTime>? dateTimeList =
-                                                await showOmniDateTimeRangePicker(
-                                              context: context,
-                                              type: OmniDateTimePickerType
-                                                  .dateAndTime,
-                                              primaryColor: Theme.of(context)
-                                                  .primaryColor,
-                                              backgroundColor: Theme.of(context)
-                                                  .scaffoldBackgroundColor,
-                                              calendarTextColor: Colors.black,
-                                              tabTextColor: Colors.black,
-                                              unselectedTabBackgroundColor: // gray 300 color
-                                                  Colors.grey[300],
-                                              buttonTextColor: Colors.black,
-                                              timeSpinnerTextStyle:
-                                                  const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18),
-                                              timeSpinnerHighlightedTextStyle:
-                                                  const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 24),
-                                              is24HourMode: true,
-                                              isShowSeconds: false,
-                                              startInitialDate: DateTime.now(),
-                                              startFirstDate: DateTime(1600)
-                                                  .subtract(const Duration(
-                                                      days: 3652)),
-                                              startLastDate: DateTime.now().add(
-                                                const Duration(days: 3652),
-                                              ),
-                                              endInitialDate: DateTime.now()
-                                                  .add(
-                                                      const Duration(hours: 1)),
-                                              endFirstDate: DateTime(1600)
-                                                  .subtract(const Duration(
-                                                      days: 3652)),
-                                              endLastDate: DateTime.now().add(
-                                                const Duration(days: 3652),
-                                              ),
-                                              borderRadius:
-                                                  const Radius.circular(16),
-                                            );
-                                            controller
-                                                .setEventTime(dateTimeList);
-                                          },
-                                        ),
+                                        DatePicker(controller: controller),
                                       ],
                                     ),
                                   ),
@@ -373,6 +192,198 @@ class EditPostView extends StatelessWidget {
         ),
         EditPostButton(controller: controller),
       ],
+    );
+  }
+}
+
+class CategoryChooser extends StatelessWidget {
+  const CategoryChooser({
+    super.key,
+    required this.controller,
+  });
+
+  final EditPostController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Kategorie',
+            style: TextStyle(
+              fontSize: 12,
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSecondaryContainer
+                  .withOpacity(0.7),
+            ),
+          ),
+          const SizedBox(height: 5),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: controller.mainCategories
+                  .asMap()
+                  .entries
+                  .map(
+                    (entry) => CategorieChip(
+                        label: controller.getCategoryName(entry.value),
+                        category: entry.value,
+                        isSelected: controller.isMainCategorySelected,
+                        onTap: controller.selectCategory),
+                  )
+                  .fold(
+                      [],
+                      (previousValue, element) => [
+                            ...previousValue,
+                            ...[element, const SizedBox(width: 10)]
+                          ]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SubCategoryChooser extends StatelessWidget {
+  const SubCategoryChooser({
+    super.key,
+    required this.controller,
+  });
+
+  final EditPostController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Unterkategorie',
+            style: TextStyle(
+              fontSize: 12,
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSecondaryContainer
+                  .withOpacity(0.7),
+            ),
+          ),
+          const SizedBox(height: 5),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: controller
+                  .getSubCategoriesOfSelectedCategory()
+                  .asMap()
+                  .entries
+                  .map(
+                    (entry) => CategorieChip(
+                        label: controller.getCategoryName(entry.value),
+                        category: entry.value,
+                        isSelected: controller.isSubCategorySelected,
+                        onTap: controller.selectCategory),
+                  )
+                  .fold(
+                [],
+                (previousValue, element) => [
+                  ...previousValue,
+                  ...[element, const SizedBox(width: 10)],
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Location extends StatelessWidget {
+  const Location({
+    super.key,
+    required this.controller,
+  });
+
+  final EditPostController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextField(
+        controller: controller.eventLocationController,
+        textInputAction: TextInputAction.next,
+        label: 'Ort',
+        autovalidateMode: AutovalidateMode.disabled,
+        validator: (value) =>
+            value != null && value.isEmpty ? 'Geben Sie einen Ort ein' : null);
+  }
+}
+
+class DatePicker extends StatelessWidget {
+  const DatePicker({
+    super.key,
+    required this.controller,
+  });
+
+  final EditPostController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return LocooTextField(
+      controller: controller.eventTimeController,
+      label: 'Datum',
+      readOnly: true,
+      enableInteractiveSelection: false,
+      focusNode: FocusNode(),
+      autovalidateMode: AutovalidateMode.disabled,
+      validator: (value) =>
+          value != null && value.isEmpty ? 'Geben Sie eine Zeit ein' : null,
+      // text inside the textfield
+
+      onTap: () async {
+        List<DateTime>? dateTimeList = await showOmniDateTimeRangePicker(
+          context: context,
+          type: OmniDateTimePickerType.dateAndTime,
+          primaryColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          calendarTextColor: Colors.black,
+          tabTextColor: Colors.black,
+          unselectedTabBackgroundColor: // gray 300 color
+              Colors.grey[300],
+          buttonTextColor: Colors.black,
+          timeSpinnerTextStyle:
+              const TextStyle(color: Colors.black, fontSize: 18),
+          timeSpinnerHighlightedTextStyle:
+              const TextStyle(color: Colors.black, fontSize: 24),
+          is24HourMode: true,
+          isShowSeconds: false,
+          startInitialDate: DateTime.now(),
+          startFirstDate: DateTime(1600).subtract(const Duration(days: 3652)),
+          startLastDate: DateTime.now().add(
+            const Duration(days: 3652),
+          ),
+          endInitialDate: DateTime.now().add(const Duration(hours: 1)),
+          endFirstDate: DateTime(1600).subtract(const Duration(days: 3652)),
+          endLastDate: DateTime.now().add(
+            const Duration(days: 3652),
+          ),
+          borderRadius: const Radius.circular(16),
+        );
+        controller.setEventTime(dateTimeList);
+      },
     );
   }
 }
