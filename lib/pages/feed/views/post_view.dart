@@ -239,7 +239,7 @@ class _PostViewImageState extends State<PostViewImage> {
     const double spacingBetween = 13;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Colors.white,
       // if widget.post.imageUrl is null then return Container else return CustomScrollView
       body: CustomScrollView(
         //disable scroll bar

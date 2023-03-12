@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nochba/pages/auth/auth_page.dart';
 import 'package:nochba/pages/dashboard/dashboard_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -116,75 +117,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      //       () {
-      // print('2222');
-      // Get.snackbar('sdsd', 'sdssdsd');
-      // showDialog(
-      //   context: context,
-      //   builder: (context) => AlertDialog(
-      //     title: const Text('Schütteln um Feedback zu senden'),
-      //     content: const Text(
-      //         'Du hast dein Gerät geschüttelt! Deine Verbesserungsideen sind uns wichtig. Schicke uns dein Feedback.'),
-      //     actions: [
-      //       TextButton(
-      //         onPressed: () {
-      //           Navigator.of(context).pop();
-      //         },
-      //         child: const Text('Abrechen'),
-      //       ),
-      //       TextButton(
-      //         onPressed: () {
-      //           Navigator.of(context).pop();
-      //           BetterFeedback.of(context).show(
-      //             (UserFeedback feedback) async {
-      //               print(feedback.text);
-      //               uploadDataToTrello(feedback.text, feedback.screenshot);
-      //             },
-      //           );
-      //         },
-      //         child: const Text('Senden'),
-      //       ),
-      //     ],
-      //   ),
-      // );
-      // }
-
-      // AlertDialog(
-      //   title: const Text('Schütteln um Feedback zu senden'),
-      //   content: const Text(
-      //       'Du hast dein Gerät geschüttelt! Deine Verbesserungsideen sind uns wichtig. Schicke uns dein Feedback.'),
-      //   actions: [
-      //     TextButton(
-      //       onPressed: () {
-      //         Navigator.of(context).pop();
-      //       },
-      //       child: const Text('Abrechen'),
-      //     ),
-      //     TextButton(
-      //       onPressed: () {
-      //         Navigator.of(context).pop();
-      //         BetterFeedback.of(context).show(
-      //           (UserFeedback feedback) async {
-      //             print(feedback.text);
-      //             uploadDataToTrello(feedback.text, feedback.screenshot);
-      //           },
-      //         );
-      //       },
-      //       child: const Text('Senden'),
-      //     ),
-      //   ],
-      // );
-      // BetterFeedback.of(context).show(
-      //   (UserFeedback feedback) async {
-      //     print(feedback.text);
-      //     uploadDataToTrello(feedback.text, feedback.screenshot);
-      //   },
-      // );
-      // },
-      // minimumShakeCount: 1,
-      // shakeSlopTimeMS: 500,
-      // shakeCountResetTime: 3000,
-      // shakeThresholdGravity: 2.7,
     );
   }
 
@@ -200,7 +132,55 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasData) {
           return const DashboardPage();
         } else {
-          return const AuthPage();
+          // return const AuthPage();
+          return Scaffold(
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        Lottie.asset(
+                          'assets/lottie/shake.json',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Early Access',
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: -0.5,
+                                // color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
+                              ),
+                    ),
+                    Text(
+                      'Dies ist eine Early-Access-Version, die Bugs enthalten kann.',
+                      style: TextStyle(fontSize: 18),
+                      // textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => const AuthPage());
+                      },
+                      child: const Text('Login'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
         }
       },
     );

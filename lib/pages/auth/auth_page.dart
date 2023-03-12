@@ -196,7 +196,9 @@ class AuthPage extends GetView<AuthController> {
                                           await Get.to(
                                             () => const LoginPage(),
                                             transition: Transition.rightToLeft,
-                                          )
+                                          ),
+                                          //close dialog
+                                          Navigator.of(context).pop(),
                                         },
                                       ),
                                     ],
