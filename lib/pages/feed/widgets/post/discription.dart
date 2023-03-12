@@ -21,16 +21,16 @@ class Discription extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Column(
             children: [
-              TextButton(
-                child: Text("Click to translate post", 
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith( color: colors.first, letterSpacing: -0.1)),
-                onPressed: () async {
-                  final gt = SimplyTranslator(EngineType.google);
-                  Translation libTranslate = await gt.translateSimply(postDescription);
-                  translatedText = libTranslate.translations.text;
-                  print(translatedText);
-                },
-              ),
+              // TextButton(
+              //   child: Text("Click to translate post", 
+              //   style: Theme.of(context).textTheme.bodyMedium?.copyWith( color: colors.first, letterSpacing: -0.1)),
+              //   onPressed: () async {
+              //     final gt = SimplyTranslator(EngineType.google);
+              //     Translation libTranslate = await gt.translateSimply(postDescription);
+              //     translatedText = libTranslate.translations.text;
+              //     print(translatedText);
+              //   },
+              // ),
               Text(
                 postDescription,
                 maxLines: 3,

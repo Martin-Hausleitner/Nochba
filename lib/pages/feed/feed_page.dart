@@ -292,7 +292,7 @@ class PostList extends StatelessWidget {
               return const LoadingPost();
             },
             separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(height: 0),
+                const SizedBox(height: 3),
           );
         } else if (snapshot.hasError) {
           return Center(
