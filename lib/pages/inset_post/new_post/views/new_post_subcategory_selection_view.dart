@@ -15,151 +15,160 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(25.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Post erstellen',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -0.5,
-                  // color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                ),
-          ),
-          const SizedBox(height: 28),
-          Row(
-            children: [
-              CircleStep(1, '1', () {
-                controller.jumpBack();
-              }),
-              const ProgressLineHalf(
-                isFinished: false,
-              ),
-              CircleStep(2, '2', () {}),
-              const ProgressLine(
-                isFinished: false,
-              ),
-              CircleStep(2, '3', () {}),
-            ],
-          ),
-          const SizedBox(height: 28),
-          //tile small Wähle deien Kategorie
-          Text(
-            'Wähle deine Kategorie',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  // color: Theme.of(context).secondaryHeaderColor,
-                ),
-          ),
-          //tile small Schritt 1 von 3
-          const SizedBox(height: 2),
-          Text(
-            'Schritt 1 von 3',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                // fontSize: 18,
-                // fontWeight: FontWeight.w600,
-                // color: Theme.of(context).secondaryHeaderColor,
-                ),
-          ),
-          const SizedBox(height: 28),
-          /*Obx(
-            () => Expanded(
-              child: ListView.separated(
-                itemCount: controller.subcategoriesForDisplay.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final categories = controller.subcategoriesForDisplay;
-                  // return ActionCard(
-                  //     title: categories[index].name.toString(),
-                  //     icon: Icon(
-                  //       Icons.close_rounded_outlined,
-                  //     ),
-                  //     onTap: controller.updateSubcategory(categories[index]));
-                  return InkWell(
-                    onTap: () {
-                      controller.updateSubcategory(categories[index]);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.08),
+    return Column(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Post erstellen',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.5,
+                        // color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
                       ),
-                      child: Text(categories[index].name.toString()),
+                ),
+                const SizedBox(height: 28),
+                Row(
+                  children: [
+                    CircleStep(1, '1', () {
+                      controller.jumpBack();
+                    }),
+                    const ProgressLineHalf(
+                      isFinished: false,
                     ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
-              ),
-            ),
-          ),*/
+                    CircleStep(2, '2', () {}),
+                    const ProgressLine(
+                      isFinished: false,
+                    ),
+                    CircleStep(2, '3', () {}),
+                  ],
+                ),
+                const SizedBox(height: 28),
+                //tile small Wähle deien Kategorie
+                Text(
+                  'Wähle deine Kategorie',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        // color: Theme.of(context).secondaryHeaderColor,
+                      ),
+                ),
+                //tile small Schritt 1 von 3
+                const SizedBox(height: 2),
+                Text(
+                  'Schritt 1 von 3',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      // fontSize: 18,
+                      // fontWeight: FontWeight.w600,
+                      // color: Theme.of(context).secondaryHeaderColor,
+                      ),
+                ),
+                const SizedBox(height: 28),
+                /*Obx(
+                  () => Expanded(
+                    child: ListView.separated(
+                      itemCount: controller.subcategoriesForDisplay.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final categories = controller.subcategoriesForDisplay;
+                        // return ActionCard(
+                        //     title: categories[index].name.toString(),
+                        //     icon: Icon(
+                        //       Icons.close_rounded_outlined,
+                        //     ),
+                        //     onTap: controller.updateSubcategory(categories[index]));
+                        return InkWell(
+                          onTap: () {
+                            controller.updateSubcategory(categories[index]);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.08),
+                            ),
+                            child: Text(categories[index].name.toString()),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(),
+                    ),
+                  ),
+                ),*/
 
-          if (controller.category == CategoryOptions.Message)
-            Expanded(
-              child: Column(
-                children: [
-                  ActionCard(
-                    title: CategoryOptions.Question.name,
-                    onTap: () =>
-                        controller.updateSubcategory(CategoryOptions.Question),
+                if (controller.category == CategoryOptions.Message)
+                  Expanded(
+                    child: Column(
+                      children: [
+                        ActionCard(
+                          title: CategoryOptions.Question.name,
+                          onTap: () => controller
+                              .updateSubcategory(CategoryOptions.Question),
+                        ),
+                        ActionCard(
+                          title: CategoryOptions.Appeal.name,
+                          onTap: () => controller
+                              .updateSubcategory(CategoryOptions.Appeal),
+                        ),
+                        ActionCard(
+                          title: CategoryOptions.Warning.name,
+                          onTap: () => controller
+                              .updateSubcategory(CategoryOptions.Warning),
+                        ),
+                        ActionCard(
+                          title: CategoryOptions.Recommendation.name,
+                          onTap: () => controller.updateSubcategory(
+                              CategoryOptions.Recommendation),
+                        ),
+                        ActionCard(
+                          title: CategoryOptions.Found.name,
+                          onTap: () => controller
+                              .updateSubcategory(CategoryOptions.Found),
+                        ),
+                      ],
+                    ),
                   ),
-                  ActionCard(
-                    title: CategoryOptions.Appeal.name,
-                    onTap: () =>
-                        controller.updateSubcategory(CategoryOptions.Appeal),
-                  ),
-                  ActionCard(
-                    title: CategoryOptions.Warning.name,
-                    onTap: () =>
-                        controller.updateSubcategory(CategoryOptions.Warning),
-                  ),
-                  ActionCard(
-                    title: CategoryOptions.Recommendation.name,
-                    onTap: () => controller
-                        .updateSubcategory(CategoryOptions.Recommendation),
-                  ),
-                  ActionCard(
-                    title: CategoryOptions.Found.name,
-                    onTap: () =>
-                        controller.updateSubcategory(CategoryOptions.Found),
-                  ),
-                ],
-              ),
-            ),
 
-          if (controller.category == CategoryOptions.Search)
-            Expanded(
-              child: Column(
-                children: [
-                  ActionCard(
-                    title: CategoryOptions.Help.name,
-                    onTap: () =>
-                        controller.updateSubcategory(CategoryOptions.Help),
+                if (controller.category == CategoryOptions.Search)
+                  Expanded(
+                    child: Column(
+                      children: [
+                        ActionCard(
+                          title: CategoryOptions.Help.name,
+                          onTap: () => controller
+                              .updateSubcategory(CategoryOptions.Help),
+                        ),
+                        ActionCard(
+                          title: CategoryOptions.Lost.name,
+                          onTap: () => controller
+                              .updateSubcategory(CategoryOptions.Lost),
+                        ),
+                      ],
+                    ),
                   ),
-                  ActionCard(
-                    title: CategoryOptions.Lost.name,
-                    onTap: () =>
-                        controller.updateSubcategory(CategoryOptions.Lost),
-                  ),
-                ],
-              ),
+              ],
             ),
-
-          BackOutlinedButton(
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: BackOutlinedButton(
             controller: controller,
             icon: Icons.chevron_left_rounded,
             label: "Zurück",
             onPress: () => controller.jumpBack(),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

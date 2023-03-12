@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -50,25 +51,26 @@ class AuthPage extends GetView<AuthController> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            onPressed: () async =>
-                                controller.createDemoAccount(),
-                            icon: const Icon(
-                              FlutterRemix.user_add_line,
-                              color: Colors.white,
+                    if (kDebugMode)
+                      Row(
+                        children: [
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IconButton(
+                              onPressed: () async =>
+                                  controller.createDemoAccount(),
+                              icon: const Icon(
+                                FlutterRemix.user_add_line,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                     Padding(
                       padding: //top 20 left 12
-                          const EdgeInsets.only(top: 70, left: 12, right: 12),
+                          const EdgeInsets.only(top: 100, left: 12, right: 12),
                       child: Column(
                         //align start
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +156,9 @@ class AuthPage extends GetView<AuthController> {
                         // ),
                         OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: Theme.of(context).colorScheme.onSurface, minimumSize: const Size.fromHeight(60),
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.onSurface,
+                              minimumSize: const Size.fromHeight(60),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -224,7 +228,10 @@ class AuthPage extends GetView<AuthController> {
                           ),
                           child: Text(
                             'Registrieren',
-                            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
                                   color: Theme.of(context)
                                       .buttonTheme
                                       .colorScheme

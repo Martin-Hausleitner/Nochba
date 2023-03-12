@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/pages/chats/chats_controller.dart';
 import 'package:nochba/pages/chats/widgets/chat_element.dart';
+import 'package:flutter/foundation.dart';
 
 import 'chat.dart';
 import 'users.dart';
@@ -67,34 +68,38 @@ class ChatsPage extends GetView<ChatsController> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(
-                    splashRadius: 0.01,
-                    icon: Icon(
-                      Icons.add,
-                      size: 24,
-                      color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                  if (kDebugMode)
+                    IconButton(
+                      splashRadius: 0.01,
+                      icon: Icon(
+                        Icons.add,
+                        size: 24,
+                        color:
+                            Theme.of(context).buttonTheme.colorScheme?.primary,
+                      ),
+                      onPressed: () {
+                        Get.to(() => const UsersPage());
+                      },
+                      padding: const EdgeInsets.only(
+                          right: 3, left: 0, top: 3, bottom: 0),
+                      alignment: Alignment.centerRight,
                     ),
-                    onPressed: () {
-                      Get.to(() => const UsersPage());
-                    },
-                    padding: const EdgeInsets.only(
-                        right: 3, left: 0, top: 3, bottom: 0),
-                    alignment: Alignment.centerRight,
-                  ),
-                  IconButton(
-                    splashRadius: 0.01,
-                    icon: Icon(
-                      FlutterRemix.pencil_line,
-                      size: 24,
-                      color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                  if (kDebugMode)
+                    IconButton(
+                      splashRadius: 0.01,
+                      icon: Icon(
+                        FlutterRemix.pencil_line,
+                        size: 24,
+                        color:
+                            Theme.of(context).buttonTheme.colorScheme?.primary,
+                      ),
+                      onPressed: () {
+                        Get.snackbar('Edit', 'Chat');
+                      },
+                      padding: const EdgeInsets.only(
+                          right: 3, left: 0, top: 3, bottom: 0),
+                      alignment: Alignment.centerRight,
                     ),
-                    onPressed: () {
-                      Get.snackbar('Edit', 'Chat');
-                    },
-                    padding: const EdgeInsets.only(
-                        right: 3, left: 0, top: 3, bottom: 0),
-                    alignment: Alignment.centerRight,
-                  ),
                 ],
               ),
               border: //make the border transparent

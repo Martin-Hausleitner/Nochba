@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -26,30 +27,13 @@ class NotificationsPage extends GetView<NotificationsController> {
       showBackButton: false,
       contentPadding: const EdgeInsets.only(left: 0, right: 0, top: 18),
       actions: [
-        IconButton(
-          splashRadius: 0.01,
-          icon: Icon(
-            FlutterRemix.delete_bin_line,
-
-            // FlutterRemix.settings_3_line,
-            size: 24,
-            color: Theme.of(context).buttonTheme.colorScheme?.primary,
-          ),
-          onPressed: () {
-            Get.snackbar('dd', 'message');
-          },
-          padding: const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
-          alignment: Alignment.centerRight,
-        ),
-        Padding(
-          padding: //right 10
-              const EdgeInsets.only(
-            right: 10,
-          ),
-          child: IconButton(
+        if (kDebugMode)
+          IconButton(
             splashRadius: 0.01,
             icon: Icon(
-              FlutterRemix.settings_3_line,
+              FlutterRemix.delete_bin_line,
+
+              // FlutterRemix.settings_3_line,
               size: 24,
               color: Theme.of(context).buttonTheme.colorScheme?.primary,
             ),
@@ -60,7 +44,27 @@ class NotificationsPage extends GetView<NotificationsController> {
                 const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
             alignment: Alignment.centerRight,
           ),
-        ),
+        if (kDebugMode)
+          Padding(
+            padding: //right 10
+                const EdgeInsets.only(
+              right: 10,
+            ),
+            child: IconButton(
+              splashRadius: 0.01,
+              icon: Icon(
+                FlutterRemix.settings_3_line,
+                size: 24,
+                color: Theme.of(context).buttonTheme.colorScheme?.primary,
+              ),
+              onPressed: () {
+                Get.snackbar('dd', 'message');
+              },
+              padding:
+                  const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
+              alignment: Alignment.centerRight,
+            ),
+          ),
       ],
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [

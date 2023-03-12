@@ -85,6 +85,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   simplytranslate: ^1.2.2
   add_2_calendar: ^2.2.3
+  openai_client: ^0.0.7
 
 dev_dependencies:
   dart_code_metrics: ^4.15.2

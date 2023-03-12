@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
@@ -143,18 +145,77 @@ class SignUpStep1View extends StatelessWidget {
                       ),
                 ),
                 onPressed: () {
-                  // controller.jumpBack();
-                  controller.previousPage();
-                  // HapticFeedback.lightImpact();
-                  FocusScope.of(context).unfocus();
+                  Get.snackbar(
+                    'Bald Verfügbar',
+                    'Die Registrierung mit Google ist bald verfügbar!',
+                    // snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    colorText: Theme.of(context).colorScheme.onSurface,
+                    margin: const EdgeInsets.all(16),
+                    borderRadius: 12,
+                    isDismissible: false,
+                    //form bottom to top
+                    duration: const Duration(seconds: 10),
+                    // isDismissible: true,
+                    forwardAnimationCurve: Curves.easeOut,
+                    reverseAnimationCurve: Curves.easeIn,
+                    animationDuration: const Duration(milliseconds: 500),
+                    icon: Icon(
+                      Icons.info_outline_rounded,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    shouldIconPulse: true,
+                    mainButton: TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  );
                 },
               ),
               const SizedBox(height: 10),
 
               ElevatedButton.icon(
-                onPressed: //open snackbar
-                    () {},
-                //right icon posission
+                onPressed: () {
+                  Get.snackbar(
+                    'Bald Verfügbar',
+                    'Die Registrierung mit Apple ist bald verfügbar!',
+                    // snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+                    colorText: Theme.of(context).colorScheme.onSurface,
+                    margin: const EdgeInsets.all(16),
+                    borderRadius: 12,
+                    isDismissible: false,
+                    //form bottom to top
+                    duration: const Duration(seconds: 10),
+                    // isDismissible: true,
+                    forwardAnimationCurve: Curves.easeOut,
+                    reverseAnimationCurve: Curves.easeIn,
+                    animationDuration: const Duration(milliseconds: 500),
+                    icon: Icon(
+                      Icons.info_outline_rounded,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    shouldIconPulse: true,
+                    mainButton: TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  );
+                },
 
                 icon: Padding(
                   padding: //right 10

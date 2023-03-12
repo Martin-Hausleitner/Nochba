@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:flutter/foundation.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -252,10 +253,10 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         // ),
                         const InviteNeighborCard(),
                         //button
-                        NewWidget(),
+                        if (kDebugMode) NewWidget(),
 
                         // const FeedbackTest(),
-                        TranslationWidget(),
+                        if (kDebugMode) TranslationWidget(),
                         // // GetDistanceFromLatLonInMeters(),
                         // // VerifyButton(),
                         ActionCard(
@@ -340,10 +341,11 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         const SizedBox(
                           height: 18,
                         ),
-                        const SizedBox(
-                          height: 300,
-                        ),
-                        const CheckAddressWithDeviceLocation(),
+                        if (kDebugMode)
+                          SizedBox(
+                            height: 300,
+                          ),
+                        if (kDebugMode) CheckAddressWithDeviceLocation(),
                       ],
                     ),
                   ),
@@ -409,7 +411,6 @@ class NewWidget extends StatelessWidget {
             buildEvent(),
           );
           print("lolllllll");
-
         } catch (e) {
           print("lolllllll" + e.toString());
         }
@@ -793,7 +794,6 @@ class TranslationWidget extends StatefulWidget {
 
 class _TranslationWidgetState extends State<TranslationWidget> {
   final gt = SimplyTranslator(EngineType.google);
-  
 
   String _germanText = "Er läuft schnell.";
   String _translatedText = "";
