@@ -1,82 +1,80 @@
-// create a PostBadge class with a blue badge and text 'New'
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nochba/logic/models/category.dart';
 
-/*enum Category {
-  mitteilung,
-  suche,
-  warnung,
-}*/
-
 class CategoryBadge extends StatelessWidget {
-  //creat a enum with Mitteilung und suche
   final CategoryOptions category;
 
   const CategoryBadge({Key? key, required this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor;
+    Color textColor;
+    switch (category) {
+      // case CategoryOptions.Message:
+      //   backgroundColor = Colors.blue[100]!;
+      //   textColor = Colors.blue[800]!;
+      //   break;
+      case CategoryOptions.Question:
+        backgroundColor = Colors.blue[100]!;
+        textColor = Colors.blue[800]!;
+        break;
+      case CategoryOptions.Appeal:
+        backgroundColor = Colors.red[100]!;
+        textColor = Colors.red[800]!;
+        break;
+      case CategoryOptions.Warning:
+        backgroundColor = Colors.amber[100]!;
+        textColor = Colors.amber[800]!;
+        break;
+      case CategoryOptions.Recommendation:
+        backgroundColor = Colors.green[100]!;
+        textColor = Colors.green[800]!;
+        break;
+      case CategoryOptions.Found:
+        backgroundColor = Colors.teal[100]!;
+        textColor = Colors.teal[800]!;
+        break;
+      // case CategoryOptions.Search:
+      //   backgroundColor = Colors.orange[100]!;
+      //   textColor = Colors.orange[800]!;
+      //   break;
+      case CategoryOptions.Help:
+        backgroundColor = Colors.lightBlue[100]!;
+        textColor = Colors.lightBlue[800]!;
+        break;
+      case CategoryOptions.Lost:
+        backgroundColor = Colors.orange[100]!;
+        textColor = Colors.orange[800]!;
+        break;
+      case CategoryOptions.Lending:
+        backgroundColor = Colors.lightBlue[100]!;
+        textColor = Colors.lightBlue[800]!;
+        break;
+      case CategoryOptions.Event:
+        backgroundColor = Colors.orange[100]!;
+        textColor = Colors.orange[800]!;
+        break;
+      default:
+        backgroundColor = Colors.grey[100]!;
+        textColor = Colors.grey[800]!;
+        break;
+    }
+
     return Container(
-      // return a text with a gray border with rounded corners and a padding left 5 right 5
-      padding: const EdgeInsets.only(top: 2.7, bottom: 3, left: 11, right: 11),
-      // add a border to the right side of the text
-
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       decoration: BoxDecoration(
-        //add a border to the right
-
-        //background color is blue
-        color: //when the category is  Mitteilung return a color of Colors.blue[100], when the category is suche return a color of Colors.green[100], when the category is warnung return a color of Colors.red[100]
-            category == CategoryModul.message ||
-                    CategoryModul.subCategoriesOfMessage.contains(category)
-                ? Colors.blue[100]
-                : category == CategoryModul.search ||
-                        CategoryModul.subCategoriesOfSearch.contains(category)
-                    ? Colors.green[100]
-                    : category == CategoryModul.event ||
-                            CategoryModul.subCategoriesOfEvent
-                                .contains(category)
-                        ? Colors.red[100]
-                        : category == CategoryModul.lending ||
-                                CategoryModul.subCategoriesOfLending
-                                    .contains(category)
-                            ? Colors.orange[100]
-                            : Colors.grey[100],
-
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
-
-      // return a text with a fontSize of 12 with a fontWeight of FontWeight.w600 and a color of Colors.white and a child of Text with a text of 'New'
       child: Text(
-        //weth the category is Mitteilung return a text of 'Mitteilung', when the category is suche return a text of 'Suche', when the category is warnung return a text of 'Warnung'
-        /*category == Category.mitteilung
-            ? 'Mitteilung'
-            : category == Category.suche
-                ? 'Suche'
-                : 'Warnung',*/
         CategoryModul.getCategoryName(category),
         style: GoogleFonts.inter(
           fontSize: 11,
           fontWeight: FontWeight.w500,
-          color: //when the category is  Mitteilung return a color of Colors.blue[900], when the category is suche return a color of Colors.white, when the category is leihen return a color of Colors.red
-              category == CategoryModul.message ||
-                      CategoryModul.subCategoriesOfMessage.contains(category)
-                  ? Colors.blue[800]
-                  : category == CategoryModul.search ||
-                          CategoryModul.subCategoriesOfSearch.contains(category)
-                      ? Colors.green[800]
-                      : category == CategoryModul.event ||
-                              CategoryModul.subCategoriesOfEvent
-                                  .contains(category)
-                          ? Colors.red[800]
-                          : category == CategoryModul.lending ||
-                                  CategoryModul.subCategoriesOfLending
-                                      .contains(category)
-                              ? Colors.orange[800]
-                              : Colors.grey[800],
+          color: textColor,
         ),
-        // return a text with a fontSize of 12 with a fontWeight of FontWeight.w600 and a color of Colors.white and a child of Text with a text of 'New'
       ),
     );
   }
