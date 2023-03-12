@@ -58,17 +58,8 @@ class NotificationRepository extends GenericRepository<Notification> {
     final userPrivateInfoSettingsRepository =
         Get.find<UserPrivateInfoSettingsRepository>();
 
-    Get.snackbar('Hallo', 'wird geprüft');
-
-    try {
-      var setting = await userPrivateInfoSettingsRepository.get(toUserId);
-    } on Exception {
-      Get.snackbar('Hallo', 'ist fehlgeschlagen');
-    }
-
-    var setting = await userPrivateInfoSettingsRepository.get(toUserId);
-
-    Get.snackbar('Moin', setting != null ? setting.toString() : 'null');
+    var setting = await userPrivateInfoSettingsRepository
+        .get(userPrivateInfoSettingsRepository.reference, nexus: [toUserId]);
 
     if (setting != null && setting.permReqBeforeChat == false) {
       var userRepository = Get.find<UserRepository>();
@@ -85,7 +76,7 @@ class NotificationRepository extends GenericRepository<Notification> {
           postId: postId,
           createdAt: Timestamp.now());
 
-      return await insert(notification, nexus: [toUserId]);
+      await insert(notification);
     }
   }
 
@@ -94,7 +85,8 @@ class NotificationRepository extends GenericRepository<Notification> {
     final userPrivateInfoSettingsRepository =
         Get.find<UserPrivateInfoSettingsRepository>();
 
-    var setting = await userPrivateInfoSettingsRepository.get(toUserId);
+    var setting = await userPrivateInfoSettingsRepository
+        .get(userPrivateInfoSettingsRepository.reference, nexus: [toUserId]);
 
     if (setting != null && setting.permReqBeforeChat == false) {
       var userRepository = Get.find<UserRepository>();
@@ -111,7 +103,7 @@ class NotificationRepository extends GenericRepository<Notification> {
           postId: null,
           createdAt: Timestamp.now());
 
-      return await insert(notification, nexus: [toUserId]);
+      await insert(notification);
     }
   }
 

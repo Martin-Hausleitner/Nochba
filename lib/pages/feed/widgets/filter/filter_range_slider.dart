@@ -42,8 +42,8 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Slider(
             value: widget.sliderValue,
-            max: 100,
-            divisions: 5,
+            max: 10000,
+            divisions: 25,
             label: widget.sliderValue == 0
                 ? 'eignes Haus'
                 : '${widget.sliderValue.round()}',

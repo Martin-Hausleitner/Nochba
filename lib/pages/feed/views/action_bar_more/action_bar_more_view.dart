@@ -101,6 +101,8 @@ class ActionBarMore extends StatelessWidget {
                                           label: 'Beschreibung',
                                           autovalidateMode:
                                               AutovalidateMode.disabled,
+                                          controller:
+                                              controller.reportTextController,
                                           validator: (value) =>
                                               value != null && value.isEmpty
                                                   ? 'Enter a description'

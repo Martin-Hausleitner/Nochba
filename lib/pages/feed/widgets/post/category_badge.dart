@@ -55,7 +55,7 @@ class CategoryBadge extends StatelessWidget {
             : category == Category.suche
                 ? 'Suche'
                 : 'Warnung',*/
-        category.name.toString(),
+        CategoryModul.getCategoryName(category),
         style: GoogleFonts.inter(
           fontSize: 11,
           fontWeight: FontWeight.w500,

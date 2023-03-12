@@ -23,8 +23,8 @@ class ManageAccountView extends GetView<ManageAccountController> {
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
-        StreamBuilder<String?>(
-          stream: controller.getEmail(),
+        FutureBuilder<String?>(
+          future: controller.getEmailOfCurrentUser(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final email = snapshot.data!;

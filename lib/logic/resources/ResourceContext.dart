@@ -116,9 +116,7 @@ class ResourceContext {
             nexus != null &&
             nexus.length == 1) {
           return '${config.usersCollectionName}/${nexus[0]}/${config.tokenCollectionName}';
-        } else if (type == typeOf<Notification>() &&
-            nexus != null &&
-            nexus.length == 1) {
+        } else if (type == typeOf<Notification>()) {
           return config.notificationsCollectionName;
         } else if (type == typeOf<Comment>() &&
             nexus != null &&

@@ -124,6 +124,10 @@ class PostViewNoImage extends StatelessWidget {
                           spacing: 6,
                           runSpacing: 3,
                           children: [
+                            CategoryBadge(
+                              category: CategoryModul.getCategoryOptionByName(
+                                  post.category),
+                            ),
                             for (var tag in post.tags)
                               HashtagBadge(
                                 hashtag: tag,
@@ -374,7 +378,8 @@ class _PostViewImageState extends State<PostViewImage> {
                           runSpacing: 3,
                           children: [
                             CategoryBadge(
-                              category: widget.category,
+                              category: CategoryModul.getCategoryOptionByName(
+                                  widget.post.category),
                             ),
                             for (var tag in widget.post.tags)
                               HashtagBadge(

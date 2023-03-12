@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/publish_button.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
@@ -131,7 +132,7 @@ class NewPostView extends StatelessWidget {
 
                           // SizedBox(height: 10),
 
-                          if (controller.categoryName == 'Event') ...[
+                          if (controller.category == CategoryOptions.Event) ...[
                             const SizedBox(height: 10),
                             Form(
                               key: controller.eventKey,

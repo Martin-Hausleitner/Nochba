@@ -57,7 +57,7 @@ class CommentActionBarController extends GetxController {
     return updateTextController;
   }
 
-  Future<void> updateTextOfComment(String postId, String commentId) async {
+  Future<bool> updateTextOfComment(String postId, String commentId) async {
     try {
       await _commentRepository.updateFields(
           commentId, {'text': updateTextController.text.trim()},
@@ -66,7 +66,10 @@ class CommentActionBarController extends GetxController {
     } on Exception {
       Get.snackbar('Bearbeiten fehlgeschlagen',
           'Der Kommentar konnte nicht bearbeitet werden');
+      return false;
     }
+
+    return true;
   }
 
   Future deleteComment(String postId, String commentId) async {

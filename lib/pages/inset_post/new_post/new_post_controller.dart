@@ -163,16 +163,18 @@ class NewPostController extends InsetPostController {
 
       await postRepository.insert(post);
       postId = post.id;
+
+      clear();
+      _subcategoriesForDisplay.clear();
+
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 1), curve: Curves.easeIn);
     } on FirebaseAuthException catch (e) {
       print(e);
-      Get.snackbar('Error', e.message!);
+      //Get.snackbar('Error', e.message!);
+      Get.snackbar(
+          'Posten fehlgeschlagen', 'Das Erstellen vom Post ist fehlgeschlagen');
     }
-
-    clear();
-    _subcategoriesForDisplay.clear();
-
-    pageController.nextPage(
-        duration: const Duration(milliseconds: 1), curve: Curves.easeIn);
   }
 
   String? postId;

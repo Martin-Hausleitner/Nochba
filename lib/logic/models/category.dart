@@ -83,6 +83,39 @@ class CategoryModul {
     }
   }
 
+  static bool hasCategorySubCategories(CategoryOptions categoryOptions) {
+    return isMainCategory(categoryOptions) &&
+        getSubCategoriesOfMainCategory(categoryOptions).isNotEmpty;
+  }
+
+  static String getCategoryName(CategoryOptions categoryOption) {
+    if (categoryOption == CategoryOptions.Message) {
+      return 'Nachricht';
+    } else if (categoryOption == CategoryOptions.Question) {
+      return 'Frage';
+    } else if (categoryOption == CategoryOptions.Appeal) {
+      return 'Appell';
+    } else if (categoryOption == CategoryOptions.Warning) {
+      return 'Warnung';
+    } else if (categoryOption == CategoryOptions.Recommendation) {
+      return 'Empfehlung';
+    } else if (categoryOption == CategoryOptions.Found) {
+      return 'Gefunden';
+    } else if (categoryOption == CategoryOptions.Search) {
+      return 'Suche';
+    } else if (categoryOption == CategoryOptions.Help) {
+      return 'Hilfe';
+    } else if (categoryOption == CategoryOptions.Lost) {
+      return 'Verloren';
+    } else if (categoryOption == CategoryModul.lending) {
+      return 'Ausleihen';
+    } else if (categoryOption == CategoryModul.event) {
+      return 'Event';
+    } else {
+      return 'Kein';
+    }
+  }
+
   static CategoryOptions getCategoryOptionByName(String category) {
     if (CategoryOptions.Message.name == category) {
       return CategoryOptions.Message;
