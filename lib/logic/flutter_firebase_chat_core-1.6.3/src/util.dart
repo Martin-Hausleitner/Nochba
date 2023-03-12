@@ -4,8 +4,6 @@ import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
 import 'package:nochba/logic/models/user.dart' as models;
 
-
-
 /// Extension with one [toShortString] method.
 extension RoleToShortString on models.Role {
   /// Converts enum to the string equal to enum's name.
@@ -112,8 +110,7 @@ Future<types.Room> processRoomDocument(
       );
 
       imageUrl = otherUser['imageUrl'] as String?;
-      name = '${otherUser['firstName'] ?? ''} ${otherUser['lastName'] ?? ''}'
-          .trim();
+      name = '${otherUser['lastName'] ?? ''}'.trim();
     } catch (e) {
       // Do nothing if other user is not found, because he should be found.
       // Consider falling back to some default values.
