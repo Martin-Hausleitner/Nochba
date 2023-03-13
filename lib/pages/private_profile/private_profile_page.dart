@@ -255,7 +255,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         // ),
                         const InviteNeighborCard(),
                         //button
-                        if (kDebugMode) NewWidget(),
+                        // if (kDebugMode) NewWidget(),
 
                         // const FeedbackTest(),
                         // if (kDebugMode) TranslationWidget(),
