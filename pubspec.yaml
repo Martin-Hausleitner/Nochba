@@ -22,7 +22,7 @@ dependencies:
   firebase_storage: ^11.0.1
   contained_tab_bar_view: ^0.8.0
   geolocator: ^9.0.2
-  url_launcher: 6.1.7
+  url_launcher: ^6.1.10
   package_info_plus: ^3.0.2
   # flutter_chat_types: ^3.4.3
   # flutter_chat_ui: ^1.6.4
@@ -36,8 +36,8 @@ dependencies:
   # open_file: ^3.2.1
   path_provider: ^2.0.11
   meta: ^1.7.0
-  google_fonts: ^3.0.1
-  flutter_svg: ^1.1.1+1
+  google_fonts: ^4.0.3
+  flutter_svg: ^2.0.3
   get: ^4.6.5
   flutter_remix: ^0.0.3
   expandable_page_view: ^1.0.17
@@ -46,12 +46,12 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.2.45
   dotted_line: ^3.1.0
   # confetti: ^0.7.0
-  lottie: ^1.4.2
-  image_editor_plus: ^0.1.5
+  lottie: ^2.2.0
+  image_editor_plus: ^0.2.0
   safe_device: ^1.1.2
   # open_file: ^2.1.1
   photo_view: ^0.14.0
-  visibility_detector: ^0.3.3
+  visibility_detector: ^0.4.0+2
   # flutter_link_previewer: ^3.0.1
   flutter_parsed_text: ^2.2.1
   diffutil_dart: ^3.0.0
@@ -66,7 +66,7 @@ dependencies:
   get_time_ago: ^1.1.6
   timeago_flutter: ^1.2.0
   cloud_functions: ^4.0.6
-  mobile_scanner: ^2.1.0
+  mobile_scanner: ^3.0.0
   firebase_crashlytics: ^3.0.8
   firebase_performance: ^0.9.0
   typesense: ^0.3.0
@@ -81,7 +81,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   shake: ^2.2.0
   pinch_zoom: ^1.0.0
-  omni_datetime_picker: ^0.1.4
+  omni_datetime_picker: ^1.0.1
   pull_to_refresh: ^2.0.0
   simplytranslate: ^1.2.2
   add_2_calendar: ^2.2.3
@@ -92,8 +92,8 @@ dependencies:
   image: ^4.0.15
 
 dev_dependencies:
-  dart_code_metrics: ^4.15.2
-  flutter_launcher_icons: "^0.11.0"
+  dart_code_metrics: ^5.6.0
+  flutter_launcher_icons: ^0.12.0
 
   flutter_test:
     sdk: flutter
