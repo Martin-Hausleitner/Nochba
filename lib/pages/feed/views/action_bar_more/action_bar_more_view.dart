@@ -10,6 +10,9 @@ import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
+
+import '../../../../logic/models/category.dart';
 
 class ActionBarMore extends StatelessWidget {
   final ActionBarController controller;
@@ -142,6 +145,24 @@ class ActionBarMore extends StatelessWidget {
                   );
                 },
               ),
+              if (post.category == 'Event')
+                ActionCard(
+                  title: 'Event zum Kalender hinzufügen',
+                  icon: FlutterRemix.calendar_event_line,
+                  onTap: () {
+                    print(post.category);
+                    print(CategoryOptions.Event.toString());
+                    final event = Event(
+                      title: post.title,
+                      description: post.description,
+                      location: post.eventLocation ?? '',
+                      startDate: post.eventBeginTime!.toDate(),
+                      endDate: post.eventEndTime!.toDate(),
+                      allDay: false,
+                    );
+                    Add2Calendar.addEvent2Cal(event);
+                  },
+                ),
               if (controller.isThisTheCurrentUser(post.uid))
                 Column(
                   children: [

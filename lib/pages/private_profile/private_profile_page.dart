@@ -11,7 +11,7 @@ import 'package:shimmer/shimmer.dart';
 // import 'package:simplytranslate/simplytranslate.dart';
 import 'package:flutter/material.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
-// import 'package:permission_handler/permission_handler.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -362,13 +362,11 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
 }
 
 class NewWidget extends StatelessWidget {
-  const NewWidget({
-    super.key,
-  });
+  const NewWidget({Key? key}) : super(key: key);
 
   Event buildEvent({Recurrence? recurrence}) {
     return Event(
-      title: 'Test eventeee',
+      title: 'Test event',
       description: 'example',
       location: 'Flutter app',
       startDate: DateTime.now(),
@@ -387,12 +385,13 @@ class NewWidget extends StatelessWidget {
 
   Future<void> _handleAddToCalendar() async {
     // Request calendar permission
-    // final PermissionStatus permissionStatus =
-    //     await Permission.calendar.request();
-    // if (permissionStatus != PermissionStatus.granted) {
-    //   // Permission denied, do not add event to calendar
-    //   return;
-    // }
+    final PermissionStatus permissionStatus =
+        await Permission.calendar.request();
+    if (permissionStatus != PermissionStatus.granted) {
+      // Permission denied, do not add event to calendar
+      print("Permission denied");
+      return;
+    }
 
     try {
       // Add event to calendar
@@ -400,9 +399,9 @@ class NewWidget extends StatelessWidget {
         buildEvent(),
       );
 
-      print("lolllllll");
+      print("Event added to calendar");
     } catch (e) {
-      print("lolllllll" + e.toString());
+      print("Error adding event to calendar: " + e.toString());
     }
   }
 

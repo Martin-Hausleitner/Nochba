@@ -83,6 +83,9 @@ class ActionBarController extends GetxController {
     return uid == _authService.uid;
   }
 
+  //if current category is event
+  
+
   pushEditPostView(String postId) {
     Get.to(() => EditPostPage(
           postId: postId,
