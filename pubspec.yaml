@@ -91,6 +91,9 @@ dependencies:
   image: ^4.0.15
   google_mlkit_translation: ^0.5.0
   google_mlkit_language_id: ^0.5.0
+  # manage_calendar_events: ^2.0.2
+  # add_to_calendar: ^1.2.0+1
+  # permission_handler: ^10.2.0
 
 dev_dependencies:
   dart_code_metrics: ^5.6.0

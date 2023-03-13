@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shimmer/shimmer.dart';
 // import 'package:simplytranslate/simplytranslate.dart';
+import 'package:flutter/material.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -32,8 +36,7 @@ import 'views/invite_neighbor_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 import 'package:http/http.dart' as http;
-import 'package:add_2_calendar/add_2_calendar.dart';
-
+// import 'package:add_2_calendar/add_2_calendar.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   const PrivateProfilePage({super.key});
@@ -382,38 +385,32 @@ class NewWidget extends StatelessWidget {
     );
   }
 
+  Future<void> _handleAddToCalendar() async {
+    // Request calendar permission
+    // final PermissionStatus permissionStatus =
+    //     await Permission.calendar.request();
+    // if (permissionStatus != PermissionStatus.granted) {
+    //   // Permission denied, do not add event to calendar
+    //   return;
+    // }
+
+    try {
+      // Add event to calendar
+      await Add2Calendar.addEvent2Cal(
+        buildEvent(),
+      );
+
+      print("lolllllll");
+    } catch (e) {
+      print("lolllllll" + e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Event event = Event(
-      title: 'Event title',
-      description: 'Event description',
-      location: 'Event location',
-      startDate: DateTime.now(),
-      endDate: DateTime.now().add(Duration(minutes: 30)),
-      // iosParams: const IOSParams(
-      //   reminder: Duration(
-      //       /* Ex. hours:1 */), // on iOS, you can set alarm notification after your event.
-      //   url:
-      //       'https://www.example.com', // on iOS, you can set url to your event.
-      // ),
-      // androidParams: const AndroidParams(
-      //   emailInvites: [], // on Android, you can add invite emails to your event.
-      // ),
-    );
-
     return TextButton(
-      child: Text("Add caleneder"),
-      //on press try catch : Add2Calendar.addEvent2Cal(event)
-      onPressed: () async {
-        try {
-          await Add2Calendar.addEvent2Cal(
-            buildEvent(),
-          );
-          print("lolllllll");
-        } catch (e) {
-          print("lolllllll" + e.toString());
-        }
-      },
+      child: Text("Add to Calendar"),
+      onPressed: _handleAddToCalendar,
     );
   }
 }
