@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -106,27 +108,26 @@ class QRcodeScanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(25.0),
-      ),
-      child: MobileScanner(
-        allowDuplicates: false,
-        controller: MobileScannerController(
-            facing: CameraFacing.back, torchEnabled: false),
-        onDetect: (barcode, args) async {
-          if (barcode.rawValue == null) {
-            debugPrint('Failed to scan Barcode');
-          } else {
-            final String code = barcode.rawValue!;
-            debugPrint('Barcode found! $code');
+    return Scaffold(
+      appBar: AppBar(title: const Text('Mobile Scanner')),
+      body: MobileScanner(
+        onDetect: (capture) async {
+          final List<Barcode> barcodes = capture.barcodes;
+          final Uint8List? image = capture.image;
+          for (final barcode in barcodes) {
+            debugPrint('Barcode found! ${barcode.rawValue}');
+            if (barcode.rawValue == null) {
+              debugPrint('Failed to scan Barcode');
+            } else {
+              final String code = barcode.rawValue!;
+              debugPrint('Barcode found! $code');
 
-            try {
-              final result = await checkQRCode(code);
-              Navigator.pop(context, result);
-              Navigator.pop(context, result);
-            } on Exception {
-              Navigator.pop(context, false);
+              try {
+                final result = await checkQRCode(code);
+                Navigator.pop(context, result);
+              } on Exception {
+                Navigator.pop(context, false);
+              }
             }
           }
         },

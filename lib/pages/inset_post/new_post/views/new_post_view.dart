@@ -169,21 +169,21 @@ class NewPostView extends StatelessWidget {
                                         context: context,
                                         type:
                                             OmniDateTimePickerType.dateAndTime,
-                                        primaryColor:
-                                            Theme.of(context).primaryColor,
-                                        backgroundColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        calendarTextColor: Colors.black,
-                                        tabTextColor: Colors.black,
-                                        unselectedTabBackgroundColor: // gray 300 color
-                                            Colors.grey[300],
-                                        buttonTextColor: Colors.black,
-                                        timeSpinnerTextStyle: const TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                        timeSpinnerHighlightedTextStyle:
-                                            const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 24),
+                                        // primaryColor:
+                                        //     Theme.of(context).primaryColor,
+                                        // backgroundColor: Theme.of(context)
+                                        //     .scaffoldBackgroundColor,
+                                        // calendarTextColor: Colors.black,
+                                        // tabTextColor: Colors.black,
+                                        // unselectedTabBackgroundColor: // gray 300 color
+                                        //     Colors.grey[300],
+                                        // buttonTextColor: Colors.black,
+                                        // timeSpinnerTextStyle: const TextStyle(
+                                        //     color: Colors.black, fontSize: 18),
+                                        // timeSpinnerHighlightedTextStyle:
+                                        //     const TextStyle(
+                                        //         color: Colors.black,
+                                        //         fontSize: 24),
                                         is24HourMode: true,
                                         isShowSeconds: false,
                                         startInitialDate: DateTime.now(),
@@ -199,7 +199,7 @@ class NewPostView extends StatelessWidget {
                                         endLastDate: DateTime.now().add(
                                           const Duration(days: 3652),
                                         ),
-                                        borderRadius: const Radius.circular(16),
+                                        // borderRadius: const Radius.circular(16),
                                       );
                                       controller.setEventTime(dateTimeList);
                                     },

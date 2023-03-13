@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +12,12 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image/image.dart' as img;
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
+import 'dart:ui' as ui;
 
 //create a class calles InviteNeighborView which have AppBarBigView
 
@@ -198,29 +200,27 @@ class InviteNeighborView extends StatelessWidget {
           title: 'QR-Code Herunterladen',
           icon: FlutterRemix.download_line,
           onTap: () async {
-//             final byteData = await QrPainter(
-//               data: controller.verificationCode.value,
-//               version: QrVersions.auto,
-//               gapless: false,
-//               color: Colors.black,
-//               emptyColor: Colors.white,
-//             ).toImageData(300.0);
+            final byteData = await QrPainter(
+              data: controller.verificationCode.value,
+              version: QrVersions.auto,
+              gapless: true,
+              color: Colors.black,
+              emptyColor: Colors.white,
+            ).toImageData(300.0);
 
-//             final pngBytes = byteData?.buffer.asUint8List();
-//             //convert to List<int>
+            final Uint8List pngBytes = byteData!.buffer.asUint8List();
 
-//             final directory = await getTemporaryDirectory();
-//             final file = File('${directory.path}/qr_code.png');
-//             await file.writeAsBytes(pngBytes);
-// z
-//             final XFile path =
+            final directory = await getTemporaryDirectory();
+            final file = File('${directory.path}/qr_code.png');
+            await file.writeAsBytes(pngBytes);
 
-//             await Share.shareXFiles(
-//               path,
-//               text: 'Hier ist dein Einladungs-QR-Code',
-//               subject: 'Nochba Einladungs-QR-Code',
-//               // mimeType: 'image/png',
-//             );
+            List<XFile> file1 = [XFile(file.path)];
+
+            await Share.shareXFiles(
+              file1,
+              text: 'Hier ist dein Einladungs-QR-Code',
+              subject: 'Nochba Einladungs-QR-Code',
+            );
           },
         ),
         LocooTextButton(
