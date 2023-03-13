@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/repositories/NotificationRepository.dart';
+// import 'package:simplytranslate/simplytranslate.dart';
 
 class PostCardController extends GetxController {
   final notificationRepository = Get.find<NotificationRepository>();
@@ -46,4 +47,7 @@ class PostCardController extends GetxController {
       return '---';
     }
   }
+
+  
+  
 }

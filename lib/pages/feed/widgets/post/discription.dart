@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nochba/logic/flutter_chat_ui-1.6.4/src/chat_theme.dart';
-import 'package:simplytranslate/simplytranslate.dart';
+// import 'package:simplytranslate/simplytranslate.dart';
 
 class Discription extends StatelessWidget {
   const Discription({

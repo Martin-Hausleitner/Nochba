@@ -83,13 +83,14 @@ dependencies:
   pinch_zoom: ^1.0.0
   omni_datetime_picker: ^1.0.1
   pull_to_refresh: ^2.0.0
-  simplytranslate: ^1.2.2
   add_2_calendar: ^2.2.3
   openai_client: ^0.0.7
   flutter_map: ^3.1.0
   # latlng: ^0.2.0
   latlong2: ^0.8.1
   image: ^4.0.15
+  google_mlkit_translation: ^0.5.0
+  google_mlkit_language_id: ^0.5.0
 
 dev_dependencies:
   dart_code_metrics: ^5.6.0

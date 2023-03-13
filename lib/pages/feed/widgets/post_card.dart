@@ -2,6 +2,8 @@
 
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
+import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 import 'package:nochba/logic/commonbase/util.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/logic/models/post.dart' as models;
@@ -11,6 +13,7 @@ import 'package:nochba/pages/feed/views/post_view.dart';
 import 'package:nochba/pages/feed/widgets/post/action_bar.dart';
 import 'package:nochba/pages/feed/widgets/post/post_profile.dart';
 import 'package:nochba/pages/feed/widgets/post_card_controller.dart';
+// import 'package:simplytranslate/simplytranslate.dart';
 
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 
@@ -18,16 +21,79 @@ import 'post/category_badge.dart';
 import 'post/discription.dart';
 import 'post/hashtag_badges.dart';
 
-//create a new class called Post which extends StatelessWidget which is Container with infinty and a decortion box with borderradius
-
-class Post extends GetView<PostCardController> {
+class Post extends StatefulWidget {
   final models.Post post;
   CategoryOptions category = CategoryOptions.None;
+  final controller = PostCardController();
+
+  String titleTranslation = '';
+  String descriptionTranslation = '';
+
   Post({Key? key, required this.post}) : super(key: key) {
     category = CategoryModul.getCategoryOptionByName(post.category);
   }
+  
 
-  // set the default value for postTitle
+  final _PostState postState = _PostState();
+
+  @override
+  _PostState createState() => _PostState();
+}
+
+class _PostState extends State<Post> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+   Future<void> startTranslation() async {
+    await translatePost();
+  }
+
+ 
+
+  Future<void> translatePost() async {
+    try {
+      final sourceLanguage = TranslateLanguage.german;
+      final targetLanguage = TranslateLanguage.english;
+      final _modelManager = OnDeviceTranslatorModelManager();
+      _modelManager.downloadModel(sourceLanguage.bcpCode);
+      _modelManager.downloadModel(targetLanguage.bcpCode);
+
+      print(
+          'Model downloaded: ${await _modelManager.isModelDownloaded(sourceLanguage.bcpCode)}');
+      print(
+          'Model downloaded: ${await _modelManager.isModelDownloaded(targetLanguage.bcpCode)}');
+
+      final OnDeviceTranslator onDeviceTranslator = OnDeviceTranslator(
+        sourceLanguage: sourceLanguage,
+        targetLanguage: targetLanguage,
+      );
+
+      final String titleTranslation =
+          await onDeviceTranslator.translateText(widget.post.title);
+      final String descriptionTranslation =
+          await onDeviceTranslator.translateText(widget.post.description);
+
+      // Show snackbar with translated text
+      // Get.snackbar(
+      //   'Translated Text',
+      //   'Title: $titleTranslation \nDescription: $descriptionTranslation',
+      // );
+
+      // Update the state temporarily with the translated text
+      setState(() {
+        widget.titleTranslation = titleTranslation;
+        widget.descriptionTranslation = descriptionTranslation;
+      });
+    } catch (e) {
+      print('Error translating text: $e');
+      Get.snackbar(
+        'Error',
+        'Could not translate text. Please try again later. $e',
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +105,12 @@ class Post extends GetView<PostCardController> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PostView(post: post),
+            builder: (context) => PostView(post: widget.post),
           ),
         );
+      },
+      onLongPress: () async {
+        await translatePost();
       },
 
       child: Container(
@@ -59,10 +128,10 @@ class Post extends GetView<PostCardController> {
               Row(
                 children: [
                   //show only if categor is event
-                  if (category == CategoryOptions.Event)
+                  if (widget.category == CategoryOptions.Event)
                     DateDisplay(
-                      date: post.eventBeginTime != null
-                          ? post.eventBeginTime!.toDate()
+                      date: widget.post.eventBeginTime != null
+                          ? widget.post.eventBeginTime!.toDate()
                           : DateTime.now(),
                     ),
                   Expanded(
@@ -70,7 +139,10 @@ class Post extends GetView<PostCardController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(post.title,
+                        Text(
+                            widget.titleTranslation.isNotEmpty
+                                ? widget.titleTranslation
+                                : widget.post.title,
                             //chnage the space between the words
                             // textAlign: TextAlign.top,
                             maxLines: 3,
@@ -99,7 +171,7 @@ class Post extends GetView<PostCardController> {
                 children: <Widget>[
                   // Category Badge
                   CategoryBadge(
-                    category: category,
+                    category: widget.category,
                   ),
 
                   // Hashtag Badges
@@ -110,7 +182,7 @@ class Post extends GetView<PostCardController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          HashtagBadges(hashtags: post.tags),
+                          HashtagBadges(hashtags: widget.post.tags),
                         ],
                       ),
                     ),
@@ -121,7 +193,7 @@ class Post extends GetView<PostCardController> {
               const SizedBox(height: spacingBetween),
 
               FutureBuilder<String>(
-                future: controller.getDistanceToUser(post.id),
+                future: widget.controller.getDistanceToUser(widget.post.id),
                 builder: (context, snapshot) {
                   String distance = '---';
                   if (snapshot.hasData) {
@@ -129,20 +201,20 @@ class Post extends GetView<PostCardController> {
                   }
 
                   return PostProfile(
-                      post: post,
-                      publishDate: getTimeAgo(post.createdAt.toDate()),
+                      post: widget.post,
+                      publishDate: getTimeAgo(widget.post.createdAt.toDate()),
                       distance: distance);
                 },
               ),
 
               const SizedBox(height: spacingBetween),
-              if (category == CategoryOptions.Event)
+              if (widget.category == CategoryOptions.Event)
                 EventInfo(
-                  startDate: post.eventBeginTime != null
-                      ? post.eventBeginTime!.toDate()
+                  startDate: widget.post.eventBeginTime != null
+                      ? widget.post.eventBeginTime!.toDate()
                       : DateTime.now(),
-                  endDate: post.eventEndTime != null
-                      ? post.eventEndTime!.toDate()
+                  endDate: widget.post.eventEndTime != null
+                      ? widget.post.eventEndTime!.toDate()
                       : DateTime.now().add(
                           Duration(
                             // days: 1,
@@ -151,14 +223,18 @@ class Post extends GetView<PostCardController> {
                             seconds: 59,
                           ),
                         ),
-                  location: post.eventLocation ?? '',
+                  location: widget.post.eventLocation ?? '',
                 ),
               const SizedBox(height: spacingBetween),
 
-              Discription(postDescription: post.description),
-              
+              Discription(
+                postDescription: widget.descriptionTranslation.isNotEmpty
+                    ? widget.descriptionTranslation
+                    : widget.post.description,
+              ),
+
               // Post Image
-              post.imageUrl != ''
+              widget.post.imageUrl != ''
                   ? Padding(
                       padding: const EdgeInsets.only(top: spacingBetween),
                       child: SizedBox(
@@ -167,9 +243,9 @@ class Post extends GetView<PostCardController> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(22),
                           child: Hero(
-                            tag: post.id,
+                            tag: widget.post.id,
                             child: Image.network(
-                              post.imageUrl,
+                              widget.post.imageUrl,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -179,7 +255,8 @@ class Post extends GetView<PostCardController> {
                   : Container(),
 
               // Button
-              if (controller.shouldShowWriteToButton(post.uid, category))
+              if (widget.controller
+                  .shouldShowWriteToButton(widget.post.uid, widget.category))
                 Padding(
                   padding: const EdgeInsets.only(top: spacingBetween),
                   child: LocooTextButton(
@@ -188,8 +265,8 @@ class Post extends GetView<PostCardController> {
                     borderRadius: 100,
                     height: 48,
                     icon: FlutterRemix.chat_1_fill, //onpres open Get.Snackbar
-                    onPressed: () async =>
-                        await controller.sendNotification(post.uid, post.id),
+                    onPressed: () async => await widget.controller
+                        .sendNotification(widget.post.uid, widget.post.id),
                   ),
                 ),
 
@@ -197,7 +274,7 @@ class Post extends GetView<PostCardController> {
 
               // Action Bar
               ActionBar(
-                post: post,
+                post: widget.post,
               ),
             ],
           ),
@@ -357,4 +434,3 @@ class DateDisplay extends StatelessWidget {
     );
   }
 }
-

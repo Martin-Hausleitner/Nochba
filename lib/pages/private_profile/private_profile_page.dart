@@ -7,7 +7,7 @@ import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:simplytranslate/simplytranslate.dart';
+// import 'package:simplytranslate/simplytranslate.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -34,7 +34,6 @@ import 'widgets/logout_settings_cart.dart';
 import 'package:http/http.dart' as http;
 import 'package:add_2_calendar/add_2_calendar.dart';
 
-import 'package:add_2_calendar/add_2_calendar.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
   const PrivateProfilePage({super.key});
@@ -256,7 +255,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         if (kDebugMode) NewWidget(),
 
                         // const FeedbackTest(),
-                        if (kDebugMode) TranslationWidget(),
+                        // if (kDebugMode) TranslationWidget(),
                         // // GetDistanceFromLatLonInMeters(),
                         // // VerifyButton(),
                         ActionCard(
@@ -787,79 +786,79 @@ class InviteNeighborCard extends StatelessWidget {
   }
 }
 
-class TranslationWidget extends StatefulWidget {
-  @override
-  _TranslationWidgetState createState() => _TranslationWidgetState();
-}
+// class TranslationWidget extends StatefulWidget {
+//   @override
+//   _TranslationWidgetState createState() => _TranslationWidgetState();
+// }
 
-class _TranslationWidgetState extends State<TranslationWidget> {
-  final gt = SimplyTranslator(EngineType.google);
+// class _TranslationWidgetState extends State<TranslationWidget> {
+//   final gt = SimplyTranslator(EngineType.google);
 
-  String _germanText = "Er läuft schnell.";
-  String _translatedText = "";
-  bool _showOriginal = true;
-  bool _loading = false;
-  int _retryCount = 0;
+//   String _germanText = "Er läuft schnell.";
+//   String _translatedText = "";
+//   bool _showOriginal = true;
+//   bool _loading = false;
+//   int _retryCount = 0;
 
-  void _translateText() {
-    setState(() {
-      _showOriginal = !_showOriginal;
-    });
+//   void _translateText() {
+//     setState(() {
+//       _showOriginal = !_showOriginal;
+//     });
 
-    if (!_showOriginal) {
-      _translateTextAsync();
-    }
-  }
+//     if (!_showOriginal) {
+//       _translateTextAsync();
+//     }
+//   }
 
-  void _translateTextAsync() async {
-    if (mounted) {
-      setState(() {
-        _loading = true;
-      });
-      try {
-        Translation libTranslate = await gt.translateSimply(_germanText);
-        _translatedText = libTranslate.translations.text;
-        if (mounted) {
-          setState(() {
-            _loading = false;
-          });
-        }
-      } catch (e) {
-        if (_retryCount < 2) {
-          setState(() {
-            _retryCount++;
-            print("retrying");
-          });
-          _translateTextAsync();
-        } else {
-          if (mounted) {
-            setState(() {
-              _loading = false;
-            });
-          }
-        }
-      }
-    }
-  }
+//   void _translateTextAsync() async {
+//     if (mounted) {
+//       setState(() {
+//         _loading = true;
+//       });
+//       try {
+//         Translation libTranslate = await gt.translateSimply(_germanText);
+//         _translatedText = libTranslate.translations.text;
+//         if (mounted) {
+//           setState(() {
+//             _loading = false;
+//           });
+//         }
+//       } catch (e) {
+//         if (_retryCount < 2) {
+//           setState(() {
+//             _retryCount++;
+//             print("retrying");
+//           });
+//           _translateTextAsync();
+//         } else {
+//           if (mounted) {
+//             setState(() {
+//               _loading = false;
+//             });
+//           }
+//         }
+//       }
+//     }
+//   }
 
-  @override
-  void initState() {
-    super.initState();
-    _translateText();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _translateText();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _loading
-            ? CircularProgressIndicator()
-            : Text(_showOriginal ? _germanText : _translatedText),
-        TextButton(
-          child: Text("Translate"),
-          onPressed: _translateText,
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         _loading
+//             ? CircularProgressIndicator()
+//             : Text(_showOriginal ? _germanText : _translatedText),
+//         TextButton(
+//           child: Text("Translate"),
+//           onPressed: _translateText,
+//         ),
+//       ],
+//     );
+//   }
+// }

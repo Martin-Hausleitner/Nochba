@@ -32,13 +32,19 @@ class ActionBarMore extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              ActionCard(
-                title: 'Beitrag Übersetzten',
-                icon: Icons.translate_outlined,
-                onTap: //snackbar
-                    () =>
-                        Get.snackbar('Übersetzung', 'Übersetzung wird geladen'),
-              ),
+              // ActionCard(
+              //   title: 'Beitrag Übersetzten',
+              //   icon: Icons.translate_outlined,
+              //   onTap: //snackbar
+              //       () {
+              //     final _PostState postState = post._postState;
+              //     if (postState != null) {
+              //       setState(() {
+              //         postState.startTranslation();
+              //       });
+              //     }
+              //   },
+              // ),
               ActionCard(
                 title: 'Post melden',
                 icon: FlutterRemix.flag_line,
@@ -197,7 +203,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
     return Container(
       decoration: BoxDecoration(
         // border:
-            // widget.selectedValue == null ? Border.all(color: Colors.red) : null,
+        // widget.selectedValue == null ? Border.all(color: Colors.red) : null,
         borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
       ),
