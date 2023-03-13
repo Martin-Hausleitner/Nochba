@@ -10,6 +10,13 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image/image.dart' as img;
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/rendering.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
+
 //create a class calles InviteNeighborView which have AppBarBigView
 
 //create a invationcode controller with getx
@@ -37,21 +44,14 @@ class InviteNeighborController extends GetxController {
   //create a function to generate a verification code
   Future<void> generateVerificationCode() async {
     try {
-      //get the shared preferences object
       final prefs = await SharedPreferences.getInstance();
-      //get the lastPressTime from the shared_preferences
       final int lastPressTime = prefs.getInt('lastPressTime') ?? 0;
 
       //get the current time
       final currentTime = DateTime.now().millisecondsSinceEpoch;
-      //calculate the difference between the current time and the last button press time
       final diff = currentTime - lastPressTime;
 
       if (diff >= 86400000) {
-        //if the difference is greater than or equal to 24 hours, execute the function and update the last press time
-        // final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-        //   'generateVerificationCode',
-        // );  europe-west1
         final HttpsCallable callable = FirebaseFunctions.instanceFor(
           region: 'europe-west1',
         ).httpsCallable(
@@ -61,7 +61,6 @@ class InviteNeighborController extends GetxController {
         print(result.data);
         verificationCode.value = result.data;
         this.lastPressTime.value = currentTime;
-        //save the lastPressTime using shared_preferences
         await prefs.setInt('lastPressTime', currentTime);
 
         final savedCode = prefs.getString(lastCodeGenerated) ?? '';
@@ -69,24 +68,17 @@ class InviteNeighborController extends GetxController {
           await prefs.setString(lastCodeGenerated, verificationCode.value);
         }
       } else {
-        //if the difference is less than 24 hours, display the remaining time in a snackbar
         final remainingTime = 86400000 - diff;
-        //convert the to da Time object
         final remainingTimeObject = DateTime.fromMillisecondsSinceEpoch(
           remainingTime,
           isUtc: true,
         );
-        //get the hours and minutes from the remaining time
         final hours = remainingTimeObject.hour;
         final minutes = remainingTimeObject.minute;
         final seconds = remainingTimeObject.second;
-        //display the remaining time in a snackbar im format 00:00:00 and german
         Get.snackbar(
           'Wartezeit',
           'Du kannst in $hours Stunden, $minutes Minuten und $seconds Sekunden einen neuen Code generieren',
-          // snackPosition: SnackPosition.BOTTOM,
-          // backgroundColor: Colors.red,
-          // colorText: Colors.white,
         );
       }
     } on FirebaseFunctionsException catch (e) {
@@ -98,13 +90,10 @@ class InviteNeighborController extends GetxController {
   @override
   void onInit() async {
     final prefs = await SharedPreferences.getInstance();
-    //
     verificationCode.value = prefs.getString(lastCodeGenerated) ?? '';
-    // verificationCode.value is emty run generateVerificationCode
     if (verificationCode.value.isEmpty) {
       await generateVerificationCode();
     }
-    //print the current verification code
     print(verificationCode.value);
     print(lastCodeGenerated);
 
@@ -122,10 +111,8 @@ class InviteNeighborView extends StatelessWidget {
 
     return AppBarBigView(
       title: 'Nachbar einladen',
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       onPressed: () => {Get.back()},
-      // backgroundColor: Theme.of(context).colorScheme.surface,
-      // contentPadding: EdgeInsets.zero,
-      // return a rounded container with a icon on the left side and a text
       children: [
         Row(
           //center
@@ -161,11 +148,6 @@ class InviteNeighborView extends StatelessWidget {
                           size: 150.0,
                         ),
                       ),
-                      // child: QrImage(
-                      //   data: verificationCode,
-                      //   version: QrVersions.auto,
-                      //   size: 150.0,
-                      // ),
                     ),
                     const SizedBox(height: 20),
                     // Spacer(),
@@ -207,26 +189,47 @@ class InviteNeighborView extends StatelessWidget {
           title: 'Einladungscode teilen',
           icon: FlutterRemix.share_box_line,
           onTap: () {
-            //"Lieber Nachbar, lass uns gemeinsam unsere Nachbarschaft stärken! Ich lade dich herzlich dazu ein, unserer Gruppe beizutreten. Hier ist der Link zur Installation unserer App im Play Store: PLAY STORE LINK. Dein persönlicher Einladungscode lautet: 123456789.
             Share.share(
                 'Hallo Nachbar, ich möchte dich einladen, Teil unserer aktiven Nachbarschaftsgemeinschaft zu werden. Lade dir einfach die Nochba App im Play Store herunter: PLAY STORE LINK. Verwende bei der Registrierung meinen Einladungscode: 123456789.',
                 subject: 'Nochba einladungscode');
           },
         ),
+        ActionCard(
+          title: 'QR-Code Herunterladen',
+          icon: FlutterRemix.download_line,
+          onTap: () async {
+//             final byteData = await QrPainter(
+//               data: controller.verificationCode.value,
+//               version: QrVersions.auto,
+//               gapless: false,
+//               color: Colors.black,
+//               emptyColor: Colors.white,
+//             ).toImageData(300.0);
+
+//             final pngBytes = byteData?.buffer.asUint8List();
+//             //convert to List<int>
+
+//             final directory = await getTemporaryDirectory();
+//             final file = File('${directory.path}/qr_code.png');
+//             await file.writeAsBytes(pngBytes);
+// z
+//             final XFile path =
+
+//             await Share.shareXFiles(
+//               path,
+//               text: 'Hier ist dein Einladungs-QR-Code',
+//               subject: 'Nochba Einladungs-QR-Code',
+//               // mimeType: 'image/png',
+//             );
+          },
+        ),
         LocooTextButton(
-          label: "Neuen Einlade Code generieren",
-          // code this async onPressed: () => controller.generateVerificationCode(), without a snackbar
+          label: "Neuen Einladecode generieren",
           onPressed: () async {
             await controller.generateVerificationCode();
           },
-
           icon: FlutterRemix.refresh_line,
         ),
-        // TextButton(
-        //   onPressed: controller.resetLastPressTime,
-        //   child: Text("Reset lastPressTime"),
-        // ),
-        //padding top left right bottom 10
         GestureDetector(
           onTap: () async {
             await controller.resetLastPressTime();
