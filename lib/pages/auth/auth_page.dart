@@ -4,28 +4,74 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/pages/auth/login_page.dart';
 import 'package:nochba/pages/auth/auth_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:lottie/lottie.dart';
 
 import 'sign_up_page.dart';
 
-/*class AuthPage2 extends GetView<AuthController> {
-  const AuthPage2({Key? key}) : super(key: key);
+class AuthPage extends StatefulWidget {
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.find<AuthController>();
-    return Obx(
-      () => controller.isLogin
-          ? LoginPage(onClicked: controller.toggle)
-          //: SignUpPage(onClicked: controller.toggle),
-          : NewSignUpPage(
-              onClicked: controller.toggle,
-            ),
-    );
-  }
-}*/
+  _AuthPageState createState() => _AuthPageState();
+}
 
-class AuthPage extends GetView<AuthController> {
-  const AuthPage({Key? key}) : super(key: key);
+class _AuthPageState extends State<AuthPage> {
+  bool _isDialogShown = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _loadDialogState();
+  }
+
+  void _loadDialogState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDialogShown', false);
+
+    setState(() {
+      _isDialogShown = prefs.getBool('isDialogShown') ?? false;
+    });
+    if (!_isDialogShown) {
+      _isDialogShown = true;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            icon: Lottie.asset(
+              'assets/lottie/shake.json',
+              width: 200,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            title: const Text(
+              "Warnung vor Datenverlust: Bitte beachten Sie, dass alle während der Testphase eingegebenen Daten verloren gehen können",
+            ),
+            content: const Text(
+              "Wir möchten Sie daran erinnern, dass alle während der Testphase in die App eingegebenen Daten nach Abschluss der Testphase verloren gehen können. Wir freuen uns sehr über Ihr Feedback, um die App für künftige Nutzer zu verbessern. Wir bitten Sie, uns unter project@nochba.com zu kontaktieren, wenn Sie Fehler oder Probleme mit den Funktionen der App feststellen. Wir danken für Ihr Verständnis und wünschen Ihnen viel Spaß mit der App!",
+            ),
+            actions: [
+              TextButton(
+                child: const Text("LOS GEHT'S!"),
+                onPressed: () {
+                  _saveDialogState();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  void _saveDialogState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDialogShown', true);
+  }
+
+  final controller = AuthController();
 
   @override
   Widget build(BuildContext context) {
@@ -178,34 +224,39 @@ class AuthPage extends GetView<AuthController> {
                             ),
                             // onPressed: () async =>
                             //     {await Get.to(() => const LoginPage())},
-                            onPressed: () {
-                              // set the width and height
+                            // onPressed: () => const LoginPage(),
 
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text(
-                                        "Warnung vor Datenverlust: Bitte beachten Sie, dass alle während der Testphase eingegebenen Daten verloren gehen können"),
-                                    content: const Text(
-                                        "Wir möchten Sie daran erinnern, dass alle während der Testphase in die App eingegebenen Daten nach Abschluss der Testphase verloren gehen können. Wir freuen uns sehr über Ihr Feedback, um die App für künftige Nutzer zu verbessern. Wir bitten Sie, uns unter project@nochba.com zu kontaktieren, wenn Sie Fehler oder Probleme mit den Funktionen der App feststellen. Wir danken für Ihr Verständnis und wünschen Ihnen viel Spaß mit der App!"),
-                                    actions: [
-                                      TextButton(
-                                        child: const Text("LOS GEHT'S!"),
-                                        onPressed: () async => {
-                                          await Get.to(
-                                            () => const LoginPage(),
-                                            transition: Transition.rightToLeft,
-                                          ),
-                                          //close dialog
-                                          Navigator.of(context).pop(),
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }),
+                            onPressed: () async => {
+                                  await Get.to(() => const LoginPage()),
+                                }),
+
+                        // set the width and height
+
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return AlertDialog(
+                        //       title: const Text(
+                        //           "Warnung vor Datenverlust: Bitte beachten Sie, dass alle während der Testphase eingegebenen Daten verloren gehen können"),
+                        //       content: const Text(
+                        //           "Wir möchten Sie daran erinnern, dass alle während der Testphase in die App eingegebenen Daten nach Abschluss der Testphase verloren gehen können. Wir freuen uns sehr über Ihr Feedback, um die App für künftige Nutzer zu verbessern. Wir bitten Sie, uns unter project@nochba.com zu kontaktieren, wenn Sie Fehler oder Probleme mit den Funktionen der App feststellen. Wir danken für Ihr Verständnis und wünschen Ihnen viel Spaß mit der App!"),
+                        //       actions: [
+                        //         TextButton(
+                        //           child: const Text("LOS GEHT'S!"),
+                        //           onPressed: () async => {
+                        //             await Get.to(
+                        //               () => const LoginPage(),
+                        //               transition: Transition.rightToLeft,
+                        //             ),
+                        //             //close dialog
+                        //             Navigator.of(context).pop(),
+                        //           },
+                        //         ),
+                        //       ],
+                        //     );
+                        //   },
+                        // );
+                        // }),
                         const SizedBox(
                           height: 12,
                         ),

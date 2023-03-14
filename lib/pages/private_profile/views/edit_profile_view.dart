@@ -6,6 +6,7 @@ import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/logic/models/UserPublicInfo.dart';
 import 'package:nochba/logic/models/user.dart';
 import 'package:nochba/pages/inset_post/new_post/views/new_post_view.dart';
+import 'package:nochba/pages/inset_post/new_post/widgets/tags_element.dart';
 import 'package:nochba/pages/private_profile/views/edit_profile_controller.dart';
 import 'package:nochba/shared/ui/buttons/text_field_remove_text_button.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';

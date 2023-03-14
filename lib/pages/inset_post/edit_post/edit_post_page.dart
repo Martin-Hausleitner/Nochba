@@ -6,6 +6,7 @@ import 'package:nochba/pages/feed/widgets/filter/filter_range_slider.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
 import 'package:nochba/pages/inset_post/new_post/views/new_post_view.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/new_post_title.dart';
+import 'package:nochba/pages/inset_post/new_post/widgets/tags_element.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
@@ -166,6 +167,7 @@ class EditPostView extends StatelessWidget {
                           ),
                           const NewPostTitle(label: 'Tags'),
                           TagsElement(
+                            description: controller.descriptionController.text,
                             tags: controller.tags,
                             removeTag: controller.removeTag,
                             showTagDialog: controller.showTagDialog,
