@@ -43,17 +43,16 @@ class _TagsElementState extends State<TagsElement> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int callCount = prefs.getInt('callOpenAI_count') ?? 0;
 
-    if (callCount >= _maxCalls) {
-      Get.snackbar('Fehler', 'Maximale Anzahl an Aufrufen erreicht!');
+    if (callCount == 0) {
+      Get.snackbar('Info', 'Sie haben insgesamt 20 Aufrufe zur Verfügung.');
+    } else if (callCount >= _maxCalls - 5 && callCount < _maxCalls) {
+      Get.snackbar(
+          'Info', 'Sie haben noch ${_maxCalls - callCount} Aufrufe übrig.');
+    } else if (callCount >= _maxCalls) {
+      Get.snackbar('Info', 'Sie haben keine Aufrufe mehr zur Verfügung.');
       return;
     }
 
-    if (callCount == 0) {
-      Get.snackbar('Info', 'Sie haben insgesamt 20 Aufrufe zur Verfügung.');
-    } else if (callCount >= _maxCalls - 5) {
-      Get.snackbar(
-          'Info', 'Sie haben noch ${_maxCalls - callCount} Aufrufe übrig.');
-    }
     try {
       final String apiKey = dotenv.env['OPENAI_API_KEY']!;
       final String organizationId = dotenv.env['OPENAI_ORGANIZATION_ID']!;
@@ -118,16 +117,13 @@ class _TagsElementState extends State<TagsElement> {
       tags.add(tag);
     }
 
-    //print tags
     print(tags.toString());
 
     return tags;
   }
 
-// Rufe diese Funktion auf, nachdem du die Antwort von OpenAI erhalten hast
   void addTagsToWidget(String chatOutput) {
     List<String> newTags = parseTags(chatOutput);
-    //if newtags empty get snackbar
     if (newTags.isEmpty) {
       Get.snackbar(
           'Fehler', 'Die Tags konnten nicht von der KI generiert werden');
@@ -173,10 +169,8 @@ class _TagsElementState extends State<TagsElement> {
                           height: 8,
                         ),
                       Padding(
-                        padding: const //top 8
-                            EdgeInsets.only(top: 0),
+                        padding: const EdgeInsets.only(top: 0),
                         child: Wrap(
-                          //vertical padding
                           spacing: 4,
                           runSpacing: 4,
                           children: widget.tags

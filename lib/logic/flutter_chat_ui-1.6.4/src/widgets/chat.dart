@@ -384,6 +384,7 @@ class _ChatState extends State<Chat> {
                       ),
                       widget.customBottomWidget ??
                           Input(
+                            items: widget.messages,
                             isAttachmentUploading: widget.isAttachmentUploading,
                             onAttachmentPressed: widget.onAttachmentPressed,
                             onSendPressed: widget.onSendPressed,

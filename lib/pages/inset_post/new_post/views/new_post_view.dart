@@ -17,6 +17,7 @@ import '../widgets/progress_line.dart';
 import 'package:openai_client/openai_client.dart';
 
 import '../widgets/tags_element.dart';
+import '../widgets/title_field.dart';
 
 class NewPostView extends StatelessWidget {
   final bool hasSubcategories;
@@ -107,15 +108,12 @@ class NewPostView extends StatelessWidget {
                             key: controller.formKey,
                             child: Column(
                               children: [
-                                LocooTextField(
-                                    controller: controller.titleController,
-                                    textInputAction: TextInputAction.next,
-                                    label: 'Titel',
-                                    autovalidateMode: AutovalidateMode.disabled,
-                                    validator: (value) =>
-                                        value != null && value.isEmpty
-                                            ? 'Geben Sie einen Titel ein'
-                                            : null),
+                                TitleField(
+                                  controller: controller,
+                                  descriptionController:
+                                      controller.descriptionController,
+                                  titleController: controller.titleController,
+                                ),
                                 const SizedBox(height: 10),
                                 LocooTextField(
                                     maxLines: 10,
