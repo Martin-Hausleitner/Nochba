@@ -17,7 +17,6 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-
 class EditProfileView extends GetView<EditProfileController> {
   const EditProfileView({
     Key? key,
@@ -418,7 +417,8 @@ class EditProfileView extends GetView<EditProfileController> {
                                     tags: controller
                                         .getOffers(userPublicInfo.offers),
                                     removeTag: controller.removeOffer,
-                                    showTagDialog: controller.showOfferTagDialog,
+                                    showTagDialog:
+                                        controller.showOfferTagDialog,
                                     addTag: controller.addOffer,
                                   )
                                 ],
@@ -488,7 +488,7 @@ class EditProfileView extends GetView<EditProfileController> {
                   //   title: 'Tiere',
                   //   icon: Icon(FlutterRemix.user_line),
                   //   onTap: () {
-                      
+
                   //   },
                   //   text: 'Hund, Katze',
                   // ),

@@ -167,7 +167,8 @@ class EditPostView extends StatelessWidget {
                           ),
                           const NewPostTitle(label: 'Tags'),
                           TagsElement(
-                            description: controller.descriptionController.text,
+                            descriptionController:
+                                controller.descriptionController,
                             tags: controller.tags,
                             removeTag: controller.removeTag,
                             showTagDialog: controller.showTagDialog,

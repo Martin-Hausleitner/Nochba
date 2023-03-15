@@ -19,14 +19,14 @@ class TagsElement extends StatefulWidget {
     required this.removeTag,
     required this.showTagDialog,
     required this.addTag,
-    this.description,
+    this.descriptionController,
   }) : super(key: key);
 
   final List<String> tags;
   final Function(String tag) removeTag;
   final Function(BuildContext context) showTagDialog;
   final Function(String tag) addTag;
-  final String? description;
+  final TextEditingController? descriptionController;
 
   @override
   State<TagsElement> createState() => _TagsElementState();
@@ -36,8 +36,6 @@ class _TagsElementState extends State<TagsElement> {
   bool _isLoading = false;
   Future<void> callOpenAI() async {
     try {
-     
-
       final String apiKey = dotenv.env['OPENAI_API_KEY']!;
       final String organizationId = dotenv.env['OPENAI_ORGANIZATION_ID']!;
       final conf = OpenAIConfiguration(
@@ -51,15 +49,15 @@ class _TagsElementState extends State<TagsElement> {
       );
 
       //cheakc if widget.description is null
-      if (widget.description!.isEmpty) {
-        print(widget.description);
+      if (widget.descriptionController!.text.isEmpty) {
+        print(widget.descriptionController!.text);
         Get.snackbar(
             'Fehler', 'Bitte Füge ein Beschreibung zu dem Beitrag hinzu!');
         return;
       }
 
       final String prompt =
-          'erstelle eine classification prompt für ein post: ${widget.description}\n \n \n um 3 oder 4 oder 5 tags zu erstellen \n fromat 1. 2. 3. 4. 5. \n  benutze die sprache des text \n benutze nur Einwortbegriffe als Tag';
+          'erstelle eine classification prompt für ein post: ${widget.descriptionController!.text}\n \n \n um 3 oder 4 oder 5 tags zu erstellen \n fromat 1. 2. 3. 4. 5. \n  benutze die sprache des text \n benutze nur Einwortbegriffe als Tag';
       final chat = await client.chat.create(
         model: 'gpt-3.5-turbo',
         messages: [
