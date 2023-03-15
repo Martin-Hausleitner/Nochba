@@ -16,6 +16,7 @@ import 'package:nochba/logic/models/user.dart' as models;
 import 'package:nochba/logic/models/Notification.dart' as models;
 import 'package:get/get.dart' as getx;
 import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class NotificationsPage extends GetView<NotificationsController> {
   const NotificationsPage({super.key});
@@ -23,7 +24,7 @@ class NotificationsPage extends GetView<NotificationsController> {
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
-      title: 'Benachrichtigungen',
+      title: AppLocalizations.of(context)!.notifications,
       showBackButton: false,
       contentPadding: const EdgeInsets.only(left: 0, right: 0, top: 18),
       actions: [
@@ -124,7 +125,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                             height: 20,
                           ),
                           Text(
-                            'Du hast aktuell keine Benachrichtigungen',
+                            AppLocalizations.of(context)!.noNotifications,
                             //align center
                             textAlign: TextAlign.center,
                             style: Theme.of(context)

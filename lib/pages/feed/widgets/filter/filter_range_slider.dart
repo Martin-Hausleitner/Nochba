@@ -7,7 +7,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:latlng/latlng.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'filter_title.dart';
 
 class FilterRangeSlider extends StatefulWidget {
@@ -66,6 +66,8 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
 
   @override
   Widget build(BuildContext context) {
+    String range = AppLocalizations.of(context)!.range;
+
     return Column(
       children: [
         Row(
@@ -75,8 +77,8 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    FilterTitle(label: 'Reichweite'),
+                  children:  [
+                    FilterTitle(label: AppLocalizations.of(context)!.range),
                   ],
                 ),
               ),

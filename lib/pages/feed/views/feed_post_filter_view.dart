@@ -9,6 +9,8 @@ import 'package:nochba/pages/feed/widgets/filter/filter_chip.dart';
 import 'package:nochba/pages/feed/widgets/filter/filter_title.dart';
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class FeedPostFilterView extends StatelessWidget {
   const FeedPostFilterView({super.key, required this.controller});
@@ -24,7 +26,7 @@ class FeedPostFilterView extends StatelessWidget {
                 sliderValue: controller.sliderValue,
                 onChanged: controller.onSliderValueChanged,
               )),
-      const FilterTitle(label: 'Filtern nach Kategorie'),
+      FilterTitle(label: AppLocalizations.of(context)!.filterByKategory),
       Padding(
         padding: //horizontal 15
             const EdgeInsets.symmetric(horizontal: 15),
@@ -35,14 +37,14 @@ class FeedPostFilterView extends StatelessWidget {
             children: [
               //print 10 buton
               FilterLabelChip(
-                label: 'Alle',
+                label: AppLocalizations.of(context)!.all,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.None),
                 onTap: () => controller.selectFilterChip(CategoryOptions.None),
               ),
               // const Divider(),
               FilterLabelChip(
-                label: 'Mitteilung',
+                label: AppLocalizations.of(context)!.messageKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Message),
                 isIncluded: () => controller.isFilterChipAsMainCategoryIncluded(
@@ -52,42 +54,42 @@ class FeedPostFilterView extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               FilterLabelChip(
-                label: 'Frage',
+                label: AppLocalizations.of(context)!.questionKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Question),
                 onTap: () =>
                     controller.selectFilterChip(CategoryOptions.Question),
               ),
               FilterLabelChip(
-                label: 'Appell',
+                label: AppLocalizations.of(context)!.complaintKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Appeal),
                 onTap: () =>
                     controller.selectFilterChip(CategoryOptions.Appeal),
               ),
               FilterLabelChip(
-                label: 'Warnung',
+                label: AppLocalizations.of(context)!.warningKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Warning),
                 onTap: () =>
                     controller.selectFilterChip(CategoryOptions.Warning),
               ),
               FilterLabelChip(
-                label: 'Empfehlung',
+                label: AppLocalizations.of(context)!.recommendationKategory,
                 isSelected: () => controller
                     .isFilterChipSelected(CategoryOptions.Recommendation),
                 onTap: () =>
                     controller.selectFilterChip(CategoryOptions.Recommendation),
               ),
               FilterLabelChip(
-                label: 'Gefunden',
+                label: AppLocalizations.of(context)!.foundKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Found),
                 onTap: () => controller.selectFilterChip(CategoryOptions.Found),
               ),
               // Container(),
               FilterLabelChip(
-                label: 'Suche',
+                label: AppLocalizations.of(context)!.searchKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Search),
                 isIncluded: () => controller
@@ -97,14 +99,14 @@ class FeedPostFilterView extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               FilterLabelChip(
-                label: 'Hilfe',
+                label: AppLocalizations.of(context)!.helpKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Help),
                 onTap: () => controller.selectFilterChip(CategoryOptions.Help),
               ),
 
               FilterLabelChip(
-                label: 'Verloren',
+                label: AppLocalizations.of(context)!.lostKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Lost),
                 onTap: () => controller.selectFilterChip(CategoryOptions.Lost),
@@ -112,7 +114,7 @@ class FeedPostFilterView extends StatelessWidget {
               Container(),
 
               FilterLabelChip(
-                label: 'Ausleihen',
+                label: AppLocalizations.of(context)!.lendingKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Lending),
                 isIncluded: () => controller.isFilterChipAsMainCategoryIncluded(
@@ -133,7 +135,7 @@ class FeedPostFilterView extends StatelessWidget {
           ),
         ),
       ),
-      const FilterTitle(label: 'Sotieren nach'),
+      FilterTitle(label: AppLocalizations.of(context)!.sortBy),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: GetBuilder<FeedController>(
@@ -142,14 +144,14 @@ class FeedPostFilterView extends StatelessWidget {
             runSpacing: 5,
             children: [
               FilterLabelChip(
-                label: 'Datum',
+                label: AppLocalizations.of(context)!.date,
                 isSelected: () => controller
                     .isPostFilterSortBySelected(PostFilterSortBy.date),
                 onTap: () =>
                     controller.selectPostFilterSortBy(PostFilterSortBy.date),
               ),
               FilterLabelChip(
-                label: 'Likes',
+                label: AppLocalizations.of(context)!.likes,
                 isSelected: () => controller
                     .isPostFilterSortBySelected(PostFilterSortBy.likes),
                 onTap: () =>
@@ -159,7 +161,7 @@ class FeedPostFilterView extends StatelessWidget {
           ),
         ),
       ),
-      const FilterTitle(label: 'Reihenfolge'),
+      FilterTitle(label: AppLocalizations.of(context)!.orderBy),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: GetBuilder<FeedController>(
@@ -168,12 +170,12 @@ class FeedPostFilterView extends StatelessWidget {
             runSpacing: 5,
             children: [
               FilterLabelChip(
-                label: 'Neueste',
+                label: AppLocalizations.of(context)!.latest,
                 isSelected: controller.isDescending,
                 onTap: controller.swapOrder,
               ),
               FilterLabelChip(
-                label: 'Älteste',
+                label: AppLocalizations.of(context)!.oldest,
                 isSelected: controller.isAscending,
                 onTap: controller.swapOrder,
               ),

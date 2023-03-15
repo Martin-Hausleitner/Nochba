@@ -8,7 +8,7 @@ import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/pages/feed/views/feed_post_filter_view.dart';
 import 'package:nochba/pages/feed/widgets/post/loading_post.dart';
 import 'package:nochba/pages/feed/widgets/post_card.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'feed_controller.dart';
 
 class FeedPage extends GetView<FeedController> {
@@ -167,7 +167,7 @@ class SearchBar extends StatelessWidget {
             //     .onSurface
             //     .withOpacity(0.04),
             fillColor: Theme.of(context).colorScheme.onPrimary,
-            hintText: 'Suche',
+            hintText: AppLocalizations.of(context)!.searchPosts,
             hintStyle: TextStyle(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
               fontSize: 15,
@@ -404,14 +404,14 @@ class CategoryChooser extends StatelessWidget {
           children: [
             const SizedBox(width: 14),
             CategorieChip(
-              label: 'Alle',
+              label: AppLocalizations.of(context)!.all,
               category: CategoryOptions.None,
               isSelected: controller.isCategoryChipSelected,
               onTap: controller.selectCategoryChip,
             ),
             const SizedBox(width: 06),
             CategorieChip(
-              label: 'Mitteilung',
+              label: AppLocalizations.of(context)!.messageKategory,
               category: CategoryOptions.Message,
               isSelected: controller.isCategoryChipSelected,
               isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
@@ -419,7 +419,7 @@ class CategoryChooser extends StatelessWidget {
             ),
             const SizedBox(width: 06),
             CategorieChip(
-              label: 'Suche',
+              label: AppLocalizations.of(context)!.searchKategory,
               category: CategoryOptions.Search,
               isSelected: controller.isCategoryChipSelected,
               isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
@@ -427,7 +427,7 @@ class CategoryChooser extends StatelessWidget {
             ),
             const SizedBox(width: 06),
             CategorieChip(
-              label: 'Ausleihen',
+              label: AppLocalizations.of(context)!.lendingKategory,
               category: CategoryOptions.Lending,
               isSelected: controller.isCategoryChipSelected,
               isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
@@ -435,7 +435,7 @@ class CategoryChooser extends StatelessWidget {
             ),
             const SizedBox(width: 06),
             CategorieChip(
-              label: 'Event',
+              label: AppLocalizations.of(context)!.eventKategory,
               category: CategoryOptions.Event,
               isSelected: controller.isCategoryChipSelected,
               isIncluded: controller.isCategoryChipAsMainCategoryIncluded,

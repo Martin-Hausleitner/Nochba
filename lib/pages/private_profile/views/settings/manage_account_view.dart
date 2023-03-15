@@ -10,6 +10,9 @@ import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:nochba/l10n/l10n.dart';
 
 class ManageAccountView extends GetView<ManageAccountController> {
   const ManageAccountView({
@@ -18,8 +21,10 @@ class ManageAccountView extends GetView<ManageAccountController> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return AppBarBigView(
-      title: 'Konto Verwalten',
+      title: AppLocalizations.of(context)!.manageAccount,
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
@@ -29,7 +34,7 @@ class ManageAccountView extends GetView<ManageAccountController> {
             if (snapshot.hasData) {
               final email = snapshot.data!;
               return ActionTextCard(
-                title: 'Email',
+                title: AppLocalizations.of(context)!.email,
                 icon: const Icon(FlutterRemix.user_line),
                 onTap: () {
                   showModalBottomSheet<void>(
@@ -49,7 +54,7 @@ class ManageAccountView extends GetView<ManageAccountController> {
                             child: Column(
                               children: [
                                 LocooTextField(
-                                  label: 'Neue Email eingeben',
+                                  label: AppLocalizations.of(context)!.enterNewEmail,
                                   suffixIcon: TextFieldRemoveTextButton(
                                     onPressed: () =>
                                         controller.emailTextController.clear(),
@@ -74,19 +79,19 @@ class ManageAccountView extends GetView<ManageAccountController> {
               );
             } else {
               return ActionTextCard(
-                title: 'Email',
+                title: AppLocalizations.of(context)!.email,
                 icon: const Icon(FlutterRemix.user_line),
                 onTap: () {
-                  Get.snackbar("Email nicht aufrufbar",
-                      "Ihre Email ist im Moment nicht aufrufbar");
+                  Get.snackbar("Email not available",
+                      "Your email is not accessible. Please contact us for more information.");
                 },
-                text: 'Derzeit nicht verfügbar',
+                text: AppLocalizations.of(context)!.currentlyNotAvailable,
               );
             }
           },
         ),
         ActionTextCard(
-          title: 'Passwort',
+          title: AppLocalizations.of(context)!.password,
           icon: const Icon(FlutterRemix.user_line),
           onTap: () {
             showModalBottomSheet<void>(
@@ -106,7 +111,7 @@ class ManageAccountView extends GetView<ManageAccountController> {
                       child: Column(
                         children: [
                           LocooTextField(
-                            label: 'Neues Passwort eingeben',
+                            label: AppLocalizations.of(context)!.enterNewPassword,
                             textInputAction: TextInputAction.next,
                             autofocus: true,
                             controller: controller.firstPasswordTextController,
@@ -120,7 +125,7 @@ class ManageAccountView extends GetView<ManageAccountController> {
                           ),
                           const SizedBox(height: 10),
                           LocooTextField(
-                            label: 'Erneut neues Passwort eingeben',
+                            label: AppLocalizations.of(context)!.confirmNewPassword,
                             textInputAction: TextInputAction.done,
                             controller: controller.secondPasswordTextController,
                             validator: controller.validatePassword,
@@ -145,12 +150,12 @@ class ManageAccountView extends GetView<ManageAccountController> {
           text: '⦁⦁⦁⦁⦁⦁',
         ),
         ActionTextCard(
-          title: 'Adresse',
+          title: AppLocalizations.of(context)!.address,
           icon: const Icon(FlutterRemix.user_line),
           onTap: () {
             // show me a alert that now you cant change your address
             Get.snackbar(
-                "Adresse ändern", "Diese Funktion ist noch nicht verfügbar");
+                AppLocalizations.of(context)!.address, "This function is not yet available.");
 
             // showModalBottomSheet<void>(
             //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -193,7 +198,7 @@ class ManageAccountView extends GetView<ManageAccountController> {
         ),
         const SizedBox(height: 30),
         ActionTextCardRed(
-          title: 'Account löschen',
+          title: AppLocalizations.of(context)!.deleteAccount,
           icon: const Icon(FlutterRemix.user_line),
           onTap: () async => await controller.onDeleteAccountTap(context),
           text: '',
@@ -221,9 +226,9 @@ class AlertDialogDeleteAccount extends StatelessWidget {
         title: Column(
           //align center
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children:  [
             // add a red icon flutterremix error-warning-line
-            Icon(
+            const Icon(
               FlutterRemix.error_warning_line,
               // color: Theme.of(context).colorScheme.error,
               color: Colors.red,
@@ -233,7 +238,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
               height: 10,
             ),
             Text(
-              'Account löschen',
+              AppLocalizations.of(context)!.deleteAccount,
               //add fontwiehgt w500
               style: TextStyle(
                 fontWeight: FontWeight.w700,
@@ -241,8 +246,8 @@ class AlertDialogDeleteAccount extends StatelessWidget {
             ),
           ],
         ),
-        content: const Text(
-          'Lösche deinen Account für immer bei Nochba. Die Daten können nicht wiederhergestellt werden.',
+        content: Text(
+          AppLocalizations.of(context)!.deleteYourAccountPermanently,
           //style the text gray
           style: TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
         ),
@@ -259,7 +264,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: const Text('Abbrechen'),
+                  child: Text('Cancel'),
                 ),
               ),
               Expanded(
@@ -276,7 +281,7 @@ class AlertDialogDeleteAccount extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: const Text('Löschen'),
+                  child: const Text('Delete'),
                 ),
               ),
             ],

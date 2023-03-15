@@ -9,6 +9,7 @@ import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 import 'package:nochba/views/public_profile/public_profile_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class PublicProfileMoreView extends StatelessWidget {
   const PublicProfileMoreView({
@@ -23,7 +24,7 @@ class PublicProfileMoreView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomSheetTitleCloseView(
-      title: 'Mehr',
+      title: AppLocalizations.of(context)!.more,
       children: [
         Padding(
           padding: //const EdgeInsets.symmetric(horizontal: 15), top 10 left 15 right 15
@@ -32,7 +33,7 @@ class PublicProfileMoreView extends StatelessWidget {
           child: Column(
             children: [
               ActionCard(
-                title: 'Profil melden',
+                title: AppLocalizations.of(context)!.reportProfile,
                 icon: FlutterRemix.flag_line,
                 onTap: () {
                   showModalBottomSheet<dynamic>(
@@ -44,7 +45,7 @@ class PublicProfileMoreView extends StatelessWidget {
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return BottomSheetTitleCloseView(
-                        title: 'Profil melden',
+                        title: AppLocalizations.of(context)!.reportProfile,
                         children: [
                           Padding(
                             padding: //right 15 left 15 bottom 5 top 1
@@ -56,7 +57,7 @@ class PublicProfileMoreView extends StatelessWidget {
                               children: [
                                 //show 10 ActionCards
                                 Text(
-                                  'Wähle deinen Grund aus',
+                                  AppLocalizations.of(context)!.selectYourReason,
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 //       .copyWith(
@@ -91,7 +92,7 @@ class PublicProfileMoreView extends StatelessWidget {
                                           // controller:
                                           // controller.descriptionController,
                                           // textInputAction: TextInputAction.next,
-                                          label: 'Beschreibung',
+                                          label: AppLocalizations.of(context)!.description,
                                           autovalidateMode:
                                               AutovalidateMode.disabled,
                                           controller:
@@ -102,7 +103,7 @@ class PublicProfileMoreView extends StatelessWidget {
                                                   : null),
                                       const SizedBox(height: 10),
                                       LocooTextButton(
-                                        label: 'Profil Melden',
+                                        label: AppLocalizations.of(context)!.reportProfile,
                                         onPressed: () async => await controller
                                             .onPressReportSend(userId),
                                         icon: FlutterRemix.flag_line,
@@ -132,7 +133,7 @@ class PublicProfileMoreView extends StatelessWidget {
               ),
               if (controller.shouldShowEditProfileButton(userId))
                 ActionCard(
-                  title: 'Profil bearbeiten',
+                  title: AppLocalizations.of(context)!.editProfile,
                   icon: FlutterRemix.pencil_line,
                   //open EditProfileView() widget
                   onTap: () => controller.pushEditProfileView(),
@@ -161,7 +162,7 @@ class PublicProfileMoreView extends StatelessWidget {
   }
 }
 
-const List<String> list = <String>[
+ List<String> list = <String>[
   'Belästigung',
   'Unangebrachte Inhalte',
   'Spam',

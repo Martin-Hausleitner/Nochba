@@ -12,6 +12,7 @@ import 'attachment_button.dart';
 import 'inherited_chat_theme.dart';
 import 'input_text_field_controller.dart';
 import 'send_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 /// A class that represents bottom bar widget with a text field, attachment and
 /// send buttons inside. By default hides send button when text field is empty.
@@ -271,7 +272,7 @@ class _InputState extends State<Input> {
                                                   // hintText: InheritedL10n.of(context)
                                                   //     .l10n
                                                   //     .inputPlaceholder,
-                                                  hintText: 'Neue Nachricht',
+                                                  hintText: AppLocalizations.of(context)!.newMessage,
                                                 ),
                                         keyboardType: TextInputType.multiline,
                                         maxLines: 5,

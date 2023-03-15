@@ -24,7 +24,7 @@ import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_c
     as chat;
 import 'package:nochba/logic/flutter_chat_ui-1.6.4/flutter_chat_ui.dart' as ui;
 import 'package:nochba/views/public_profile/public_profile_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../../shared/ui/cards/action_card.dart';
 import '../../shared/views/bottom_sheet_title_close_view.dart';
 
@@ -228,14 +228,14 @@ class ChatPage extends GetView<ChatController> {
       context: context,
       builder: (BuildContext context) => SafeArea(
         child: BottomSheetTitleCloseView(
-          title: 'Add Attachment',
+          title: AppLocalizations.of(context)!.addAttachment,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
                   ActionCard(
-                    title: 'Select Photo',
+                    title: AppLocalizations.of(context)!.selectPhoto,
                     icon: FlutterRemix.image_add_line,
                     //open EditProfileView() widget
                     onTap: () async {
@@ -247,7 +247,7 @@ class ChatPage extends GetView<ChatController> {
                   //   height: 2,
                   // ),
                   ActionCard(
-                    title: 'Take Photo',
+                    title: AppLocalizations.of(context)!.takeAPhoto,
                     icon: FlutterRemix.camera_line,
                     //open EditProfileView() widget
                     onTap: () async {

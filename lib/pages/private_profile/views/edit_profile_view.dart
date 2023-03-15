@@ -16,6 +16,9 @@ import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:nochba/shared/views/bottom_sheet_close_save_view.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:nochba/l10n/l10n.dart';
 
 class EditProfileView extends GetView<EditProfileController> {
   const EditProfileView({
@@ -25,7 +28,7 @@ class EditProfileView extends GetView<EditProfileController> {
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
-      title: 'Profil Bearbeiten',
+      title: AppLocalizations.of(context)!.editProfile,
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
@@ -72,7 +75,7 @@ class EditProfileView extends GetView<EditProfileController> {
         const SizedBox(
           height: 30,
         ),
-        const ActionCardTitle(title: 'Persönliche Daten'),
+        ActionCardTitle(title: AppLocalizations.of(context)!.personalData),
 
         NameElement(
           controller: controller,
@@ -99,7 +102,7 @@ class EditProfileView extends GetView<EditProfileController> {
 
                 children: [
                   ActionTextCard(
-                    title: 'Geburtstag',
+                    title: AppLocalizations.of(context)!.birthday,
                     icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
@@ -171,7 +174,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                       children: [
                                         Flexible(
                                           child: Text(
-                                            'Zeige nur den ersten Buchstaben deines Nachnahmen an',
+                                            AppLocalizations.of(context)!.displayOnlyFirstLetter,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium
@@ -212,7 +215,7 @@ class EditProfileView extends GetView<EditProfileController> {
                         : '',
                   ),
                   ActionTextCard(
-                    title: 'In der Nachbarschaft seit',
+                    title: AppLocalizations.of(context)!.inTheNeighborhoodSince,
                     icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
@@ -279,7 +282,7 @@ class EditProfileView extends GetView<EditProfileController> {
                         : '',
                   ),
                   ActionTextCard(
-                    title: 'Beruf',
+                    title: AppLocalizations.of(context)!.profession,
                     icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
@@ -296,7 +299,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                 .updateProfessionOfCurrentUser(),
                             children: [
                               LocooTextField(
-                                label: 'Beruf',
+                                label: AppLocalizations.of(context)!.profession,
                                 suffixIcon: TextFieldRemoveTextButton(
                                   onPressed: () => controller
                                       .professionTextController
@@ -316,7 +319,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     text: userPublicInfo.profession ?? '',
                   ),
                   ActionTextCard(
-                    title: 'Mehr über dich',
+                    title: AppLocalizations.of(context)!.moreAboutYou,
                     icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
@@ -335,7 +338,7 @@ class EditProfileView extends GetView<EditProfileController> {
                               LocooTextField(
                                 height: //size of media query
                                     MediaQuery.of(context).size.height * 0.3,
-                                label: 'Mehr über dich',
+                                label: AppLocalizations.of(context)!.moreAboutYou,
                                 controller: controller
                                     .getBioTextController(userPublicInfo.bio),
                                 maxLines: 10,
@@ -350,9 +353,9 @@ class EditProfileView extends GetView<EditProfileController> {
                     },
                     text: userPublicInfo.bio ?? '',
                   ),
-                  const ActionCardTitle(title: 'Mehr'),
+                  ActionCardTitle(title: AppLocalizations.of(context)!.more),
                   ActionTextCard(
-                    title: 'Interessen',
+                    title: AppLocalizations.of(context)!.interests,
                     icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
@@ -395,7 +398,7 @@ class EditProfileView extends GetView<EditProfileController> {
                         : '',
                   ),
                   ActionTextCard(
-                    title: 'Bietet',
+                    title: AppLocalizations.of(context)!.offers,
                     icon: const Icon(FlutterRemix.user_line),
                     onTap: () {
                       showModalBottomSheet<void>(
@@ -524,7 +527,7 @@ class NameElement extends StatelessWidget {
           final user = snapshot.data!;
 
           return ActionTextCard(
-            title: 'Name',
+            title: AppLocalizations.of(context)!.name,
             icon: const Icon(FlutterRemix.user_line),
             onTap: () {
               showModalBottomSheet<void>(
@@ -540,7 +543,7 @@ class NameElement extends StatelessWidget {
                         await controller.updateNameOfCurrentUser(),
                     children: [
                       LocooTextField(
-                        label: 'Vorname',
+                        label: AppLocalizations.of(context)!.firstName,
                         textInputAction: TextInputAction.next,
                         autofocus: true,
                         controller: controller
@@ -559,7 +562,7 @@ class NameElement extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       LocooTextField(
-                        label: 'Nachname',
+                        label: AppLocalizations.of(context)!.lastname,
                         textInputAction: TextInputAction.done,
                         controller:
                             controller.getLastNameTextController(user.lastName),
@@ -584,7 +587,7 @@ class NameElement extends StatelessWidget {
                           children: [
                             Flexible(
                               child: Text(
-                                'Zeiger nur den ersten Buchstaben deines Nachnahmen an',
+                                AppLocalizations.of(context)!.displayOnlyFirstLetter,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
