@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
 
+import '../../../flutter_chat_types-3.4.5/src/messages/text_message.dart';
 import '../models/input_clear_mode.dart';
 import '../models/send_button_visibility_mode.dart';
 import 'attachment_button.dart';
@@ -22,7 +23,10 @@ class Input extends StatefulWidget {
     this.onAttachmentPressed,
     required this.onSendPressed,
     this.options = const InputOptions(),
+    required this.items,
   });
+
+  final List<Object> items;
 
   /// Whether attachment is uploading. Will replace attachment button with a
   /// [CircularProgressIndicator]. Since we don't have libraries for
@@ -114,6 +118,7 @@ class _InputState extends State<Input> {
   }
 
   void _handleSendPressed() {
+    print(widget.items.toString());
     final trimmedText = _textController.text.trim();
     if (trimmedText != '') {
       final partialText = types.PartialText(text: trimmedText);
@@ -131,6 +136,38 @@ class _InputState extends State<Input> {
     });
   }
 
+  Map<String, List<TextMessage>> groupMessagesByUser() {
+    Map<String, List<TextMessage>> groupedMessages = {};
+
+    for (var item in widget.items) {
+      if (item is TextMessage) {
+        String userId = item.author.id;
+
+        if (!groupedMessages.containsKey(userId)) {
+          groupedMessages[userId] = [];
+        }
+        groupedMessages[userId]!.add(item);
+      }
+    }
+
+    return groupedMessages;
+  }
+
+  void printFirstNMessagesPerUser(int n) {
+    Map<String, List<TextMessage>> groupedMessages = groupMessagesByUser();
+
+    for (String userId in groupedMessages.keys) {
+      List<TextMessage> messages = groupedMessages[userId]!;
+      int messagesToPrint = n <= messages.length ? n : messages.length;
+
+      print('Benutzer-ID: $userId');
+      for (int i = 0; i < messagesToPrint; i++) {
+        TextMessage message = messages[i];
+        print('Nachricht ${i + 1}: ${message.text}');
+      }
+    }
+  }
+
   Widget _inputBuilder() {
     final query = MediaQuery.of(context);
     final buttonPadding = InheritedChatTheme.of(context)
@@ -145,17 +182,18 @@ class _InputState extends State<Input> {
             query.padding.right,
             query.viewInsets.bottom + query.padding.bottom,
           );
-    final textPadding =
-        const EdgeInsets.fromLTRB(0, 15, 10, 15).copyWith(left: 0, right: 0).add(
-              const EdgeInsets.fromLTRB(
-                // widget.onAttachmentPressed != null ? 0 : 10,
-                10,
-                0,
-                // _sendButtonVisible ? 0 : 10,
-                6,
-                0,
-              ),
-            );
+    final textPadding = const EdgeInsets.fromLTRB(0, 15, 10, 15)
+        .copyWith(left: 0, right: 0)
+        .add(
+          const EdgeInsets.fromLTRB(
+            // widget.onAttachmentPressed != null ? 0 : 10,
+            10,
+            0,
+            // _sendButtonVisible ? 0 : 10,
+            6,
+            0,
+          ),
+        );
 
     return SafeArea(
       child: Padding(
@@ -179,7 +217,8 @@ class _InputState extends State<Input> {
                           // round corners
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(28),
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            // color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Colors.red
                           ),
 
                           child: Row(
@@ -192,8 +231,8 @@ class _InputState extends State<Input> {
                                   isLoading:
                                       widget.isAttachmentUploading ?? false,
                                   onPressed: widget.onAttachmentPressed,
-                                  padding:
-                                      const EdgeInsets.fromLTRB(18, 13.5, 5, 13.5),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      18, 13.5, 5, 13.5),
                                 ),
                               Expanded(
                                 child: Padding(
@@ -252,6 +291,51 @@ class _InputState extends State<Input> {
                                   ),
                                 ),
                               ),
+
+                              ElevatedButton(
+                                onPressed: () {
+                                  print(widget.items.toString());
+
+                                  for (var item in widget.items) {
+                                    if (item is TextMessage) {
+                                      if (item.text == 'sdsd') {
+                                        print('Gefundener Wert: ${item.text}');
+                                      }
+                                    }
+                                  }
+
+                                  if (widget.items.isNotEmpty) {
+                                    TextMessage lastMessage =
+                                        widget.items.last as TextMessage;
+                                    print(
+                                        'Letzte Nachricht: ${lastMessage.text}');
+                                  } else {
+                                    print('Keine Nachrichten gefunden.');
+                                  }
+
+                                  int messagesToPrint = 3 <= widget.items.length
+                                      ? 3
+                                      : widget.items.length;
+                                  for (int i = 0; i < messagesToPrint; i++) {
+                                    TextMessage message =
+                                        widget.items[i] as TextMessage;
+                                    print(
+                                        'Nachricht ${i + 1}: ${message.text}');
+                                  }
+                                  Map<String, List<TextMessage>>
+                                      groupedMessages = groupMessagesByUser();
+                                  printFirstNMessagesPerUser(3);
+
+                                  // Gruppieren der Nachrichten und Anzeigen der ersten 3 Nachrichten pro Benutzer
+                                },
+                                child: Text('test'),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red,
+                                  shape: CircleBorder(),
+                                  padding: EdgeInsets.all(10),
+                                ),
+                              ),
+
                               //chat send button
                               Visibility(
                                 visible: _sendButtonVisible,
