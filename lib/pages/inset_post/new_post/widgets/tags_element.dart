@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
 import 'package:openai_client/openai_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../views/new_post_view.dart';
 import 'dart:math';
@@ -19,7 +20,8 @@ class TagsElement extends StatefulWidget {
     required this.removeTag,
     required this.showTagDialog,
     required this.addTag,
-    this.descriptionController, this.titleController,
+    this.descriptionController,
+    this.titleController,
   }) : super(key: key);
 
   final List<String> tags;
@@ -35,7 +37,23 @@ class TagsElement extends StatefulWidget {
 
 class _TagsElementState extends State<TagsElement> {
   bool _isLoading = false;
+  int _maxCalls = 20;
+
   Future<void> callOpenAI() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int callCount = prefs.getInt('callOpenAI_count') ?? 0;
+
+    if (callCount >= _maxCalls) {
+      Get.snackbar('Fehler', 'Maximale Anzahl an Aufrufen erreicht!');
+      return;
+    }
+
+    if (callCount == 0) {
+      Get.snackbar('Info', 'Sie haben insgesamt 20 Aufrufe zur Verfügung.');
+    } else if (callCount >= _maxCalls - 5) {
+      Get.snackbar(
+          'Info', 'Sie haben noch ${_maxCalls - callCount} Aufrufe übrig.');
+    }
     try {
       final String apiKey = dotenv.env['OPENAI_API_KEY']!;
       final String organizationId = dotenv.env['OPENAI_ORGANIZATION_ID']!;
@@ -49,7 +67,6 @@ class _TagsElementState extends State<TagsElement> {
         enableLogging: true,
       );
 
-      //cheakc if widget.description is null
       if (widget.descriptionController!.text.isEmpty) {
         print(widget.descriptionController!.text);
         Get.snackbar(
@@ -57,7 +74,6 @@ class _TagsElementState extends State<TagsElement> {
         return;
       }
 
-      //cheakc if widget.title is null
       if (widget.titleController!.text.isEmpty) {
         print(widget.titleController!.text);
         Get.snackbar('Fehler', 'Bitte Füge ein Titel zu dem Beitrag hinzu!');
@@ -65,7 +81,7 @@ class _TagsElementState extends State<TagsElement> {
       }
 
       final String prompt =
-          'erstelle eine classification prompt für ein title: ${widget.titleController!.text} post: ${widget.descriptionController!.text}\n \n \n um 3 oder 4 oder 5 tags zu erstellen \n fromat 1. 2. 3. 4. 5. \n  benutze die sprache des text \n benutze nur Einwortbegriffe als Tag';
+          'titel{ ${widget.titleController!.text} } beschreibung{ ${widget.descriptionController!.text} } json hashtags richtige sprache: ["#';
       final chat = await client.chat.create(
         model: 'gpt-3.5-turbo',
         messages: [
@@ -75,12 +91,15 @@ class _TagsElementState extends State<TagsElement> {
           )
         ],
       ).data;
-      final chatOutput = chat.toString();
-      setState(() {
-        addTagsToWidget(chatOutput);
-      });
 
-      print(chat.toString());
+      final response = chat.choices[0].message.content;
+      print(response);
+      String interpolatedString = '["#$response';
+
+      setState(() {
+        addTagsToWidget(interpolatedString);
+      });
+      await prefs.setInt('callOpenAI_count', callCount + 1);
     } catch (e, stackTrace) {
       print('Error calling OpenAI API: $e');
       print(stackTrace);
@@ -90,26 +109,17 @@ class _TagsElementState extends State<TagsElement> {
   }
 
   List<String> parseTags(String chatOutput) {
-    // Suche nach dem Muster: "1. Tag1\n2. Tag2\n3. Tag3\n4. Tag4\n5. Tag5"
-    RegExp regExp = RegExp(r'(\d+\.\s[^\n]+)');
+    RegExp regExp = RegExp(r'(?<=#)[\p{Letter}]+', unicode: true);
     Iterable<RegExpMatch> matches = regExp.allMatches(chatOutput);
     List<String> tags = [];
 
     for (RegExpMatch match in matches) {
-      String tag = match
-          .group(0)!
-          .substring(3)
-          .trim(); // Entferne die Zahl und das Leerzeichen am Anfang
-
-      // Entferne unerwünschte Zeichen am Ende des letzten Tags
-      int unwantedStart = tag.indexOf('),');
-      if (unwantedStart > -1) {
-        tag = tag.substring(0, unwantedStart).trim();
-      }
-
+      String tag = match.group(0)!;
       tags.add(tag);
-      print(tags);
     }
+
+    //print tags
+    print(tags.toString());
 
     return tags;
   }
@@ -117,10 +127,24 @@ class _TagsElementState extends State<TagsElement> {
 // Rufe diese Funktion auf, nachdem du die Antwort von OpenAI erhalten hast
   void addTagsToWidget(String chatOutput) {
     List<String> newTags = parseTags(chatOutput);
+    //if newtags empty get snackbar
+    if (newTags.isEmpty) {
+      Get.snackbar(
+          'Fehler', 'Die Tags konnten nicht von der KI generiert werden');
+      return;
+    }
+
+    List<String> tagsToAdd = [];
     for (String tag in newTags) {
       if (!widget.tags.contains(tag)) {
-        widget.tags.add(tag);
+        tagsToAdd.add(tag);
       }
+    }
+
+    if (tagsToAdd.isNotEmpty) {
+      setState(() {
+        widget.tags.addAll(tagsToAdd);
+      });
     }
   }
 
@@ -184,14 +208,7 @@ class _TagsElementState extends State<TagsElement> {
                     height: 18,
                     width: 18,
                     child: CircularProgressIndicator(
-                      // Show the loading indicator when _isLoading is true
                       strokeWidth: 2.5,
-                      // valueColor: AlwaysStoppedAnimation<Color>(
-                      //   Theme.of(context)
-                      //       .colorScheme
-                      //       .onSurface
-                      //       .withOpacity(0.5),
-                      // ),
                     ),
                   ),
                 )
