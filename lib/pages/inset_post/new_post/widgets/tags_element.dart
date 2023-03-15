@@ -19,7 +19,7 @@ class TagsElement extends StatefulWidget {
     required this.removeTag,
     required this.showTagDialog,
     required this.addTag,
-    this.descriptionController,
+    this.descriptionController, this.titleController,
   }) : super(key: key);
 
   final List<String> tags;
@@ -27,6 +27,7 @@ class TagsElement extends StatefulWidget {
   final Function(BuildContext context) showTagDialog;
   final Function(String tag) addTag;
   final TextEditingController? descriptionController;
+  final TextEditingController? titleController;
 
   @override
   State<TagsElement> createState() => _TagsElementState();
@@ -56,8 +57,15 @@ class _TagsElementState extends State<TagsElement> {
         return;
       }
 
+      //cheakc if widget.title is null
+      if (widget.titleController!.text.isEmpty) {
+        print(widget.titleController!.text);
+        Get.snackbar('Fehler', 'Bitte Füge ein Titel zu dem Beitrag hinzu!');
+        return;
+      }
+
       final String prompt =
-          'erstelle eine classification prompt für ein post: ${widget.descriptionController!.text}\n \n \n um 3 oder 4 oder 5 tags zu erstellen \n fromat 1. 2. 3. 4. 5. \n  benutze die sprache des text \n benutze nur Einwortbegriffe als Tag';
+          'erstelle eine classification prompt für ein title: ${widget.titleController!.text} post: ${widget.descriptionController!.text}\n \n \n um 3 oder 4 oder 5 tags zu erstellen \n fromat 1. 2. 3. 4. 5. \n  benutze die sprache des text \n benutze nur Einwortbegriffe als Tag';
       final chat = await client.chat.create(
         model: 'gpt-3.5-turbo',
         messages: [

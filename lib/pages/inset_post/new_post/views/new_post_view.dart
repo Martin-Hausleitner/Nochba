@@ -122,6 +122,7 @@ class NewPostView extends StatelessWidget {
                                     height: 220,
                                     controller:
                                         controller.descriptionController,
+
                                     // textInputAction: TextInputAction.next,
                                     label: 'Beschreibung',
                                     autovalidateMode: AutovalidateMode.disabled,
@@ -211,6 +212,7 @@ class NewPostView extends StatelessWidget {
                           TagsElement(
                             descriptionController:
                                 controller.descriptionController,
+                            titleController: controller.titleController,
                             tags: controller.tags,
                             removeTag: controller.removeTag,
                             showTagDialog: controller.showTagDialog,
