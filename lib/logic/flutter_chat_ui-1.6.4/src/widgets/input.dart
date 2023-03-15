@@ -13,9 +13,9 @@ import 'inherited_chat_theme.dart';
 import 'input_text_field_controller.dart';
 import 'send_button.dart';
 import 'package:google_mlkit_smart_reply/google_mlkit_smart_reply.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 enum Role { admin, agent, moderator, user }
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 /// A class that represents bottom bar widget with a text field, attachment and
 /// send buttons inside. By default hides send button when text field is empty.
@@ -265,63 +265,50 @@ class _InputState extends State<Input> {
         children: [
           _buildChipList(),
           Padding(
-            padding: // left 8 right 8 bottom 8
-                const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
             child: Focus(
               autofocus: true,
               child: Material(
-                // borderRadius: InheritedChatTheme.of(context).theme.inputBorderRadius,
-                // color: Theme.of(context).scaffoldBackgroundColor,
                 color: Colors.transparent,
-
                 child: Row(
                   children: [
                     Expanded(
                       child: Row(
                         children: [
-                          //red container
-
                           Expanded(
                             child: Container(
-                              // height: 50,
-                              // round corners
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(28),
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                // color: Colors.red
                               ),
-
-                          child: Row(
-                            //alling bottom
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              if (widget.onAttachmentPressed != null)
-                                AttachmentButton(
-                                  isLoading:
-                                      widget.isAttachmentUploading ?? false,
-                                  onPressed: widget.onAttachmentPressed,
-                                  padding: const EdgeInsets.fromLTRB(
-                                      18, 13.5, 5, 13.5),
-                                ),
-                              Expanded(
-                                child: Padding(
-                                  padding: // top 20 left 20 right 20 bottom 20
-                                      textPadding,
-                                  child: Column(
-                                    children: [
-                                      TextField(
-                                        autofocus: true,
-                                        //focus the texfield without the keyboard
-                                        focusNode: _inputFocusNode,
-                                        controller: _textController,
-                                        cursorColor:
-                                            InheritedChatTheme.of(context)
-                                                .theme
-                                                .inputTextCursorColor,
-                                        decoration:
-                                            InheritedChatTheme.of(context)
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  if (widget.onAttachmentPressed != null)
+                                    AttachmentButton(
+                                      isLoading:
+                                          widget.isAttachmentUploading ?? false,
+                                      onPressed: widget.onAttachmentPressed,
+                                      padding: const EdgeInsets.fromLTRB(
+                                          18, 13.5, 5, 13.5),
+                                    ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: textPadding,
+                                      child: Column(
+                                        children: [
+                                          TextField(
+                                            autofocus: true,
+                                            focusNode: _inputFocusNode,
+                                            controller: _textController,
+                                            cursorColor:
+                                                InheritedChatTheme.of(context)
+                                                    .theme
+                                                    .inputTextCursorColor,
+                                            decoration: InheritedChatTheme.of(
+                                                    context)
                                                 .theme
                                                 .inputTextDecoration
                                                 .copyWith(
@@ -339,145 +326,71 @@ class _InputState extends State<Input> {
                                                             .withOpacity(0.5),
                                                         fontSize: 15,
                                                       ),
-                                                  // hintText: InheritedL10n.of(context)
-                                                  //     .l10n
-                                                  //     .inputPlaceholder,
                                                   hintText: 'Neue Nachricht',
                                                 ),
-                                        keyboardType: TextInputType.multiline,
-                                        maxLines: 5,
-                                        minLines: 1,
-                                        onChanged: widget.options.onTextChanged,
-                                        onTap: widget.options.onTextFieldTap,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                        textCapitalization:
-                                            TextCapitalization.sentences,
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            maxLines: 5,
+                                            minLines: 1,
+                                            onChanged:
+                                                widget.options.onTextChanged,
+                                            onTap:
+                                                widget.options.onTextFieldTap,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge,
+                                            textCapitalization:
+                                                TextCapitalization.sentences,
+                                          ),
+                                          const SizedBox(
+                                            height: 6,
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(
-                                        height: 6,
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-
-                              ElevatedButton(
-                                onPressed: () {
-                                  print(widget.items.toString());
-
-                                  for (var item in widget.items) {
-                                    if (item is TextMessage) {
-                                      if (item.text == 'sdsd') {
-                                        print('Gefundener Wert: ${item.text}');
-                                      }
-                                    }
-                                  }
-
-                                  if (widget.items.isNotEmpty) {
-                                    TextMessage lastMessage =
-                                        widget.items.last as TextMessage;
-                                    print(
-                                        'Letzte Nachricht: ${lastMessage.text}');
-                                  } else {
-                                    print('Keine Nachrichten gefunden.');
-                                  }
-
-                                  int messagesToPrint = 3 <= widget.items.length
-                                      ? 3
-                                      : widget.items.length;
-                                  for (int i = 0; i < messagesToPrint; i++) {
-                                    TextMessage message =
-                                        widget.items[i] as TextMessage;
-                                    print(
-                                        'Nachricht ${i + 1}: ${message.text}');
-                                  }
-                                  Map<String, List<TextMessage>>
-                                      groupedMessages = groupMessagesByUser();
-                                  printFirstNMessagesPerUser(3);
-
-                                  // Gruppieren der Nachrichten und Anzeigen der ersten 3 Nachrichten pro Benutzer
-                                },
-                                child: Text('test'),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.red,
-                                  shape: CircleBorder(),
-                                  padding: EdgeInsets.all(10),
-                                ),
-                              ),
-
-                              //chat send button
-                              Visibility(
-                                visible: _sendButtonVisible,
-                                child: GestureDetector(
-                                  onTap: _handleSendPressed,
-                                  child: Padding(
-                                    padding: // left 9 top 6 right 9 bottom 6
-                                        const EdgeInsets.fromLTRB(0, 6, 6, 6),
-                                    child: SizedBox(
-                                      height: 38.5,
-                                      width: 38.5,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(100)),
-                                        ),
-                                        child: const Icon(
-                                          Icons.send,
-                                          color: Colors.white,
-                                          size: 20,
+                                  Visibility(
+                                    visible: _sendButtonVisible,
+                                    child: GestureDetector(
+                                      onTap: _handleSendPressed,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 6, 6, 6),
+                                        child: SizedBox(
+                                          height: 38.5,
+                                          width: 38.5,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(100),
+                                              ),
+                                            ),
+                                            child: const Icon(
+                                              Icons.send,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-
-                      //create a icon button with a primery background
-                      // sdsd
-                      // LocooCircularIconButton(
-                      //   fillColor: Theme.of(context).primaryColor,
-                      //   iconColor: Theme.of(context).colorScheme.onPrimary,
-
-                      //   iconData: Icons.send,
-                      // ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-            // child: Row(
-            //   textDirection: TextDirection.ltr,
-            //   children: [
-            //     if (widget.onAttachmentPressed != null)
-            //       AttachmentButton(
-            //         isLoading: widget.isAttachmentUploading ?? false,
-            //         onPressed: widget.onAttachmentPressed,
-            //         padding: buttonPadding,
-            //       ),
-
-            //     ConstrainedBox(
-            //       constraints: BoxConstraints(
-            //         minHeight: buttonPadding.bottom + buttonPadding.top + 24,
-            //       ),
-            //       child: Visibility(
-            //         visible: _sendButtonVisible,
-            //         child: SendButton(
-            //           onPressed: _handleSendPressed,
-            //           padding: buttonPadding,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ),
-        ),
+        ],
       ),
     );
   }
