@@ -189,7 +189,7 @@ class FeedPostFilterView extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: LocooTextButton(
-          label: 'Anwenden',
+          label: AppLocalizations.of(context)!.apply,
           onPressed: () =>
               {controller.takeOverExtendedPostFilter(), Get.back()},
           icon: FlutterRemix.check_line,
