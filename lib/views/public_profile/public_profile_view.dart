@@ -10,6 +10,7 @@ import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'public_profile_controller.dart';
 import 'widgets/profile_content.dart';
 import 'widgets/public_profile_more_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class PublicProfileView extends GetView<PublicProfileController> {
   final String userId;
@@ -79,7 +80,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
               );
             } else if (snapshot.hasError) {
               return const Center(
-                  child: Text('The Public profile cannot be loaded'));
+                  child: Text('The public profile cannot be loaded'));
             } else if (snapshot.hasData) {
               final user = snapshot.data!;
               return Column(
@@ -194,7 +195,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                       ),
                       child: LocooTextButton(
                         icon: FlutterRemix.chat_1_fill,
-                        label: 'Anschreiben',
+                        label: AppLocalizations.of(context)!.sendMessage,
                         //onpres open Get.Snackbar
                         onPressed: () async =>
                             await controller.sendNotification(user.id),

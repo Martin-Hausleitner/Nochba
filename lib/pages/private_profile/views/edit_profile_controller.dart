@@ -14,6 +14,7 @@ import 'package:nochba/logic/repositories/UserRepository.dart';
 import 'package:nochba/logic/storage/StorageService.dart';
 import 'package:nochba/views/new_post/tag_dialog.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class EditProfileController extends GetxController {
   TextEditingController firstNameTextController = TextEditingController();
@@ -78,11 +79,11 @@ class EditProfileController extends GetxController {
         context: context,
         builder: (context) {
           return SimpleDialog(
-            title: const Text('Select a profile picture'),
+            title: const Text("Select an image"),
             children: [
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Pick an image'),
+                child: const Text("Choose from gallery"),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   await pickImage(ImageSource.gallery);
@@ -91,7 +92,7 @@ class EditProfileController extends GetxController {
               ),
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Take a photo'),
+                child: const Text("Take a photo"),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   await pickImage(ImageSource.camera);
@@ -101,7 +102,7 @@ class EditProfileController extends GetxController {
               if (!_imageFile.isClear() || userHasProfilePicture)
                 SimpleDialogOption(
                   padding: const EdgeInsets.all(20),
-                  child: const Text('Delete the image'),
+                  child: const Text("Delete the image"),
                   onPressed: () async {
                     Navigator.of(context).pop();
                     await deleteImage();
@@ -182,7 +183,7 @@ class EditProfileController extends GetxController {
       //firstNameTextController.clear();
       //lastNameTextController.clear();
     } on Exception {
-      return Future.error('Der Name konnte nicht aktualisiert werden');
+      return Future.error('The name could not be updated. Please try again later.');
     }
 
     return true;
@@ -203,7 +204,7 @@ class EditProfileController extends GetxController {
           .updateProfessionOfCurrentUser(professionTextController.text.trim());
       //professionTextController.clear();
     } on Exception {
-      return Future.error('Der Beruf konnte nicht aktualisiert werden');
+      return Future.error('The profession could not be updated. Please try again later.');
     }
 
     return true;
@@ -214,7 +215,7 @@ class EditProfileController extends GetxController {
       await userPublicInfoRepository
           .updateBioOfCurrentUser(bioTextController.text.trim());
     } on Exception {
-      return Future.error('Die Bio konnte nicht aktualisiert werden');
+      return Future.error('The bio could not be updated. Please try again later.');
     }
 
     return true;
@@ -224,10 +225,10 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository
           .updateBirthDayOfCurrentUser(birthdayDateController.selectedDate);
-      Get.snackbar('Erfolgreich',
-          'Das Aktualisieren vom Geburtstag hat Erfolgreich funktioniert');
+      Get.snackbar('Successful',
+          'The birthday update was successful.');
     } on Exception {
-      return Future.error('Der Geburtstag konnte nicht aktualisiert werden');
+      return Future.error('The birthday could not be updated. Please try again later.');
     }
 
     return true;
@@ -240,7 +241,7 @@ class EditProfileController extends GetxController {
               neighbourhoodMemberSinceController.selectedDate);
     } on Exception {
       return Future.error(
-          'Das Datum, seit dem du der Nachbarschaft beigetreten bist, konnte nicht aktualisiert werden');
+          'The date since you joined the neighborhood could not be updated. Please try again later.');
     }
 
     return true;
@@ -279,7 +280,7 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository.updateInterestsOfCurrentUser(_interests);
     } on Exception {
-      return Future.error('Deine Interessen konnten nicht aktualisiert werden');
+      return Future.error('Your interests could not be updated. Please try again later.');
     }
 
     return true;
@@ -318,7 +319,7 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository.updateOffersOfCurrentUser(_offers);
     } on Exception {
-      return Future.error('Das Feld konnte nicht aktualisiert werden');
+      return Future.error('The field could not be updated. Please try again later.');
     }
 
     return true;

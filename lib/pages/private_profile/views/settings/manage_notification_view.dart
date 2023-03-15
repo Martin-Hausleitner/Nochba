@@ -8,6 +8,9 @@ import 'package:nochba/pages/private_profile/views/settings/manage_account_contr
 import 'package:nochba/shared/ui/cards/action_text_card.dart';
 import 'package:nochba/shared/ui/cards/action_text_card_red.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:nochba/l10n/l10n.dart';
 
 class ManageNotificationView extends GetView<ManageAccountController> {
   const ManageNotificationView({
@@ -17,7 +20,7 @@ class ManageNotificationView extends GetView<ManageAccountController> {
   @override
   Widget build(BuildContext context) {
     return AppBarBigView(
-      title: 'Benachrichtigungen',
+      title: AppLocalizations.of(context)!.notifications,
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
@@ -61,8 +64,8 @@ class ManageNotificationView extends GetView<ManageAccountController> {
                             activeColor: Theme.of(context).disabledColor,
                             value: true,
                             onChanged: (value) {
-                              Get.snackbar('Nicht möglich',
-                                  'Das Umschalten ist derzeit nicht möglich');
+                              Get.snackbar('Not Possible',
+                                  'Switching is currently not possible');
                             },
                           );
                         }
@@ -77,7 +80,7 @@ class ManageNotificationView extends GetView<ManageAccountController> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            'Möchtest du einen Anfrage bekommen bevor ein Nachbar mit dir chatten kann?',
+            AppLocalizations.of(context)!.whenYouGenerateANewInvitationCodeTheOldOneBecomesInvalid,
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),

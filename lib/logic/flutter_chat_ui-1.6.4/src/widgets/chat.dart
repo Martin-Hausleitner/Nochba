@@ -26,6 +26,7 @@ import 'inherited_user.dart';
 import 'input.dart';
 import 'message.dart';
 import 'text_message.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 /// Entry widget, represents the complete chat. If you wrap it in [SafeArea] and
 /// it should be full screen, set [SafeArea]'s `bottom` to `false`.
@@ -423,7 +424,7 @@ class _ChatState extends State<Chat> {
             height: 10,
           ),
           Text(
-            'Noch keine Nachrichten',
+            AppLocalizations.of(context)!.noMessages,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.15),

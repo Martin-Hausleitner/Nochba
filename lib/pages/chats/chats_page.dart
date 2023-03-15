@@ -17,6 +17,8 @@ import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
 import 'package:nochba/logic/flutter_firebase_chat_core-1.6.3/flutter_firebase_chat_core.dart'
     as chat;
 
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 class ChatsPage extends GetView<ChatsController> {
   const ChatsPage({Key? key}) : super(key: key);
 
@@ -61,8 +63,8 @@ class ChatsPage extends GetView<ChatsController> {
               // This title is visible in both collapsed and expanded states.
               // When the "middle" parameter is omitted, the widget provided
               // in the "largeTitle" parameter is used instead in the collapsed state.
-              largeTitle: const Text(
-                'Nachrichten',
+              largeTitle: Text(
+                AppLocalizations.of(context)!.messages,
               ),
 
               trailing: Row(
@@ -136,7 +138,7 @@ class ChatsPage extends GetView<ChatsController> {
                           height: 10,
                         ),
                         Text(
-                          'Noch keine Nachrichten',
+                          AppLocalizations.of(context)!.noMessages,
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: Theme.of(context)

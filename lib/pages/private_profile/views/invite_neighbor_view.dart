@@ -17,6 +17,7 @@ import 'dart:typed_data';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'dart:ui' as ui;
 
 //create a class calles InviteNeighborView which have AppBarBigView
@@ -79,8 +80,8 @@ class InviteNeighborController extends GetxController {
         final minutes = remainingTimeObject.minute;
         final seconds = remainingTimeObject.second;
         Get.snackbar(
-          'Wartezeit',
-          'Du kannst in $hours Stunden, $minutes Minuten und $seconds Sekunden einen neuen Code generieren',
+          'Wait Period',
+          'You can generate a new QR-Code in: $hours hours, $minutes minutes and $seconds seconds',
         );
       }
     } on FirebaseFunctionsException catch (e) {
@@ -112,7 +113,7 @@ class InviteNeighborView extends StatelessWidget {
         Get.put(InviteNeighborController());
 
     return AppBarBigView(
-      title: 'Nachbar einladen',
+      title: AppLocalizations.of(context)!.inviteNeighbor,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       onPressed: () => {Get.back()},
       children: [
@@ -133,7 +134,7 @@ class InviteNeighborView extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Dein Einladungscode',
+                      AppLocalizations.of(context)!.yourInvitationCode,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 20),
@@ -159,7 +160,7 @@ class InviteNeighborView extends StatelessWidget {
                           await Clipboard.setData(ClipboardData(
                               text: controller.verificationCode.value));
                           //show snackbar
-                          Get.snackbar('Einladungscode wurde kopiert',
+                          Get.snackbar(AppLocalizations.of(context)!.codeHasBeenCopied,
                               controller.verificationCode.value);
                           // copied successfully
                         },
@@ -188,16 +189,16 @@ class InviteNeighborView extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         ActionCard(
-          title: 'Einladungscode teilen',
+          title: AppLocalizations.of(context)!.shareInvitationCode,
           icon: FlutterRemix.share_box_line,
           onTap: () {
             Share.share(
-                'Hallo Nachbar, ich möchte dich einladen, Teil unserer aktiven Nachbarschaftsgemeinschaft zu werden. Lade dir einfach die Nochba App im Play Store herunter: PLAY STORE LINK. Verwende bei der Registrierung meinen Einladungscode: 123456789.',
-                subject: 'Nochba einladungscode');
+                AppLocalizations.of(context)!.inviteNeighborMessage,
+                subject: AppLocalizations.of(context)!.subject);
           },
         ),
         ActionCard(
-          title: 'QR-Code Herunterladen',
+          title: AppLocalizations.of(context)!.downloadQRCode,
           icon: FlutterRemix.download_line,
           onTap: () async {
             final byteData = await QrPainter(
@@ -224,7 +225,7 @@ class InviteNeighborView extends StatelessWidget {
           },
         ),
         LocooTextButton(
-          label: "Neuen Einladecode generieren",
+          label: AppLocalizations.of(context)!.generateNewInvitationCode,
           onPressed: () async {
             await controller.generateVerificationCode();
           },
@@ -237,7 +238,7 @@ class InviteNeighborView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              'Wenn du einen neuen Einladungscode generierst, wird der alte ungültig.',
+              AppLocalizations.of(context)!.whenYouGenerateANewInvitationCodeTheOldOneBecomesInvalid,
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),

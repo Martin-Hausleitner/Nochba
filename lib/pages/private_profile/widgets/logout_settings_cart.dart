@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 //create a class which have a rounded container with a icon on the left side and a text and on the right side a arrow icon
 class LogoutSettingsCard extends StatelessWidget {
@@ -40,7 +41,7 @@ class LogoutSettingsCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
-                        "Abmelden",
+                        AppLocalizations.of(context)!.logOut,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.red,
                             ),

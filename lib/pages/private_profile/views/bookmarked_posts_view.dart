@@ -4,6 +4,9 @@ import 'package:nochba/logic/models/post.dart' as models;
 import 'package:nochba/pages/feed/widgets/post_card.dart' as widget;
 import 'package:nochba/pages/private_profile/private_profile_controller.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:nochba/l10n/l10n.dart';
 
 class BookmarkedPostsView extends StatelessWidget {
   const BookmarkedPostsView({Key? key, required this.controller})
@@ -16,7 +19,7 @@ class BookmarkedPostsView extends StatelessWidget {
     return AppBarBigView(
       contentPadding: //zero padding
           const EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
-      title: 'Gespeicherten Posts',
+      title: AppLocalizations.of(context)!.yourSavedPosts,
       onPressed: () {
         Get.back();
       },
@@ -54,7 +57,7 @@ class BookmarkedPostsView extends StatelessWidget {
                             .withOpacity(0.1),
                       ),
                       Text(
-                        'Du hast noch keine Posts markiert',
+                        AppLocalizations.of(context)!.youHaveNotMarkedAnyPostsYet,
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: Theme.of(context)

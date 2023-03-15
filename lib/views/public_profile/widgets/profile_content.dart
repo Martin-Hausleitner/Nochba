@@ -8,7 +8,7 @@ import 'package:nochba/logic/models/post.dart' as models;
 
 import 'package:nochba/pages/feed/widgets/post_card.dart';
 import 'package:nochba/views/public_profile/public_profile_controller.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'user_info.dart';
 
 //import feed Controller
@@ -40,8 +40,8 @@ class ProfileContent extends StatelessWidget {
             ),
 
             // height: 40,
-            child: const Text(
-              'Info',
+            child: Text(
+              AppLocalizations.of(context)!.information,
               // style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
@@ -56,8 +56,8 @@ class ProfileContent extends StatelessWidget {
             ),
 
             // height: 40,
-            child: const Text(
-              'Posts',
+            child: Text(
+              AppLocalizations.of(context)!.posts,
               // style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
@@ -91,8 +91,8 @@ class ProfileContent extends StatelessWidget {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return const Center(
-                        child: Text('Die Posts sind derzeit nicht verfügbar',
+                      return Center(
+                        child: Text(AppLocalizations.of(context)!.postsAreNotAvailable,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 32, fontWeight: FontWeight.w300)),
@@ -128,7 +128,7 @@ class ProfileContent extends StatelessWidget {
                                         .withOpacity(0.1),
                                   ),
                                   Text(
-                                    'Es sind noch keine posts vorhanden',
+                                    AppLocalizations.of(context)!.postsAreNotAvailable,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium

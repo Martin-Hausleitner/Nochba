@@ -36,6 +36,10 @@ import 'views/invite_neighbor_view.dart';
 import 'views/settings_view.dart';
 import 'widgets/logout_settings_cart.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:nochba/l10n/l10n.dart';
 // import 'package:add_2_calendar/add_2_calendar.dart';
 
 class PrivateProfilePage extends GetView<PrivateProfileController> {
@@ -73,9 +77,9 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
         child: CustomScrollView(
           // A list of sliver widgets.
           slivers: <Widget>[
-            const CupertinoSliverNavigationBar(
+            CupertinoSliverNavigationBar(
               largeTitle: Text(
-                'Dein Profil  ',
+                AppLocalizations.of(context)!.yourProfile,
               ),
               border: //make the border transparent
                   Border(bottom: BorderSide(color: Colors.transparent)),
@@ -228,7 +232,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                               } else if (snapshot.hasError) {
                                 // return a red info icon whith a text below with the error
                                 return Text(
-                                  'Der Name kann zurzeit nicht geladen werden',
+                                  AppLocalizations.of(context)!.usernameCannotBeLoaded,
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge
@@ -262,12 +266,12 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         // // GetDistanceFromLatLonInMeters(),
                         // // VerifyButton(),
                         ActionCard(
-                          title: 'Dein Öffentliches Profil',
+                          title: AppLocalizations.of(context)!.yourPublicProfile,
                           icon: FlutterRemix.user_line,
                           onTap: () => controller.pushPublicProfileView(),
                         ),
                         ActionCard(
-                          title: 'Deine Posts',
+                          title: AppLocalizations.of(context)!.yourPosts,
                           icon: FlutterRemix.file_list_2_line,
                           // color: Colors.red,
 
@@ -284,7 +288,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           },
                         ),
                         ActionCard(
-                          title: 'Deine Gespeicherten Posts',
+                          title: AppLocalizations.of(context)!.yourSavedPosts,
                           icon: FlutterRemix.bookmark_line,
                           onTap: () {
                             //get open settingfs page
@@ -307,11 +311,11 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         //     Get.snackbar("Pressed", "Pressed");
                         //   },
                         // ),
-                        const ActionCardTitle(
-                          title: 'Einstellungen',
+                        ActionCardTitle(
+                          title: AppLocalizations.of(context)!.settings,
                         ),
                         ActionCard(
-                          title: 'Profil Bearbeiten',
+                          title: AppLocalizations.of(context)!.editProfile,
                           icon: FlutterRemix.user_settings_line,
                           onTap: () {
                             //get open settingfs page
@@ -323,7 +327,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                           },
                         ),
                         ActionCard(
-                          title: 'Einstellungen',
+                          title: AppLocalizations.of(context)!.settings,
                           icon: FlutterRemix.settings_3_line,
                           onTap: () {
                             //get open settingfs page
@@ -561,7 +565,7 @@ class CheckAddressWithDeviceLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LocooTextButton(
-      label: 'DEV Verify',
+      label: '[DEV] Click to verify account',
       icon: Icons.arrow_back_rounded,
       onPressed: () async {
         print(FirebaseAuth.instance.currentUser);
@@ -755,7 +759,7 @@ class InviteNeighborCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
-                        "Nachbar einladen",
+                        AppLocalizations.of(context)!.inviteNeighbor,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w500,
                               color: Theme.of(context).primaryColor,

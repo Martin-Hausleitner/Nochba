@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/l10n/l10n.dart';
 import 'package:nochba/pages/private_profile/views/settings/manage_notification_view.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
 import 'package:nochba/shared/ui/cards/action_card_title.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'package:package_info_plus/package_info_plus.dart';
-
 import 'settings/language_selector_view.dart';
 import 'settings/manage_account_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:nochba/l10n/l10n.dart';
 
 // import 'package:confetti/confetti.dart';
 
@@ -29,22 +31,24 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final Uri url = Uri.parse('http://nochba.at/');
 
+    
+
     Future<void> _launchUrl() async {
       if (!await launchUrl(url)) {
         throw 'Could not launch $url';
       }
     }
-
+    
     return AppBarBigView(
-      title: 'Einstellungen',
+      title: AppLocalizations.of(context)!.settings,
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
-        const ActionCardTitle(
-          title: 'Konto',
+        ActionCardTitle(
+          title: AppLocalizations.of(context)!.settings
         ),
         ActionCard(
-          title: 'Konto verwalten',
+          title: AppLocalizations.of(context)!.manageAccount,
           icon: FlutterRemix.user_line,
           onTap: () {
             Get.to(
@@ -60,7 +64,7 @@ class SettingsView extends StatelessWidget {
         ),
 
         ActionCard(
-          title: 'Benachrichtigungen',
+          title: AppLocalizations.of(context)!.notifications,
           icon: FlutterRemix.notification_2_line,
           onTap: () {
             Get.to(
@@ -69,7 +73,7 @@ class SettingsView extends StatelessWidget {
           },
         ),
         ActionCard(
-          title: 'Sprache',
+          title: AppLocalizations.of(context)!.languages,
           icon: Icons.translate_rounded,
           onTap: () {
             Get.to(
@@ -78,24 +82,24 @@ class SettingsView extends StatelessWidget {
           },
         ),
         ActionCard(
-          title: 'Erscheinungsbild',
+          title: AppLocalizations.of(context)!.appearance,
           icon: FlutterRemix.contrast_2_line,
           onTap: () {
-            Get.snackbar("Erscheinungsbild",
-                "Es wird in der Zukunft ein Dark modus kommen");
+            Get.snackbar(AppLocalizations.of(context)!.appearance,
+                "Dark Mode is not available yet.");
           },
         ),
         ActionCard(
-          title: 'Hilfe',
+          title: AppLocalizations.of(context)!.help,
           icon: FlutterRemix.question_line,
           onTap: _launchUrl,
         ),
         // SizedBox(height: 25),
-        const ActionCardTitle(
-          title: 'Inhalte & Aktivität',
+        ActionCardTitle(
+          title: AppLocalizations.of(context)!.contentAndActivity,
         ),
         ActionCard(
-          title: 'Datenschutzerklärung',
+          title: AppLocalizations.of(context)!.privacyPolicy,
           icon: FlutterRemix.shield_user_line,
           onTap: _launchUrl,
         ),
@@ -103,12 +107,12 @@ class SettingsView extends StatelessWidget {
           onTap: _launchUrl,
         ),
         ActionCard(
-          title: 'Lizenzen',
+          title: AppLocalizations.of(context)!.licenses,
           icon: FlutterRemix.stack_fill,
           onTap: _launchUrl,
         ),
         ActionCard(
-          title: 'Über Uns',
+          title: AppLocalizations.of(context)!.aboutUs,
           icon: FlutterRemix.group_line,
           onTap: _launchUrl,
         ),
@@ -277,7 +281,7 @@ class ActionCardImpressum extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
-                        'Impressum',
+                        AppLocalizations.of(context)!.imprint,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w500,
                               // letterSpacing: -0.1,

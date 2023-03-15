@@ -18,6 +18,8 @@ import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 
 import 'package:nochba/logic/models/post.dart' as models;
 import 'package:pinch_zoom/pinch_zoom.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class PostView extends StatelessWidget {
   final models.Post post;
@@ -433,13 +435,13 @@ class _PostViewImageState extends State<PostViewImage> {
                           Padding(
                             padding: const EdgeInsets.only(top: spacingBetween),
                             child: LocooTextButton(
-                              label: 'Anschreiben',
+                              label: AppLocalizations.of(context)!.sendMessage,
                               height: 48,
                               icon: FlutterRemix
                                   .chat_1_fill, //onpres open Get.Snackbar
                               onPressed: () {
                                 Get.snackbar(
-                                  'Anschreiben',
+                                  AppLocalizations.of(context)!.sendMessage,
                                   'Du hast den Button gedrückt',
                                 );
                               },
