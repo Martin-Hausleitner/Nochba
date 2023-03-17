@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:nochba/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_localizations/src/material_localizations.dart';
@@ -31,6 +32,7 @@ Future main() async {
   //     // webRecaptchaSiteKey: 'recaptcha-v3-site-key',  // If you're building a web app.
   //     );
   await dotenv.load();
+  _downloadInitialLanguageModels();
 
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
   final themeJson = jsonDecode(themeStr);
@@ -52,6 +54,12 @@ Future main() async {
   // runApp(MyApp());
 }
 
+Future<void> _downloadInitialLanguageModels() async {
+  final _modelManager = OnDeviceTranslatorModelManager();
+  await _modelManager.downloadModel('en');
+  await _modelManager.downloadModel('de');
+}
+
 class MyApp extends StatefulWidget {
   // final ThemeData theme = ThemeData();
   final ThemeData theme;
@@ -67,7 +75,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) => ChangeNotifierProvider(
       create: (context) => LocaleProvider(),
       builder: (context, child) {
-
         final localeProvider = Provider.of<LocaleProvider>(context);
         return GetMaterialApp(
           initialRoute: AppRoutes.HOME,

@@ -5,6 +5,37 @@ import 'package:nochba/shared/views/app_bar_big_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:nochba/l10n/l10n.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
+
+Future<void> _downloadLanguageModel(String languageCode) async {
+  try {
+    final _modelManager = OnDeviceTranslatorModelManager();
+    if (languageCode != 'en' && languageCode != 'de') {
+      Get.snackbar('Downloading ', 'language model ($languageCode)...');
+    }
+    await _modelManager.downloadModel(languageCode);
+    if (languageCode != 'en' && languageCode != 'de') {
+      Get.snackbar('Success ',
+          'language model ($languageCode) downloaded successfully.');
+    }
+  } catch (e) {
+    if (languageCode != 'en' && languageCode != 'de') {
+      Get.snackbar('Error ', 'downloading language model ($languageCode): $e');
+    }
+    print('Error downloading language model ($languageCode): $e');
+  }
+}
+
+Future<void> _deleteLanguageModel(String languageCode) async {
+  try {
+    final _modelManager = OnDeviceTranslatorModelManager();
+    await _modelManager.deleteModel(languageCode);
+    print('Language model ($languageCode) deleted successfully.');
+  } catch (e) {
+    Get.snackbar('Error ', 'deleting language model ($languageCode): $e');
+    print('Error deleting language model ($languageCode): $e');
+  }
+}
 
 class LanguageSelectorView extends GetView<ManageAccountController> {
   const LanguageSelectorView({
@@ -52,10 +83,13 @@ class LanguagePickerWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: ListTile(
-            onTap: () {
+            onTap: () async {
+              final previousLanguageCode = locale.languageCode;
               final localeProvider =
                   Provider.of<LocaleProvider>(context, listen: false);
               localeProvider.setLocale(locale);
+              await _deleteLanguageModel(previousLanguageCode);
+              await _downloadLanguageModel(locale.languageCode);
             },
             tileColor:
                 Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
@@ -112,3 +146,4 @@ class LocaleProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+

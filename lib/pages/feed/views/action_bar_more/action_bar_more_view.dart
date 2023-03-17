@@ -145,6 +145,12 @@ class ActionBarMore extends StatelessWidget {
                   );
                 },
               ),
+              ActionCard(
+                title: 'Post Überstzen in langauge',
+                icon: FlutterRemix.delete_bin_line,
+                onTap: () => {},
+              ),
+
               if (post.category == 'Event')
                 ActionCard(
                   title: 'Event zum Kalender hinzufügen',

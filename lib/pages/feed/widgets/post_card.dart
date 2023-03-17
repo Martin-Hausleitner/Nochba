@@ -14,6 +14,14 @@ import 'package:nochba/pages/feed/widgets/post/action_bar.dart';
 import 'package:nochba/pages/feed/widgets/post/post_profile.dart';
 import 'package:nochba/pages/feed/widgets/post_card_controller.dart';
 // import 'package:simplytranslate/simplytranslate.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nochba/pages/private_profile/views/settings/manage_account_controller.dart';
+import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:provider/provider.dart';
+import 'package:nochba/l10n/l10n.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 
 import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 
@@ -32,12 +40,29 @@ class Post extends StatefulWidget {
   Post({Key? key, required this.post}) : super(key: key) {
     category = CategoryModul.getCategoryOptionByName(post.category);
   }
-  
 
   final _PostState postState = _PostState();
 
   @override
   _PostState createState() => _PostState();
+}
+
+class LocaleProvider extends ChangeNotifier {
+  Locale? _locale;
+
+  Locale? get locale => _locale;
+
+  void setLocale(Locale locale) {
+    if (!L10n.all.contains(locale)) return;
+
+    _locale = locale;
+    notifyListeners();
+  }
+
+  void clearLocale() {
+    _locale = null;
+    notifyListeners();
+  }
 }
 
 class _PostState extends State<Post> {
@@ -46,46 +71,47 @@ class _PostState extends State<Post> {
     super.dispose();
   }
 
-   Future<void> startTranslation() async {
+  Future<void> startTranslation() async {
     await translatePost();
   }
 
- 
-
   Future<void> translatePost() async {
     try {
-      final sourceLanguage = TranslateLanguage.german;
-      final targetLanguage = TranslateLanguage.english;
-      final _modelManager = OnDeviceTranslatorModelManager();
-      _modelManager.downloadModel(sourceLanguage.bcpCode);
-      _modelManager.downloadModel(targetLanguage.bcpCode);
+      final provider = Provider.of<LocaleProvider>(context, listen: false);
+      final appLocale = provider.locale!.languageCode;
 
-      print(
-          'Model downloaded: ${await _modelManager.isModelDownloaded(sourceLanguage.bcpCode)}');
-      print(
-          'Model downloaded: ${await _modelManager.isModelDownloaded(targetLanguage.bcpCode)}');
+      // Identify the source language
+      final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
+      final titleLanguage =
+          await languageIdentifier.identifyLanguage(widget.post.title);
+      final descriptionLanguage =
+          await languageIdentifier.identifyLanguage(widget.post.description);
 
-      final OnDeviceTranslator onDeviceTranslator = OnDeviceTranslator(
-        sourceLanguage: sourceLanguage,
-        targetLanguage: targetLanguage,
-      );
+      if (titleLanguage == appLocale && descriptionLanguage == appLocale) {
+        return; // No translation needed
+      }
 
-      final String titleTranslation =
-          await onDeviceTranslator.translateText(widget.post.title);
-      final String descriptionTranslation =
-          await onDeviceTranslator.translateText(widget.post.description);
+      // final sourceLanguage = TranslateLanguage.fromLanguageCode(titleLanguage);
+      // final targetLanguage = TranslateLanguage.fromLanguageCode(appLocale);
 
-      // Show snackbar with translated text
-      // Get.snackbar(
-      //   'Translated Text',
-      //   'Title: $titleTranslation \nDescription: $descriptionTranslation',
+      // final _modelManager = OnDeviceTranslatorModelManager();
+      // _modelManager.downloadModel(sourceLanguage.bcpCode);
+      // _modelManager.downloadModel(targetLanguage.bcpCode);
+
+      // final OnDeviceTranslator onDeviceTranslator = OnDeviceTranslator(
+      //   sourceLanguage: sourceLanguage,
+      //   targetLanguage: targetLanguage,
       // );
 
-      // Update the state temporarily with the translated text
-      setState(() {
-        widget.titleTranslation = titleTranslation;
-        widget.descriptionTranslation = descriptionTranslation;
-      });
+      // final String titleTranslation =
+      //     await onDeviceTranslator.translateText(widget.post.title);
+      // final String descriptionTranslation =
+      //     await onDeviceTranslator.translateText(widget.post.description);
+
+      // setState(() {
+      //   widget.titleTranslation = titleTranslation;
+      //   widget.descriptionTranslation = descriptionTranslation;
+      // });
     } catch (e) {
       print('Error translating text: $e');
       Get.snackbar(
