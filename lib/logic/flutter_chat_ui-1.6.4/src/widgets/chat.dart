@@ -346,61 +346,82 @@ class _ChatState extends State<Chat> {
             child: Stack(
               children: [
                 Container(
-                  color: //color f9f8fd
-                      Theme.of(context).colorScheme.background,
-                  // Color(0xffF9F8FD),
-                  // Theme.of(context).backgroundColor,
-                  child: Column(
+                  color: Theme.of(context).colorScheme.background,
+                  child: Stack(
                     children: [
-                      Flexible(
-                        child: widget.messages.isEmpty
-                            ? SizedBox.expand(
-                                child: _emptyStateBuilder(),
-                              )
-                            : GestureDetector(
-                                onTap: () {
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  widget.onBackgroundTap?.call();
-                                },
-                                child: LayoutBuilder(
-                                  builder: (
-                                    BuildContext context,
-                                    BoxConstraints constraints,
-                                  ) =>
-                                      ChatList(
-                                    isLastPage: widget.isLastPage,
-                                    itemBuilder: (item, index) =>
-                                        _messageBuilder(item, constraints),
-                                    items: _chatMessages,
-                                    keyboardDismissBehavior:
-                                        widget.keyboardDismissBehavior,
-                                    onEndReached: widget.onEndReached,
-                                    onEndReachedThreshold:
-                                        widget.onEndReachedThreshold,
-                                    scrollController: widget.scrollController,
-                                    scrollPhysics: widget.scrollPhysics,
+                      Column(
+                        children: [
+                          //container red box
+
+                          Flexible(
+                            child: widget.messages.isEmpty
+                                ? SizedBox.expand(
+                                    child: _emptyStateBuilder(),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
+                                      widget.onBackgroundTap?.call();
+                                    },
+                                    child: LayoutBuilder(
+                                      builder: (BuildContext context,
+                                              BoxConstraints constraints) =>
+                                          Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 40.0),
+                                        child: ChatList(
+                                          isLastPage: widget.isLastPage,
+                                          itemBuilder: (item, index) =>
+                                              _messageBuilder(
+                                                  item, constraints),
+                                          items: _chatMessages,
+                                          keyboardDismissBehavior:
+                                              widget.keyboardDismissBehavior,
+                                          onEndReached: widget.onEndReached,
+                                          onEndReachedThreshold:
+                                              widget.onEndReachedThreshold,
+                                          scrollController:
+                                              widget.scrollController,
+                                          scrollPhysics: widget.scrollPhysics,
+                                        ),
+                                      ),
+                                    ),
                                   ),
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Container(
+                          color: Colors.transparent,
+                          child: widget.customBottomWidget ??
+                              Input(
+                                items: widget.messages,
+                                localUserId: widget.user.id,
+                                isAttachmentUploading:
+                                    widget.isAttachmentUploading,
+                                onAttachmentPressed: widget.onAttachmentPressed,
+                                onSendPressed: widget.onSendPressed,
+                                options: InputOptions(
+                                  backgroundColor: Colors.transparent,
+                                  // You can add other properties from the original `widget.inputOptions` here
                                 ),
                               ),
+                        ),
                       ),
-                      widget.customBottomWidget ??
-                          Input(
-                            items: widget.messages,
-                            isAttachmentUploading: widget.isAttachmentUploading,
-                            onAttachmentPressed: widget.onAttachmentPressed,
-                            onSendPressed: widget.onSendPressed,
-                            options: widget.inputOptions,
-                          ),
+                      if (_isImageViewVisible)
+                        ImageGallery(
+                          images: _gallery,
+                          pageController: _galleryPageController!,
+                          onClosePressed: _onCloseGalleryPressed,
+                          options: widget.imageGalleryOptions,
+                        ),
                     ],
                   ),
                 ),
-                if (_isImageViewVisible)
-                  ImageGallery(
-                    images: _gallery,
-                    pageController: _galleryPageController!,
-                    onClosePressed: _onCloseGalleryPressed,
-                    options: widget.imageGalleryOptions,
-                  ),
               ],
             ),
           ),

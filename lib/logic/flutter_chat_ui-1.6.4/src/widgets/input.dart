@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:get/get.dart';
+import 'dart:developer' as dev;
+import 'package:nochba/logic/models/user.dart' as models;
+
 import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
-
 import '../../../flutter_chat_types-3.4.5/src/messages/text_message.dart';
 import '../models/input_clear_mode.dart';
 import '../models/send_button_visibility_mode.dart';
@@ -12,6 +14,7 @@ import 'attachment_button.dart';
 import 'inherited_chat_theme.dart';
 import 'input_text_field_controller.dart';
 import 'send_button.dart';
+import 'package:google_mlkit_smart_reply/google_mlkit_smart_reply.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 /// A class that represents bottom bar widget with a text field, attachment and
@@ -25,9 +28,11 @@ class Input extends StatefulWidget {
     required this.onSendPressed,
     this.options = const InputOptions(),
     required this.items,
+    this.localUserId,
   });
 
-  final List<Object> items;
+  // final List<Object> items;
+  final List<types.Message> items;
 
   /// Whether attachment is uploading. Will replace attachment button with a
   /// [CircularProgressIndicator]. Since we don't have libraries for
@@ -44,6 +49,8 @@ class Input extends StatefulWidget {
 
   /// Customisation options for the [Input].
   final InputOptions options;
+
+  final String? localUserId;
 
   @override
   State<Input> createState() => _InputState();
@@ -73,29 +80,72 @@ class _InputState extends State<Input> {
   bool _sendButtonVisible = false;
   late TextEditingController _textController;
 
+  SmartReplySuggestionResult? _suggestions;
+  final SmartReply _smartReply = SmartReply();
+
   @override
   void initState() {
     super.initState();
-
     _textController =
         widget.options.textEditingController ?? InputTextFieldController();
-    _handleSendButtonVisibilityModeChange();
+    _textController.addListener(() {
+      setState(() {
+        _sendButtonVisible = _textController.text.trim().isNotEmpty;
+      });
+    });
+    _generateSmartReplies();
   }
 
   @override
   void didUpdateWidget(covariant Input oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.options.sendButtonVisibilityMode !=
-        oldWidget.options.sendButtonVisibilityMode) {
-      _handleSendButtonVisibilityModeChange();
+    if (widget.items != oldWidget.items) {
+      _generateSmartReplies();
     }
   }
 
   @override
   void dispose() {
-    _inputFocusNode.dispose();
-    _textController.dispose();
+    _smartReply.close();
     super.dispose();
+  }
+
+  Future<void> _generateSmartReplies() async {
+    _smartReply.clearConversation();
+    List<types.Message> reversedItems = widget.items.reversed.toList();
+    for (types.Message message in reversedItems) {
+      if (message is types.TextMessage) {
+        final user = message.author;
+        final timestamp = message.createdAt;
+        if (widget.localUserId == user.id) {
+          _smartReply.addMessageToConversationFromLocalUser(
+            message.text,
+            timestamp!,
+          );
+        } else {
+          _smartReply.addMessageToConversationFromRemoteUser(
+            message.text,
+            timestamp!,
+            user.id,
+          );
+          dev.log('Remote User ${user.role.toString()}: ${message.text}');
+        }
+      }
+    }
+    final result = await _smartReply.suggestReplies();
+    setState(() {
+      _suggestions = result;
+    });
+
+    // Log smart replies
+    dev.log('Smart Replies: ${_suggestions?.suggestions}');
+
+    // Log the first stored Smart Reply if available
+    if (_suggestions != null && _suggestions!.suggestions.isNotEmpty) {
+      dev.log('First Smart Reply: ${_suggestions!.suggestions.first}');
+    } else {
+      dev.log('No Smart Replies available.');
+    }
   }
 
   @override
@@ -119,7 +169,6 @@ class _InputState extends State<Input> {
   }
 
   void _handleSendPressed() {
-    print(widget.items.toString());
     final trimmedText = _textController.text.trim();
     if (trimmedText != '') {
       final partialText = types.PartialText(text: trimmedText);
@@ -169,6 +218,46 @@ class _InputState extends State<Input> {
     }
   }
 
+  Widget _buildChipList() {
+    List<String> buttonTexts =
+        _suggestions?.suggestions.map<String>((s) => s).toList() ?? [];
+
+    return Container(
+      padding: EdgeInsets.only(left: 5),
+      height: 40,
+      child: ListView.builder(
+        itemCount: buttonTexts.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
+            child: TextButton(
+              onPressed: () {
+                _textController.text = buttonTexts[index];
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                child: Text(
+                  buttonTexts[index],
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color),
+                ),
+              ),
+              style: TextButton.styleFrom(
+                primary: Theme.of(context).scaffoldBackgroundColor,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _inputBuilder() {
     final query = MediaQuery.of(context);
     final buttonPadding = InheritedChatTheme.of(context)
@@ -197,61 +286,53 @@ class _InputState extends State<Input> {
         );
 
     return SafeArea(
-      child: Padding(
-        padding: // left 8 right 8 bottom 8
-            const EdgeInsets.fromLTRB(8, 0, 8, 8),
-        child: Focus(
-          autofocus: true,
-          child: Material(
-            // borderRadius: InheritedChatTheme.of(context).theme.inputBorderRadius,
-            // color: Theme.of(context).scaffoldBackgroundColor,
-            color: Colors.transparent,
-
-            child: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          // height: 50,
-                          // round corners
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(28),
-                            // color: Theme.of(context).scaffoldBackgroundColor,
-                            color: Colors.red
-                          ),
-
-                          child: Row(
-                            //alling bottom
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              if (widget.onAttachmentPressed != null)
-                                AttachmentButton(
-                                  isLoading:
-                                      widget.isAttachmentUploading ?? false,
-                                  onPressed: widget.onAttachmentPressed,
-                                  padding: const EdgeInsets.fromLTRB(
-                                      18, 13.5, 5, 13.5),
-                                ),
-                              Expanded(
-                                child: Padding(
-                                  padding: // top 20 left 20 right 20 bottom 20
-                                      textPadding,
-                                  child: Column(
-                                    children: [
-                                      TextField(
-                                        autofocus: true,
-                                        //focus the texfield without the keyboard
-                                        focusNode: _inputFocusNode,
-                                        controller: _textController,
-                                        cursorColor:
-                                            InheritedChatTheme.of(context)
-                                                .theme
-                                                .inputTextCursorColor,
-                                        decoration:
-                                            InheritedChatTheme.of(context)
+      child: Column(
+        children: [
+          _buildChipList(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            child: Focus(
+              autofocus: true,
+              child: Material(
+                color: Colors.transparent,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(28),
+                                color: Colors.white,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  if (widget.onAttachmentPressed != null)
+                                    AttachmentButton(
+                                      isLoading:
+                                          widget.isAttachmentUploading ?? false,
+                                      onPressed: widget.onAttachmentPressed,
+                                      padding: const EdgeInsets.fromLTRB(
+                                          18, 13.5, 5, 13.5),
+                                    ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: textPadding,
+                                      child: Column(
+                                        children: [
+                                          TextField(
+                                            autofocus: true,
+                                            focusNode: _inputFocusNode,
+                                            controller: _textController,
+                                            cursorColor:
+                                                InheritedChatTheme.of(context)
+                                                    .theme
+                                                    .inputTextCursorColor,
+                                            decoration: InheritedChatTheme.of(
+                                                    context)
                                                 .theme
                                                 .inputTextDecoration
                                                 .copyWith(
@@ -269,145 +350,71 @@ class _InputState extends State<Input> {
                                                             .withOpacity(0.5),
                                                         fontSize: 15,
                                                       ),
-                                                  // hintText: InheritedL10n.of(context)
-                                                  //     .l10n
-                                                  //     .inputPlaceholder,
-                                                  hintText: AppLocalizations.of(context)!.newMessage,
+                                                  hintText: 'Neue Nachricht',
                                                 ),
-                                        keyboardType: TextInputType.multiline,
-                                        maxLines: 5,
-                                        minLines: 1,
-                                        onChanged: widget.options.onTextChanged,
-                                        onTap: widget.options.onTextFieldTap,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                        textCapitalization:
-                                            TextCapitalization.sentences,
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            maxLines: 5,
+                                            minLines: 1,
+                                            onChanged:
+                                                widget.options.onTextChanged,
+                                            onTap:
+                                                widget.options.onTextFieldTap,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge,
+                                            textCapitalization:
+                                                TextCapitalization.sentences,
+                                          ),
+                                          const SizedBox(
+                                            height: 6,
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(
-                                        height: 6,
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-
-                              ElevatedButton(
-                                onPressed: () {
-                                  print(widget.items.toString());
-
-                                  for (var item in widget.items) {
-                                    if (item is TextMessage) {
-                                      if (item.text == 'sdsd') {
-                                        print('Gefundener Wert: ${item.text}');
-                                      }
-                                    }
-                                  }
-
-                                  if (widget.items.isNotEmpty) {
-                                    TextMessage lastMessage =
-                                        widget.items.last as TextMessage;
-                                    print(
-                                        'Letzte Nachricht: ${lastMessage.text}');
-                                  } else {
-                                    print('Keine Nachrichten gefunden.');
-                                  }
-
-                                  int messagesToPrint = 3 <= widget.items.length
-                                      ? 3
-                                      : widget.items.length;
-                                  for (int i = 0; i < messagesToPrint; i++) {
-                                    TextMessage message =
-                                        widget.items[i] as TextMessage;
-                                    print(
-                                        'Nachricht ${i + 1}: ${message.text}');
-                                  }
-                                  Map<String, List<TextMessage>>
-                                      groupedMessages = groupMessagesByUser();
-                                  printFirstNMessagesPerUser(3);
-
-                                  // Gruppieren der Nachrichten und Anzeigen der ersten 3 Nachrichten pro Benutzer
-                                },
-                                child: Text('test'),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.red,
-                                  shape: CircleBorder(),
-                                  padding: EdgeInsets.all(10),
-                                ),
-                              ),
-
-                              //chat send button
-                              Visibility(
-                                visible: _sendButtonVisible,
-                                child: GestureDetector(
-                                  onTap: _handleSendPressed,
-                                  child: Padding(
-                                    padding: // left 9 top 6 right 9 bottom 6
-                                        const EdgeInsets.fromLTRB(0, 6, 6, 6),
-                                    child: SizedBox(
-                                      height: 38.5,
-                                      width: 38.5,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(100)),
-                                        ),
-                                        child: const Icon(
-                                          Icons.send,
-                                          color: Colors.white,
-                                          size: 20,
+                                  Visibility(
+                                    visible: _sendButtonVisible,
+                                    child: GestureDetector(
+                                      onTap: _handleSendPressed,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 6, 6, 6),
+                                        child: SizedBox(
+                                          height: 38.5,
+                                          width: 38.5,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(100),
+                                              ),
+                                            ),
+                                            child: const Icon(
+                                              Icons.send,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-
-                      //create a icon button with a primery background
-                      // sdsd
-                      // LocooCircularIconButton(
-                      //   fillColor: Theme.of(context).primaryColor,
-                      //   iconColor: Theme.of(context).colorScheme.onPrimary,
-
-                      //   iconData: Icons.send,
-                      // ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-            // child: Row(
-            //   textDirection: TextDirection.ltr,
-            //   children: [
-            //     if (widget.onAttachmentPressed != null)
-            //       AttachmentButton(
-            //         isLoading: widget.isAttachmentUploading ?? false,
-            //         onPressed: widget.onAttachmentPressed,
-            //         padding: buttonPadding,
-            //       ),
-
-            //     ConstrainedBox(
-            //       constraints: BoxConstraints(
-            //         minHeight: buttonPadding.bottom + buttonPadding.top + 24,
-            //       ),
-            //       child: Visibility(
-            //         visible: _sendButtonVisible,
-            //         child: SendButton(
-            //           onPressed: _handleSendPressed,
-            //           padding: buttonPadding,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -421,27 +428,13 @@ class InputOptions {
     this.onTextFieldTap,
     this.sendButtonVisibilityMode = SendButtonVisibilityMode.editing,
     this.textEditingController,
+    this.backgroundColor = Colors.transparent,
   });
 
-  /// Controls the [Input] clear behavior. Defaults to [InputClearMode.always].
   final InputClearMode inputClearMode;
-
-  /// Will be called whenever the text inside [TextField] changes.
   final void Function(String)? onTextChanged;
-
-  /// Will be called on [TextField] tap.
   final VoidCallback? onTextFieldTap;
-
-  /// Controls the visibility behavior of the [SendButton] based on the
-  /// [TextField] state inside the [Input] widget.
-  /// Defaults to [SendButtonVisibilityMode.editing].
   final SendButtonVisibilityMode sendButtonVisibilityMode;
-
-  /// Custom [TextEditingController]. If not provided, defaults to the
-  /// [InputTextFieldController], which extends [TextEditingController] and has
-  /// additional fatures like markdown support. If you want to keep additional
-  /// features but still need some methods from the default [TextEditingController],
-  /// you can create your own [InputTextFieldController] (imported from this lib)
-  /// and pass it here.
   final TextEditingController? textEditingController;
+  final Color backgroundColor;
 }
