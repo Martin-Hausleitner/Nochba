@@ -26,6 +26,8 @@ class LanguageSelectorView extends GetView<ManageAccountController> {
       onPressed: () => {Get.back()},
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       children: [
+        LanguagePickerWidget(),
+        LanguagePickerWidgetRadio(),
         RadioLangSelector(),
       ],
     );
@@ -91,7 +93,7 @@ class _RadioLangSelectorState extends State<RadioLangSelector> {
             groupValue: locale,
             onChanged: (Locale? value) {
               setState(() {
-        final localeProvider = Provider.of<LocaleProvider>(context);
+                final localeProvider = Provider.of<LocaleProvider>(context);
                 localeProvider.setLocale(value!);
               });
             },
@@ -122,14 +124,70 @@ class _RadioLangSelectorState extends State<RadioLangSelector> {
             activeColor: Theme.of(context).primaryColor,
             value: Language.English,
             groupValue: _character,
-            onChanged: (Language? value) {
-              setState(() {
-                _character = value;
-              });
-            },
+            onChanged: (Language? value) {},
           ),
         ),
       ],
+    );
+  }
+}
+
+class LanguagePickerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final provider = Provider.of<LocaleProvider>(context);
+    final locale = provider.locale;
+
+    return DropdownButtonHideUnderline(
+        child: DropdownButton(
+      value: locale,
+      icon: Container(width: 12),
+      items: L10n.all.map(
+        (locale) {
+          final flag = L10n.getFlag(locale.languageCode);
+
+          return DropdownMenuItem(
+            child: Center(
+              child: Text(
+                flag,
+                style: TextStyle(fontSize: 50),
+              ),
+            ),
+            value: locale,
+            onTap: () {
+              final provider =
+                  Provider.of<LocaleProvider>(context, listen: false);
+              provider.setLocale(locale);
+            },
+          );
+        },
+      ).toList(),
+      onChanged: (_) {},
+    ));
+  }
+}
+
+class LanguagePickerWidgetRadio extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final provider = Provider.of<LocaleProvider>(context);
+    final locale = provider.locale;
+
+    return Column(
+      children: L10n.all.map((locale) {
+        final flag = L10n.getFlag(locale.languageCode);
+
+        return RadioListTile(
+          title: Text(flag),
+          value: locale,
+          groupValue: provider.locale,
+          onChanged: (selectedLocale) {
+            final provider =
+                Provider.of<LocaleProvider>(context, listen: false);
+            provider.setLocale(locale);
+          },
+        );
+      }).toList(),
     );
   }
 }
