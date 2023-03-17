@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:developer' as dev;
+import 'package:nochba/logic/models/user.dart' as models;
+
 import 'package:nochba/logic/flutter_chat_types-3.4.5/flutter_chat_types.dart'
     as types;
 import '../../../flutter_chat_types-3.4.5/src/messages/text_message.dart';
@@ -15,7 +17,6 @@ import 'send_button.dart';
 import 'package:google_mlkit_smart_reply/google_mlkit_smart_reply.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-enum Role { admin, agent, moderator, user }
 
 /// A class that represents bottom bar widget with a text field, attachment and
 /// send buttons inside. By default hides send button when text field is empty.
@@ -116,11 +117,13 @@ class _InputState extends State<Input> {
       if (message is types.TextMessage) {
         final user = message.author;
         final timestamp = message.createdAt;
+        dev.log('types.Message: ${message.author}');
+
 
         // Log the user role
         dev.log('User role: ${user.role}');
 
-        if (user.role == Role.user) {
+        if (user.role == models.Role.user) {
           _smartReply.addMessageToConversationFromLocalUser(
               message.text, timestamp!);
         } else {
