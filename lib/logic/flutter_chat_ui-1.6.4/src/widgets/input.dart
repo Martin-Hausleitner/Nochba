@@ -17,7 +17,6 @@ import 'send_button.dart';
 import 'package:google_mlkit_smart_reply/google_mlkit_smart_reply.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-
 /// A class that represents bottom bar widget with a text field, attachment and
 /// send buttons inside. By default hides send button when text field is empty.
 class Input extends StatefulWidget {
@@ -29,6 +28,7 @@ class Input extends StatefulWidget {
     required this.onSendPressed,
     this.options = const InputOptions(),
     required this.items,
+    this.localUserId,
   });
 
   // final List<Object> items;
@@ -49,6 +49,8 @@ class Input extends StatefulWidget {
 
   /// Customisation options for the [Input].
   final InputOptions options;
+
+  final String? localUserId;
 
   @override
   State<Input> createState() => _InputState();
@@ -110,36 +112,40 @@ class _InputState extends State<Input> {
 
   Future<void> _generateSmartReplies() async {
     _smartReply.clearConversation();
-
     List<types.Message> reversedItems = widget.items.reversed.toList();
-
     for (types.Message message in reversedItems) {
       if (message is types.TextMessage) {
         final user = message.author;
         final timestamp = message.createdAt;
-        dev.log('types.Message: ${message.author}');
-
-
-        // Log the user role
-        dev.log('User role: ${user.role}');
-
-        if (user.role == models.Role.user) {
+        if (widget.localUserId == user.id) {
           _smartReply.addMessageToConversationFromLocalUser(
-              message.text, timestamp!);
+            message.text,
+            timestamp!,
+          );
         } else {
           _smartReply.addMessageToConversationFromRemoteUser(
-              message.text, timestamp!, user.id);
+            message.text,
+            timestamp!,
+            user.id,
+          );
+          dev.log('Remote User ${user.role.toString()}: ${message.text}');
         }
-
-        // Log the message text and author information using dev.log
-        dev.log('${user.role.toString()}: ${message.text}');
       }
     }
-
     final result = await _smartReply.suggestReplies();
     setState(() {
       _suggestions = result;
     });
+
+    // Log smart replies
+    dev.log('Smart Replies: ${_suggestions?.suggestions}');
+
+    // Log the first stored Smart Reply if available
+    if (_suggestions != null && _suggestions!.suggestions.isNotEmpty) {
+      dev.log('First Smart Reply: ${_suggestions!.suggestions.first}');
+    } else {
+      dev.log('No Smart Replies available.');
+    }
   }
 
   @override
@@ -213,22 +219,38 @@ class _InputState extends State<Input> {
   }
 
   Widget _buildChipList() {
-    List<String> chipTexts =
+    List<String> buttonTexts =
         _suggestions?.suggestions.map<String>((s) => s).toList() ?? [];
 
     return Container(
-      height: 50,
+      padding: EdgeInsets.only(left: 5),
+      height: 40,
       child: ListView.builder(
-        itemCount: chipTexts.length,
+        itemCount: buttonTexts.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Chip(
-              label: Text(chipTexts[index]),
-              onDeleted: () {
-                _textController.text = chipTexts[index];
+            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
+            child: TextButton(
+              onPressed: () {
+                _textController.text = buttonTexts[index];
               },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                child: Text(
+                  buttonTexts[index],
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color),
+                ),
+              ),
+              style: TextButton.styleFrom(
+                primary: Theme.of(context).scaffoldBackgroundColor,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ),
           );
         },
@@ -282,8 +304,7 @@ class _InputState extends State<Input> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(28),
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                                color: Colors.white,
                               ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -407,27 +428,13 @@ class InputOptions {
     this.onTextFieldTap,
     this.sendButtonVisibilityMode = SendButtonVisibilityMode.editing,
     this.textEditingController,
+    this.backgroundColor = Colors.transparent,
   });
 
-  /// Controls the [Input] clear behavior. Defaults to [InputClearMode.always].
   final InputClearMode inputClearMode;
-
-  /// Will be called whenever the text inside [TextField] changes.
   final void Function(String)? onTextChanged;
-
-  /// Will be called on [TextField] tap.
   final VoidCallback? onTextFieldTap;
-
-  /// Controls the visibility behavior of the [SendButton] based on the
-  /// [TextField] state inside the [Input] widget.
-  /// Defaults to [SendButtonVisibilityMode.editing].
   final SendButtonVisibilityMode sendButtonVisibilityMode;
-
-  /// Custom [TextEditingController]. If not provided, defaults to the
-  /// [InputTextFieldController], which extends [TextEditingController] and has
-  /// additional fatures like markdown support. If you want to keep additional
-  /// features but still need some methods from the default [TextEditingController],
-  /// you can create your own [InputTextFieldController] (imported from this lib)
-  /// and pass it here.
   final TextEditingController? textEditingController;
+  final Color backgroundColor;
 }
