@@ -1,32 +1,32 @@
-name: CI
-on:
-  push:
-    branches:
-      - main
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: stable
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: true
-          working-directory: 'android'
-      - uses: maierj/fastlane-action@v3.0.0
-        with:
-          lane: 'build'
-          subdirectory: 'android'
-          command: 'sudo fastlane build apk'
-      - uses: maierj/fastlane-action@v3.0.0
-        with:
-          lane: 'IncrementBuildNumber'
-          subdirectory: 'android'
-      - uses: maierj/fastlane-action@v3.0.0
-        with:
-          lane: 'deploy'
-          subdirectory: 'android'
+# name: CI
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Set up Flutter
+#         uses: subosito/flutter-action@v1
+#         with:
+#           channel: stable
+#       - uses: ruby/setup-ruby@v1
+#         with:
+#           ruby-version: '3.0'
+#           bundler-cache: true
+#           working-directory: 'android'
+#       - uses: maierj/fastlane-action@v3.0.0
+#         with:
+#           lane: 'build'
+#           subdirectory: 'android'
+#           command: 'sudo fastlane build apk'
+#       - uses: maierj/fastlane-action@v3.0.0
+#         with:
+#           lane: 'IncrementBuildNumber'
+#           subdirectory: 'android'
+#       - uses: maierj/fastlane-action@v3.0.0
+#         with:
+#           lane: 'deploy'
+#           subdirectory: 'android'

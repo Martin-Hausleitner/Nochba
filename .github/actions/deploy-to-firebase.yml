@@ -1,13 +1,13 @@
-name: CI
-on:
-  push:
-    branches:
-      - main
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Firebase
-        run: fastlane android deploy_to_firebase
-        with:
-          working-directory: android
+# name: CI
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy to Firebase
+#         run: fastlane android deploy_to_firebase
+#         with:
+#           working-directory: android

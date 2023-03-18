@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.dart'
+      - 'pubspec.yaml'
+      - '.github/workflows/flutter_build.yml'
 
 jobs:
   build:
@@ -21,8 +25,8 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
 
-    # - name: Run tests
-    #   run: flutter test
+    - name: Run tests
+      run: flutter test
 
     - name: Build APK with obfuscation
       run: flutter build apk --release --obfuscate --split-debug-info=${{ github.event.repository.name }}/split-debug-info
@@ -33,3 +37,9 @@ jobs:
         TRELLO_LIST_ID: ${{ secrets.TRELLO_LIST_ID }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         OPENAI_ORGANIZATION_ID: ${{ secrets.OPENAI_ORGANIZATION_ID }}
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk
