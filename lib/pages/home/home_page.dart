@@ -170,17 +170,6 @@ class _HomePageState extends State<HomePage> {
           //             // textAlign: TextAlign.center,
           //           ),
           //           const SizedBox(height: 20),
-          //           ElevatedButton(
-          //             onPressed: () {
-          //               Get.to(() => const AuthPage());
-          //             },
-          //             child: const Text('Login'),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // );
         }
       },
     );

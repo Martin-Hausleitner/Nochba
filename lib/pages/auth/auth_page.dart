@@ -28,7 +28,7 @@ class _AuthPageState extends State<AuthPage> {
 
   void _loadDialogState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isDialogShown', false);
+    await prefs.setBool('isDialogShown', true);
 
     setState(() {
       _isDialogShown = prefs.getBool('isDialogShown') ?? false;
@@ -39,25 +39,53 @@ class _AuthPageState extends State<AuthPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0)),
+            ),
             icon: Lottie.asset(
               'assets/lottie/shake.json',
               width: 200,
               height: 200,
               fit: BoxFit.cover,
             ),
-            title: const Text(
-              "Warnung vor Datenverlust: Bitte beachten Sie, dass alle während der Testphase eingegebenen Daten verloren gehen können",
+            title: Text(
+              "Early Access",
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
             ),
-            content: const Text(
-              "Wir möchten Sie daran erinnern, dass alle während der Testphase in die App eingegebenen Daten nach Abschluss der Testphase verloren gehen können. Wir freuen uns sehr über Ihr Feedback, um die App für künftige Nutzer zu verbessern. Wir bitten Sie, uns unter project@nochba.com zu kontaktieren, wenn Sie Fehler oder Probleme mit den Funktionen der App feststellen. Wir danken für Ihr Verständnis und wünschen Ihnen viel Spaß mit der App!",
+            content: Text(
+              "Diese App befindet sich im Early Access. Wenn Sie auf Fehler, Bugs oder andere Probleme stoßen, schütteln Sie bitte Ihr Handy. Dadurch wird ein Feedback-Menü geöffnet, über das Sie den Fehler melden können.",
+              style: TextStyle(
+                color: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .color!
+                    .withOpacity(0.6),
+              ),
+              textAlign: TextAlign.center,
             ),
             actions: [
-              TextButton(
-                child: const Text("LOS GEHT'S!"),
-                onPressed: () {
-                  _saveDialogState();
-                  Navigator.of(context).pop();
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  child: const Text(
+                    "LOS GEHT'S!",
+                    style: TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).primaryColor,
+                    onSurface: Theme.of(context).primaryColor,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  onPressed: () {
+                    _saveDialogState();
+                    Navigator.of(context).pop();
+                  },
+                ),
               ),
             ],
           );

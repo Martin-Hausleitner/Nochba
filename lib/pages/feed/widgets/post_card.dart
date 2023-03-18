@@ -75,49 +75,69 @@ class _PostState extends State<Post> {
     await translatePost();
   }
 
-  Future<void> translatePost() async {
+  // Utility function to convert language code to TranslateLanguage
+  TranslateLanguage? languageCodeToTranslateLanguage(String languageCode) {
     try {
-      final provider = Provider.of<LocaleProvider>(context, listen: false);
-      final appLocale = provider.locale!.languageCode;
+      return TranslateLanguage.values
+          .firstWhere((element) => element.bcpCode == languageCode);
+    } catch (_) {
+      return null;
+    }
+  }
 
-      // Identify the source language
-      final languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
-      final titleLanguage =
-          await languageIdentifier.identifyLanguage(widget.post.title);
-      final descriptionLanguage =
-          await languageIdentifier.identifyLanguage(widget.post.description);
+  Future<void> translatePost() async {
+  try {
+    final sourceLanguage = TranslateLanguage.german;
+    final targetLanguage = TranslateLanguage.english;
+    final _modelManager = OnDeviceTranslatorModelManager();
 
-      if (titleLanguage == appLocale && descriptionLanguage == appLocale) {
-        return; // No translation needed
+    await downloadLanguageModel(sourceLanguage);
+    await downloadLanguageModel(targetLanguage);
+
+    print(
+        'Model downloaded: ${await _modelManager.isModelDownloaded(sourceLanguage.bcpCode)}');
+    print(
+        'Model downloaded: ${await _modelManager.isModelDownloaded(targetLanguage.bcpCode)}');
+
+    final OnDeviceTranslator onDeviceTranslator = OnDeviceTranslator(
+      sourceLanguage: sourceLanguage,
+      targetLanguage: targetLanguage,
+    );
+
+    final String titleTranslation =
+        await onDeviceTranslator.translateText(widget.post.title);
+    final String descriptionTranslation =
+        await onDeviceTranslator.translateText(widget.post.description);
+
+    setState(() {
+      widget.titleTranslation = titleTranslation;
+      widget.descriptionTranslation = descriptionTranslation;
+    });
+  } catch (e) {
+    print('Error translating text: $e');
+    Get.snackbar(
+      'Error',
+      'Could not translate text. Please try again later. $e',
+    );
+  }
+}
+
+  Future<void> downloadLanguageModel(TranslateLanguage language) async {
+    try {
+      final modelManager = OnDeviceTranslatorModelManager();
+      final modelDownloaded =
+          await modelManager.isModelDownloaded(language.bcpCode);
+
+      if (!modelDownloaded) {
+        await modelManager.downloadModel(language.bcpCode).timeout(
+          const Duration(seconds: 10),
+          onTimeout: () {
+            throw Exception('Model download timed out');
+          },
+        );
       }
-
-      // final sourceLanguage = TranslateLanguage.fromLanguageCode(titleLanguage);
-      // final targetLanguage = TranslateLanguage.fromLanguageCode(appLocale);
-
-      // final _modelManager = OnDeviceTranslatorModelManager();
-      // _modelManager.downloadModel(sourceLanguage.bcpCode);
-      // _modelManager.downloadModel(targetLanguage.bcpCode);
-
-      // final OnDeviceTranslator onDeviceTranslator = OnDeviceTranslator(
-      //   sourceLanguage: sourceLanguage,
-      //   targetLanguage: targetLanguage,
-      // );
-
-      // final String titleTranslation =
-      //     await onDeviceTranslator.translateText(widget.post.title);
-      // final String descriptionTranslation =
-      //     await onDeviceTranslator.translateText(widget.post.description);
-
-      // setState(() {
-      //   widget.titleTranslation = titleTranslation;
-      //   widget.descriptionTranslation = descriptionTranslation;
-      // });
     } catch (e) {
-      print('Error translating text: $e');
-      Get.snackbar(
-        'Error',
-        'Could not translate text. Please try again later. $e',
-      );
+      throw Exception('Error downloading model for ${language.bcpCode}: $e');
     }
   }
 

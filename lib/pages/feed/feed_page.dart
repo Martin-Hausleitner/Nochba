@@ -202,12 +202,47 @@ class PostListSearch extends StatelessWidget {
       future: controller.searchPosts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return //list of 2 LoadingPost
+              ListView.separated(
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 2,
+            itemBuilder: (BuildContext context, int index) {
+              return const LoadingPost();
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(height: 3),
+          );
         } else if (snapshot.hasError) {
-          return const Center(
-              child: Text('Die Suche ist derzeit nicht verfügbar',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300)));
+          return Center(
+            child: Column(
+              //center
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                // add a forum icon
+
+                Icon(
+                  // errpr info icon
+
+                  Icons.error_outline_outlined,
+
+                  size: 100,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                ),
+                Text(
+                  'Es konnten keine Posts geladen werden',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.15),
+                      ),
+                ),
+              ],
+            ),
+          );
         } else if (snapshot.hasData) {
           final posts = snapshot.data!;
 
