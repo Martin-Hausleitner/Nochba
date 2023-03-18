@@ -558,6 +558,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.3"
+  flutter_config:
+    dependency: "direct main"
+    description:
+      name: flutter_config
+      sha256: "8e2be2d560a52e06d2ef53a31913a11fc80ef708a442571c96194fd32e29fb1a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   flutter_dotenv:
     dependency: "direct main"
     description:

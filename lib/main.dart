@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +34,7 @@ Future main() async {
   //     // webRecaptchaSiteKey: 'recaptcha-v3-site-key',  // If you're building a web app.
   //     );
   await dotenv.load();
+  await dotenv.load(mergeWith: Platform.environment);
   _downloadInitialLanguageModels();
 
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
