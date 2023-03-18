@@ -142,7 +142,7 @@ flutter:
     - assets/appainter_theme.json
     - assets/chat_ui/
     - assets/images/
-    - .env
+    # - .env
 
   fonts:
     - family: Inter
