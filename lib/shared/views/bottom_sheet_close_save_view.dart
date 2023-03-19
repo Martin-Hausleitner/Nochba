@@ -7,9 +7,14 @@ class BottomSheetCloseSaveView extends StatelessWidget {
   //children
   final List<Widget> children;
   final Future<bool> Function() onSave;
+  final //padding
+      EdgeInsetsGeometry padding;
 
   const BottomSheetCloseSaveView(
-      {super.key, required this.children, required this.onSave});
+      {super.key,
+      required this.children,
+      required this.onSave,
+      this.padding = const EdgeInsets.all(15.0)});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +103,7 @@ class BottomSheetCloseSaveView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: padding,
                 child: Column(
                   children: children,
                 ),

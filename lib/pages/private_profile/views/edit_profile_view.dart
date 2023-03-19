@@ -20,6 +20,8 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:nochba/l10n/l10n.dart';
 
+import 'widgets/tag_input_field.dart';
+
 class EditProfileView extends GetView<EditProfileController> {
   const EditProfileView({
     Key? key,
@@ -101,186 +103,10 @@ class EditProfileView extends GetView<EditProfileController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
-                  ActionTextCard(
-                    title: AppLocalizations.of(context)!.birthday,
-                    icon: const Icon(FlutterRemix.user_line),
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                        backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0))),
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (BuildContext context) {
-                          return BottomSheetCloseSaveView(
-                            onSave: () async =>
-                                await controller.updateBirthDayOfCurrentUser(),
-                            children: [
-                              Column(
-                                children: [
-                                  SfDateRangePicker(
-                                    controller: controller
-                                        .getBirthdayDateController(birthday),
-                                    view: DateRangePickerView.decade,
-                                    // monthViewSettings:
-                                    //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
-                                    showNavigationArrow: true,
-                                    // showActionButtons: true,
-                                    maxDate: DateTime.now(),
-                                    minDate: DateTime(1880),
-                                    //set initial year to 1999
-                                    // enableMultiView: true,
-                                    // when onSubmit () => Navigator.pop(context),
-                                    // onSubmit: (value) {
-                                    //   Navigator.pop(context);
-                                    // },
-
-                                    yearCellStyle: DateRangePickerYearCellStyle(
-                                      textStyle: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.color
-                                                ?.withOpacity(0.7),
-                                          ),
-                                      leadingDatesTextStyle: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.color
-                                                ?.withOpacity(0.7),
-                                          ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: // right left 5
-                                        const EdgeInsets.only(
-                                      left: 7,
-                                      right: 7,
-                                    ),
-                                    child: Row(
-                                      //spacebetween
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            AppLocalizations.of(context)!.displayOnlyFirstLetter,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium
-                                                        ?.color
-                                                        ?.withOpacity(0.6)),
-                                          ),
-                                        ),
-
-                                        //tranform  scale 0.8 cupertuon swtich
-                                        Transform.scale(
-                                          scale: 0.8,
-                                          child: CupertinoSwitch(
-                                            activeColor:
-                                                Theme.of(context).primaryColor,
-                                            value: true,
-                                            onChanged: (value) {},
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: birthday != null
-                        ? '${birthday.day}.${birthday.month}.${birthday.year}'
-                        : '',
-                  ),
-                  ActionTextCard(
-                    title: AppLocalizations.of(context)!.inTheNeighborhoodSince,
-                    icon: const Icon(FlutterRemix.user_line),
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                        backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0))),
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (BuildContext context) {
-                          return BottomSheetCloseSaveView(
-                            onSave: () async => await controller
-                                .updateNeighbourhoodMemberSinceOfCurrentUser(),
-                            children: [
-                              SfDateRangePicker(
-                                controller: controller
-                                    .getNeighbourhoodMemberSinceDateController(
-                                        neighbourhoodMemberSince),
-                                view: DateRangePickerView.decade,
-                                // monthViewSettings:
-                                //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
-                                showNavigationArrow: true,
-                                // showActionButtons: true,
-                                maxDate: DateTime.now(),
-                                minDate: DateTime(1880),
-                                //set initial year to 1999
-                                // enableMultiView: true,
-                                // when onSubmit () => Navigator.pop(context),
-                                // onSubmit: (value) {
-                                //   Navigator.pop(context);
-                                // },
-
-                                yearCellStyle: DateRangePickerYearCellStyle(
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.color
-                                            ?.withOpacity(0.7),
-                                      ),
-                                  leadingDatesTextStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.color
-                                            ?.withOpacity(0.7),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: neighbourhoodMemberSince != null
-                        ? '${neighbourhoodMemberSince.day}.${neighbourhoodMemberSince.month}.${neighbourhoodMemberSince.year}'
-                        : '',
-                  ),
+                  BirthdayCard(controller: controller, birthday: birthday),
+                  InTheNeighborhoodSinceCard(
+                      controller: controller,
+                      neighbourhoodMemberSince: neighbourhoodMemberSince),
                   ActionTextCard(
                     title: AppLocalizations.of(context)!.profession,
                     icon: const Icon(FlutterRemix.user_line),
@@ -338,7 +164,8 @@ class EditProfileView extends GetView<EditProfileController> {
                               LocooTextField(
                                 height: //size of media query
                                     MediaQuery.of(context).size.height * 0.3,
-                                label: AppLocalizations.of(context)!.moreAboutYou,
+                                label:
+                                    AppLocalizations.of(context)!.moreAboutYou,
                                 controller: controller
                                     .getBioTextController(userPublicInfo.bio),
                                 maxLines: 10,
@@ -354,93 +181,10 @@ class EditProfileView extends GetView<EditProfileController> {
                     text: userPublicInfo.bio ?? '',
                   ),
                   ActionCardTitle(title: AppLocalizations.of(context)!.more),
-                  ActionTextCard(
-                    title: AppLocalizations.of(context)!.interests,
-                    icon: const Icon(FlutterRemix.user_line),
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                        backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0))),
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (BuildContext context) {
-                          return BottomSheetCloseSaveView(
-                            onSave: () async =>
-                                await controller.updateInterestsOfCurrentUser(),
-                            children: [
-                              Column(
-                                children: [
-                                  TagsElement(
-                                    tags: controller
-                                        .getInterests(userPublicInfo.interests),
-                                    removeTag: controller.removeInterest,
-                                    showTagDialog: controller.showTagDialog,
-                                    addTag: controller.addInterest,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: userPublicInfo.interests != null &&
-                            userPublicInfo.interests!.isNotEmpty
-                        ? userPublicInfo.interests!.fold<String>(
-                            '',
-                            (previousValue, element) => previousValue.isEmpty
-                                ? element
-                                : '$previousValue, $element')
-                        : '',
-                  ),
-                  ActionTextCard(
-                    title: AppLocalizations.of(context)!.offers,
-                    icon: const Icon(FlutterRemix.user_line),
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                        backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0))),
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (BuildContext context) {
-                          return BottomSheetCloseSaveView(
-                            onSave: () async =>
-                                await controller.updateOffersOfCurrentUser(),
-                            children: [
-                              Column(
-                                children: [
-                                  TagsElement(
-                                    tags: controller
-                                        .getOffers(userPublicInfo.offers),
-                                    removeTag: controller.removeOffer,
-                                    showTagDialog:
-                                        controller.showOfferTagDialog,
-                                    addTag: controller.addOffer,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: userPublicInfo.offers != null &&
-                            userPublicInfo.offers!.isNotEmpty
-                        ? userPublicInfo.offers!.fold<String>(
-                            '',
-                            (previousValue, element) => previousValue.isEmpty
-                                ? element
-                                : '$previousValue, $element')
-                        : '',
-                  ),
+                  InterestsCard(
+                      controller: controller, userPublicInfo: userPublicInfo),
+                  OfferCard(
+                      controller: controller, userPublicInfo: userPublicInfo),
                   // ActionCardTitle(title: 'Familie'),
                   // ActionTextCard(
                   //   title: 'Familien Status',
@@ -506,6 +250,364 @@ class EditProfileView extends GetView<EditProfileController> {
           height: 40,
         ),
       ],
+    );
+  }
+}
+
+class OfferCard extends StatelessWidget {
+  OfferCard({
+    super.key,
+    required this.controller,
+    required this.userPublicInfo,
+  });
+
+  final EditProfileController controller;
+  final UserPublicInfo userPublicInfo;
+  late List<String> fixedTags = [
+    'Einkaufen',
+    'Gartenarbeit',
+    'Kochen',
+    'Computerhilfe',
+    'Hundesitting',
+    'Nachhilfe',
+    'Handwerken',
+    'Fahrgemeinschaft',
+    'Babysitting',
+    'Pakete annehmen',
+    'Fahrrad reparieren',
+    'Gesellschaft leisten',
+    'Bewerbungshilfe',
+    'Foodsharing',
+    'Blumen gießen',
+    'Katzensitting',
+    'Haushaltshilfe',
+    'Putzhilfe',
+    'Coaching',
+    'Malerarbeiten',
+    'Backen',
+    'Gitarrenunterricht',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionTextCard(
+      title: AppLocalizations.of(context)!.offers,
+      icon: const Icon(FlutterRemix.user_line),
+      onTap: () {
+        showModalBottomSheet<void>(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return BottomSheetCloseSaveView(
+              padding: // top left right 15
+                  const EdgeInsets.only(top: 15, left: 11, right: 10),
+              onSave: () async => await controller.updateOffersOfCurrentUser(),
+              children: [
+                Column(
+                  children: [
+                    TagInputField(
+                      fixedTags: fixedTags,
+                      tags: controller.getOffers(userPublicInfo.offers),
+                      removeTag: controller.removeOffer,
+                      showTagDialog: controller.showOfferTagDialog,
+                      addTag: controller.addOffer,
+                      addText: 'Weiters Hinzufügen',
+                    )
+                  ],
+                ),
+                const SizedBox(height: 10),
+              ],
+            );
+          },
+        );
+      },
+      text: userPublicInfo.offers != null && userPublicInfo.offers!.isNotEmpty
+          ? userPublicInfo.offers!.fold<String>(
+              '',
+              (previousValue, element) =>
+                  previousValue.isEmpty ? element : '$previousValue, $element')
+          : '',
+    );
+  }
+}
+
+class InTheNeighborhoodSinceCard extends StatelessWidget {
+  const InTheNeighborhoodSinceCard({
+    super.key,
+    required this.controller,
+    required this.neighbourhoodMemberSince,
+  });
+
+  final EditProfileController controller;
+  final DateTime? neighbourhoodMemberSince;
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionTextCard(
+      title: AppLocalizations.of(context)!.inTheNeighborhoodSince,
+      icon: const Icon(FlutterRemix.user_line),
+      onTap: () {
+        showModalBottomSheet<void>(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return BottomSheetCloseSaveView(
+              onSave: () async => await controller
+                  .updateNeighbourhoodMemberSinceOfCurrentUser(),
+              children: [
+                SfDateRangePicker(
+                  controller:
+                      controller.getNeighbourhoodMemberSinceDateController(
+                          neighbourhoodMemberSince),
+                  view: DateRangePickerView.decade,
+                  // monthViewSettings:
+                  //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                  showNavigationArrow: true,
+                  // showActionButtons: true,
+                  maxDate: DateTime.now(),
+                  minDate: DateTime(1880),
+                  //set initial year to 1999
+                  // enableMultiView: true,
+                  // when onSubmit () => Navigator.pop(context),
+                  // onSubmit: (value) {
+                  //   Navigator.pop(context);
+                  // },
+
+                  yearCellStyle: DateRangePickerYearCellStyle(
+                    textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.color
+                              ?.withOpacity(0.7),
+                        ),
+                    leadingDatesTextStyle:
+                        Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.color
+                                  ?.withOpacity(0.7),
+                            ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      text: neighbourhoodMemberSince != null
+          ? '${neighbourhoodMemberSince?.day}.${neighbourhoodMemberSince?.month}.${neighbourhoodMemberSince?.year}'
+          : '',
+    );
+  }
+}
+
+class InterestsCard extends StatelessWidget {
+   InterestsCard({
+    super.key,
+    required this.controller,
+    required this.userPublicInfo,
+  });
+
+  final EditProfileController controller;
+  final UserPublicInfo userPublicInfo;
+  List<String> hobbies = [
+    'Musik',
+    'Literatur',
+    'Design',
+    'Theater',
+    'Malerei',
+    'Essen & Trinken',
+    'Kino',
+    'Konzerte',
+    'Joggen',
+    'Yoga',
+    'Instrument spielen',
+    'Fußball',
+    'Shopping',
+    'Fitness',
+    'Computerspiele',
+    'Karten spielen',
+    'Ausgehen',
+    'Wandern',
+    'Radfahren',
+    'Tischtennis',
+    'Spazieren gehen',
+    'Brettspiele',
+    'Kickern',
+    'Spieleabend',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionTextCard(
+      title: AppLocalizations.of(context)!.interests,
+      icon: const Icon(FlutterRemix.user_line),
+      onTap: () {
+        showModalBottomSheet<void>(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return BottomSheetCloseSaveView(
+              onSave: () async =>
+                  await controller.updateInterestsOfCurrentUser(),
+              children: [
+                Column(
+                  children: [
+                    TagInputField(
+                      fixedTags: hobbies,
+                      tags: controller.getInterests(userPublicInfo.interests),
+                      removeTag: controller.removeInterest,
+                      showTagDialog: controller.showTagDialog,
+                      addTag: controller.addInterest,
+                      addText: 'Interesse Hinzufügen',
+                    )
+                  ],
+                ),
+                const SizedBox(height: 10),
+              ],
+            );
+          },
+        );
+      },
+      text: userPublicInfo.interests != null &&
+              userPublicInfo.interests!.isNotEmpty
+          ? userPublicInfo.interests!.fold<String>(
+              '',
+              (previousValue, element) =>
+                  previousValue.isEmpty ? element : '$previousValue, $element')
+          : '',
+    );
+  }
+}
+
+class BirthdayCard extends StatelessWidget {
+  const BirthdayCard({
+    super.key,
+    required this.controller,
+    required this.birthday,
+  });
+
+  final EditProfileController controller;
+  final DateTime? birthday;
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionTextCard(
+      title: AppLocalizations.of(context)!.birthday,
+      icon: const Icon(FlutterRemix.user_line),
+      onTap: () {
+        showModalBottomSheet<void>(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return BottomSheetCloseSaveView(
+              onSave: () async =>
+                  await controller.updateBirthDayOfCurrentUser(),
+              children: [
+                Column(
+                  children: [
+                    SfDateRangePicker(
+                      controller:
+                          controller.getBirthdayDateController(birthday),
+                      view: DateRangePickerView.decade,
+                      // monthViewSettings:
+                      //     DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                      showNavigationArrow: true,
+                      // showActionButtons: true,
+                      maxDate: DateTime.now(),
+                      minDate: DateTime(1880),
+                      //set initial year to 1999
+                      // enableMultiView: true,
+                      // when onSubmit () => Navigator.pop(context),
+                      // onSubmit: (value) {
+                      //   Navigator.pop(context);
+                      // },
+
+                      yearCellStyle: DateRangePickerYearCellStyle(
+                        textStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.color
+                                      ?.withOpacity(0.7),
+                                ),
+                        leadingDatesTextStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.color
+                                      ?.withOpacity(0.7),
+                                ),
+                      ),
+                    ),
+                    Padding(
+                      padding: // right left 5
+                          const EdgeInsets.only(
+                        left: 7,
+                        right: 7,
+                      ),
+                      child: Row(
+                        //spacebetween
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                        children: [
+                          Flexible(
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .displayOnlyFirstLetter,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color
+                                          ?.withOpacity(0.6)),
+                            ),
+                          ),
+
+                          //tranform  scale 0.8 cupertuon swtich
+                          Transform.scale(
+                            scale: 0.8,
+                            child: CupertinoSwitch(
+                              activeColor: Theme.of(context).primaryColor,
+                              value: true,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+              ],
+            );
+          },
+        );
+      },
+      text: birthday != null
+          ? '${birthday?.day}.${birthday?.month}.${birthday?.year}'
+          : '',
     );
   }
 }
@@ -587,7 +689,8 @@ class NameElement extends StatelessWidget {
                           children: [
                             Flexible(
                               child: Text(
-                                AppLocalizations.of(context)!.displayOnlyFirstLetter,
+                                AppLocalizations.of(context)!
+                                    .displayOnlyFirstLetter,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
