@@ -78,6 +78,7 @@ class SignUpStep1View extends StatelessWidget {
                       validator: controller.validateEmail,
                       autovalidateMode: AutovalidateMode.disabled,
                       textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 10),
                     PasswordField(controller: controller),
@@ -144,39 +145,47 @@ class SignUpStep1View extends StatelessWidget {
                         letterSpacing: -0.07,
                       ),
                 ),
-                onPressed: () {
-                  Get.snackbar(
-                    'Bald Verfügbar',
-                    'Die Registrierung mit Google ist bald verfügbar!',
-                    // snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Theme.of(context).colorScheme.background,
-                    colorText: Theme.of(context).colorScheme.onSurface,
-                    margin: const EdgeInsets.all(16),
-                    borderRadius: 12,
-                    isDismissible: false,
-                    //form bottom to top
-                    duration: const Duration(seconds: 10),
-                    // isDismissible: true,
-                    forwardAnimationCurve: Curves.easeOut,
-                    reverseAnimationCurve: Curves.easeIn,
-                    animationDuration: const Duration(milliseconds: 500),
-                    icon: Icon(
-                      Icons.info_outline_rounded,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    shouldIconPulse: true,
-                    mainButton: TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text(
-                        'OK',
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  );
+                onPressed: () async {
+                  // Get.snackbar(
+                  //   'Bald Verfügbar',
+                  //   'Die Registrierung mit Google ist bald verfügbar!',
+                  //   // snackPosition: SnackPosition.BOTTOM,
+                  //   backgroundColor: Theme.of(context).colorScheme.background,
+                  //   colorText: Theme.of(context).colorScheme.onSurface,
+                  //   margin: const EdgeInsets.all(16),
+                  //   borderRadius: 12,
+                  //   isDismissible: false,
+                  //   //form bottom to top
+                  //   duration: const Duration(seconds: 10),
+                  //   // isDismissible: true,
+                  //   forwardAnimationCurve: Curves.easeOut,
+                  //   reverseAnimationCurve: Curves.easeIn,
+                  //   animationDuration: const Duration(milliseconds: 500),
+                  //   icon: Icon(
+                  //     Icons.info_outline_rounded,
+                  //     color: Theme.of(context).primaryColor,
+                  //   ),
+                  //   shouldIconPulse: true,
+                  //   mainButton: TextButton(
+                  //     onPressed: () {
+                  //       Get.back();
+                  //     },
+                  //     child: Text(
+                  //       'OK',
+                  //       style: TextStyle(
+                  //         color: Theme.of(context).primaryColor,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // );
+                  try {
+                    await controller.signInWithGoogle();
+                  } catch (error) {
+                    print('Google Sign In Error: $error');
+                    // Show an error message to the user
+                    Get.snackbar('Error',
+                        'Google Sign In failed. Please try again later.');
+                  }
                 },
               ),
               const SizedBox(height: 10),
@@ -215,6 +224,7 @@ class SignUpStep1View extends StatelessWidget {
                       ),
                     ),
                   );
+                  // await controller.signInWithApple();
                 },
 
                 icon: Padding(

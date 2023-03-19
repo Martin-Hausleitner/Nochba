@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:nochba/logic/models/ImageFile.dart';
 import 'package:nochba/pages/auth/register/views/sign_up_step_4_view.dart';
 import 'package:nochba/pages/auth/register/widgets/invite_code_input.dart'
@@ -19,6 +23,8 @@ class SignUpController extends GetxController {
 
   final streetController = TextEditingController();
   final streetNumberController = TextEditingController();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final cityController = TextEditingController();
   final zipController = TextEditingController();
@@ -38,7 +44,60 @@ class SignUpController extends GetxController {
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
 
+  bool isGoogleSignIn = false;
+
+  Future<void> signInWithGoogle() async {
+    try {
+      print('Starting Google Sign In');
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      print('Google User: $googleUser');
+
+      if (googleUser == null) {
+        print('Google Sign In failed or cancelled');
+        return;
+      }
+
+      isGoogleSignIn = true;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      final UserCredential authResult =
+          await _auth.signInWithCredential(credential);
+      final User? user = authResult.user;
+
+      // Übernehmen des Profilbilds
+      final String? profileImageUrl = user?.photoURL;
+      if (profileImageUrl != null) {
+        final response = await http.get(Uri.parse(profileImageUrl));
+        if (response.statusCode == 200) {
+          _imageFile.file = response.bodyBytes;
+          update();
+        }
+      }
+
+      final String firstName = user!.displayName!.split(' ')[0];
+      final String lastName = user.displayName!.split(' ')[1];
+
+      firstNameController.text = firstName;
+      lastNameController.text = lastName;
+
+      await pageController.nextPage(
+          duration: const Duration(milliseconds: 1), curve: Curves.easeIn);
+      isGoogleSignIn = false;
+      print('Google Sign In successful');
+    } catch (error) {
+      print('Google Sign In Error: $error');
+    }
+  }
+
   String? validateEmail(String? email) {
+    if (isGoogleSignIn) {
+      return null;
+    }
+
     return email != null && email.trim().isEmpty
         ? 'Geben Sie bitte eine Email ein'
         : email != null && !email.isEmail
@@ -47,6 +106,10 @@ class SignUpController extends GetxController {
   }
 
   String? validatePassword(String? password) {
+    if (isGoogleSignIn) {
+      return null;
+    }
+
     return password != null && password.trim().isEmpty
         ? 'Geben Sie bitte ein Password ein'
         : password != null && password.trim().length < 6
@@ -232,7 +295,7 @@ class SignUpController extends GetxController {
       final result = await authService.signUpWithEmail(
           emailController.text.trim(), passwordController.text.trim());
 
-      if (!result) {
+      if (!result && !isGoogleSignIn) {
         Get.snackbar('Fehler aufgetreten',
             'Bitte überprüfen Sie Ihre Eingabefelder noch einmal');
       }
