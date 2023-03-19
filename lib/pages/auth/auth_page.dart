@@ -255,7 +255,11 @@ class _AuthPageState extends State<AuthPage> {
                             // onPressed: () => const LoginPage(),
 
                             onPressed: () async => {
-                                  await Get.to(() => const LoginPage()),
+                                  await Get.to(
+                                    () => const LoginPage(),
+                                    transition: Transition.rightToLeft,
+                                    // gestureWidth: 100,
+                                  )
                                 }),
 
                         // set the width and height

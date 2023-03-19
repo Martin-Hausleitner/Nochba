@@ -47,7 +47,8 @@ class SignUpController extends GetxController {
 
   Future<List<String>> getAddressSuggestions(String query) async {
     try {
-      final String queryWithCountry = '$query, Österreich';
+      final String queryWithCountry =
+          query.isNotEmpty ? '$query, Österreich' : query;
       final List<Location> locations =
           await locationFromAddress(queryWithCountry);
       List<String> suggestions = [];
@@ -319,7 +320,7 @@ class SignUpController extends GetxController {
       await deleteAccount();
     } else if (pageController.page == 2) {
       _imageFile.clear();
-      setShowLastName(true);
+      setShowLastName(false);
       firstNameController.clear();
       lastNameController.clear();
 

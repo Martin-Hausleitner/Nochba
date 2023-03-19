@@ -106,11 +106,12 @@ class QRcodeScanner extends StatelessWidget {
 
   final Future<bool> Function(String qrCode) checkQRCode;
 
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Mobile Scanner')),
-      body: MobileScanner(
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(
+        top: Radius.circular(25.0),
+      ),
+      child: MobileScanner(
         onDetect: (capture) async {
           final List<Barcode> barcodes = capture.barcodes;
           final Uint8List? image = capture.image;
@@ -175,21 +176,20 @@ class CloseButton extends StatelessWidget {
 class EnterCodeManualButton extends StatelessWidget {
   const EnterCodeManualButton({Key? key, required this.checkQRCode})
       : super(key: key);
-
   final Future<bool> Function(String qrCode) checkQRCode;
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: //left 20 right 20 bootm 50
-            const EdgeInsets.only(left: 30, right: 30, bottom: 50),
+        padding: const EdgeInsets.only(left: 30, right: 30, bottom: 50),
         child: LocooTextButton(
           label: 'Manuell eingeben',
           icon: FlutterRemix.edit_line,
           onPressed: () {
-            //show a textfield
+            TextEditingController controller = TextEditingController();
             showModalBottomSheet(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
@@ -198,53 +198,62 @@ class EnterCodeManualButton extends StatelessWidget {
               ),
               context: context,
               builder: (context) {
-                return Padding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  child: SafeArea(
-                    child: SizedBox(
-                      height: 160,
-                      child: Column(
-                        children: [
-                          //textfield
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 20, left: 20, right: 20),
-                            child: LocooTextField(
-                              label: 'Einladecode',
-                              onFieldSubmitted: (value) async {
-                                //check if the code is valid
-                                //if valid close the bottom sheet
-                                //if not valid show a snackbar with the error message
-                                try {
-                                  final result = await checkQRCode(value);
-                                  Navigator.pop(context, result);
-                                  Navigator.pop(context, result);
-                                } on Exception {
-                                  Navigator.pop(context, false);
-                                }
-                              },
-                            ),
+                bool isLoading = false;
+                return StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20, left: 20, right: 20, bottom: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              isLoading
+                                  ? Padding(
+                                      padding: // top 20 bottom 20
+                                          const EdgeInsets.only(
+                                              top: 25, bottom: 25),
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Column(
+                                      children: [
+                                        LocooTextField(
+                                          label: 'Einladecode',
+                                          controller: controller,
+                                        ),
+                                        SizedBox(height: 10),
+                                        LocooTextButton(
+                                          label: 'Code bestätigen',
+                                          icon: FlutterRemix.key_line,
+                                          onPressed: () async {
+                                            String value = controller.text;
+                                            setState(() {
+                                              isLoading = true;
+                                            });
+                                            try {
+                                              final result =
+                                                  await checkQRCode(value);
+                                              Navigator.pop(context, result);
+                                              Navigator.pop(context, result);
+                                            } on Exception {
+                                              Navigator.pop(context, false);
+                                            } finally {
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                            ],
                           ),
-                          //button
-                          // Container(
-                          //   margin: const EdgeInsets.only(
-                          //       top: 15, left: 20, right: 20),
-                          //   child: LocooTextButton(
-                          //     label: 'Einladecode überprüfen',
-                          //     icon: FlutterRemix.check_line,
-                          //     onPressed: () async {
-                          //       //check if the code is valid
-                          //       //if valid close the bottom sheet
-                          //       //if not valid show a snackbar with the error message
-
-                          //       Navigator.pop(context);
-                          //     },
-                          //   ),
-                          // ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 );
               },
             );

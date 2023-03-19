@@ -254,7 +254,12 @@ class AuthService extends ResourceAccess {
       //         position: GeoFirePoint(position.latitude, position.longitude)),
       //     nexus: [uid]);
     } on Exception catch (e) {
-      Get.snackbar('Fehler', e.toString());
+      if (e.toString().contains('[firebase_functions/invalid-argument]')) {
+        Get.snackbar('Fehler',
+            'Die Handy-Position stimmt nicht mit der Adresse überein.');
+      } else {
+        Get.snackbar('Fehler', e.toString());
+      }
       rethrow;
     }
 
