@@ -5,7 +5,7 @@ import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
@@ -33,8 +33,8 @@ Future main() async {
   // await FirebaseAppCheck.instance.activate(
   //     // webRecaptchaSiteKey: 'recaptcha-v3-site-key',  // If you're building a web app.
   //     );
-  await dotenv.load();
-  await dotenv.load(mergeWith: Platform.environment);
+  // await dotenv.load();
+  // await dotenv.load(mergeWith: Platform.environment);
   _downloadInitialLanguageModels();
 
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');

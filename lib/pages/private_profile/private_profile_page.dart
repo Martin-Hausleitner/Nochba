@@ -18,7 +18,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/UserPrivateInfoName.dart';
 import 'package:nochba/pages/private_profile/views/own_posts_view.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:nochba/logic/models/user.dart' as models;
 
@@ -466,98 +466,98 @@ class LoadingProfileName extends StatelessWidget {
   }
 }
 
-class FeedbackTest extends StatelessWidget {
-  const FeedbackTest({
-    super.key,
-  });
+// class FeedbackTest extends StatelessWidget {
+//   const FeedbackTest({
+//     super.key,
+//   });
 
-  @override
-  Future<void> uploadDataToTrello(String text, var screenshot) async {
-    var apiKey = Platform.environment['TRELLO_API_KEY'];
-    var token = Platform.environment['TRELLO_TOKEN'];
-    var boardId = Platform.environment['TRELLO_BOARD_ID'];
-    var listId = Platform.environment['TRELLO_LIST_ID'];
+//   @override
+//   Future<void> uploadDataToTrello(String text, var screenshot) async {
+//     var apiKey = Platform.environment['TRELLO_API_KEY'];
+//     var token = Platform.environment['TRELLO_TOKEN'];
+//     var boardId = Platform.environment['TRELLO_BOARD_ID'];
+//     var listId = Platform.environment['TRELLO_LIST_ID'];
 
-    apiKey = dotenv.env['TRELLO_API_KEY'];
-    token = dotenv.env['TRELLO_TOKEN'];
-    boardId = dotenv.env['TRELLO_BOARD_ID'];
-    listId = dotenv.env['TRELLO_LIST_ID'];
+//     apiKey = dotenv.env['TRELLO_API_KEY'];
+//     token = dotenv.env['TRELLO_TOKEN'];
+//     boardId = dotenv.env['TRELLO_BOARD_ID'];
+//     listId = dotenv.env['TRELLO_LIST_ID'];
 
-    var packageInfo = await PackageInfo.fromPlatform();
-    var version = packageInfo.version;
-    var buildNumber = packageInfo.buildNumber;
-    var cardId;
+//     var packageInfo = await PackageInfo.fromPlatform();
+//     var version = packageInfo.version;
+//     var buildNumber = packageInfo.buildNumber;
+//     var cardId;
 
-    var name = "v$version+$buildNumber | $text";
+//     var name = "v$version+$buildNumber | $text";
 
-    var url1 = Uri.parse(
-        "https://api.trello.com/1/cards?key=$apiKey&token=$token&idList=$listId&name=$name&desc=$text");
+//     var url1 = Uri.parse(
+//         "https://api.trello.com/1/cards?key=$apiKey&token=$token&idList=$listId&name=$name&desc=$text");
 
-    try {
-      var response1 = await http.post(url1);
-      if (response1.statusCode == 200) {
-        var responseJson = json.decode(response1.body);
-        cardId = responseJson["id"];
-        print("Card ID: $cardId");
-      } else {
-        throw Exception(
-            "Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
-      }
-    } catch (e) {
-      print("Error: $e");
-    }
+//     try {
+//       var response1 = await http.post(url1);
+//       if (response1.statusCode == 200) {
+//         var responseJson = json.decode(response1.body);
+//         cardId = responseJson["id"];
+//         print("Card ID: $cardId");
+//       } else {
+//         throw Exception(
+//             "Failed to retrieve card ID: ${response1.statusCode}${response1.reasonPhrase}");
+//       }
+//     } catch (e) {
+//       print("Error: $e");
+//     }
 
-    name = "Screenshot.png";
+//     name = "Screenshot.png";
 
-    var url = Uri.parse(
-        "https://api.trello.com/1/cards/$cardId/attachments?key=$apiKey&token=$token&name=$name&setCover=true");
+//     var url = Uri.parse(
+//         "https://api.trello.com/1/cards/$cardId/attachments?key=$apiKey&token=$token&name=$name&setCover=true");
 
-    var request = http.MultipartRequest('POST', url);
-    request.files.add(
-      http.MultipartFile.fromBytes(
-        'file',
-        screenshot,
-        filename: name,
-        contentType: MediaType('image', 'png'),
-      ),
-    );
+//     var request = http.MultipartRequest('POST', url);
+//     request.files.add(
+//       http.MultipartFile.fromBytes(
+//         'file',
+//         screenshot,
+//         filename: name,
+//         contentType: MediaType('image', 'png'),
+//       ),
+//     );
 
-    var response = await request.send();
-    if (response.statusCode == 200) {
-      print("Data successfully uploaded to Trello");
-    } else {
-      throw Exception(
-          "Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
-    }
-  }
+//     var response = await request.send();
+//     if (response.statusCode == 200) {
+//       print("Data successfully uploaded to Trello");
+//     } else {
+//       throw Exception(
+//           "Failed to upload data to Trello${response.statusCode}${response.reasonPhrase}");
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () async {
-        var packageInfo = await PackageInfo.fromPlatform();
-        var appName = packageInfo.appName;
-        var packageName = packageInfo.packageName;
-        var version = packageInfo.version;
-        var buildNumber = packageInfo.buildNumber;
-        var test = packageInfo.toString();
-        print("$appName $packageName $version $buildNumber");
-        // uploadDataToTrello(
-        //   "Test",
-        //   null,
-        // );
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//       onPressed: () async {
+//         var packageInfo = await PackageInfo.fromPlatform();
+//         var appName = packageInfo.appName;
+//         var packageName = packageInfo.packageName;
+//         var version = packageInfo.version;
+//         var buildNumber = packageInfo.buildNumber;
+//         var test = packageInfo.toString();
+//         print("$appName $packageName $version $buildNumber");
+//         // uploadDataToTrello(
+//         //   "Test",
+//         //   null,
+//         // );
 
-        BetterFeedback.of(context).show(
-          (UserFeedback feedback) async {
-            print(feedback.text);
-            uploadDataToTrello(feedback.text, feedback.screenshot);
-          },
-        );
-      },
-      child: const Text("Test Feedback"),
-    );
-  }
-}
+//         BetterFeedback.of(context).show(
+//           (UserFeedback feedback) async {
+//             print(feedback.text);
+//             uploadDataToTrello(feedback.text, feedback.screenshot);
+//           },
+//         );
+//       },
+//       child: const Text("Test Feedback"),
+//     );
+//   }
+// }
 
 class CheckAddressWithDeviceLocation extends StatelessWidget {
   const CheckAddressWithDeviceLocation({super.key});

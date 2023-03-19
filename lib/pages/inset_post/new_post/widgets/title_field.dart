@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
+import 'package:nochba/env/env.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:openai_client/openai_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,8 +47,8 @@ class _TitleFieldState extends State<TitleField> {
     }
 
     try {
-      final String apiKey = dotenv.env['OPENAI_API_KEY']!;
-      final String organizationId = dotenv.env['OPENAI_ORGANIZATION_ID']!;
+      final String apiKey = Env.openaiApiKey;
+      final String organizationId = Env.openaiOrganizationId;
       final conf = OpenAIConfiguration(
         apiKey: apiKey,
         organizationId: organizationId,

@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nochba/env/env.dart';
 import 'package:nochba/pages/auth/auth_page.dart';
 import 'package:nochba/pages/dashboard/dashboard_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -32,10 +33,10 @@ class _HomePageState extends State<HomePage> {
       var boardId = Platform.environment['TRELLO_BOARD_ID'];
       var listId = Platform.environment['TRELLO_LIST_ID'];
 
-      apiKey = dotenv.env['TRELLO_API_KEY'];
-      token = dotenv.env['TRELLO_TOKEN'];
-      boardId = dotenv.env['TRELLO_BOARD_ID'];
-      listId = dotenv.env['TRELLO_LIST_ID'];
+      apiKey = Env.trelloApiKey;
+      token = Env.trelloToken;
+      boardId = Env.trelloBoardId;
+      listId = Env.trelloListId;
 
       var packageInfo = await PackageInfo.fromPlatform();
       var appName = packageInfo.appName;

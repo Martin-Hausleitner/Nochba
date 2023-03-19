@@ -6,12 +6,13 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
 import 'package:nochba/pages/inset_post/edit_post/edit_post_controller.dart';
 import 'package:openai_client/openai_client.dart';
+import 'package:nochba/env/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../views/new_post_view.dart';
 import 'dart:math';
 import 'package:openai_client/src/model/openai_chat/chat_message.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class TagsElement extends StatefulWidget {
   const TagsElement({
@@ -54,8 +55,8 @@ class _TagsElementState extends State<TagsElement> {
     }
 
     try {
-      final String apiKey = dotenv.env['OPENAI_API_KEY']!;
-      final String organizationId = dotenv.env['OPENAI_ORGANIZATION_ID']!;
+      final String apiKey = Env.openaiApiKey!;
+      final String organizationId = Env.openaiOrganizationId!;
       final conf = OpenAIConfiguration(
         apiKey: apiKey,
         organizationId: organizationId,
