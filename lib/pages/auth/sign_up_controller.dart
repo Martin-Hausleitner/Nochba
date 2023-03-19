@@ -47,7 +47,9 @@ class SignUpController extends GetxController {
 
   Future<List<String>> getAddressSuggestions(String query) async {
     try {
-      final List<Location> locations = await locationFromAddress(query);
+      final String queryWithCountry = '$query, Österreich';
+      final List<Location> locations =
+          await locationFromAddress(queryWithCountry);
       List<String> suggestions = [];
 
       for (Location location in locations) {
@@ -65,11 +67,15 @@ class SignUpController extends GetxController {
   }
 
   String _formatPlacemark(Placemark placemark) {
+    String? street = placemark.street;
+    String streetName = street!.replaceAll(RegExp(r'\s\d.*'), '');
+
     return [
-      placemark.street,
+      streetName,
       placemark.name,
       placemark.locality,
       placemark.postalCode,
+      // 'Österreich',
     ]
         .where((component) => component != null && component.isNotEmpty)
         .join(', ');
