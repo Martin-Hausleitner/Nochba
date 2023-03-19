@@ -306,7 +306,7 @@ class _PostState extends State<Post> {
                 Padding(
                   padding: const EdgeInsets.only(top: spacingBetween),
                   child: LocooTextButton(
-                    label: 'Anschreiben',
+                    label: AppLocalizations.of(context)!.sendMessage,
 
                     borderRadius: 100,
                     height: 48,

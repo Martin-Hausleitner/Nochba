@@ -124,7 +124,7 @@ class FeedPostFilterView extends StatelessWidget {
               ),
               // const Divider(),
               FilterLabelChip(
-                label: 'Events',
+                label: AppLocalizations.of(context)!.eventKategory,
                 isSelected: () =>
                     controller.isFilterChipSelected(CategoryOptions.Event),
                 isIncluded: () => controller

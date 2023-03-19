@@ -43,7 +43,7 @@ class AlertDialogDelete extends StatelessWidget {
           ],
         ),
         content: Text(
-          'Bist du dir sicher, dass du diesen $label löschen möchtest?',
+          'Are you sure you want to delete $label?',
           //style the text gray
           style: const TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
         ),

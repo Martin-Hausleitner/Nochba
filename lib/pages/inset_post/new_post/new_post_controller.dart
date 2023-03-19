@@ -98,34 +98,34 @@ class NewPostController extends InsetPostController {
 
   addPost() async {
     if (category == CategoryOptions.None) {
-      Get.snackbar('Posten nicht möglich',
-          'Wählen Sie bitte eine gültige Kategorie aus');
+      Get.snackbar('Posting not possible',
+          'Please select a category for your post');
       return;
     } else if (!formKey.currentState!.validate()) {
-      Get.snackbar('Posten nicht möglich',
-          'Füllen Sie bitte die Eingabefelder richtig aus');
+      Get.snackbar('Posting not possible',
+          'Please fill out the input fields correctly');
       return;
     }
 
     if (category == CategoryOptions.Event) {
       if (!eventKey.currentState!.validate()) {
-        Get.snackbar('Posten nicht möglich',
-            'Füllen Sie bitte die Eingabefelder zum Event richtig aus');
+        Get.snackbar('Posting not possible',
+            'Please fill out the input fields correctly');
         return;
       }
       if (eventTime != null) {
         if (eventTime!.length != 2) {
           Get.snackbar(
-              'Posten nicht möglich', 'Geben Sie bitte zwei gültige Daten an');
+              'Posting not possible', 'Please enter a valid date for the event');
           return;
         } else if (eventTime![0].isAfter(eventTime![1])) {
-          Get.snackbar('Posten nicht möglich',
-              'Das erste Datum muss früher sein als das zweite');
+          Get.snackbar('Posting not possible',
+              'The start date must be before the end date');
           return;
         }
       } else {
         Get.snackbar(
-            'Posten nicht möglich', 'Füllen Sie bitte das Datumfeld aus');
+            'Posting not possible', 'Please enter a valid date for the event');
         return;
       }
     }
@@ -173,7 +173,7 @@ class NewPostController extends InsetPostController {
       print(e);
       //Get.snackbar('Error', e.message!);
       Get.snackbar(
-          'Posten fehlgeschlagen', 'Das Erstellen vom Post ist fehlgeschlagen');
+          'Posting went wrong', 'Please check your internet connection');
     }
   }
 

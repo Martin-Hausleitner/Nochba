@@ -45,12 +45,12 @@ class _TagsElementState extends State<TagsElement> {
     int callCount = prefs.getInt('callOpenAI_count') ?? 0;
 
     if (callCount == 0) {
-      Get.snackbar('Info', 'Sie haben insgesamt 20 Aufrufe zur Verfügung.');
+      Get.snackbar('Info', 'You only have 20 calls left.');
     } else if (callCount >= _maxCalls - 5 && callCount < _maxCalls) {
       Get.snackbar(
-          'Info', 'Sie haben noch ${_maxCalls - callCount} Aufrufe übrig.');
+          'Info', 'You only have ${_maxCalls - callCount} calls left.');
     } else if (callCount >= _maxCalls) {
-      Get.snackbar('Info', 'Sie haben keine Aufrufe mehr zur Verfügung.');
+      Get.snackbar('Info', 'You have no calls left.');
       return;
     }
 
@@ -70,18 +70,18 @@ class _TagsElementState extends State<TagsElement> {
       if (widget.descriptionController!.text.isEmpty) {
         print(widget.descriptionController!.text);
         Get.snackbar(
-            'Fehler', 'Bitte Füge ein Beschreibung zu dem Beitrag hinzu!');
+            'Error', 'Please add a description to the post!');
         return;
       }
 
       if (widget.titleController!.text.isEmpty) {
         print(widget.titleController!.text);
-        Get.snackbar('Fehler', 'Bitte Füge ein Titel zu dem Beitrag hinzu!');
+        Get.snackbar('Error', 'Please add a title to the post!');
         return;
       }
 
       final String prompt =
-          'titel{ ${widget.titleController!.text} } beschreibung{ ${widget.descriptionController!.text} } json hashtags richtige sprache: ["#';
+          'This is a post about ${widget.titleController!.text}. ${widget.descriptionController!.text}';
       final chat = await client.chat.create(
         model: 'gpt-3.5-turbo',
         messages: [
@@ -104,7 +104,7 @@ class _TagsElementState extends State<TagsElement> {
       print('Error calling OpenAI API: $e');
       print(stackTrace);
       Get.snackbar(
-          'Fehler', 'Es ist ein Fehler bei der ausführung der Ki passiert: $e');
+          'Error', 'There was an error calling the OpenAI API.');
     }
   }
 
@@ -127,7 +127,7 @@ class _TagsElementState extends State<TagsElement> {
     List<String> newTags = parseTags(chatOutput);
     if (newTags.isEmpty) {
       Get.snackbar(
-          'Fehler', 'Die Tags konnten nicht von der KI generiert werden');
+          'Error', 'There was an error calling the OpenAI API.');
       return;
     }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/shared/ui/cards/action_card.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import '../new_post_controller.dart';
 import '../widgets/back_outlined_button.dart';
 import '../widgets/circle_step.dart';
@@ -24,7 +24,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Beitrag erstellen',
+                  AppLocalizations.of(context)!.createPost,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontSize: 30,
                         fontWeight: FontWeight.w800,
@@ -37,23 +37,23 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                 const SizedBox(height: 28),
                 Row(
                   children: [
-                    CircleStep(1, '1', () {
+                    CircleStep(1, AppLocalizations.of(context)!.step1, () {
                       controller.jumpBack();
                     }),
                     const ProgressLineHalf(
                       isFinished: false,
                     ),
-                    CircleStep(2, '2', () {}),
+                    CircleStep(2, AppLocalizations.of(context)!.step2, () {}),
                     const ProgressLine(
                       isFinished: false,
                     ),
-                    CircleStep(2, '3', () {}),
+                    CircleStep(2, AppLocalizations.of(context)!.step3, () {}),
                   ],
                 ),
                 const SizedBox(height: 28),
                 //tile small Wähle deien Kategorie
                 Text(
-                  'Wähle deine Kategorie',
+                  AppLocalizations.of(context)!.chooseCategory,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         // color: Theme.of(context).secondaryHeaderColor,
@@ -62,7 +62,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                 //tile small Schritt 1 von 3
                 const SizedBox(height: 2),
                 Text(
-                  'Schritt 1 von 3',
+                  AppLocalizations.of(context)!.step1of3,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       // fontSize: 18,
                       // fontWeight: FontWeight.w600,
@@ -110,27 +110,27 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                     child: Column(
                       children: [
                         ActionCard(
-                          title: CategoryOptions.Question.name,
+                          title: AppLocalizations.of(context)!.questionKategory,
                           onTap: () => controller
                               .updateSubcategory(CategoryOptions.Question),
                         ),
                         ActionCard(
-                          title: CategoryOptions.Appeal.name,
+                          title: AppLocalizations.of(context)!.complaintKategory,
                           onTap: () => controller
                               .updateSubcategory(CategoryOptions.Appeal),
                         ),
                         ActionCard(
-                          title: CategoryOptions.Warning.name,
+                          title: AppLocalizations.of(context)!.warningKategory,
                           onTap: () => controller
                               .updateSubcategory(CategoryOptions.Warning),
                         ),
                         ActionCard(
-                          title: CategoryOptions.Recommendation.name,
+                          title: AppLocalizations.of(context)!.recommendationKategory,
                           onTap: () => controller.updateSubcategory(
                               CategoryOptions.Recommendation),
                         ),
                         ActionCard(
-                          title: CategoryOptions.Found.name,
+                          title: AppLocalizations.of(context)!.foundKategory,
                           onTap: () => controller
                               .updateSubcategory(CategoryOptions.Found),
                         ),
@@ -143,12 +143,12 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
                     child: Column(
                       children: [
                         ActionCard(
-                          title: CategoryOptions.Help.name,
+                          title: AppLocalizations.of(context)!.helpKategory,
                           onTap: () => controller
                               .updateSubcategory(CategoryOptions.Help),
                         ),
                         ActionCard(
-                          title: CategoryOptions.Lost.name,
+                          title: AppLocalizations.of(context)!.lostKategory,
                           onTap: () => controller
                               .updateSubcategory(CategoryOptions.Lost),
                         ),
@@ -164,7 +164,7 @@ class NewPostSubcategorySelectionView extends StatelessWidget {
           child: BackOutlinedButton(
             controller: controller,
             icon: Icons.chevron_left_rounded,
-            label: "Zurück",
+            label: AppLocalizations.of(context)!.back,
             onPress: () => controller.jumpBack(),
           ),
         ),

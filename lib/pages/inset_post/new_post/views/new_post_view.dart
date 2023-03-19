@@ -18,6 +18,7 @@ import 'package:openai_client/openai_client.dart';
 
 import '../widgets/tags_element.dart';
 import '../widgets/title_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class NewPostView extends StatelessWidget {
   final bool hasSubcategories;
@@ -41,7 +42,7 @@ class NewPostView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Beitrag erstellen',
+                AppLocalizations.of(context)!.createPost,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
@@ -53,15 +54,15 @@ class NewPostView extends StatelessWidget {
               const SizedBox(height: 28),
               Row(
                 children: [
-                  CircleStep(3, '1', () {}),
+                  CircleStep(3, AppLocalizations.of(context)!.step1, () {}),
                   const ProgressLine(
                     isFinished: true,
                   ),
-                  CircleStep(1, '2', () {}),
+                  CircleStep(1, AppLocalizations.of(context)!.step2, () {}),
                   const ProgressLine(
                     isFinished: false,
                   ),
-                  CircleStep(2, '3', () {}),
+                  CircleStep(2, AppLocalizations.of(context)!.step3, () {}),
                 ],
               ),
             ],
@@ -95,7 +96,7 @@ class NewPostView extends StatelessWidget {
                           //tile small Schritt 1 von 3
                           const SizedBox(height: 2),
                           Text(
-                            'Schritt 2 von 3',
+                            AppLocalizations.of(context)!.step2of3,
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 // fontSize: 18,
                                 // fontWeight: FontWeight.w600,
@@ -122,11 +123,11 @@ class NewPostView extends StatelessWidget {
                                         controller.descriptionController,
 
                                     // textInputAction: TextInputAction.next,
-                                    label: 'Beschreibung',
+                                    label: AppLocalizations.of(context)!.description,
                                     autovalidateMode: AutovalidateMode.disabled,
                                     validator: (value) =>
                                         value != null && value.isEmpty
-                                            ? 'Geben Sie eine Beschreibung ein'
+                                            ? AppLocalizations.of(context)!.enterDescription
                                             : null),
                               ],
                             ),
@@ -144,24 +145,24 @@ class NewPostView extends StatelessWidget {
                                       controller:
                                           controller.eventLocationController,
                                       textInputAction: TextInputAction.next,
-                                      label: 'Ort',
+                                      label: AppLocalizations.of(context)!.location,
                                       autovalidateMode:
                                           AutovalidateMode.disabled,
                                       validator: (value) =>
                                           value != null && value.isEmpty
-                                              ? 'Geben Sie einen Ort ein'
+                                              ? AppLocalizations.of(context)!.enterLocation
                                               : null),
                                   const SizedBox(height: 10),
                                   LocooTextField(
                                     controller: controller.eventTimeController,
-                                    label: 'Datum',
+                                    label: AppLocalizations.of(context)!.date,
                                     readOnly: true,
                                     enableInteractiveSelection: false,
                                     focusNode: FocusNode(),
                                     autovalidateMode: AutovalidateMode.disabled,
                                     validator: (value) =>
                                         value != null && value.isEmpty
-                                            ? 'Geben Sie eine Zeit ein'
+                                            ? AppLocalizations.of(context)!.enterTime
                                             : null,
                                     // text inside the textfield
 
@@ -197,7 +198,7 @@ class NewPostView extends StatelessWidget {
                             ),
                           ],
 
-                          const NewPostTitle(label: 'Bild Hinzufügen'),
+                          NewPostTitle(label: AppLocalizations.of(context)!.addImage),
                           GetBuilder<NewPostController>(
                             builder: (c) => AddPhotoElement(
                               image: controller.image,
@@ -206,7 +207,7 @@ class NewPostView extends StatelessWidget {
                               editImage: controller.editImage,
                             ),
                           ),
-                          const NewPostTitle(label: 'Tags'),
+                          NewPostTitle(label: AppLocalizations.of(context)!.tags),
                           TagsElement(
                             descriptionController:
                                 controller.descriptionController,
@@ -354,7 +355,7 @@ class AddPhotoElement extends StatelessWidget {
                   ),
                   // text Füge ein Foto hinzu
                   Text(
-                    'Füge ein Foto hinzu',
+                    AppLocalizations.of(context)!.addPhoto,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context)
                               .colorScheme
@@ -416,7 +417,7 @@ class BottomNavBar extends StatelessWidget {
             child: BackOutlinedButton(
               controller: controller,
               icon: Icons.chevron_left_rounded,
-              label: 'Zurück',
+              label: AppLocalizations.of(context)!.back,
               onPress: () => controller.jumpBack(),
             ),
           ),
@@ -632,7 +633,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  'Tag hinzufügen',
+                  AppLocalizations.of(context)!.addTag,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context)
                             .buttonTheme
@@ -700,7 +701,7 @@ class _ButtonTextFieldState extends State<ButtonTextField> {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      'Add',
+                      AppLocalizations.of(context)!.add,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context)
                                 .buttonTheme

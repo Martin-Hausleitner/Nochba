@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_editor_plus/image_editor_plus.dart';
@@ -7,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nochba/logic/models/ImageFile.dart';
 import 'package:nochba/logic/models/category.dart';
 import 'package:nochba/views/new_post/tag_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class InsetPostController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -115,11 +115,11 @@ class InsetPostController extends GetxController {
         context: context,
         builder: (context) {
           return SimpleDialog(
-            title: const Text('Create a post'),
+            title: Text(AppLocalizations.of(context)!.createPost),
             children: [
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Pick an image'),
+                child: Text(AppLocalizations.of(context)!.pickImage),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   await pickImage(ImageSource.gallery);
@@ -127,7 +127,7 @@ class InsetPostController extends GetxController {
               ),
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Take a photo'),
+                child: Text(AppLocalizations.of(context)!.takePhoto),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   await pickImage(ImageSource.camera);
