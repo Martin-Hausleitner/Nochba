@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
@@ -38,15 +39,15 @@ class TagsElement extends StatefulWidget {
 
 class _TagsElementState extends State<TagsElement> {
   bool _isLoading = false;
-  int _maxCalls = 20;
+  int _maxCalls = kReleaseMode ? 2 : 20;
 
   Future<void> callOpenAI() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int callCount = prefs.getInt('callOpenAI_count') ?? 0;
 
     if (callCount == 0) {
-      Get.snackbar('Info', 'You only have 20 calls left.');
-    } else if (callCount >= _maxCalls - 5 && callCount < _maxCalls) {
+      Get.snackbar('Info', 'You only have 2 calls left.');
+    } else if (callCount >= _maxCalls - 1 && callCount < _maxCalls) {
       Get.snackbar(
           'Info', 'You only have ${_maxCalls - callCount} calls left.');
     } else if (callCount >= _maxCalls) {
@@ -69,8 +70,7 @@ class _TagsElementState extends State<TagsElement> {
 
       if (widget.descriptionController!.text.isEmpty) {
         print(widget.descriptionController!.text);
-        Get.snackbar(
-            'Error', 'Please add a description to the post!');
+        Get.snackbar('Error', 'Please add a description to the post!');
         return;
       }
 
@@ -103,8 +103,7 @@ class _TagsElementState extends State<TagsElement> {
     } catch (e, stackTrace) {
       print('Error calling OpenAI API: $e');
       print(stackTrace);
-      Get.snackbar(
-          'Error', 'There was an error calling the OpenAI API.');
+      Get.snackbar('Error', 'There was an error calling the OpenAI API.');
     }
   }
 
@@ -126,8 +125,7 @@ class _TagsElementState extends State<TagsElement> {
   void addTagsToWidget(String chatOutput) {
     List<String> newTags = parseTags(chatOutput);
     if (newTags.isEmpty) {
-      Get.snackbar(
-          'Error', 'There was an error calling the OpenAI API.');
+      Get.snackbar('Error', 'There was an error calling the OpenAI API.');
       return;
     }
 
