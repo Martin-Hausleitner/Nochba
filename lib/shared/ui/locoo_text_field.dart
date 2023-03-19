@@ -17,6 +17,7 @@ class LocooTextField extends StatefulWidget {
   final void Function()? onTap;
   final FocusNode? focusNode;
   final bool? enableInteractiveSelection;
+  final void Function(String)? onChanged;
 
   const LocooTextField({
     super.key,
@@ -37,6 +38,7 @@ class LocooTextField extends StatefulWidget {
     this.onTap,
     this.focusNode,
     this.enableInteractiveSelection,
+    this.onChanged,
   });
 
   // const LocooTextField({
@@ -108,6 +110,7 @@ class _LocooTextFieldState extends State<LocooTextField> {
           autovalidateMode: widget.autovalidateMode,
           validator: widget.validator,
           autofocus: widget.autofocus,
+          onChanged: widget.onChanged,
           onFieldSubmitted: widget.onFieldSubmitted,
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),

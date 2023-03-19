@@ -8,6 +8,7 @@ import 'package:nochba/logic/auth/AuthService.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:geocoding/geocoding.dart';
 
 import 'package:nochba/logic/models/ImageFile.dart';
 import 'package:nochba/pages/auth/register/views/sign_up_step_4_view.dart';
@@ -43,6 +44,50 @@ class SignUpController extends GetxController {
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
+
+  Future<List<String>> getAddressSuggestions(String query) async {
+    try {
+      final List<Location> locations = await locationFromAddress(query);
+      List<String> suggestions = [];
+
+      for (Location location in locations) {
+        final List<Placemark> placemarks = await placemarkFromCoordinates(
+            location.latitude, location.longitude);
+        final formattedPlacemarks =
+            placemarks.map((placemark) => _formatPlacemark(placemark)).toList();
+        suggestions.addAll(formattedPlacemarks);
+      }
+      return suggestions;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  String _formatPlacemark(Placemark placemark) {
+    return [
+      placemark.street,
+      placemark.name,
+      placemark.locality,
+      placemark.postalCode,
+    ]
+        .where((component) => component != null && component.isNotEmpty)
+        .join(', ');
+  }
+
+  void fillAddressFields(String suggestion) {
+    final List<String> addressComponents = suggestion.split(', ');
+
+    if (addressComponents.length >= 3) {
+      streetController.text = addressComponents[0];
+      streetNumberController.text = addressComponents[1];
+      cityController.text = addressComponents[2];
+    }
+
+    if (addressComponents.length >= 4) {
+      zipController.text = addressComponents[3];
+    }
+  }
 
   bool isGoogleSignIn = false;
 

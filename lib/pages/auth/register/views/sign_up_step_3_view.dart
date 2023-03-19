@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:nochba/pages/auth/sign_up_controller.dart';
 import 'package:nochba/pages/auth/register/widgets/back_outlined_button.dart';
 import 'package:nochba/pages/auth/register/widgets/next_elevated_button.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/progress_line.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:nochba/shared/views/app_bar_big_view.dart';
+import 'package:geocoding/geocoding.dart';
 
 import '../../../inset_post/new_post/widgets/circle_step.dart';
 
@@ -71,11 +73,23 @@ class SignUpStep3View extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: LocooTextField(
+                        child: LocooTypeAheadFormField(
                           label: 'Straße',
                           controller: controller.streetController,
-                          validator: controller.validateAddress,
                           textInputAction: TextInputAction.next,
+                          validator: controller.validateAddress,
+                          suggestionsCallback: (pattern) async {
+                            return await controller
+                                .getAddressSuggestions(pattern);
+                          },
+                          itemBuilder: (context, suggestion) {
+                            return ListTile(
+                              title: Text(suggestion),
+                            );
+                          },
+                          onSuggestionSelected: (suggestion) {
+                            controller.fillAddressFields(suggestion);
+                          },
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -150,6 +164,119 @@ class BottomNavBar extends StatelessWidget {
             controller: controller,
             icon: Icons.chevron_left_outlined,
             label: 'Weiter',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class LocooTypeAheadFormField extends StatefulWidget {
+  final String label;
+  final TextEditingController? controller;
+  final TextInputAction textInputAction;
+  final String? Function(String?)? validator;
+  final SuggestionsCallback<String> suggestionsCallback;
+  final ItemBuilder<String> itemBuilder;
+  final SuggestionSelectionCallback<String> onSuggestionSelected;
+
+  const LocooTypeAheadFormField({
+    Key? key,
+    required this.label,
+    this.controller,
+    this.textInputAction = TextInputAction.go,
+    this.validator,
+    required this.suggestionsCallback,
+    required this.itemBuilder,
+    required this.onSuggestionSelected,
+  }) : super(key: key);
+
+  @override
+  _LocooTypeAheadFormFieldState createState() =>
+      _LocooTypeAheadFormFieldState();
+}
+
+class _LocooTypeAheadFormFieldState extends State<LocooTypeAheadFormField> {
+  final FocusNode _focusNode = FocusNode();
+  Color _borderColor = Colors.transparent;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(
+      () {
+        setState(
+          () {
+            _borderColor = _focusNode.hasFocus
+                ? Theme.of(context).primaryColor
+                : Colors.transparent;
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: 50,
+          decoration: BoxDecoration(
+            border: Border.all(color: _borderColor, width: 1.5),
+            borderRadius: BorderRadius.circular(12),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+          ),
+        ),
+        TypeAheadFormField<String>(
+          textFieldConfiguration: TextFieldConfiguration(
+            controller: widget.controller,
+            focusNode: _focusNode,
+            textInputAction: widget.textInputAction,
+            decoration: InputDecoration(
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              border: InputBorder.none,
+              labelText: widget.label,
+              labelStyle: TextStyle(
+                color: _focusNode.hasFocus
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context)
+                        .colorScheme
+                        .onSecondaryContainer
+                        .withOpacity(0.7),
+              ),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+            ),
+          ),
+          noItemsFoundBuilder: (BuildContext context) => Container(
+            height: 50,
+            child: Center(
+              child: Text(
+                'Nichts gefunden!',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          ),
+          suggestionsCallback: widget.suggestionsCallback,
+          itemBuilder: widget.itemBuilder,
+          onSuggestionSelected: widget.onSuggestionSelected,
+          validator: widget.validator,
+          suggestionsBoxDecoration: SuggestionsBoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: // use color: f3f3f3
+                Colors.white,
+            elevation: 3,
           ),
         ),
       ],
