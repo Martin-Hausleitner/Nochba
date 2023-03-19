@@ -36,12 +36,12 @@ class _TitleFieldState extends State<TitleField> {
     int _maxCalls = 20;
 
     if (callCount == 0) {
-      Get.snackbar('Info', 'Sie haben insgesamt 20 Aufrufe zur Verfügung.');
+      Get.snackbar('Info', 'You have only 20 calls left.');
     } else if (callCount >= _maxCalls - 5 && callCount < _maxCalls) {
       Get.snackbar(
-          'Info', 'Sie haben noch ${_maxCalls - callCount} Aufrufe übrig.');
+          'Info', 'You have only ${_maxCalls - callCount} calls left.');
     } else if (callCount >= _maxCalls) {
-      Get.snackbar('Info', 'Sie haben keine Aufrufe mehr zur Verfügung.');
+      Get.snackbar('Info', 'You have no calls left.');
       return;
     }
 
@@ -60,7 +60,7 @@ class _TitleFieldState extends State<TitleField> {
 
       if (widget.descriptionController!.text.isEmpty) {
         Get.snackbar(
-            'Fehler', 'Bitte Füge ein Beschreibung zu dem Beitrag hinzu!');
+            'Error', 'Please enter a description before calling the API.');
         return;
       }
 
@@ -96,7 +96,7 @@ class _TitleFieldState extends State<TitleField> {
       print('Error calling OpenAI API: $e');
       print(stackTrace);
       Get.snackbar(
-          'Fehler', 'Es ist ein Fehler bei der Ausführung der KI passiert: $e');
+          'Error', 'Error calling OpenAI API: $e. Please try again later.');
     }
   }
 
@@ -110,7 +110,7 @@ class _TitleFieldState extends State<TitleField> {
           label: 'Titel',
           autovalidateMode: AutovalidateMode.disabled,
           validator: (value) => value != null && value.isEmpty
-              ? 'Geben Sie einen Titel ein'
+              ? 'Please enter a title'
               : null,
         ),
         Positioned(

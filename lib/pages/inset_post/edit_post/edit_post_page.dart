@@ -9,6 +9,8 @@ import 'package:nochba/pages/inset_post/new_post/widgets/new_post_title.dart';
 import 'package:nochba/pages/inset_post/new_post/widgets/tags_element.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class EditPostPage extends GetView<EditPostController> {
   const EditPostPage({super.key, required this.postId});
@@ -20,7 +22,7 @@ class EditPostPage extends GetView<EditPostController> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: const Text('Beitrag bearbeiten'),
+          title: Text(AppLocalizations.of(context)!.editPost),
           leading: IconButton(
               icon: const Icon(Icons.arrow_back), onPressed: () => Get.back()),
         ),

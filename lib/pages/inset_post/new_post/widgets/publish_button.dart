@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nochba/pages/inset_post/new_post/new_post_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class PublishButton extends StatefulWidget {
   final bool isPublishing;
@@ -62,7 +64,7 @@ class _PublishButtonState extends State<PublishButton> {
                   Icons.done_outlined,
                 ),
                 label: Text(
-                  'Veröffentlichen',
+                  AppLocalizations.of(context)!.publish,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context)
                             .buttonTheme

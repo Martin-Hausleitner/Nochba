@@ -181,7 +181,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                                       authorName: '${user.fullName}',
                                       imageUrl: user.imageUrl,
                                       notificationText:
-                                          'möchte dich wegen deinem Post "${post.title}", den du am ${createdAt.day}.${createdAt.month}.${createdAt.year} erstellt hast, anschreiben',
+                                          'möchte dich wegen deinem Post anschreiben. "${post.title}" ${createdAt.day}.${createdAt.month}.${createdAt.year}',
                                       time: getTimeAgo(
                                           notification.createdAt.toDate()),
                                       acceptButtonOnPressed: () async =>

@@ -7,6 +7,8 @@ import '../widgets/circle_step.dart';
 import '../widgets/next_elevated_button.dart';
 import '../widgets/progress_line.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class PublishedNewPostView extends StatelessWidget {
   const PublishedNewPostView({Key? key, required this.controller})
@@ -27,7 +29,7 @@ class PublishedNewPostView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Beitrag erstellen',
+                  AppLocalizations.of(context)!.createPost,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontSize: 30,
                         fontWeight: FontWeight.w800,
@@ -40,23 +42,23 @@ class PublishedNewPostView extends StatelessWidget {
                 const SizedBox(height: 28),
                 Row(
                   children: [
-                    CircleStep(3, '1', () {
+                    CircleStep(3, AppLocalizations.of(context)!.step1, () {
                       controller.jumpBack();
                     }),
                     const ProgressLine(
                       isFinished: true,
                     ),
-                    CircleStep(3, '2', () {}),
+                    CircleStep(3, AppLocalizations.of(context)!.step2, () {}),
                     const ProgressLine(
                       isFinished: true,
                     ),
-                    CircleStep(3, '3', () {}),
+                    CircleStep(3, AppLocalizations.of(context)!.step3, () {}),
                   ],
                 ),
                 const SizedBox(height: 28),
                 //tile small Wähle deien Kategorie
                 Text(
-                  'Fertig',
+                  AppLocalizations.of(context)!.finish,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         // color: Theme.of(context).secondaryHeaderColor,
@@ -65,7 +67,7 @@ class PublishedNewPostView extends StatelessWidget {
                 //tile small Schritt 1 von 3
                 const SizedBox(height: 2),
                 Text(
-                  'Schritt 3 von 3',
+                  AppLocalizations.of(context)!.step3of3,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       // fontSize: 18,
                       // fontWeight: FontWeight.w600,
@@ -89,7 +91,7 @@ class PublishedNewPostView extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    'Erfolgreich Veröffentlicht',
+                    AppLocalizations.of(context)!.successfullyPublished,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           // color: Theme.of(context).secondaryHeaderColor,
@@ -99,7 +101,7 @@ class PublishedNewPostView extends StatelessWidget {
                 const SizedBox(height: 8),
                 Center(
                   child: Text(
-                    'Dein Post wurde erfolgreich \nveröffentlicht',
+                    AppLocalizations.of(context)!.postPublished,
                     //align center
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -120,7 +122,7 @@ class PublishedNewPostView extends StatelessWidget {
               BackOutlinedButton(
                 controller: controller,
                 icon: FlutterRemix.pencil_line,
-                label: "Post Bearbeiten",
+                label: AppLocalizations.of(context)!.editPost,
                 onPress: () => controller.pushEditPostView(),
               ),
               const SizedBox(height: 5),
@@ -129,7 +131,7 @@ class PublishedNewPostView extends StatelessWidget {
                     () => controller.jumpBackToStartPage(),
                 controller: controller,
                 icon: Icons.add,
-                label: 'Neuen Beitrag erstellen',
+                label: AppLocalizations.of(context)!.newPost,
               ),
             ],
           ),

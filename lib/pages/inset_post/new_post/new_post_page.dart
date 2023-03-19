@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/category.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'new_post_controller.dart';
 import 'views/new_post_subcategory_selection_view.dart';
 import 'views/new_post_view.dart';
@@ -53,7 +53,7 @@ class NewPostCategorySelectionView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Beitrag erstellen',
+            AppLocalizations.of(context)!.createPost,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -65,21 +65,21 @@ class NewPostCategorySelectionView extends StatelessWidget {
           const SizedBox(height: 28),
           Row(
             children: [
-              CircleStep(1, '1', () {}),
+              CircleStep(1, AppLocalizations.of(context)!.step1, () {}),
               const ProgressLine(
                 isFinished: false,
               ),
-              CircleStep(2, '2', () {}),
+              CircleStep(2, AppLocalizations.of(context)!.step2, () {}),
               const ProgressLine(
                 isFinished: false,
               ),
-              CircleStep(2, '3', () {}),
+              CircleStep(2, AppLocalizations.of(context)!.step3, () {}),
             ],
           ),
           const SizedBox(height: 28),
           //tile small Wähle deien Kategorie
           Text(
-            'Wähle deine Kategorie',
+            AppLocalizations.of(context)!.chooseCategory,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   // color: Theme.of(context).secondaryHeaderColor,
@@ -88,7 +88,7 @@ class NewPostCategorySelectionView extends StatelessWidget {
           //tile small Schritt 1 von 3
           const SizedBox(height: 2),
           Text(
-            'Schritt 1 von 3',
+            AppLocalizations.of(context)!.step1of3,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 // fontSize: 18,
                 // fontWeight: FontWeight.w600,
@@ -106,7 +106,7 @@ class NewPostCategorySelectionView extends StatelessWidget {
               crossAxisCount: 2,
               children: <Widget>[
                 CategoryTile(
-                  title: 'Ausleihen',
+                  title: AppLocalizations.of(context)!.lendingKategory,
                   //CategoryOptions.Message.name.toString()
                   icon: FlutterRemix.hand_heart_line,
                   onTap: () {
@@ -114,21 +114,21 @@ class NewPostCategorySelectionView extends StatelessWidget {
                   },
                 ),
                 CategoryTile(
-                  title: 'Mitteilung',
+                  title: AppLocalizations.of(context)!.messageKategory,
                   icon: FlutterRemix.message_2_line,
                   onTap: () {
                     controller.updateCategory(CategoryOptions.Message);
                   },
                 ),
                 CategoryTile(
-                  title: 'Event',
+                  title: AppLocalizations.of(context)!.event,
                   icon: FlutterRemix.calendar_event_line,
                   onTap: () {
                     controller.updateCategory(CategoryOptions.Event);
                   },
                 ),
                 CategoryTile(
-                  title: 'Suche',
+                  title: AppLocalizations.of(context)!.searchKategory,
                   icon: FlutterRemix.search_line,
                   onTap: () {
                     controller.updateCategory(CategoryOptions.Search);

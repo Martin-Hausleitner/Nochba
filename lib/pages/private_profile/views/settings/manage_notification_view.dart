@@ -38,7 +38,7 @@ class ManageNotificationView extends GetView<ManageAccountController> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Chat Anfragen',
+                      AppLocalizations.of(context)!.chatRequests,
                       maxLines: 1,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w500,
