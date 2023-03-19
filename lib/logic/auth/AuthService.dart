@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nochba/logic/auth/AuthExceptionHandler.dart';
 import 'package:nochba/logic/auth/AuthResultStatus.dart';
 import 'package:nochba/logic/models/ImageFile.dart';
@@ -29,6 +30,18 @@ class AuthService extends ResourceAccess {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       _firebaseUser = user;
     });
+  }
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  Future<bool> isUserRegistered(String email) async {
+    try {
+      var result =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      return result.isNotEmpty;
+    } catch (error) {
+      print('Error while checking if user is registered: $error');
+      return false;
+    }
   }
 
   User? _firebaseUser = FirebaseAuth.instance.currentUser;
