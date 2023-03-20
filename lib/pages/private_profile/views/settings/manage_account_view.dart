@@ -238,8 +238,9 @@ class AlertDialogDeleteAccount extends StatelessWidget {
               height: 10,
             ),
             Text(
-              AppLocalizations.of(context)!.deleteAccount,
+              //AppLocalizations.of(context)!.deleteAccount,
               //add fontwiehgt w500
+              'Delete Account',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
               ),
@@ -247,8 +248,9 @@ class AlertDialogDeleteAccount extends StatelessWidget {
           ],
         ),
         content: Text(
-          AppLocalizations.of(context)!.deleteYourAccountPermanently,
+          //AppLocalizations.of(context)!.deleteYourAccountPermanently,
           //style the text gray
+          'Are you sure you want to delete your account?',
           style: TextStyle(color: Color.fromARGB(133, 36, 36, 36)),
         ),
         actions: <Widget>[
