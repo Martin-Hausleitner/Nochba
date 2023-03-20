@@ -92,7 +92,8 @@ class ProfileContent extends StatelessWidget {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(
-                        child: Text(AppLocalizations.of(context)!.postsAreNotAvailable,
+                        child: Text(
+                            AppLocalizations.of(context)!.postsAreNotAvailable,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 32, fontWeight: FontWeight.w300)),
@@ -101,6 +102,7 @@ class ProfileContent extends StatelessWidget {
                       final posts = snapshot.data!;
 
                       return ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: posts.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -128,7 +130,8 @@ class ProfileContent extends StatelessWidget {
                                         .withOpacity(0.1),
                                   ),
                                   Text(
-                                    AppLocalizations.of(context)!.postsAreNotAvailable,
+                                    AppLocalizations.of(context)!
+                                        .postsAreNotAvailable,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
