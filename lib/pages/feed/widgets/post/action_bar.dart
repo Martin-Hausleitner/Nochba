@@ -9,58 +9,66 @@ import 'package:nochba/logic/models/bookmark.dart';
 import 'package:nochba/logic/models/post.dart';
 
 //create a ActionBar class which have multiple round icon Buttons
-
-class ActionBar extends GetView<ActionBarController> {
+class ActionBar extends StatefulWidget {
   final Post post;
+
   const ActionBar({Key? key, required this.post}) : super(key: key);
 
   @override
+  _ActionBarState createState() => _ActionBarState();
+}
+
+class _ActionBarState extends State<ActionBar> {
+  int localLikes = 0;
+  bool isLiked = false;
+
+  @override
   Widget build(BuildContext context) {
-    // return a row with round icon buttons and a text
+    final controller = Get.find<ActionBarController>();
+
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           StreamBuilder<List<String>>(
             stream: controller.getLikedPostsOfCurrentUser(),
-            builder: ((context, snapshot) {
+            builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final likedPosts = snapshot.data!;
-                if (likedPosts.contains(post.id)) {
-                  return LocooCircleIconButton(
-                      icon: Icons.thumb_up,
-                      isPressed: true,
-                      onPressed: () async =>
-                          await controller.unlikePost(post.id));
-                } else {
-                  return LocooCircleIconButton(
-                      icon: Icons.thumb_up,
-                      isPressed: false,
-                      onPressed: () async =>
-                          await controller.likePost(post.id));
-                }
-              } else {
-                return LocooCircleIconButton(
-                  icon: Icons.thumb_up,
-                  // isPressed: true,
-                  // color: Colors.grey,
-                  onPressed: () {},
-                );
+                isLiked = likedPosts.contains(widget.post.id);
               }
-            }),
+              return LocooCircleIconButton(
+                icon: Icons.thumb_up,
+                isPressed: isLiked,
+                onPressed: () async {
+                  if (isLiked) {
+                    await controller.unlikePost(widget.post.id);
+                    setState(() {
+                      localLikes--;
+                    });
+                  } else {
+                    await controller.likePost(widget.post.id);
+                    setState(() {
+                      localLikes++;
+                    });
+                  }
+                  setState(() {
+                    isLiked = !isLiked;
+                  });
+                },
+              );
+            },
           ),
           StreamBuilder<int?>(
-            stream: controller.getLikesOfPost(post.id),
+            stream: controller.getLikesOfPost(widget.post.id),
             builder: (context, snapshot) {
-              int? data;
               if (snapshot.hasData) {
-                data = snapshot.data;
+                localLikes = snapshot.data!;
               }
-
               return Padding(
                 padding: const EdgeInsets.only(left: 8, right: 18),
                 child: Text(
-                  data != null ? '$data' : '-',
+                  '$localLikes',
                   style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -75,11 +83,11 @@ class ActionBar extends GetView<ActionBarController> {
           LocooCircleIconButton(
             icon: Icons.forum,
             onPressed: () {
-              Get.to(CommentPage(postId: post.id));
+              Get.to(CommentPage(postId: widget.post.id));
             },
           ),
           FutureBuilder<int>(
-            future: controller.getCommentCountOfPost(post.id),
+            future: controller.getCommentCountOfPost(widget.post.id),
             builder: (context, snapshot) {
               int? data;
               if (snapshot.hasData) {
@@ -105,19 +113,19 @@ class ActionBar extends GetView<ActionBarController> {
             builder: ((context, snapshot) {
               if (snapshot.hasData) {
                 final bookMark = snapshot.data!;
-                if (bookMark.posts.contains(post.id)) {
+                if (bookMark.posts.contains(widget.post.id)) {
                   return LocooCircleIconButton(
                       icon: Icons.bookmark,
                       isPressed: true,
                       // color: Theme.of(context).colorScheme.primary,
-                      onPressed: () async =>
-                          await controller.unsavePost(bookMark, post.id));
+                      onPressed: () async => await controller.unsavePost(
+                          bookMark, widget.post.id));
                 } else {
                   return LocooCircleIconButton(
                       icon: Icons.bookmark,
                       isPressed: false,
                       onPressed: () async =>
-                          await controller.savePost(bookMark, post.id));
+                          await controller.savePost(bookMark, widget.post.id));
                 }
               } else {
                 return LocooCircleIconButton(
@@ -146,7 +154,7 @@ class ActionBar extends GetView<ActionBarController> {
                       // height of the modal bottom sheet
                       ActionBarMore(
                     controller: controller,
-                    post: post,
+                    post: widget.post,
                   );
                 },
               );

@@ -14,6 +14,9 @@ import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 class ActionBarController extends GetxController {
   final _likedPostRepository = Get.find<LikedPostRepository>();
 
+
+  RxInt localLikes = RxInt(0);
+
   Stream<List<String>> getLikedPostsOfCurrentUser() {
     try {
       return _likedPostRepository.getLikedPostsOfCurrentUser();
@@ -84,7 +87,6 @@ class ActionBarController extends GetxController {
   }
 
   //if current category is event
-  
 
   pushEditPostView(String postId) {
     Get.to(() => EditPostPage(
