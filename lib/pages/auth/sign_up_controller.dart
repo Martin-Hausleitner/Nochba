@@ -98,7 +98,7 @@ class SignUpController extends GetxController {
 
   bool isGoogleSignIn = false;
 
-  Future<void> signInWithGoogle() async {
+  Future<void> signUpWithGoogle() async {
     try {
       print('Starting Google Sign In');
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -110,34 +110,50 @@ class SignUpController extends GetxController {
       }
 
       isGoogleSignIn = true;
+
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+      final email = googleUser.email;
+      final isRegistered = await authService.isUserRegistered(email);
+      if (isRegistered) {
+        Get.snackbar('Fehler',
+            'Ein Account mit deinem Google-Konto wurde bereits erstellt!');
+        return;
+      }
       final UserCredential authResult =
           await _auth.signInWithCredential(credential);
       final User? user = authResult.user;
 
       // Übernehmen des Profilbilds
-      final String? profileImageUrl = user?.photoURL;
-      if (profileImageUrl != null) {
-        final response = await http.get(Uri.parse(profileImageUrl));
-        if (response.statusCode == 200) {
-          _imageFile.file = response.bodyBytes;
-          update();
+      if (authResult.additionalUserInfo!.isNewUser) {
+        final String? profileImageUrl = user?.photoURL;
+        if (profileImageUrl != null) {
+          final response = await http.get(Uri.parse(profileImageUrl));
+          if (response.statusCode == 200) {
+            _imageFile.file = response.bodyBytes;
+            update();
+          }
         }
+
+        final String firstName = user!.displayName!.split(' ')[0];
+        final String lastName = user.displayName!.split(' ')[1];
+        firstNameController.text = firstName;
+        lastNameController.text = lastName;
+
+        await pageController.nextPage(
+          duration: const Duration(milliseconds: 1),
+          curve: Curves.easeIn,
+        );
+        print('New user registered and signed in with Google');
+      } else {
+        print('Existing user signed in with Google');
+        Get.snackbar('Error',
+            'Es wurde bereits ein Account mit deinen Google Account erstellt!');
       }
-
-      final String firstName = user!.displayName!.split(' ')[0];
-      final String lastName = user.displayName!.split(' ')[1];
-
-      firstNameController.text = firstName;
-      lastNameController.text = lastName;
-
-      await pageController.nextPage(
-          duration: const Duration(milliseconds: 1), curve: Curves.easeIn);
       isGoogleSignIn = false;
       print('Google Sign In successful');
     } catch (error) {

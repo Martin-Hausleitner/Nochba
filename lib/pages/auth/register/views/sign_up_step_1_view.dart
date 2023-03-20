@@ -179,7 +179,7 @@ class SignUpStep1View extends StatelessWidget {
                   //   ),
                   // );
                   try {
-                    await controller.signInWithGoogle();
+                    await controller.signUpWithGoogle();
                   } catch (error) {
                     print('Google Sign In Error: $error');
                     // Show an error message to the user
