@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:latlng/latlng.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'filter_title.dart';
+import 'dart:math' as math;
 
 class FilterRangeSlider extends StatefulWidget {
   const FilterRangeSlider({
@@ -77,7 +78,7 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:  [
+                  children: [
                     FilterTitle(label: AppLocalizations.of(context)!.range),
                   ],
                 ),
@@ -170,9 +171,26 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  double _zoomLevel = 14.0;
+  var _zoomLevel;
   double _maxZoomLevel = 18.0;
   double _minZoomLevel = 3.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _zoomLevel = calculateZoomLevel(widget.range);
+  }
+
+  double calculateZoomLevel(double range) {
+    const double earthCircumference = 40075000;
+    const double adjustmentFactor = 0.0082;
+    const double tileSize = 256;
+
+    double zoomLevel =
+        math.log(earthCircumference / (range * tileSize * adjustmentFactor)) /
+            math.ln2;
+    return zoomLevel.clamp(_minZoomLevel, _maxZoomLevel);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,40 +210,73 @@ class _MapPageState extends State<MapPage> {
             }
           });
         },
-        child: FlutterMap(
-          options: MapOptions(
-            center: widget.center,
-            zoom: _zoomLevel,
-            interactiveFlags: InteractiveFlag.all,
-          ),
-          nonRotatedChildren: [
-            // AttributionWidget.defaultWidget(
-            //   source: 'OpenStreetMap contributors',
-            //   onSourceTapped: null,
-            // ),
-          ],
+        child: Stack(
           children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-              // userAgentPackageName: 'com.example.app',
-            ),
-            CircleLayer(
-              circles: [
-                CircleMarker(
-                  point: widget.center,
-                  color: Theme.of(context).primaryColor,
-                  useRadiusInMeter: true,
-                  radius: 12, // set circle radius to half of the range
+            FlutterMap(
+              options: MapOptions(
+                center: widget.center,
+                zoom: _zoomLevel,
+                interactiveFlags: InteractiveFlag.all,
+              ),
+              nonRotatedChildren: [
+                // AttributionWidget.defaultWidget(
+                //   source: 'OpenStreetMap contributors',
+                //   onSourceTapped: null,
+                // ),
+              ],
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  // userAgentPackageName: 'com.example.app',
                 ),
-                CircleMarker(
-                  point: widget.center,
-                  color: Theme.of(context).primaryColor.withOpacity(0.4),
-                  useRadiusInMeter: true,
-                  radius: widget.range,
-                  borderColor: Theme.of(context).primaryColor,
-                  borderStrokeWidth: 2,
+                CircleLayer(
+                  circles: [
+                    CircleMarker(
+                      point: widget.center,
+                      color: Theme.of(context).primaryColor,
+                      useRadiusInMeter: false, // Änderung hier
+                      radius: 3, // Radius in Pixeln
+                    ),
+                    CircleMarker(
+                      point: widget.center,
+                      color: Theme.of(context).primaryColor.withOpacity(0.4),
+                      useRadiusInMeter: true,
+                      radius: widget.range,
+                      borderColor: Theme.of(context).primaryColor,
+                      borderStrokeWidth: 2,
+                    ),
+                  ],
                 ),
               ],
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Column(
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        _zoomLevel = (_zoomLevel + 1)
+                            .clamp(_minZoomLevel, _maxZoomLevel);
+                      });
+                    },
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.add, color: Colors.black),
+                  ),
+                  SizedBox(height: 10),
+                  FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        _zoomLevel = (_zoomLevel - 1)
+                            .clamp(_minZoomLevel, _maxZoomLevel);
+                      });
+                    },
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.remove, color: Colors.black),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
