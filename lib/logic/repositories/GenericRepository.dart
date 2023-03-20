@@ -293,36 +293,4 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
       rethrow;
     }
   }
-
-  Future<List<T>> geoQuery(GeoFirePoint center, double radius, String fieldName,
-      {List<String>? nexus}) {
-    validate(null, AccessMode.query);
-    try {
-      beforeAction(AccessMode.query);
-
-      final result = resource.geoQuery(center, radius, fieldName, nexus: nexus);
-
-      afterAction(AccessMode.query);
-      return processFutureListResult(result);
-    } on Exception {
-      rethrow;
-    }
-  }
-
-  Stream<List<T>> geoQueryAsStream(
-      GeoFirePoint center, double radius, String fieldName,
-      {List<String>? nexus}) {
-    validate(null, AccessMode.query);
-    try {
-      beforeAction(AccessMode.query);
-
-      final result =
-          resource.geoQueryAsStream(center, radius, fieldName, nexus: nexus);
-
-      afterAction(AccessMode.query);
-      return processStreamListResult(result);
-    } on Exception {
-      rethrow;
-    }
-  }
 }

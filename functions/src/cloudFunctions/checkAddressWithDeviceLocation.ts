@@ -2,9 +2,9 @@ import * as functions from "firebase-functions";
 import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFromAddress";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 import * as admin from "firebase-admin";
-import { GeoPoint } from "firebase-admin/firestore";
 import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";
 import * as logger from "firebase-functions/logger";
+import * as ngeohash from 'ngeohash';
 
 const MAX_DISTANCE_METERS = 4444000;
 
@@ -44,7 +44,12 @@ export const checkAddressWithDeviceLocation = functions.region('europe-west1')
       .doc("address");
     const userDoc = await userInternAddressRef.get();
 
-    if (userDoc.exists) {
+    const userCoordsRef = db
+      .collection("userCoords")
+      .doc(uid);
+    const userCoordsDoc = await userInternAddressRef.get();
+
+    if (userDoc.exists && userCoordsDoc.exists) {
       logger.error("Address coordinates have already been written!");
       throw new functions.https.HttpsError(
         "failed-precondition",
@@ -101,13 +106,22 @@ export const checkAddressWithDeviceLocation = functions.region('europe-west1')
       );
     }
 
-    const deviceCoordinates = new GeoPoint(
+    const deviceCoordinates = new admin.firestore.GeoPoint(
       deviceLatitudeCoordinate,
       deviceLongitudeCoordinate
     );
 
     await userInternAddressRef.set({
       coords: addressCoordinates,
+    });
+
+    var geohash = ngeohash.encode(deviceLatitudeCoordinate, deviceLongitudeCoordinate, 12);
+
+    await userCoordsRef.set({
+      g: {
+        geohash: geohash,
+        geopoint: deviceCoordinates
+      },
     });
 
     const userInternVerificationRef = db

@@ -183,7 +183,8 @@ class EditProfileController extends GetxController {
       //firstNameTextController.clear();
       //lastNameTextController.clear();
     } on Exception {
-      return Future.error('The name could not be updated. Please try again later.');
+      return Future.error(
+          'The name could not be updated. Please try again later.');
     }
 
     return true;
@@ -204,7 +205,8 @@ class EditProfileController extends GetxController {
           .updateProfessionOfCurrentUser(professionTextController.text.trim());
       //professionTextController.clear();
     } on Exception {
-      return Future.error('The profession could not be updated. Please try again later.');
+      return Future.error(
+          'The profession could not be updated. Please try again later.');
     }
 
     return true;
@@ -215,7 +217,8 @@ class EditProfileController extends GetxController {
       await userPublicInfoRepository
           .updateBioOfCurrentUser(bioTextController.text.trim());
     } on Exception {
-      return Future.error('The bio could not be updated. Please try again later.');
+      return Future.error(
+          'The bio could not be updated. Please try again later.');
     }
 
     return true;
@@ -225,10 +228,10 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository
           .updateBirthDayOfCurrentUser(birthdayDateController.selectedDate);
-      Get.snackbar('Successful',
-          'The birthday update was successful.');
+      Get.snackbar('Successful', 'The birthday update was successful.');
     } on Exception {
-      return Future.error('The birthday could not be updated. Please try again later.');
+      return Future.error(
+          'The birthday could not be updated. Please try again later.');
     }
 
     return true;
@@ -247,22 +250,27 @@ class EditProfileController extends GetxController {
     return true;
   }
 
-  final RxList<String> _interests = <String>[].obs;
+  final List<String> _interests = <String>[];
 
-  List<String> getInterests(List<String>? interestsList) {
+  void initializeInterests(List<String>? interestsList) {
     _interests.clear();
     if (interestsList != null && interestsList.isNotEmpty) {
       _interests.addAll(interestsList);
     }
+  }
+
+  List<String> getInterests() {
     return _interests;
   }
 
   addInterest(String interest) {
     _interests.add(interest);
+    update(['EditProfileInterestTags']);
   }
 
   removeInterest(String interest) {
     _interests.remove(interest);
+    update(['EditProfileInterestTags']);
   }
 
   void showTagDialog(BuildContext context) async {
@@ -280,28 +288,34 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository.updateInterestsOfCurrentUser(_interests);
     } on Exception {
-      return Future.error('Your interests could not be updated. Please try again later.');
+      return Future.error(
+          'Your interests could not be updated. Please try again later.');
     }
 
     return true;
   }
 
-  final RxList<String> _offers = <String>[].obs;
+  final List<String> _offers = <String>[];
 
-  List<String> getOffers(List<String>? offersList) {
+  void initializeOffer(List<String>? offersList) {
     _offers.clear();
     if (offersList != null) {
       _offers.addAllIf(offersList.isNotEmpty, offersList);
     }
+  }
+
+  List<String> getOffers() {
     return _offers;
   }
 
   addOffer(String offer) {
     _offers.add(offer);
+    update(['EditProfileOfferTags']);
   }
 
   removeOffer(String offer) {
     _offers.remove(offer);
+    update(['EditProfileOfferTags']);
   }
 
   void showOfferTagDialog(BuildContext context) async {
@@ -319,7 +333,8 @@ class EditProfileController extends GetxController {
     try {
       await userPublicInfoRepository.updateOffersOfCurrentUser(_offers);
     } on Exception {
-      return Future.error('The field could not be updated. Please try again later.');
+      return Future.error(
+          'The field could not be updated. Please try again later.');
     }
 
     return true;

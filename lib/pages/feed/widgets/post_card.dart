@@ -31,13 +31,14 @@ import 'post/hashtag_badges.dart';
 
 class Post extends StatefulWidget {
   final models.Post post;
+  final Function()? afterAction;
   CategoryOptions category = CategoryOptions.None;
-  final controller = PostCardController();
+  final controller = Get.find<PostCardController>();
 
   String titleTranslation = '';
   String descriptionTranslation = '';
 
-  Post({Key? key, required this.post}) : super(key: key) {
+  Post({Key? key, required this.post, this.afterAction}) : super(key: key) {
     category = CategoryModul.getCategoryOptionByName(post.category);
   }
 
@@ -86,41 +87,41 @@ class _PostState extends State<Post> {
   }
 
   Future<void> translatePost() async {
-  try {
-    final sourceLanguage = TranslateLanguage.german;
-    final targetLanguage = TranslateLanguage.english;
-    final _modelManager = OnDeviceTranslatorModelManager();
+    try {
+      final sourceLanguage = TranslateLanguage.german;
+      final targetLanguage = TranslateLanguage.english;
+      final _modelManager = OnDeviceTranslatorModelManager();
 
-    await downloadLanguageModel(sourceLanguage);
-    await downloadLanguageModel(targetLanguage);
+      await downloadLanguageModel(sourceLanguage);
+      await downloadLanguageModel(targetLanguage);
 
-    print(
-        'Model downloaded: ${await _modelManager.isModelDownloaded(sourceLanguage.bcpCode)}');
-    print(
-        'Model downloaded: ${await _modelManager.isModelDownloaded(targetLanguage.bcpCode)}');
+      print(
+          'Model downloaded: ${await _modelManager.isModelDownloaded(sourceLanguage.bcpCode)}');
+      print(
+          'Model downloaded: ${await _modelManager.isModelDownloaded(targetLanguage.bcpCode)}');
 
-    final OnDeviceTranslator onDeviceTranslator = OnDeviceTranslator(
-      sourceLanguage: sourceLanguage,
-      targetLanguage: targetLanguage,
-    );
+      final OnDeviceTranslator onDeviceTranslator = OnDeviceTranslator(
+        sourceLanguage: sourceLanguage,
+        targetLanguage: targetLanguage,
+      );
 
-    final String titleTranslation =
-        await onDeviceTranslator.translateText(widget.post.title);
-    final String descriptionTranslation =
-        await onDeviceTranslator.translateText(widget.post.description);
+      final String titleTranslation =
+          await onDeviceTranslator.translateText(widget.post.title);
+      final String descriptionTranslation =
+          await onDeviceTranslator.translateText(widget.post.description);
 
-    setState(() {
-      widget.titleTranslation = titleTranslation;
-      widget.descriptionTranslation = descriptionTranslation;
-    });
-  } catch (e) {
-    print('Error translating text: $e');
-    Get.snackbar(
-      'Error',
-      'Could not translate text. Please try again later. $e',
-    );
+      setState(() {
+        widget.titleTranslation = titleTranslation;
+        widget.descriptionTranslation = descriptionTranslation;
+      });
+    } catch (e) {
+      print('Error translating text: $e');
+      Get.snackbar(
+        'Error',
+        'Could not translate text. Please try again later. $e',
+      );
+    }
   }
-}
 
   Future<void> downloadLanguageModel(TranslateLanguage language) async {
     try {
@@ -321,6 +322,7 @@ class _PostState extends State<Post> {
               // Action Bar
               ActionBar(
                 post: widget.post,
+                afterAction: widget.afterAction,
               ),
             ],
           ),

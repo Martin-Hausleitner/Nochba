@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/auth/AuthService.dart';
@@ -25,6 +26,26 @@ class PublicProfileController extends GetxController {
       return _userRepository.get(id);
     } on Exception {
       return Future.error(Error);
+    }
+  }
+
+  Future<String> getDistanceToUser(String userId) async {
+    try {
+      HttpsCallable callable =
+          FirebaseFunctions.instanceFor(region: 'europe-west1').httpsCallable(
+        'getDistanceToOtherUser',
+        options: HttpsCallableOptions(
+          timeout: const Duration(seconds: 5),
+        ),
+      );
+
+      final result = await callable.call(<String, dynamic>{
+        'userId': userId,
+      });
+
+      return result.data;
+    } catch (e) {
+      return '---';
     }
   }
 

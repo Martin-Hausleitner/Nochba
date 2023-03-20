@@ -90,7 +90,7 @@ class CategoryModul {
 
   static String getCategoryName(CategoryOptions categoryOption) {
     if (categoryOption == CategoryOptions.Message) {
-      return 'Nachricht';
+      return 'Mitteilung';
     } else if (categoryOption == CategoryOptions.Question) {
       return 'Frage';
     } else if (categoryOption == CategoryOptions.Appeal) {

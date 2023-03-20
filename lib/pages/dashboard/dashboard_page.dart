@@ -20,8 +20,9 @@ class DashboardPage extends StatelessWidget {
           body: SafeArea(
             child: IndexedStack(
               index: controller.tabIndex,
-              children: const [
-                FeedPage(),
+              children: [
+                GetBuilder<DashboardController>(
+                    id: 'FeedPage', builder: (c) => FeedPage()),
                 NotificationsPage(),
                 // NewPostPage(),
                 NewPostPage(),

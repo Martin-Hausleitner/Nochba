@@ -80,7 +80,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
               );
             } else if (snapshot.hasError) {
               return const Center(
-                  child: Text('The public profile cannot be loaded'));
+                  child: Text('The public profile could not be loaded'));
             } else if (snapshot.hasData) {
               final user = snapshot.data!;
               return Column(
@@ -130,7 +130,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                         width: 3,
                       ),
                       Text(
-                        'Auwiesen',
+                        user.suburb ?? '---',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context)
                                   .textTheme
@@ -156,31 +156,31 @@ class PublicProfileView extends GetView<PublicProfileController> {
                       ),
                       Row(
                         children: [
-                          Text(
-                            '200',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.color
-                                      ?.withOpacity(0.5),
-                                ),
-                          ),
-                          Text(
-                            'm',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.color
-                                      ?.withOpacity(0.5),
-                                ),
+                          FutureBuilder<String>(
+                            future: controller.getDistanceToUser(userId),
+                            builder: (context, snapshot) {
+                              String distance = '';
+                              if (snapshot.hasData) {
+                                distance = snapshot.data!;
+                              } else if (!snapshot.hasData ||
+                                  snapshot.hasError) {
+                                distance = '---';
+                              }
+
+                              return Text(
+                                distance,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color
+                                          ?.withOpacity(0.5),
+                                    ),
+                              );
+                            },
                           ),
                         ],
                       ),

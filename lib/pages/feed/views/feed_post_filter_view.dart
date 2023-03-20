@@ -11,7 +11,6 @@ import 'package:nochba/shared/ui/buttons/locoo_text_button.dart';
 import 'package:nochba/shared/views/bottom_sheet_title_close_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-
 class FeedPostFilterView extends StatelessWidget {
   const FeedPostFilterView({super.key, required this.controller});
 
@@ -31,6 +30,7 @@ class FeedPostFilterView extends StatelessWidget {
         padding: //horizontal 15
             const EdgeInsets.symmetric(horizontal: 15),
         child: GetBuilder<FeedController>(
+          id: 'FeedExtendedFilter',
           builder: (c) => Wrap(
             spacing: 5,
             runSpacing: 5,

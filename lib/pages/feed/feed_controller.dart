@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/models/PostFilter.dart';
@@ -11,12 +13,13 @@ class FeedController extends GetxController {
   final postRepository = Get.find<PostRepository>();
   final userRepository = Get.find<UserRepository>();
 
-  Stream<List<Post>> getPosts() {
+  Future<List<Post>> getPosts() {
     try {
       //return postRepository.getAllPosts(true);
-      return postRepository.queryPosts(postFilter.value);
+      return postRepository.getPosts(
+          searchInputController.text, postFilter.value);
     } on Exception catch (e) {
-      return Stream.error(e);
+      return Future.error(e);
     }
   }
 
@@ -55,15 +58,12 @@ class FeedController extends GetxController {
 
   void updateExtendedPostFilter() {
     extendedPostFilter.value = postFilter.value.createCopy();
-    update();
-
-    // Get.snackbar(extendedPostFilter.value.categories.length.toString(),
-    //     extendedPostFilter.value.categories.toString());
+    update(['FeedExtendedFilter']);
   }
 
   void takeOverExtendedPostFilter() {
     postFilter.value = extendedPostFilter.value.createCopy();
-    update();
+    update(['Feed', 'FeedFilter']);
   }
 
   // bool showSubCatogoriesChipsOfMainCategories(CategoryOptions categoryOption) =>
@@ -80,7 +80,7 @@ class FeedController extends GetxController {
       isChipAsMainCategoryIncluded(categoryOption, postFilter);
 
   void selectCategoryChip(CategoryOptions categoryOption) =>
-      selectCategory(categoryOption, postFilter);
+      selectCategory(categoryOption, postFilter, false);
 
   bool isFilterChipSelected(CategoryOptions categoryOption) =>
       isCategorySelected(categoryOption, extendedPostFilter);
@@ -89,7 +89,7 @@ class FeedController extends GetxController {
       isChipAsMainCategoryIncluded(categoryOption, extendedPostFilter);
 
   void selectFilterChip(CategoryOptions categoryOption) =>
-      selectCategory(categoryOption, extendedPostFilter);
+      selectCategory(categoryOption, extendedPostFilter, true);
 
   bool isCategorySelected(
           CategoryOptions categoryOption, Rx<PostFilter> filter) =>
@@ -104,7 +104,8 @@ class FeedController extends GetxController {
           CategoryModul.getSubCategoriesOfMainCategory(categoryOption)
               .contains(element));
 
-  void selectCategory(CategoryOptions categoryOption, Rx<PostFilter> filter) {
+  void selectCategory(CategoryOptions categoryOption, Rx<PostFilter> filter,
+      bool isExtendedFilter) {
     if (categoryOption == CategoryOptions.None) {
       filter.value.categories.clear();
     } else if (filter.value.categories.contains(categoryOption)) {
@@ -127,7 +128,8 @@ class FeedController extends GetxController {
         filter.value.categories.clear();
       }
     }
-    update();
+
+    update(isExtendedFilter ? ['FeedExtendedFilter'] : ['Feed', 'FeedFilter']);
   }
 
   bool isPostFilterSortBySelected(PostFilterSortBy postFilterSortBy) =>
@@ -142,5 +144,9 @@ class FeedController extends GetxController {
   void swapOrder() {
     extendedPostFilter.value.swapOrder();
     update();
+  }
+
+  void updateFeed() {
+    update(['Feed']);
   }
 }

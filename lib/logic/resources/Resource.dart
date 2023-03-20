@@ -385,34 +385,4 @@ class Resource<T extends IModel> implements IResource<T> {
         .map((doc) => convertJsonToModel(doc.id, doc.data()))
         .toList());
   }
-
-  Future<List<T>> geoQuery(GeoFirePoint center, double radius, String fieldName,
-      {List<String>? nexus}) async {
-    final geoQuery = await geoflutterfire
-        .collection(
-            collectionRef: firestoreInstance
-                .collection(getCollectionName(typeOf<T>(), nexus: nexus)))
-        .within(center: center, radius: radius, field: fieldName)
-        .firstWhere((element) => false);
-
-    return geoQuery
-        .map((doc) =>
-            convertJsonToModel(doc.id, doc.data() as Map<String, dynamic>))
-        .toList();
-  }
-
-  Stream<List<T>> geoQueryAsStream(
-      GeoFirePoint center, double radius, String fieldName,
-      {List<String>? nexus}) {
-    final geoQuery = geoflutterfire
-        .collection(
-            collectionRef: firestoreInstance
-                .collection(getCollectionName(typeOf<T>(), nexus: nexus)))
-        .within(center: center, radius: radius, field: fieldName);
-
-    return geoQuery.map((snapshot) => snapshot
-        .map((doc) =>
-            convertJsonToModel(doc.id, doc.data() as Map<String, dynamic>))
-        .toList());
-  }
 }

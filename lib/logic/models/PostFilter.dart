@@ -24,7 +24,7 @@ class PostFilter {
 
   PostFilter createCopy() {
     final result = PostFilter();
-    result.categories = categories;
+    result.categories.addAll(categories);
     result.postFilterSortBy = postFilterSortBy;
     result.isOrderDescending = isOrderDescending;
     return result;

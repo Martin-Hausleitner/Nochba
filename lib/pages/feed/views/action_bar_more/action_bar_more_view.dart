@@ -17,10 +17,13 @@ import '../../../../logic/models/category.dart';
 class ActionBarMore extends StatelessWidget {
   final ActionBarController controller;
   final Post post;
+  final Function()? afterAction;
+
   const ActionBarMore({
     Key? key,
     required this.controller,
     required this.post,
+    this.afterAction,
   }) : super(key: key);
 
   @override
@@ -175,7 +178,9 @@ class ActionBarMore extends StatelessWidget {
                     ActionCard(
                       title: 'Post bearbeiten',
                       icon: FlutterRemix.pencil_line,
-                      onTap: () => controller.pushEditPostView(post.id),
+                      onTap: () {
+                        controller.pushEditPostView(post.id);
+                      },
                     ),
                     ActionCard(
                       title: 'Post löschen',
@@ -186,7 +191,9 @@ class ActionBarMore extends StatelessWidget {
                           label: 'Post',
                           onDelete: () {
                             controller.deletePost(post.id);
-                            Navigator.pop(context);
+                            if (afterAction != null) {
+                              afterAction!();
+                            }
                           },
                         ),
                       ),

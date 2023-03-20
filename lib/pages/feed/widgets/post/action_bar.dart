@@ -10,9 +10,11 @@ import 'package:nochba/logic/models/post.dart';
 
 //create a ActionBar class which have multiple round icon Buttons
 class ActionBar extends StatefulWidget {
+  final Function()? afterAction;
   final Post post;
 
-  const ActionBar({Key? key, required this.post}) : super(key: key);
+  const ActionBar({Key? key, required this.post, this.afterAction})
+      : super(key: key);
 
   @override
   _ActionBarState createState() => _ActionBarState();
@@ -155,6 +157,7 @@ class _ActionBarState extends State<ActionBar> {
                       ActionBarMore(
                     controller: controller,
                     post: widget.post,
+                    afterAction: widget.afterAction,
                   );
                 },
               );

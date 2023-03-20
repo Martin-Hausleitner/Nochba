@@ -331,21 +331,21 @@ class SignUpController extends GetxController {
 
   Future previousPage() async {
     if (pageController.page == 1) {
-      emailController.clear();
-      passwordController.clear();
+      // emailController.clear();
+      // passwordController.clear();
       await deleteAccount();
     } else if (pageController.page == 2) {
-      _imageFile.clear();
-      setShowLastName(false);
-      firstNameController.clear();
-      lastNameController.clear();
+      // _imageFile.clear();
+      // setShowLastName(false);
+      // firstNameController.clear();
+      // lastNameController.clear();
 
       await deleteUser();
     } else if (pageController.page == 3) {
-      streetController.clear();
-      streetNumberController.clear();
-      cityController.clear();
-      zipController.clear();
+      // streetController.clear();
+      // streetNumberController.clear();
+      // cityController.clear();
+      // zipController.clear();
 
       await authService.deleteUserAddress();
     }
@@ -460,6 +460,10 @@ class SignUpController extends GetxController {
     } on FirebaseAuthException {
       Get.snackbar(
           'Achtung', 'Ein Fehler bei der Registrierung ist aufgetreten');
+      return false;
+    } on Exception {
+      Get.snackbar('Achtung',
+          'Überprüfen Sie bitte ob Sie die richtige Addresse angegeben haben.');
       return false;
     }
   }

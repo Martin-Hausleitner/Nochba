@@ -14,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'dart:math';
 import 'package:openai_client/src/model/openai_chat/chat_message.dart';
 
-class TagInputField extends StatefulWidget {
+class TagInputField extends StatelessWidget {
   const TagInputField({
     Key? key,
     required this.tags,
@@ -37,33 +37,6 @@ class TagInputField extends StatefulWidget {
   final String addText;
 
   @override
-  State<TagInputField> createState() => _TagInputFieldState();
-}
-
-class _TagInputFieldState extends State<TagInputField> {
-  List<String> tags = [];
-
-  void addTagsToWidget(String chatOutput) {
-    List<String> tagsToAdd = [];
-    for (String tag in widget.tags) {
-      if (!widget.fixedTags!.contains(tag)) {
-        tagsToAdd.add(tag);
-      }
-    }
-    if (tagsToAdd.isNotEmpty) {
-      setState(() {
-        tags.addAll(tagsToAdd);
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    tags = List<String>.from(widget.tags);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -77,7 +50,7 @@ class _TagInputFieldState extends State<TagInputField> {
                   spacing: 4,
                   runSpacing: 4,
                   children: [
-                    ...widget.fixedTags!
+                    ...fixedTags!
                         .map(
                           (tag) => FilterChip(
                             label: Text(
@@ -91,13 +64,9 @@ class _TagInputFieldState extends State<TagInputField> {
                             selected: tags.contains(tag),
                             onSelected: (isSelected) {
                               if (isSelected) {
-                                setState(() {
-                                  tags.add(tag);
-                                });
+                                addTag(tag);
                               } else {
-                                setState(() {
-                                  tags.remove(tag);
-                                });
+                                removeTag(tag);
                               }
                             },
                             showCheckmark: false,
@@ -133,14 +102,12 @@ class _TagInputFieldState extends State<TagInputField> {
                         )
                         .toList(),
                     ...tags
-                        .where((tag) => !widget.fixedTags!.contains(tag))
+                        .where((tag) => !fixedTags!.contains(tag))
                         .map(
                           (tag) => TagChip(
                             tag: tag,
                             removeTag: (tag) {
-                              setState(() {
-                                tags.remove(tag);
-                              });
+                              removeTag(tag);
                             },
                           ),
                         )
@@ -152,11 +119,9 @@ class _TagInputFieldState extends State<TagInputField> {
             ),
             // const SizedBox(height: 8),
             ButtonTextField(
-                addText: widget.addText,
+                addText: addText,
                 onPressAdd: (tag) {
-                  setState(() {
-                    tags.add(tag);
-                  });
+                  addTag(tag);
                 }),
           ],
         ),

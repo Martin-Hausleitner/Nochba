@@ -1,4 +1,5 @@
 import 'package:algolia/algolia.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:get/get.dart';
 import 'package:nochba/logic/algolia/AlgoliaApplication.dart';
 import 'package:nochba/logic/models/PostFilter.dart';
@@ -49,19 +50,46 @@ class PostRepository extends GenericRepository<Post> {
           if (user != null) {
             post.userName = user.fullName ?? '';
             post.userImageUrl = user.imageUrl ?? '';
-            post.suburb = user.suburb ?? 'Kaplanhof';
+            post.suburb = user.suburb ?? '';
           }
 
           return post;
         }).toList()));
   }
 
-  // Stream<List<Post>> getAllPosts(bool orderFieldDescending) {
-  //   return super.getAll(
-  //       orderFieldDescending: MapEntry('createdAt', orderFieldDescending));
-  // }
+  @override
+  Future<List<Post>> processFutureListResult(Future<List<Post>> result) async {
+    final userRepository = Get.find<UserRepository>();
 
-  Stream<List<Post>> queryPosts(PostFilter postFilter) {
+    final posts = await result;
+
+    return Future.wait(posts.map((post) async {
+      final user = await userRepository.get(post.uid);
+
+      if (user != null) {
+        post.userName = user.fullName ?? '';
+        post.userImageUrl = user.imageUrl ?? '';
+        post.suburb = user.suburb ?? '';
+      }
+
+      return post;
+    }).toList());
+  }
+
+  Future<List<Post>> getPosts(String searchInput, PostFilter postFilter) async {
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'europe-west1').httpsCallable(
+      'getUserPostsWithinRange',
+      options: HttpsCallableOptions(
+        timeout: const Duration(seconds: 20),
+      ),
+    );
+
+    final callResult =
+        await callable.call(<String, dynamic>{'range': postFilter.range});
+
+    final postIds = List<String>.from(callResult.data);
+
     final orderFieldDescending = MapEntry(
         postFilter.postFilterSortBy == PostFilterSortBy.date
             ? 'createdAt'
@@ -70,51 +98,84 @@ class PostRepository extends GenericRepository<Post> {
                 : '',
         postFilter.isOrderDescending);
 
-    return queryAsStream(orderFieldDescending, whereIn: {
-      'category': postFilter.categories
-          .fold<List<CategoryOptions>>(
-              [],
-              (previousValue, element) => CategoryModul.isMainCategory(
-                          element) &&
-                      CategoryModul.getSubCategoriesOfMainCategory(element)
-                          .isNotEmpty
-                  ? [
-                      ...previousValue,
-                      ...CategoryModul.getSubCategoriesOfMainCategory(element)
-                    ]
-                  : [...previousValue, element])
-          .map((c) => c.name)
-          .toList()
+    final filteredCategories = postFilter.categories
+        .fold<List<CategoryOptions>>(
+            [],
+            (previousValue, element) => CategoryModul.isMainCategory(element) &&
+                    CategoryModul.getSubCategoriesOfMainCategory(element)
+                        .isNotEmpty
+                ? [
+                    ...previousValue,
+                    ...CategoryModul.getSubCategoriesOfMainCategory(element)
+                  ]
+                : [...previousValue, element])
+        .map((c) => c.name)
+        .toList();
+
+    const Algolia algolia = AlgoliaApplication.algolia;
+    AlgoliaQuery query = algolia.instance.index("posts").query(searchInput);
+
+    if (filteredCategories.isNotEmpty) {
+      final categoryFilter =
+          'category:${filteredCategories.join(' OR category:')}';
+      query = query.filters(categoryFilter);
+    }
+
+    AlgoliaQuerySnapshot querySnap = await query.getObjects();
+    List<AlgoliaObjectSnapshot> results = querySnap.hits;
+    final filteredPostIds =
+        results.fold<List<String>>([], (previousValue, element) {
+      return postIds.contains(element.objectID)
+          ? [...previousValue, element.objectID]
+          : previousValue;
     });
-    /*.asyncMap((posts) async {
-            final userInternInfoAddressRepository =
-                Get.find<UserInternInfoAddressRepository>();
-            final center = await userInternInfoAddressRepository
-                .getField<Map<String, dynamic>>(
-                    userInternInfoAddressRepository.reference, 'position',
-                    nexus: [resourceContext.uid]);
 
-            // Get.snackbar('Center',
-            //     center != null ? center['geopoint'].toString() : 'Null');
+    return await this
+        .query(orderFieldDescending, whereIn: {'id': filteredPostIds});
+  }
 
-            List<String> nearUids = [];
-            if (center != null) {
-              GeoPoint gp = center['geopoint'];
-              try {
-                final gq = await userInternInfoAddressRepository.geoQuery(
-                    GeoFirePoint(gp.latitude, gp.longitude),
-                    postFilter.radius,
-                    'position',
-                    nexus: [resourceContext.uid]);
-                nearUids = gq.map((info) => info.id).toList();
-              } catch (e) {
-                Get.snackbar('Error', e.toString());
-              }
-            }
-            Get.snackbar(nearUids.length.toString(), nearUids.toString());
+  Future<List<Post>> queryPosts(PostFilter postFilter) async {
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'europe-west1').httpsCallable(
+      'getUserPostsWithinRange',
+      options: HttpsCallableOptions(
+        timeout: const Duration(seconds: 20),
+      ),
+    );
 
-            return posts.where((post) => nearUids.contains(post.uid)).toList();
-          });*/
+    final postIds =
+        await callable.call(<String, dynamic>{'range': postFilter.range});
+
+    final orderFieldDescending = MapEntry(
+        postFilter.postFilterSortBy == PostFilterSortBy.date
+            ? 'createdAt'
+            : postFilter.postFilterSortBy == PostFilterSortBy.likes
+                ? 'likes'
+                : '',
+        postFilter.isOrderDescending);
+
+    final filteredCategories = postFilter.categories
+        .fold<List<CategoryOptions>>(
+            [],
+            (previousValue, element) => CategoryModul.isMainCategory(element) &&
+                    CategoryModul.getSubCategoriesOfMainCategory(element)
+                        .isNotEmpty
+                ? [
+                    ...previousValue,
+                    ...CategoryModul.getSubCategoriesOfMainCategory(element)
+                  ]
+                : [...previousValue, element])
+        .map((c) => c.name)
+        .toList();
+
+    final queriedPosts =
+        await query(orderFieldDescending, whereIn: {'id': postIds.data});
+
+    return filteredCategories.isEmpty
+        ? queriedPosts
+        : queriedPosts
+            .where((post) => filteredCategories.contains(post.category))
+            .toList();
   }
 
   Future<List<Post>> searchPosts(

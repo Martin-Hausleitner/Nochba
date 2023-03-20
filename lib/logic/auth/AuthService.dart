@@ -170,30 +170,41 @@ class AuthService extends ResourceAccess {
 
   Future<bool> addUserAddress(
       String street, String streetNumber, String city, String zip) async {
-    try {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser == null) {
-        return false;
-      }
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'europe-west1').httpsCallable(
+      'checkAddress',
+      options: HttpsCallableOptions(
+        timeout: const Duration(seconds: 10),
+      ),
+    );
 
-      final uid = currentUser.uid;
+    final HttpsCallableResult result =
+        await callable.call<bool>(<String, dynamic>{
+      'street': street,
+      'streetNumber': streetNumber,
+      'city': city,
+      'zip': zip,
+    });
 
-      final userPrivateInfoAddressRepository =
-          Get.find<UserPrivateInfoAddressRepository>();
-      await userPrivateInfoAddressRepository.insert(
-          UserPrivateInfoAddress(
-              id: userPrivateInfoAddressRepository.reference,
-              street: street,
-              streetNumber: streetNumber,
-              city: city,
-              zip: zip),
-          nexus: [uid]);
-    } on Exception catch (e) {
-      Get.snackbar('Fehler', e.toString());
-      rethrow;
-    }
+    //   final currentUser = FirebaseAuth.instance.currentUser;
+    //   if (currentUser == null) {
+    //     return false;
+    //   }
 
-    return true;
+    //   final uid = currentUser.uid;
+
+    //   final userPrivateInfoAddressRepository =
+    //       Get.find<UserPrivateInfoAddressRepository>();
+    //   await userPrivateInfoAddressRepository.insert(
+    //       UserPrivateInfoAddress(
+    //           id: userPrivateInfoAddressRepository.reference,
+    //           street: street,
+    //           streetNumber: streetNumber,
+    //           city: city,
+    //           zip: zip),
+    //       nexus: [uid]);
+
+    return result.data;
   }
 
   Future<bool> deleteUserAddress() async {
@@ -415,6 +426,20 @@ class AuthService extends ResourceAccess {
       await userPublicInfoRepository.insert(
           UserPublicInfo(id: userPublicInfoRepository.reference),
           nexus: [uid]);
+
+      HttpsCallable callable =
+          FirebaseFunctions.instanceFor(region: 'europe-west1').httpsCallable(
+        'checkAddressWithDeviceLocation',
+        options: HttpsCallableOptions(
+          timeout: const Duration(seconds: 20),
+        ),
+      );
+
+      final HttpsCallableResult result = await callable.call(<String, dynamic>{
+        'address': 'Limesstraße 14, 4060 Leonding, Austria',
+        'deviceLongitudeCoordinate': 14.251555409469784,
+        'deviceLatitudeCoordinate': 48.268363550000004,
+      });
 
       // final position = await getLocationData();
       // final userInternInfoAddressRepository =

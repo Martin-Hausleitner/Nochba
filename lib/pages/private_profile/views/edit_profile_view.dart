@@ -91,6 +91,8 @@ class EditProfileView extends GetView<EditProfileController> {
               final userPublicInfo = snapshot.data!;
               DateTime? birthday;
               DateTime? neighbourhoodMemberSince;
+              List<String>? interestsList = userPublicInfo.interests;
+              List<String>? offersList = userPublicInfo.offers;
               if (userPublicInfo.birthday != null) {
                 birthday = userPublicInfo.birthday!.toDate();
               }
@@ -98,6 +100,8 @@ class EditProfileView extends GetView<EditProfileController> {
                 neighbourhoodMemberSince =
                     userPublicInfo.neighbourhoodMemberSince!.toDate();
               }
+              controller.initializeInterests(interestsList);
+              controller.initializeOffer(offersList);
               return Column(
                 //align left
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,14 +312,16 @@ class OfferCard extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    TagInputField(
-                      fixedTags: fixedTags,
-                      tags: controller.getOffers(userPublicInfo.offers),
-                      removeTag: controller.removeOffer,
-                      showTagDialog: controller.showOfferTagDialog,
-                      addTag: controller.addOffer,
-                      addText: 'Weiters Hinzufügen',
-                    )
+                    GetBuilder<EditProfileController>(
+                        id: 'EditProfileOfferTags',
+                        builder: (c) => TagInputField(
+                              fixedTags: fixedTags,
+                              tags: controller.getOffers(),
+                              removeTag: controller.removeOffer,
+                              showTagDialog: controller.showOfferTagDialog,
+                              addTag: controller.addOffer,
+                              addText: 'Weiters Hinzufügen',
+                            )),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -323,6 +329,7 @@ class OfferCard extends StatelessWidget {
             );
           },
         );
+        controller.initializeOffer(userPublicInfo.offers);
       },
       text: userPublicInfo.offers != null && userPublicInfo.offers!.isNotEmpty
           ? userPublicInfo.offers!.fold<String>(
@@ -410,7 +417,7 @@ class InTheNeighborhoodSinceCard extends StatelessWidget {
 }
 
 class InterestsCard extends StatelessWidget {
-   InterestsCard({
+  InterestsCard({
     super.key,
     required this.controller,
     required this.userPublicInfo,
@@ -464,14 +471,17 @@ class InterestsCard extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    TagInputField(
-                      fixedTags: hobbies,
-                      tags: controller.getInterests(userPublicInfo.interests),
-                      removeTag: controller.removeInterest,
-                      showTagDialog: controller.showTagDialog,
-                      addTag: controller.addInterest,
-                      addText: 'Interesse Hinzufügen',
-                    )
+                    GetBuilder<EditProfileController>(
+                      id: 'EditProfileInterestTags',
+                      builder: (c) => TagInputField(
+                        fixedTags: hobbies,
+                        tags: controller.getInterests(),
+                        removeTag: controller.removeInterest,
+                        showTagDialog: controller.showTagDialog,
+                        addTag: controller.addInterest,
+                        addText: 'Interesse Hinzufügen',
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -479,6 +489,7 @@ class InterestsCard extends StatelessWidget {
             );
           },
         );
+        controller.initializeInterests(userPublicInfo.interests);
       },
       text: userPublicInfo.interests != null &&
               userPublicInfo.interests!.isNotEmpty

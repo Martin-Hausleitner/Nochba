@@ -75,10 +75,14 @@ class FeedPage extends GetView<FeedController> {
               ),
             ),
             Expanded(
+              // child: GetBuilder<FeedController>(
+              //   builder: (c) => controller.searchInputController.text.isNotEmpty
+              //       ? PostListSearch(controller: controller)
+              //       : PostList(controller: controller),
+              // ),
               child: GetBuilder<FeedController>(
-                builder: (c) => controller.searchInputController.text.isNotEmpty
-                    ? PostListSearch(controller: controller)
-                    : PostList(controller: controller),
+                id: 'Feed',
+                builder: (c) => PostList(controller: controller),
               ),
             ),
           ],
@@ -314,8 +318,8 @@ class PostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<models.Post>>(
-      stream: controller.getPosts(),
+    return FutureBuilder<List<models.Post>>(
+      future: controller.getPosts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return //list of 2 LoadingPost
@@ -403,7 +407,10 @@ class PostList extends StatelessWidget {
               return Padding(
                 padding: // top 3
                     const EdgeInsets.only(top: 3),
-                child: Post(post: post),
+                child: Post(
+                  post: post,
+                  afterAction: controller.updateFeed,
+                ),
               );
             },
             separatorBuilder: (BuildContext context, int index) =>
@@ -435,50 +442,53 @@ class CategoryChooser extends StatelessWidget {
           const EdgeInsets.only(bottom: 10),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            const SizedBox(width: 14),
-            CategorieChip(
-              label: AppLocalizations.of(context)!.all,
-              category: CategoryOptions.None,
-              isSelected: controller.isCategoryChipSelected,
-              onTap: controller.selectCategoryChip,
-            ),
-            const SizedBox(width: 06),
-            CategorieChip(
-              label: AppLocalizations.of(context)!.messageKategory,
-              category: CategoryOptions.Message,
-              isSelected: controller.isCategoryChipSelected,
-              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
-              onTap: controller.selectCategoryChip,
-            ),
-            const SizedBox(width: 06),
-            CategorieChip(
-              label: AppLocalizations.of(context)!.searchKategory,
-              category: CategoryOptions.Search,
-              isSelected: controller.isCategoryChipSelected,
-              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
-              onTap: controller.selectCategoryChip,
-            ),
-            const SizedBox(width: 06),
-            CategorieChip(
-              label: AppLocalizations.of(context)!.lendingKategory,
-              category: CategoryOptions.Lending,
-              isSelected: controller.isCategoryChipSelected,
-              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
-              onTap: controller.selectCategoryChip,
-            ),
-            const SizedBox(width: 06),
-            CategorieChip(
-              label: AppLocalizations.of(context)!.eventKategory,
-              category: CategoryOptions.Event,
-              isSelected: controller.isCategoryChipSelected,
-              isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
-              onTap: controller.selectCategoryChip,
-            ),
-            const SizedBox(width: 06),
-            const SizedBox(width: 14),
-          ],
+        child: GetBuilder<FeedController>(
+          id: 'FeedFilter',
+          builder: (c) => Row(
+            children: [
+              const SizedBox(width: 14),
+              CategorieChip(
+                label: AppLocalizations.of(context)!.all,
+                category: CategoryOptions.None,
+                isSelected: controller.isCategoryChipSelected,
+                onTap: controller.selectCategoryChip,
+              ),
+              const SizedBox(width: 06),
+              CategorieChip(
+                label: AppLocalizations.of(context)!.messageKategory,
+                category: CategoryOptions.Message,
+                isSelected: controller.isCategoryChipSelected,
+                isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+                onTap: controller.selectCategoryChip,
+              ),
+              const SizedBox(width: 06),
+              CategorieChip(
+                label: AppLocalizations.of(context)!.searchKategory,
+                category: CategoryOptions.Search,
+                isSelected: controller.isCategoryChipSelected,
+                isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+                onTap: controller.selectCategoryChip,
+              ),
+              const SizedBox(width: 06),
+              CategorieChip(
+                label: AppLocalizations.of(context)!.lendingKategory,
+                category: CategoryOptions.Lending,
+                isSelected: controller.isCategoryChipSelected,
+                isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+                onTap: controller.selectCategoryChip,
+              ),
+              const SizedBox(width: 06),
+              CategorieChip(
+                label: AppLocalizations.of(context)!.eventKategory,
+                category: CategoryOptions.Event,
+                isSelected: controller.isCategoryChipSelected,
+                isIncluded: controller.isCategoryChipAsMainCategoryIncluded,
+                onTap: controller.selectCategoryChip,
+              ),
+              const SizedBox(width: 06),
+              const SizedBox(width: 14),
+            ],
+          ),
         ),
       ),
     );
@@ -505,35 +515,30 @@ class CategorieChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<FeedController>(
-      builder: (c) => GestureDetector(
-        onTap: () => onTap(category),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
-          decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: () => onTap(category),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+        decoration: BoxDecoration(
+          color: isSelected(category)
+              ? Theme.of(context).colorScheme.primary
+              : isIncluded(category)
+                  ? Theme.of(context).colorScheme.surface
+                  : //set color as post color
+                  Theme.of(context).colorScheme.onPrimary,
+          //: Theme.of(context).colorScheme.onPrimary,
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
             color: isSelected(category)
-                ? Theme.of(context).colorScheme.primary
+                ? Theme.of(context).colorScheme.onPrimary
                 : isIncluded(category)
-                    ? Theme.of(context).colorScheme.surface
-                    : //set color as post color
-                    Theme.of(context).colorScheme.onPrimary,
-            //: Theme.of(context).colorScheme.onPrimary,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: isSelected(category)
-                  ? Theme.of(context).colorScheme.onPrimary
-                  : isIncluded(category)
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.9),
-              fontSize: 13,
-            ),
+                    ? Theme.of(context).colorScheme.secondary
+                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
+            fontSize: 13,
           ),
         ),
       ),

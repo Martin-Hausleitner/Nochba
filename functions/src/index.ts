@@ -10,13 +10,18 @@ import * as admin from "firebase-admin";
 admin.initializeApp();
 
 export { generateVerificationCode } from "./cloudFunctions/generateVerificationCode";
+export { checkAddress } from "./cloudFunctions/checkAddress";
 export { checkAddressWithDeviceLocation } from "./cloudFunctions/checkAddressWithDeviceLocation";
 export { getDistanceFromTwoUsers } from "./cloudFunctions/getDistanceFromTwoUsers";
+export { getDistanceToOtherUser } from "./cloudFunctions/getDistanceToOtherUser";
 export { checkVerificationCode } from "./cloudFunctions/checkVerificationCode";
 export {
-  incrementLikeCounter,
-  decrementLikeCounter,
+  incrementLikeCounterOfPost,
+  decrementLikeCounterOfPost,
+  incrementLikeCounterOfComment,
+  decrementLikeCounterOfComment
 } from "./cloudFunctions/changeLikeCounter";
+export { getUserPostsWithinRange } from "./cloudFunctions/getUserPostsWithinRange";
 // export { createUser } from "./cloudFunctions/createUser.ts.old";
 // Get a reference to the Firestore database
 //firebase emulators:start

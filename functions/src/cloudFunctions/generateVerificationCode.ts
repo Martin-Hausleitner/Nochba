@@ -1,7 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { generateRandomVerificationCode } from "../functions/generateRandomVerificationCode";
-import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
 
 const GENERATION_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
@@ -31,7 +30,7 @@ export const generateVerificationCode = functions
 
     const lastGeneratedCodeDate = userPrivateDoc.get("lastGeneratedCodeDate");
     if (lastGeneratedCodeDate && lastGeneratedCodeDate !== null) {
-      const currentTimestamp = Timestamp.fromDate(new Date());
+      const currentTimestamp = admin.firestore.Timestamp.fromDate(new Date());
       if (
         currentTimestamp.toMillis() - lastGeneratedCodeDate.toMillis() <
         GENERATION_INTERVAL
@@ -71,7 +70,7 @@ export const generateVerificationCode = functions
       isActive: true,
       addressCoordinate: coordinates,
       rangeInMeter: RANGE_IN_METERS,
-      generationDate: FieldValue.serverTimestamp(),
+      generationDate: admin.firestore.FieldValue.serverTimestamp(),
       maxCodeLimit: MAX_CODE_LIMIT,
     });
 
@@ -82,7 +81,7 @@ export const generateVerificationCode = functions
 
     await userPrivateRef.set(
       {
-        lastGeneratedCodeDate: FieldValue.serverTimestamp(),
+        lastGeneratedCodeDate: admin.firestore.FieldValue.serverTimestamp(),
         lastGeneratedCode: verificationCode,
       },
       { merge: true }

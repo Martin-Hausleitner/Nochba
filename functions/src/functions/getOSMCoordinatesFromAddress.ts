@@ -1,9 +1,9 @@
 import axios from "axios";
-import { GeoPoint } from "firebase-admin/firestore";
+import * as admin from "firebase-admin";
 
 export async function getOSMCoordinatesFromAddress(
   address: string
-): Promise<GeoPoint> {
+): Promise<admin.firestore.GeoPoint> {
   try {
     const response = await axios.get(
       `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
@@ -17,7 +17,7 @@ export async function getOSMCoordinatesFromAddress(
       throw new Error(`No results found for address: ${address}`);
     }
 
-    return new GeoPoint(Number(firstResult.lat), Number(firstResult.lon));
+    return new admin.firestore.GeoPoint(Number(firstResult.lat), Number(firstResult.lon));
   } catch (error) {
     console.error(error);
     throw error;

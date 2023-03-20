@@ -1,12 +1,12 @@
 
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { FieldValue, GeoPoint } from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
 import { getDistanceFromLatLonInMeters } from "../functions/getDistanceFromLatLonInMeters";
 import { verifyVerificationCode } from "../functions/verifyVerificationCode";
 import { getOSMCoordinatesFromAddress } from "../functions/getOSMCoordinatesFromAddress";
 import { getOSMSuburbFromCoords } from "../functions/getOSMSuburbFromCoords";
+import * as ngeohash from 'ngeohash';
 
 const db = admin.firestore();
 
@@ -18,6 +18,7 @@ export const checkVerificationCode = functions.region('europe-west1').https.onCa
         "The request is not authenticated."
       );
     }
+
     const uid = context.auth.uid;
     const verificationCode = data.verificationCode;
 
@@ -81,7 +82,13 @@ export const checkVerificationCode = functions.region('europe-west1').https.onCa
       .collection("intern")
       .doc("address");
     const userDoc = await userInternAddressRef.get();
-    if (userDoc.exists && userDoc.data()?.coords) {
+
+    const userCoordsRef = db
+      .collection("userCoords")
+      .doc(uid);
+    const userCoordsDoc = await userInternAddressRef.get();
+
+    if (userDoc.exists && userDoc.data()?.coords && userCoordsDoc.exists && userCoordsDoc.data()?.g['geopoint']) {
       logger.error("The user has already addressCoordinates in the Database!");
       throw new functions.https.HttpsError(
         "failed-precondition",
@@ -90,7 +97,7 @@ export const checkVerificationCode = functions.region('europe-west1').https.onCa
     }
     const address = data.address;
 
-    let addressCoordinates: GeoPoint;
+    let addressCoordinates: admin.firestore.GeoPoint;
     try {
       addressCoordinates = await getOSMCoordinatesFromAddress(address);
     } catch (error) {
@@ -116,7 +123,7 @@ export const checkVerificationCode = functions.region('europe-west1').https.onCa
       );
     }
     const { addressCoordinate } = codeData.data();
-    let codeAddressCoordinates = new GeoPoint(
+    let codeAddressCoordinates = new admin.firestore.GeoPoint(
       Number(addressCoordinate._latitude),
       Number(addressCoordinate._longitude)
     );
@@ -168,6 +175,15 @@ export const checkVerificationCode = functions.region('europe-west1').https.onCa
       // usedVerificationCode: verificationCode,
     });
 
+    var geohash = ngeohash.encode(addressCoordinates.latitude, addressCoordinates.longitude, 12);
+
+    await userCoordsRef.set({
+      g: {
+        geohash: geohash,
+        geopoint: addressCoordinates
+      },
+    });
+
     const userInternVerificationRef = db
       .collection("users")
       .doc(uid)
@@ -199,7 +215,7 @@ export const checkVerificationCode = functions.region('europe-west1').https.onCa
       await db
         .collection("codes")
         .doc(verificationCode)
-        .set({ usedCodeCount: FieldValue.increment(1) }, { merge: true });
+        .set({ usedCodeCount: admin.firestore.FieldValue.increment(1) }, { merge: true });
     } catch (error) {
       // Log the error message
       logger.error(error);

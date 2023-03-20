@@ -11,7 +11,6 @@ import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-
 class EditPostPage extends GetView<EditPostController> {
   const EditPostPage({super.key, required this.postId});
 
@@ -72,25 +71,6 @@ class EditPostView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 30),
-
-                          // Obx(
-                          //   () => Text(
-                          //     widget.controller.categoryName
-                          //     // show category, and if subcategory is avabile add " - " and ontroller.subcategory.name.toString()
-                          //     /*controller.subcategory != CategoryOptions.None
-                          //             ? "${controller.category.name.toString()} - ${controller.subcategory.name.toString()}"
-                          //             : controller.category.name.toString()*/
-                          //     ,
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .titleMedium
-                          //         ?.copyWith(
-                          //           fontWeight: FontWeight.w600,
-                          //           // color: Theme.of(context).secondaryHeaderColor,
-                          //         ),
-                          //   ),
-                          // ),
-                          //const SizedBox(height: 10),
                           GetBuilder<EditPostController>(
                             builder: (c) => Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +116,6 @@ class EditPostView extends StatelessWidget {
                               ],
                             ),
                           ),
-
                           GetBuilder<EditPostController>(
                             builder: (c) => Column(
                               children: [
@@ -157,7 +136,6 @@ class EditPostView extends StatelessWidget {
                               ],
                             ),
                           ),
-
                           const NewPostTitle(label: 'Bild Hinzufügen'),
                           GetBuilder<EditPostController>(
                             builder: (c) => AddPhotoElement(
@@ -236,15 +214,13 @@ class CategoryChooser extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: controller.mainCategories
-                  .asMap()
-                  .entries
                   .map(
-                    (entry) => CategorieChip(
-                        label: controller.getCategoryName(entry.value),
-                        category: entry.value,
-                        isSelected: controller.isMainCategorySelected,
-                        onTap: controller.selectCategory),
-                  )
+                (entry) => CategorieChip(
+                    label: controller.getCategoryName(entry),
+                    category: entry,
+                    isSelected: controller.isMainCategorySelected,
+                    onTap: controller.selectCategory),
+              )
                   .fold(
                       [],
                       (previousValue, element) => [
