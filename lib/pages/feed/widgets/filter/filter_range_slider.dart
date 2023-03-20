@@ -174,6 +174,7 @@ class _MapPageState extends State<MapPage> {
   var _zoomLevel;
   double _maxZoomLevel = 18.0;
   double _minZoomLevel = 3.0;
+  MapController _mapController = MapController();
 
   @override
   void initState() {
@@ -213,6 +214,7 @@ class _MapPageState extends State<MapPage> {
         child: Stack(
           children: [
             FlutterMap(
+              mapController: _mapController,
               options: MapOptions(
                 center: widget.center,
                 zoom: _zoomLevel,
@@ -255,25 +257,30 @@ class _MapPageState extends State<MapPage> {
               child: Column(
                 children: [
                   FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.add, color: Colors.black),
                     onPressed: () {
                       setState(() {
                         _zoomLevel = (_zoomLevel + 1)
                             .clamp(_minZoomLevel, _maxZoomLevel);
+                        _mapController.move(widget.center,
+                            _zoomLevel); // Fügen Sie diese Zeile hinzu
                       });
                     },
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.add, color: Colors.black),
+                    // ...
                   ),
                   SizedBox(height: 10),
                   FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.remove, color: Colors.black),
                     onPressed: () {
                       setState(() {
                         _zoomLevel = (_zoomLevel - 1)
                             .clamp(_minZoomLevel, _maxZoomLevel);
+                        _mapController.move(widget.center,
+                            _zoomLevel); // Fügen Sie diese Zeile hinzu
                       });
                     },
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.remove, color: Colors.black),
                   ),
                 ],
               ),
