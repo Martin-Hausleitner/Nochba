@@ -100,84 +100,80 @@ class OwnPostsView extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  Expanded(
-                    child: FutureBuilder<List<models.Post>>(
-                      future: controller.getPostsOfCurrentUser(),
-                      builder: ((context, snapshot) {
-                        if (snapshot.hasError) {
+                  FutureBuilder<List<models.Post>>(
+                    future: controller.getPostsOfCurrentUser(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(
+                            child: Text(snapshot.error.toString(),
+                                style: const TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w300)));
+                      } else if (snapshot.hasData) {
+                        final posts = snapshot.data!;
+
+                        if (posts.isEmpty) {
                           return Center(
-                              child: Text(snapshot.error.toString(),
-                                  style: const TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w300)));
-                        } else if (snapshot.hasData) {
-                          final posts = snapshot.data!;
+                            child: Column(
+                              //center
+                              mainAxisAlignment: MainAxisAlignment.center,
 
-                          if (posts.isEmpty) {
-                            return Center(
-                              child: Column(
-                                //center
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // add a forum icon
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.25,
+                                ),
 
-                                children: [
-                                  // add a forum icon
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.25,
-                                  ),
+                                Icon(
+                                  Icons.article_outlined,
+                                  size: 100,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withOpacity(0.1),
+                                ),
+                                Text(
+                                  'Du hast noch keine Posts erstellt',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                            .withOpacity(0.15),
+                                      ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
 
-                                  Icon(
-                                    Icons.article_outlined,
-                                    size: 100,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface
-                                        .withOpacity(0.1),
-                                  ),
-                                  Text(
-                                    'Du hast noch keine Posts erstellt',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface
-                                              .withOpacity(0.15),
-                                        ),
-                                  ),
-                                ],
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: posts.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final post = posts.elementAt(index);
+
+                            return Padding(
+                              padding: // top 3
+                                  const EdgeInsets.only(top: 3),
+                              child: widget.Post(
+                                post: post,
                               ),
                             );
-                          }
-
-                          return ListView.separated(
-                            shrinkWrap: true,
-                            itemCount: posts.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final post = posts.elementAt(index);
-
-                              return Padding(
-                                padding: // top 3
-                                    const EdgeInsets.only(top: 3),
-                                child: widget.Post(
-                                  post: post,
-                                ),
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                    const SizedBox(height: 3),
-                          );
-                        } else {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                          // return const Text('There are no posts in the moment',
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
-                        }
-                      }),
-                    ),
+                          },
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const SizedBox(height: 3),
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                        // return const Text('There are no posts in the moment',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+                      }
+                    }),
                   ),
                 ].toList(),
               ),
