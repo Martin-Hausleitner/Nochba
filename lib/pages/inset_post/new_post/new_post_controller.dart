@@ -11,7 +11,6 @@ import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 
 class NewPostController extends InsetPostController {
   final pageController = PageController(initialPage: 0);
-  var sliderValues = [100, 200, 500, 1000, 5000, 10000, 15000];
 
   final RxList<CategoryOptions> _subcategoriesForDisplay =
       <CategoryOptions>[CategoryOptions.Other].obs;
@@ -133,6 +132,7 @@ class NewPostController extends InsetPostController {
 
     isLoading = true;
     update();
+    var sliderValues = [100, 200, 500, 1000, 5000, 10000, 15000];
 
     try {
       final imageUrl = image == null
