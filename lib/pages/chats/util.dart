@@ -22,5 +22,4 @@ Color getUserAvatarNameColor(User user) {
   return colors[index];
 }
 
-String getUserName(User user) =>
-    '${user.firstName ?? ''} ${user.lastName ?? ''}'.trim();
+String getUserName(User user) => (user.fullName ?? '').trim();
