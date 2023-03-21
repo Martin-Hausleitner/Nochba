@@ -75,6 +75,8 @@ class UserInfo extends GetView<PublicProfileController> {
                               children: [
                                 areInterestsValid
                                     ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+
                                         children: [
                                           Text(
                                             'Interessen',
@@ -109,6 +111,8 @@ class UserInfo extends GetView<PublicProfileController> {
                                     : Container(),
                                 areOffersValid
                                     ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+
                                         children: [
                                           Text(
                                             'Bietet',
