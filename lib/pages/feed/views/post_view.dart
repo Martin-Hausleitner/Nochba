@@ -20,7 +20,6 @@ import 'package:nochba/logic/models/post.dart' as models;
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-
 class PostView extends StatelessWidget {
   final models.Post post;
   const PostView({super.key, required this.post});
@@ -59,135 +58,107 @@ class PostViewNoImage extends StatelessWidget {
             Get.back();
           },
         ),
-        actions: const [
-          // Padding(
-          //   padding: const EdgeInsets.only(right: 10),
-          //   child: IconButton(
-          //     splashRadius: 0.0001,
-
-          //     icon: Icon(
-          //       FlutterRemix.more_line,
-          //       color: Theme.of(context).colorScheme.onBackground,
-          //     ),
-          //     //onPress open SettingsPage
-          //     onPressed: () {
-          //       //opne snackbar
-          //       Get.snackbar(
-          //         "Settings",
-          //         "This is a snackbar",
-          //       );
-          //     },
-          //   ),
-          // ),
-        ],
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Expanded(
-              child: Column(
-                //align left
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(post.title,
-                            //chnage the space between the words
-                            //align the text to the left
-                            textAlign: TextAlign.left,
-                            // maxLines: 4,
-                            // overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: -0.5,
-                                )),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: spacingBetween),
-
-                  // Badges
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      // Category Badge
-                      // CategoryBadge(
-                      //   category: post.category,
-                      // ),
-                      //create a wrap with a lost of HashtagBadge using the post.tags
-                      Expanded(
-                        child: Wrap(
-                          spacing: 6,
-                          runSpacing: 3,
-                          children: [
-                            CategoryBadge(
-                              category: CategoryModul.getCategoryOptionByName(
-                                  post.category),
-                            ),
-                            for (var tag in post.tags)
-                              HashtagBadge(
-                                hashtag: tag,
-                              ),
-                          ],
-                        ),
-                      ),
-
-                      // Hashtag Badges
-                      // Expanded(
-                      //   child: SingleChildScrollView(
-                      //     scrollDirection: Axis.horizontal,
-                      //     padding: const EdgeInsets.only(left: 6),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.start,
-                      //       children: [
-                      //         HashtagBadges(hashtags: post.tags),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
-                  ),
-
-                  const SizedBox(height: spacingBetween),
-
-                  // Post Profile
-                  PostProfile(
-                    post: post,
-                    publishDate: '---',
-                    distance: '---',
-                  ),
-
-                  const SizedBox(height: spacingBetween),
-
-                  Text(
-                    //print postDescription.split('\n').length as string
-                    post.description,
-                    //align left
-                    textAlign: TextAlign.left,
-
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context)
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(post.title,
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context)
                               .textTheme
-                              .bodyMedium
-                              ?.color
-                              ?.withOpacity(0.7),
-                          letterSpacing: -0.1,
-                        ),
-                  ),
-                  const SizedBox(height: spacingBetween),
+                              .headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: -0.5,
+                              )),
+                    ),
+                  ],
+                ),
 
-                  // Action Bar
-                  ActionBar(
-                    post: post,
-                  ),
-                ],
-              ),
+                const SizedBox(height: spacingBetween),
+
+                // Badges
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    // Category Badge
+                    // CategoryBadge(
+                    //   category: post.category,
+                    // ),
+                    //create a wrap with a lost of HashtagBadge using the post.tags
+                    Expanded(
+                      child: Wrap(
+                        spacing: 6,
+                        runSpacing: 3,
+                        children: [
+                          CategoryBadge(
+                            category: CategoryModul.getCategoryOptionByName(
+                                post.category),
+                          ),
+                          for (var tag in post.tags)
+                            HashtagBadge(
+                              hashtag: tag,
+                            ),
+                        ],
+                      ),
+                    ),
+
+                    // Hashtag Badges
+                    // Expanded(
+                    //   child: SingleChildScrollView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     padding: const EdgeInsets.only(left: 6),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       children: [
+                    //         HashtagBadges(hashtags: post.tags),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
+
+                const SizedBox(height: spacingBetween),
+
+                // Post Profile
+                PostProfile(
+                  post: post,
+                  publishDate: '---',
+                  distance: '---',
+                ),
+
+                const SizedBox(height: spacingBetween),
+
+                Text(
+                  //print postDescription.split('\n').length as string
+                  post.description,
+                  //align left
+                  textAlign: TextAlign.left,
+
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.color
+                            ?.withOpacity(0.7),
+                        letterSpacing: -0.1,
+                      ),
+                ),
+                const SizedBox(height: spacingBetween),
+
+                // Action Bar
+                ActionBar(
+                  post: post,
+                ),
+              ],
             ),
           ),
         ],
