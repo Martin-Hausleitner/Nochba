@@ -11,6 +11,7 @@ import 'package:nochba/pages/inset_post/edit_post/edit_post_page.dart';
 
 class NewPostController extends InsetPostController {
   final pageController = PageController(initialPage: 0);
+  var sliderValues = [100, 200, 500, 1000, 5000, 10000, 15000];
 
   final RxList<CategoryOptions> _subcategoriesForDisplay =
       <CategoryOptions>[CategoryOptions.Other].obs;
@@ -98,12 +99,12 @@ class NewPostController extends InsetPostController {
 
   addPost() async {
     if (category == CategoryOptions.None) {
-      Get.snackbar('Posting not possible',
-          'Please select a category for your post');
+      Get.snackbar(
+          'Posting not possible', 'Please select a category for your post');
       return;
     } else if (!formKey.currentState!.validate()) {
-      Get.snackbar('Posting not possible',
-          'Please fill out the input fields correctly');
+      Get.snackbar(
+          'Posting not possible', 'Please fill out the input fields correctly');
       return;
     }
 
@@ -115,8 +116,8 @@ class NewPostController extends InsetPostController {
       }
       if (eventTime != null) {
         if (eventTime!.length != 2) {
-          Get.snackbar(
-              'Posting not possible', 'Please enter a valid date for the event');
+          Get.snackbar('Posting not possible',
+              'Please enter a valid date for the event');
           return;
         } else if (eventTime![0].isAfter(eventTime![1])) {
           Get.snackbar('Posting not possible',
@@ -149,7 +150,7 @@ class NewPostController extends InsetPostController {
             : category.name.toString(),
         tags: [...tags..sort()],
         likes: 0,
-        range: sliderValue,
+        range: sliderValues[sliderValue.round()].toDouble(),
         eventLocation: category == CategoryOptions.Event
             ? eventLocationController.text.trim()
             : null,
