@@ -37,7 +37,7 @@ class Post implements IModel {
     this.userName = '',
     this.userImageUrl = '',
     this.suburb = '',
-    this.range = 400.0,
+    this.range = 500.0,
     this.eventLocation,
     this.eventBeginTime,
     this.eventEndTime,

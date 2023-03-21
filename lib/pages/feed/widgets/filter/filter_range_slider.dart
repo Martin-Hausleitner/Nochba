@@ -41,13 +41,25 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
     return sliderLabels[value.round().clamp(0, sliderLabels.length - 1)];
   }
 
+  double getSliderIndex(double value) {
+    return sliderValues.indexWhere((element) => element as double == value)
+        as double;
+  }
+
   String getSliderTickLabel(int value) {
     switch (value) {
       case 100:
+        return '100m';
+      case 200:
+        return '200m';
       case 500:
-        return '${value}m';
+        return '500m';
+      case 1000:
+        return '1km';
       case 5000:
         return '5km';
+      case 10000:
+        return '10km';
       case 15000:
         return '15km';
       default:
@@ -132,12 +144,12 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Slider(
-            value: widget.sliderValue.clamp(0.0, sliderValues.length - 1.0),
+            value: getSliderIndex(widget.sliderValue),
             max: sliderValues.length - 1.0,
             divisions: sliderValues.length - 1,
-            label: '${getSliderLabel(widget.sliderValue)}',
+            label: '${getSliderTickLabel(widget.sliderValue as int)}',
             onChanged: (newValue) {
-              widget.onChanged(newValue.clamp(0.0, sliderValues.length - 1.0));
+              widget.onChanged(sliderValues[newValue as int] as double);
             },
           ),
         ),
