@@ -231,7 +231,7 @@ class NewPostView extends StatelessWidget {
                           builder: (c) => FilterRangeSlider(
                               sliderValue: controller.sliderValue,
                               onChanged: controller.onSliderValueChanged),
-                        )),
+                        ),),
                     const SizedBox(height: 20),
                   ],
                 ),

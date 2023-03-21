@@ -50,3 +50,4 @@ firestore-debug.log
 lib/logic/env/env.dart
 lib/env/env.dart
 lib/env/env.g.dart
+*.p12
