@@ -211,7 +211,7 @@ class Resource<T extends IModel> implements IResource<T> {
     List<Object?>? startAt,
     List<Object?>? endAt,
     List<Object?>? endBefore,
-    Map<String, List<Object?>?>? whereIn,
+    MapEntry<String, List<Object?>?>? whereIn,
     MapEntry<String, List<Object?>?>? whereNotIn,
     Map<String, dynamic>? whereIsEqualTo,
     Map<String, dynamic>? whereIsNotEqualTo,
@@ -254,12 +254,8 @@ class Resource<T extends IModel> implements IResource<T> {
       query = query.endBefore(endBefore);
     }
 
-    if (whereIn != null) {
-      for (var entry in whereIn.entries) {
-        if (entry.value != null && entry.value!.isNotEmpty) {
-          query = query.where(entry.key, whereIn: entry.value);
-        }
-      }
+    if (whereIn != null && whereIn.value!.isNotEmpty) {
+      query = query.where(whereIn.key, whereIn: whereIn.value);
     }
 
     if (whereNotIn != null) {
@@ -306,7 +302,7 @@ class Resource<T extends IModel> implements IResource<T> {
     List<Object?>? startAt,
     List<Object?>? endAt,
     List<Object?>? endBefore,
-    Map<String, List<Object?>?>? whereIn,
+    MapEntry<String, List<Object?>?>? whereIn,
     MapEntry<String, List<Object?>?>? whereNotIn,
     Map<String, dynamic>? whereIsEqualTo,
     Map<String, dynamic>? whereIsNotEqualTo,
@@ -349,12 +345,8 @@ class Resource<T extends IModel> implements IResource<T> {
       query = query.endBefore(endBefore);
     }
 
-    if (whereIn != null) {
-      for (var entry in whereIn.entries) {
-        if (entry.value != null && entry.value!.isNotEmpty) {
-          query = query.where(entry.key, whereIn: entry.value);
-        }
-      }
+    if (whereIn != null && whereIn.value!.isNotEmpty) {
+      query = query.where(whereIn.key, whereIn: whereIn.value);
     }
 
     if (whereNotIn != null) {

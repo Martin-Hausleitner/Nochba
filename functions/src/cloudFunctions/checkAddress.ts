@@ -47,7 +47,7 @@ export const checkAddress = functions.region('europe-west1')
         logger.info(`Latitude: ${addressCoordinates.latitude}, Longitude: ${addressCoordinates.longitude}`);
 
         try {
-            await db.collection('user').doc(uid).collection('private').doc('address').create({
+            await db.collection('users').doc(uid).collection('private').doc('address').create({
                 'street': street,
                 'streetNumber': streetNumber,
                 'city': city,

@@ -118,6 +118,7 @@ class PostRepository extends GenericRepository<Post> {
     if (filteredCategories.isNotEmpty) {
       final categoryFilter =
           'category:${filteredCategories.join(' OR category:')}';
+
       query = query.filters(categoryFilter);
     }
 
@@ -130,8 +131,10 @@ class PostRepository extends GenericRepository<Post> {
           : previousValue;
     });
 
-    return await this
-        .query(orderFieldDescending, whereIn: {'id': filteredPostIds});
+    return filteredPostIds.isNotEmpty
+        ? await this.query(orderFieldDescending,
+            whereIn: MapEntry('id', filteredPostIds))
+        : [];
   }
 
   Future<List<Post>> queryPosts(PostFilter postFilter) async {
@@ -168,8 +171,8 @@ class PostRepository extends GenericRepository<Post> {
         .map((c) => c.name)
         .toList();
 
-    final queriedPosts =
-        await query(orderFieldDescending, whereIn: {'id': postIds.data});
+    final queriedPosts = await query(orderFieldDescending,
+        whereIn: MapEntry('id', postIds.data));
 
     return filteredCategories.isEmpty
         ? queriedPosts
@@ -195,7 +198,7 @@ class PostRepository extends GenericRepository<Post> {
     final postIds = results.map((snapshot) => snapshot.objectID).toList();
 
     return postIds.isNotEmpty
-        ? super.query(orderFieldDescending, whereIn: {
+        ? super.query(orderFieldDescending, whereIn: MapEntry('id', postIds)
             // 'category': postFilter.categories
             //     .fold<List<CategoryOptions>>(
             //         [],
@@ -212,8 +215,7 @@ class PostRepository extends GenericRepository<Post> {
             //                 : [...previousValue, element])
             //     .map((c) => c.name)
             //     .toList(),
-            'id': postIds
-          })
+            )
         : Future.value(List.empty());
   }
 
@@ -244,7 +246,7 @@ class PostRepository extends GenericRepository<Post> {
     if (bookMark != null && bookMark.posts.isNotEmpty) {
       final postIds = bookMark.posts;
       final posts = await query(const MapEntry('createdAt', true),
-          whereIn: {'id': postIds});
+          whereIn: MapEntry('id', postIds));
 
       return posts.isNotEmpty ? posts : List.empty();
     }

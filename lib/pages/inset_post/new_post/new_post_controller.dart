@@ -132,7 +132,6 @@ class NewPostController extends InsetPostController {
 
     isLoading = true;
     update();
-    var sliderValues = [100, 200, 500, 1000, 5000, 10000, 15000];
 
     try {
       final imageUrl = image == null
@@ -150,7 +149,7 @@ class NewPostController extends InsetPostController {
             : category.name.toString(),
         tags: [...tags..sort()],
         likes: 0,
-        range: sliderValues[sliderValue.round()].toDouble(),
+        range: sliderValue,
         eventLocation: category == CategoryOptions.Event
             ? eventLocationController.text.trim()
             : null,

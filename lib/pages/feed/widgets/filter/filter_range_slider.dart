@@ -41,9 +41,8 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
     return sliderLabels[value.round().clamp(0, sliderLabels.length - 1)];
   }
 
-  double getSliderIndex(double value) {
-    return sliderValues.indexWhere((element) => element as double == value)
-        as double;
+  int getSliderIndex(double value) {
+    return sliderValues.indexWhere((element) => element == value.round());
   }
 
   String getSliderTickLabel(int value) {
@@ -144,12 +143,14 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Slider(
-            value: getSliderIndex(widget.sliderValue),
+            value: getSliderIndex(widget.sliderValue).toDouble(),
             max: sliderValues.length - 1.0,
             divisions: sliderValues.length - 1,
-            label: '${getSliderTickLabel(widget.sliderValue as int)}',
+            label: getSliderTickLabel(widget.sliderValue.round()),
             onChanged: (newValue) {
-              widget.onChanged(sliderValues[newValue as int] as double);
+              widget.onChanged(sliderValues[newValue.round()].toDouble());
+
+              newValue;
             },
           ),
         ),

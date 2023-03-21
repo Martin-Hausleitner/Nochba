@@ -27,6 +27,7 @@ class PostFilter {
     result.categories.addAll(categories);
     result.postFilterSortBy = postFilterSortBy;
     result.isOrderDescending = isOrderDescending;
+    result.range = range;
     return result;
   }
 }
