@@ -122,11 +122,12 @@ class _FilterRangeSliderState extends State<FilterRangeSlider> {
                     final GeoPoint geoPoint = snapshot.data()!['coords'];
 
                     // print(sliderValues[widget.sliderValue.round()].toDouble());
-                    print(sliderValues[widget.sliderValue.toInt()]);
+                    print(sliderValues[getSliderIndex(widget.sliderValue)]);
                     Get.to(() => MapPage(
                           center: LatLng(geoPoint.latitude, geoPoint.longitude),
-                          range: sliderValues[widget.sliderValue.toInt()]
-                              .toDouble(),
+                          range:
+                              sliderValues[getSliderIndex(widget.sliderValue)]
+                                  .toDouble(),
                         ));
                   }
                 },
