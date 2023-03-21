@@ -10,6 +10,7 @@ import 'package:nochba/pages/inset_post/new_post/widgets/tags_element.dart';
 import 'package:nochba/shared/ui/locoo_text_field.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 
 class EditPostPage extends GetView<EditPostController> {
   const EditPostPage({super.key, required this.postId});
@@ -135,20 +136,21 @@ class EditPostView extends StatelessWidget {
                           ),
                         ),
                         const NewPostTitle(label: 'Bild Hinzufügen'),
-                        GetBuilder<EditPostController>(
-                          builder: (c) {
-                            print("Image: ${controller.image}");
-                            print("Select Image: ${controller.selectImage}");
-                            print("Delete Image: ${controller.deleteImage}");
-                            print("Edit Image: ${controller.editImage}");
-                            return AddPhotoElement(
-                              image: controller.image,
-                              selectImage: controller.selectImage,
-                              deleteImage: controller.deleteImage,
-                              editImage: controller.editImage,
-                            );
-                          },
-                        ),
+                        AddPhotoComingSoon(),
+                        // GetBuilder<EditPostController>(
+                        //   builder: (c) {
+                        //     print("Image: ${controller.image}");
+                        //     print("Select Image: ${controller.selectImage}");
+                        //     print("Delete Image: ${controller.deleteImage}");
+                        //     print("Edit Image: ${controller.editImage}");
+                        //     return AddPhotoElement(
+                        //       image: controller.image,
+                        //       selectImage: controller.selectImage,
+                        //       deleteImage: controller.deleteImage,
+                        //       editImage: controller.editImage,
+                        //     );
+                        //   },
+                        // ),
                         const NewPostTitle(label: 'Tags'),
                         TagsElement(
                           descriptionController:
@@ -179,6 +181,40 @@ class EditPostView extends StatelessWidget {
         ),
         EditPostButton(controller: controller),
       ],
+    );
+  }
+}
+
+class AddPhotoComingSoon extends StatelessWidget {
+  const AddPhotoComingSoon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            FlutterRemix.upload_cloud_2_line,
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
+          ),
+          // Text "Coming Soon"
+          Text(
+            "Kommt Bald",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.35),
+                ),
+          ),
+        ],
+      ),
     );
   }
 }

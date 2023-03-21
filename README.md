@@ -1,12 +1,14 @@
+
+![App Icon](\assets\app_icon\app_icon_512x.png)
 # Nochba
-Team Nochba - Neighborhood Help App
+## Verbinde dich mit deiner Nochbaschaft
 
-Statistics show that the younger generation is largely unfamiliar with the people who live next door. Language and cultural differences also contribute to the formation of isolated groups. In the Linz that Team Nochba would like to see in the future, cohesion and neighborly help between citizens is a priority. People are part of a community in which they help each other, celebrate together and look out for each other.
+Statistiken zeigen, dass die jüngere Generation größtenteils nicht mit den Menschen vertraut ist, die nebenan wohnen. Sprachliche und kulturelle Unterschiede tragen ebenfalls zur Bildung isolierter Gruppen bei. In dem Linz, das Team Nochba sich für die Zukunft wünscht, sind Zusammenhalt und nachbarschaftliche Hilfe unter den Bürgern von zentraler Bedeutung. Menschen sind Teil einer Gemeinschaft, in der sie einander helfen, gemeinsam feiern und aufeinander achten.
 
-And this is where Nochba comes into play. An app is to be developed that brings the neighborhood together and strengthens neighborhood help. The app is intended to support the formation of active, cohesive communities in Linz neighborhoods, large apartment buildings or apartment blocks. People within these communities should be able to ask for support of any kind. This support includes, for example, shopping for an elderly person next door, helping with renovations, or borrowing a drill. This exchange can and should encourage more sustainable living by sharing machines and establishing a repair culture.
+Hier kommt Nochba ins Spiel. Es soll eine App entwickelt werden, die die Nachbarschaft zusammenbringt und die nachbarschaftliche Hilfe stärkt. Die App soll die Bildung von aktiven, zusammenhaltenden Gemeinschaften in Linzer Nachbarschaften, großen Wohnhäusern oder Wohnblocks unterstützen. Menschen innerhalb dieser Gemeinschaften sollten in der Lage sein, Unterstützung jeglicher Art zu erbitten. Diese Hilfe umfasst beispielsweise das Einkaufen für eine ältere Person von nebenan, die Unterstützung bei Renovierungsarbeiten oder das Ausleihen einer Bohrmaschine. Dieser Austausch kann und sollte ein nachhaltigeres Leben fördern, indem Maschinen geteilt und eine Reparaturkultur etabliert wird.
 
-## Prototyp / Präsentation
-https://framer.com/share/Nochba-Prototype-2-0--7TtQOclvjE71OYagqgTF/EtmYk_avt#EtmYk_avt
+<!-- ## Prototyp / Präsentation
+https://framer.com/share/Nochba-Prototype-2-0--7TtQOclvjE71OYagqgTF/EtmYk_avt#EtmYk_avt -->
 
 
 ## Zeitungsartikel

@@ -198,14 +198,15 @@ class NewPostView extends StatelessWidget {
 
                         NewPostTitle(
                             label: AppLocalizations.of(context)!.addImage),
-                        GetBuilder<NewPostController>(
-                          builder: (c) => AddPhotoElement(
-                            image: controller.image,
-                            selectImage: controller.selectImage,
-                            deleteImage: controller.deleteImage,
-                            editImage: controller.editImage,
-                          ),
-                        ),
+                        AddPhotoComingSoon(),
+                        // GetBuilder<NewPostController>(
+                        //   builder: (c) => AddPhotoElement(
+                        //     image: controller.image,
+                        //     selectImage: controller.selectImage,
+                        //     deleteImage: controller.deleteImage,
+                        //     editImage: controller.editImage,
+                        //   ),
+                        // ),
                         NewPostTitle(label: AppLocalizations.of(context)!.tags),
                         TagsElement(
                           descriptionController:
@@ -240,6 +241,40 @@ class NewPostView extends StatelessWidget {
         ),
         BottomNavBar(controller: controller),
       ],
+    );
+  }
+}
+
+class AddPhotoComingSoon extends StatelessWidget {
+  const AddPhotoComingSoon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            FlutterRemix.upload_cloud_2_line,
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
+          ),
+          // Text "Coming Soon"
+          Text(
+            "Kommt Bald",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.35),
+                ),
+          ),
+        ],
+      ),
     );
   }
 }
