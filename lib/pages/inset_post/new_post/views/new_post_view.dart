@@ -71,170 +71,169 @@ class NewPostView extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      //left right 25
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // SizedBox(height: 28),
-                          //tile small Wähle deien Kategorie
-                          Text(
-                            // show category, and if subcategory is avabile add " - " and ontroller.subcategory.name.toString()
-                            controller.categoryName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  // color: Theme.of(context).secondaryHeaderColor,
-                                ),
-                          ),
-                          //tile small Schritt 1 von 3
-                          const SizedBox(height: 2),
-                          Text(
-                            AppLocalizations.of(context)!.step2of3,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                // fontSize: 18,
-                                // fontWeight: FontWeight.w600,
-                                // color: Theme.of(context).secondaryHeaderColor,
-                                ),
-                          ),
-                          const SizedBox(height: 20),
+              Column(
+                children: [
+                  Padding(
+                    //left right 25
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // SizedBox(height: 28),
+                        //tile small Wähle deien Kategorie
+                        Text(
+                          // show category, and if subcategory is avabile add " - " and ontroller.subcategory.name.toString()
+                          controller.categoryName,
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    // color: Theme.of(context).secondaryHeaderColor,
+                                  ),
+                        ),
+                        //tile small Schritt 1 von 3
+                        const SizedBox(height: 2),
+                        Text(
+                          AppLocalizations.of(context)!.step2of3,
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              // fontSize: 18,
+                              // fontWeight: FontWeight.w600,
+                              // color: Theme.of(context).secondaryHeaderColor,
+                              ),
+                        ),
+                        const SizedBox(height: 20),
 
+                        Form(
+                          key: controller.formKey,
+                          child: Column(
+                            children: [
+                              TitleField(
+                                controller: controller,
+                                descriptionController:
+                                    controller.descriptionController,
+                                titleController: controller.titleController,
+                              ),
+                              const SizedBox(height: 10),
+                              LocooTextField(
+                                  maxLines: 10,
+                                  height: 220,
+                                  controller: controller.descriptionController,
+
+                                  // textInputAction: TextInputAction.next,
+                                  label:
+                                      AppLocalizations.of(context)!.description,
+                                  autovalidateMode: AutovalidateMode.disabled,
+                                  validator: (value) =>
+                                      value != null && value.isEmpty
+                                          ? AppLocalizations.of(context)!
+                                              .enterDescription
+                                          : null),
+                            ],
+                          ),
+                        ),
+
+                        // SizedBox(height: 10),
+
+                        if (controller.category == CategoryOptions.Event) ...[
+                          const SizedBox(height: 10),
                           Form(
-                            key: controller.formKey,
+                            key: controller.eventKey,
                             child: Column(
                               children: [
-                                TitleField(
-                                  controller: controller,
-                                  descriptionController:
-                                      controller.descriptionController,
-                                  titleController: controller.titleController,
-                                ),
-                                const SizedBox(height: 10),
                                 LocooTextField(
-                                    maxLines: 10,
-                                    height: 220,
                                     controller:
-                                        controller.descriptionController,
-
-                                    // textInputAction: TextInputAction.next,
-                                    label: AppLocalizations.of(context)!.description,
+                                        controller.eventLocationController,
+                                    textInputAction: TextInputAction.next,
+                                    label:
+                                        AppLocalizations.of(context)!.location,
                                     autovalidateMode: AutovalidateMode.disabled,
                                     validator: (value) =>
                                         value != null && value.isEmpty
-                                            ? AppLocalizations.of(context)!.enterDescription
+                                            ? AppLocalizations.of(context)!
+                                                .enterLocation
                                             : null),
+                                const SizedBox(height: 10),
+                                LocooTextField(
+                                  controller: controller.eventTimeController,
+                                  label: AppLocalizations.of(context)!.date,
+                                  readOnly: true,
+                                  enableInteractiveSelection: false,
+                                  focusNode: FocusNode(),
+                                  autovalidateMode: AutovalidateMode.disabled,
+                                  validator: (value) => value != null &&
+                                          value.isEmpty
+                                      ? AppLocalizations.of(context)!.enterTime
+                                      : null,
+                                  // text inside the textfield
+
+                                  onTap: () async {
+                                    List<DateTime>? dateTimeList =
+                                        await showOmniDateTimeRangePicker(
+                                      context: context,
+                                      type: OmniDateTimePickerType.dateAndTime,
+
+                                      is24HourMode: true,
+                                      isShowSeconds: false,
+                                      startInitialDate: DateTime.now(),
+                                      startFirstDate: DateTime(1600)
+                                          .subtract(const Duration(days: 3652)),
+                                      startLastDate: DateTime.now().add(
+                                        const Duration(days: 3652),
+                                      ),
+                                      endInitialDate: DateTime.now()
+                                          .add(const Duration(hours: 1)),
+                                      endFirstDate: DateTime(1600)
+                                          .subtract(const Duration(days: 3652)),
+                                      endLastDate: DateTime.now().add(
+                                        const Duration(days: 3652),
+                                      ),
+                                      // borderRadius: const Radius.circular(16),
+                                    );
+                                    controller.setEventTime(dateTimeList);
+                                  },
+                                ),
                               ],
                             ),
                           ),
-
-                          // SizedBox(height: 10),
-
-                          if (controller.category == CategoryOptions.Event) ...[
-                            const SizedBox(height: 10),
-                            Form(
-                              key: controller.eventKey,
-                              child: Column(
-                                children: [
-                                  LocooTextField(
-                                      controller:
-                                          controller.eventLocationController,
-                                      textInputAction: TextInputAction.next,
-                                      label: AppLocalizations.of(context)!.location,
-                                      autovalidateMode:
-                                          AutovalidateMode.disabled,
-                                      validator: (value) =>
-                                          value != null && value.isEmpty
-                                              ? AppLocalizations.of(context)!.enterLocation
-                                              : null),
-                                  const SizedBox(height: 10),
-                                  LocooTextField(
-                                    controller: controller.eventTimeController,
-                                    label: AppLocalizations.of(context)!.date,
-                                    readOnly: true,
-                                    enableInteractiveSelection: false,
-                                    focusNode: FocusNode(),
-                                    autovalidateMode: AutovalidateMode.disabled,
-                                    validator: (value) =>
-                                        value != null && value.isEmpty
-                                            ? AppLocalizations.of(context)!.enterTime
-                                            : null,
-                                    // text inside the textfield
-
-                                    onTap: () async {
-                                      List<DateTime>? dateTimeList =
-                                          await showOmniDateTimeRangePicker(
-                                        context: context,
-                                        type:
-                                            OmniDateTimePickerType.dateAndTime,
-
-                                        is24HourMode: true,
-                                        isShowSeconds: false,
-                                        startInitialDate: DateTime.now(),
-                                        startFirstDate: DateTime(1600).subtract(
-                                            const Duration(days: 3652)),
-                                        startLastDate: DateTime.now().add(
-                                          const Duration(days: 3652),
-                                        ),
-                                        endInitialDate: DateTime.now()
-                                            .add(const Duration(hours: 1)),
-                                        endFirstDate: DateTime(1600).subtract(
-                                            const Duration(days: 3652)),
-                                        endLastDate: DateTime.now().add(
-                                          const Duration(days: 3652),
-                                        ),
-                                        // borderRadius: const Radius.circular(16),
-                                      );
-                                      controller.setEventTime(dateTimeList);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-
-                          NewPostTitle(label: AppLocalizations.of(context)!.addImage),
-                          GetBuilder<NewPostController>(
-                            builder: (c) => AddPhotoElement(
-                              image: controller.image,
-                              selectImage: controller.selectImage,
-                              deleteImage: controller.deleteImage,
-                              editImage: controller.editImage,
-                            ),
-                          ),
-                          NewPostTitle(label: AppLocalizations.of(context)!.tags),
-                          TagsElement(
-                            descriptionController:
-                                controller.descriptionController,
-                            titleController: controller.titleController,
-                            tags: controller.tags,
-                            removeTag: controller.removeTag,
-                            showTagDialog: controller.showTagDialog,
-                            addTag: controller.addTag,
-                          ),
-
-                          // Home(),
-                          // const SizedBox(height: 20),
                         ],
-                      ),
+
+                        NewPostTitle(
+                            label: AppLocalizations.of(context)!.addImage),
+                        GetBuilder<NewPostController>(
+                          builder: (c) => AddPhotoElement(
+                            image: controller.image,
+                            selectImage: controller.selectImage,
+                            deleteImage: controller.deleteImage,
+                            editImage: controller.editImage,
+                          ),
+                        ),
+                        NewPostTitle(label: AppLocalizations.of(context)!.tags),
+                        TagsElement(
+                          descriptionController:
+                              controller.descriptionController,
+                          titleController: controller.titleController,
+                          tags: controller.tags,
+                          removeTag: controller.removeTag,
+                          showTagDialog: controller.showTagDialog,
+                          addTag: controller.addTag,
+                        ),
+
+                        // Home(),
+                        // const SizedBox(height: 20),
+                      ],
                     ),
-                    Padding(
-                        padding: // left 10 righ t10
-                            EdgeInsets.symmetric(horizontal: 10),
-                        child: GetBuilder<NewPostController>(
-                          id: 'PostRangeSlider',
-                          builder: (c) => FilterRangeSlider(
-                              sliderValue: controller.sliderValue,
-                              onChanged: controller.onSliderValueChanged),
-                        ),),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: // left 10 righ t10
+                        EdgeInsets.symmetric(horizontal: 10),
+                    child: GetBuilder<NewPostController>(
+                      id: 'PostRangeSlider',
+                      builder: (c) => FilterRangeSlider(
+                          sliderValue: controller.sliderValue,
+                          onChanged: controller.onSliderValueChanged),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
             ],
           ),
