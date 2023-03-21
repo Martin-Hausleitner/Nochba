@@ -178,8 +178,7 @@ class AuthService extends ResourceAccess {
       ),
     );
 
-    final HttpsCallableResult result =
-        await callable.call<bool>(<String, dynamic>{
+    final HttpsCallableResult result = await callable.call(<String, dynamic>{
       'street': street,
       'streetNumber': streetNumber,
       'city': city,
@@ -204,7 +203,7 @@ class AuthService extends ResourceAccess {
     //           zip: zip),
     //       nexus: [uid]);
 
-    return result.data;
+    return result.data as bool;
   }
 
   Future<bool> deleteUserAddress() async {

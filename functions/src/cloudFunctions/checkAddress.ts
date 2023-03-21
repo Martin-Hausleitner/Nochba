@@ -7,6 +7,9 @@ const db = admin.firestore();
 
 export const checkAddress = functions.region('europe-west1')
     .https.onCall(async (data, context) => {
+
+        logger.info('Enter CheckAddress');
+
         if (!context.auth) {
             throw new functions.https.HttpsError(
                 "unauthenticated",

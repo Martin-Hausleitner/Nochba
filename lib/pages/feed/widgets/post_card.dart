@@ -242,9 +242,13 @@ class _PostState extends State<Post> {
               FutureBuilder<String>(
                 future: widget.controller.getDistanceToUser(widget.post.id),
                 builder: (context, snapshot) {
-                  String distance = '---';
-                  if (snapshot.hasData) {
+                  String distance = '';
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    distance = '';
+                  } else if (snapshot.hasData) {
                     distance = snapshot.data!;
+                  } else {
+                    distance = '---';
                   }
 
                   return PostProfile(

@@ -160,10 +160,12 @@ class PublicProfileView extends GetView<PublicProfileController> {
                             future: controller.getDistanceToUser(userId),
                             builder: (context, snapshot) {
                               String distance = '';
-                              if (snapshot.hasData) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                distance = '';
+                              } else if (snapshot.hasData) {
                                 distance = snapshot.data!;
-                              } else if (!snapshot.hasData ||
-                                  snapshot.hasError) {
+                              } else {
                                 distance = '---';
                               }
 

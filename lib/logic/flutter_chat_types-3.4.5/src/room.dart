@@ -23,6 +23,7 @@ abstract class Room extends Equatable {
     this.lastMessages,
     this.metadata,
     this.name,
+    this.suburb,
     required this.type,
     this.updatedAt,
     required this.users,
@@ -36,6 +37,7 @@ abstract class Room extends Equatable {
     List<Message>? lastMessages,
     Map<String, dynamic>? metadata,
     String? name,
+    String? suburb,
     required RoomType? type,
     Timestamp? updatedAt,
     required List<User> users,
@@ -65,6 +67,9 @@ abstract class Room extends Equatable {
   /// otherwise a custom name [RoomType.group].
   final String? name;
 
+  /// Suburb of the other user
+  final String? suburb;
+
   /// [RoomType].
   final RoomType? type;
 
@@ -85,6 +90,7 @@ abstract class Room extends Equatable {
         lastMessages,
         metadata,
         name,
+        suburb,
         type,
         updatedAt,
         users,
@@ -104,6 +110,7 @@ abstract class Room extends Equatable {
     List<Message>? lastMessages,
     Map<String, dynamic>? metadata,
     String? name,
+    String? suburb,
     RoomType? type,
     int? updatedAt,
     List<User>? users,
@@ -122,6 +129,7 @@ class _Room extends Room {
     super.lastMessages,
     super.metadata,
     super.name,
+    super.suburb,
     required super.type,
     super.updatedAt,
     required super.users,
@@ -136,6 +144,7 @@ class _Room extends Room {
     dynamic lastMessages = _Unset,
     dynamic metadata = _Unset,
     dynamic name = _Unset,
+    dynamic suburb = _Unset,
     dynamic type = _Unset,
     dynamic updatedAt = _Unset,
     List<User>? users,
@@ -153,6 +162,7 @@ class _Room extends Room {
             ? this.metadata
             : metadata as Map<String, dynamic>?,
         name: name == _Unset ? this.name : name as String?,
+        suburb: suburb == _Unset ? this.suburb : suburb as String?,
         type: type == _Unset ? this.type : type as RoomType?,
         updatedAt:
             updatedAt == _Unset ? this.updatedAt : updatedAt as Timestamp?,

@@ -130,7 +130,7 @@ class ChatPage extends GetView<ChatController> {
                           ),
                         ),
                         Text(
-                          'Auwiesen',
+                          room.suburb ?? '',
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     color: Theme.of(context)
@@ -156,10 +156,25 @@ class ChatPage extends GetView<ChatController> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text(
-                          '200m',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        FutureBuilder<String>(
+                          future: controller.getDistanceToUser(room.users),
+                          builder: (context, snapshot) {
+                            String distance = '';
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              distance = '';
+                            } else if (snapshot.hasData) {
+                              distance = snapshot.data!;
+                            } else {
+                              distance = '---';
+                            }
+
+                            return Text(
+                              distance,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
                                     color: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
@@ -167,6 +182,8 @@ class ChatPage extends GetView<ChatController> {
                                         ?.withOpacity(0.5),
                                     fontSize: 13,
                                   ),
+                            );
+                          },
                         ),
                       ],
                     ),

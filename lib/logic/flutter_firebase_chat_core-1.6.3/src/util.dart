@@ -88,6 +88,7 @@ Future<types.Room> processRoomDocument(
 
   var imageUrl = data['imageUrl'] as String?;
   var name = data['name'] as String?;
+  var suburb = data['suburb'] as String?;
   final type = data['type'] as String;
   final userIds = data['userIds'] as List<dynamic>;
   final userRoles = data['userRoles'] as Map<String, dynamic>?;
@@ -111,6 +112,7 @@ Future<types.Room> processRoomDocument(
 
       imageUrl = otherUser['imageUrl'] as String?;
       name = '${otherUser['fullName'] ?? ''}'.trim();
+      suburb = '${otherUser['suburb'] ?? ''}'.trim();
     } catch (e) {
       // Do nothing if other user is not found, because he should be found.
       // Consider falling back to some default values.
@@ -119,6 +121,7 @@ Future<types.Room> processRoomDocument(
 
   data['imageUrl'] = imageUrl;
   data['name'] = name;
+  data['suburb'] = suburb;
   data['users'] = users;
 
   final lastMessage = await fetchLastMessage(

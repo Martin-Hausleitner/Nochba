@@ -192,6 +192,7 @@ class FirebaseChatCore {
       'imageUrl': null,
       'metadata': metadata,
       'name': null,
+      'suburb': null,
       'type': types.RoomType.direct.toShortString(),
       'updatedAt': FieldValue.serverTimestamp(),
       'userIds': userIds,
@@ -201,6 +202,7 @@ class FirebaseChatCore {
     return types.Room(
       id: room.id,
       name: '${otherUser.fullName}',
+      suburb: '${otherUser.suburb}',
       imageUrl: otherUser.imageUrl,
       metadata: metadata,
       type: types.RoomType.direct,
@@ -444,6 +446,7 @@ class FirebaseChatCore {
     if (room.type == types.RoomType.direct) {
       roomMap['imageUrl'] = null;
       roomMap['name'] = null;
+      roomMap['suburb'] = null;
     }
 
     roomMap['lastMessages'] = room.lastMessages?.map((m) {

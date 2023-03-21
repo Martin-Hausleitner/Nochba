@@ -15,6 +15,7 @@ Room _$RoomFromJson(Map<String, dynamic> json) => Room(
           .toList(),
       metadata: json['metadata'] as Map<String, dynamic>?,
       name: json['name'] as String?,
+      suburb: json['suburb'] as String?,
       type: $enumDecodeNullable(_$RoomTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as Timestamp?,
       users: (json['users'] as List<dynamic>)
@@ -39,6 +40,7 @@ Map<String, dynamic> _$RoomToJson(Room instance) {
       'lastMessages', instance.lastMessages?.map((e) => e.toJson()).toList());
   writeNotNull('metadata', instance.metadata);
   writeNotNull('name', instance.name);
+  writeNotNull('suburb', instance.suburb);
   writeNotNull('type', _$RoomTypeEnumMap[instance.type]);
   writeNotNull('updatedAt', instance.updatedAt);
   val['users'] = instance.users.map((e) => e.toJson()).toList();

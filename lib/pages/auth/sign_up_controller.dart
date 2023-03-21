@@ -461,9 +461,12 @@ class SignUpController extends GetxController {
       Get.snackbar(
           'Achtung', 'Ein Fehler bei der Registrierung ist aufgetreten');
       return false;
-    } on Exception {
+    } on FirebaseException {
       Get.snackbar('Achtung',
-          'Überprüfen Sie bitte ob Sie die richtige Addresse angegeben haben.');
+          'Überprüfen Sie bitte ob Sie die richtige Addresse angegeben haben');
+      return false;
+    } on Exception {
+      Get.snackbar('Achtung', 'Es ist ein Fehler aufgetreten');
       return false;
     }
   }
