@@ -438,7 +438,8 @@ class ChatPage extends GetView<ChatController> {
       final name = result.name;
 
       try {
-        final reference = FirebaseStorage.instance.ref(name);
+        String userId = room.users[0].id;
+        final reference = FirebaseStorage.instance.ref('$userId/$name');
         await reference.putFile(file);
         final uri = await reference.getDownloadURL();
 
@@ -487,7 +488,8 @@ class ChatPage extends GetView<ChatController> {
       final name = result.name;
 
       try {
-        final reference = FirebaseStorage.instance.ref(name);
+        String userId = room.users[0].id;
+        final reference = FirebaseStorage.instance.ref('$userId/$name');
         await reference.putFile(file);
         final uri = await reference.getDownloadURL();
 

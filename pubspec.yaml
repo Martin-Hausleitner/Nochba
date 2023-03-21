@@ -3,7 +3,7 @@ description: Neighbourhood Social Network
 
 publish_to: "none"
 
-version: 0.1.0+69
+version: 0.1.0+70
 
 environment:
   sdk: ">=2.17.5 <3.7.3"
