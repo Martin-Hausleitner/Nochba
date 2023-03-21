@@ -176,7 +176,7 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                                           width: 3,
                                         ),
                                         Text(
-                                          'Auwiesen',
+                                          data.suburb ?? '',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium
@@ -232,7 +232,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                               } else if (snapshot.hasError) {
                                 // return a red info icon whith a text below with the error
                                 return Text(
-                                  AppLocalizations.of(context)!.usernameCannotBeLoaded,
+                                  AppLocalizations.of(context)!
+                                      .usernameCannotBeLoaded,
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge
@@ -266,7 +267,8 @@ class PrivateProfilePage extends GetView<PrivateProfileController> {
                         // // GetDistanceFromLatLonInMeters(),
                         // // VerifyButton(),
                         ActionCard(
-                          title: AppLocalizations.of(context)!.yourPublicProfile,
+                          title:
+                              AppLocalizations.of(context)!.yourPublicProfile,
                           icon: FlutterRemix.user_line,
                           onTap: () => controller.pushPublicProfileView(),
                         ),
