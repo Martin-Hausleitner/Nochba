@@ -149,12 +149,7 @@ class _PostState extends State<Post> {
     return GestureDetector(
       //onTap open postz view
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PostView(post: widget.post),
-          ),
-        );
+        Get.to(PostView(post: widget.post));
       },
       onLongPress: () async {
         await translatePost();
