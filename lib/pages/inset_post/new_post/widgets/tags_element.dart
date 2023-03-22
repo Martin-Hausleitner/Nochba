@@ -81,7 +81,7 @@ class _TagsElementState extends State<TagsElement> {
       }
 
       final String prompt =
-          'This is a post about ${widget.titleController!.text}. ${widget.descriptionController!.text}';
+          'titel{ ${widget.titleController!.text} } beschreibung{ ${widget.descriptionController!.text} } json hashtags richtige sprache: ["#';
       final chat = await client.chat.create(
         model: 'gpt-3.5-turbo',
         messages: [
