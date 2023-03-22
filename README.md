@@ -1,7 +1,10 @@
 
-![App Icon](\assets\app_icon\app_icon_512x.png)
+<img src="/assets/app_icon/app_icon_512x.png" width="19%">
+
 # Nochba
-## Verbinde dich mit deiner Nochbaschaft
+Verbinde dich mit deiner Nochbaschaft
+
+[Website](https://nochba.at/)
 
 Statistiken zeigen, dass die jüngere Generation größtenteils nicht mit den Menschen vertraut ist, die nebenan wohnen. Sprachliche und kulturelle Unterschiede tragen ebenfalls zur Bildung isolierter Gruppen bei. In dem Linz, das Team Nochba sich für die Zukunft wünscht, sind Zusammenhalt und nachbarschaftliche Hilfe unter den Bürgern von zentraler Bedeutung. Menschen sind Teil einer Gemeinschaft, in der sie einander helfen, gemeinsam feiern und aufeinander achten.
 
