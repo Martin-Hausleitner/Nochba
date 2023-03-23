@@ -115,11 +115,11 @@ class InsetPostController extends GetxController {
         context: context,
         builder: (context) {
           return SimpleDialog(
-            title: Text(AppLocalizations.of(context)!.createPost),
+            title: const Text('Suche ein Photo aus'),
             children: [
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: Text(AppLocalizations.of(context)!.pickImage),
+                child: const Text('Aus deiner Galerie'),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   await pickImage(ImageSource.gallery);
@@ -127,7 +127,7 @@ class InsetPostController extends GetxController {
               ),
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: Text(AppLocalizations.of(context)!.takePhoto),
+                child: const Text('Mache ein Photo'),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   await pickImage(ImageSource.camera);
