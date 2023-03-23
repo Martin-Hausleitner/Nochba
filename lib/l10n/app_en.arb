@@ -65,7 +65,7 @@
     "takeAPhoto": "Take a photo",
     "deleteTheImage": "Delete the image",
     "codeHasBeenCopied": "Invitation code has been copied",
-    "inviteNeighborMessage": "Hello neighbor, I would like to invite you to become part of our active neighborhood community. Just download the Nochba app from the play store: PLAY STORE LINK. Use my invitation code: 123456789 when registering.",
+    "inviteNeighborMessage": "Hello neighbor, I would like to invite you to become part of our active neighborhood community. Just download the Nochba app from the play store: https://play.google.com/store/apps/details?id=com.nochba.nochba Use my invitation code: 123456789 when registering.",
     "subject": "Nochba invitation code",
     "waitPeriodQRCode": "Wait Period",
     "waitPeriodQRCodeMessage": "You can generate a new code in: ",
