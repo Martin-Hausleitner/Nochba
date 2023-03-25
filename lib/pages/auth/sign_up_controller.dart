@@ -47,8 +47,7 @@ class SignUpController extends GetxController {
 
   Future<List<String>> getAddressSuggestions(String query) async {
     try {
-      final String queryWithCountry =
-          query.isNotEmpty ? '$query, Österreich' : query;
+      final String queryWithCountry = query;
       final List<Location> locations =
           await locationFromAddress(queryWithCountry);
       List<String> suggestions = [];

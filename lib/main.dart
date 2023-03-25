@@ -36,6 +36,13 @@ Future main() async {
   // await dotenv.load();
   // await dotenv.load(mergeWith: Platform.environment);
   _downloadInitialLanguageModels();
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   const SystemUiOverlayStyle(
+  //       statusBarColor: Colors.transparent,
+  //       systemNavigationBarColor: Colors.white,
+  //       systemNavigationBarIconBrightness: Brightness.dark),
+  // );
 
   final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
   final themeJson = jsonDecode(themeStr);

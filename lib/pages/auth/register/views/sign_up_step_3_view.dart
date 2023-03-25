@@ -46,7 +46,7 @@ class SignUpStep3View extends StatelessWidget {
             const SizedBox(height: 28),
             //tile small Wähle deien Kategorie
             Text(
-              'Gebe deinen Adresse ein',
+              'Gebe deine Adresse ein',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     // color: Theme.of(context).secondaryHeaderColor,
