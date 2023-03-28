@@ -97,10 +97,37 @@ class _DashboardPageState extends State<DashboardPage> {
                             // color: Theme.of(context).primaryColor,
                           ),
                         ),
-                        const BottomNavigationBarItem(
-                          icon: Icon(FlutterRemix.notification_2_line),
+
+                        BottomNavigationBarItem(
+                          icon: StreamBuilder<bool?>(
+                            stream: controller.hasUnseenNotifications(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData && snapshot.data == true) {
+                                return Stack(
+                                  children: [
+                                    const Icon(
+                                        FlutterRemix.notification_2_line),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Container(
+                                        width: 8,
+                                        height: 8,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                              return const Icon(
+                                  FlutterRemix.notification_2_line);
+                            },
+                          ),
                           label: '',
-                          activeIcon: Icon(
+                          activeIcon: const Icon(
                             FlutterRemix.notification_2_fill,
                             // color: Theme.of(context).primaryColor,
                           ),

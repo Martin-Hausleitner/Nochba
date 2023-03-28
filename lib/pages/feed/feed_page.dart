@@ -107,9 +107,9 @@ class FilterButton extends StatelessWidget {
         SearchBar(controller: controller),
         const SizedBox(width: 10),
         GestureDetector(
-          onTap: () {
+          onTap: () async {
             controller.updateExtendedPostFilter();
-            showModalBottomSheet<void>(
+            await showModalBottomSheet<void>(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               shape: const RoundedRectangleBorder(
                   borderRadius:

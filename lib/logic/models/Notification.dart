@@ -16,6 +16,7 @@ class Notification implements IModel {
   final String? postId;
   final Timestamp createdAt;
   final bool visible;
+  final bool hasSeen;
 
   Notification({
     this.id = '',
@@ -25,6 +26,7 @@ class Notification implements IModel {
     required this.postId,
     required this.createdAt,
     this.visible = true,
+    this.hasSeen = false,
   });
 
   @override
@@ -35,6 +37,7 @@ class Notification implements IModel {
         'postId': postId,
         'createdAt': createdAt,
         'visible': visible,
+        'hasSeen': hasSeen,
       };
 
   factory Notification.fromJson(String id, Map<String, dynamic> json) =>
@@ -46,6 +49,7 @@ class Notification implements IModel {
         postId: json['postId'],
         createdAt: json['createdAt'],
         visible: json['visible'],
+        hasSeen: json['hasSeen'],
       );
 
   static NotificationType getNotificationType(String keyword) {

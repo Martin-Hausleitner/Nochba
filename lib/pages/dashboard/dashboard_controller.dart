@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nochba/logic/repositories/NotificationRepository.dart';
 
 class DashboardController extends GetxController {
   var tabIndex = 0;
@@ -9,5 +10,15 @@ class DashboardController extends GetxController {
     }
     tabIndex = index;
     update();
+  }
+
+  final _notificationRepository = Get.find<NotificationRepository>();
+
+  Stream<bool?> hasUnseenNotifications() {
+    try {
+      return _notificationRepository.hasCurrentUserAnyUnseenNotifications();
+    } on Exception {
+      return Stream.error(Error);
+    }
   }
 }

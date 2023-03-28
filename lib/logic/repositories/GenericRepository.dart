@@ -155,6 +155,16 @@ abstract class GenericRepository<T extends IModel> extends RepositoryObject<T> {
     }
   }
 
+  Stream<bool?> any(Map<String, dynamic> fields, {List<String>? nexus}) {
+    try {
+      final result = resource.any(fields, nexus: nexus);
+
+      return result;
+    } on Exception {
+      rethrow;
+    }
+  }
+
   Future<void> updateFields(String id, Map<String, dynamic> fields,
       {List<String>? nexus}) async {
     await validate(null, AccessMode.updateFields);

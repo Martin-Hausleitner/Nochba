@@ -23,56 +23,59 @@ class NotificationsPage extends GetView<NotificationsController> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBarBigView(
-      title: AppLocalizations.of(context)!.notifications,
-      showBackButton: false,
-      contentPadding: const EdgeInsets.only(left: 0, right: 0, top: 18),
-      actions: [
-        if (kDebugMode)
-          IconButton(
-            splashRadius: 0.01,
-            icon: Icon(
-              FlutterRemix.delete_bin_line,
+    return FutureBuilder(
+      future: controller.markNotificationsOfCurrentUserAsSeen(),
+      builder: (context, snapshot) {
+        return AppBarBigView(
+          title: AppLocalizations.of(context)!.notifications,
+          showBackButton: false,
+          contentPadding: const EdgeInsets.only(left: 0, right: 0, top: 18),
+          actions: [
+            if (kDebugMode)
+              IconButton(
+                splashRadius: 0.01,
+                icon: Icon(
+                  FlutterRemix.delete_bin_line,
 
-              // FlutterRemix.settings_3_line,
-              size: 24,
-              color: Theme.of(context).buttonTheme.colorScheme?.primary,
-            ),
-            onPressed: () {
-              Get.snackbar('dd', 'message');
-            },
-            padding:
-                const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
-            alignment: Alignment.centerRight,
-          ),
-        if (kDebugMode)
-          Padding(
-            padding: //right 10
-                const EdgeInsets.only(
-              right: 10,
-            ),
-            child: IconButton(
-              splashRadius: 0.01,
-              icon: Icon(
-                FlutterRemix.settings_3_line,
-                size: 24,
-                color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                  // FlutterRemix.settings_3_line,
+                  size: 24,
+                  color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                ),
+                onPressed: () {
+                  Get.snackbar('dd', 'message');
+                },
+                padding:
+                    const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
+                alignment: Alignment.centerRight,
               ),
-              onPressed: () {
-                Get.snackbar('dd', 'message');
-              },
-              padding:
-                  const EdgeInsets.only(right: 0, left: 0, top: 3, bottom: 0),
-              alignment: Alignment.centerRight,
-            ),
-          ),
-      ],
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            /*NotificationElement(
+            if (kDebugMode)
+              Padding(
+                padding: //right 10
+                    const EdgeInsets.only(
+                  right: 10,
+                ),
+                child: IconButton(
+                  splashRadius: 0.01,
+                  icon: Icon(
+                    FlutterRemix.settings_3_line,
+                    size: 24,
+                    color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                  ),
+                  onPressed: () {
+                    Get.snackbar('dd', 'message');
+                  },
+                  padding: const EdgeInsets.only(
+                      right: 0, left: 0, top: 3, bottom: 0),
+                  alignment: Alignment.centerRight,
+                ),
+              ),
+          ],
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                /*NotificationElement(
               authorName: 'Max Mustermann',
               notificationText: 'hat dich als Freund hinzugefügt',
               time: 'vor 3min',
@@ -89,136 +92,143 @@ class NotificationsPage extends GetView<NotificationsController> {
               acceptButtonOnPressed: () => Get.snackbar('dd', 'message'),
               declineButtonOnPressed: () => Get.snackbar('dd', 'message'),
             ),*/
-            StreamBuilder<List<models.Notification>>(
-              stream: controller.getNotificationsOfCurrentUser(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return const Text(
-                      'The notifications are not available at the moment',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
-                } else if (snapshot.hasData) {
-                  final notifications = snapshot.data!;
+                StreamBuilder<List<models.Notification>>(
+                  stream: controller.getNotificationsOfCurrentUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(
+                          'The notifications are not available at the moment: ' +
+                              snapshot.error.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 32, fontWeight: FontWeight.w300));
+                    } else if (snapshot.hasData) {
+                      final notifications = snapshot.data!;
 
-                  if (notifications.isEmpty) {
-                    return Center(
-                      child: Column(
-                        //center
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      if (notifications.isEmpty) {
+                        return Center(
+                          child: Column(
+                            //center
+                            mainAxisAlignment: MainAxisAlignment.center,
 
-                        children: [
-                          // add a forum icon
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.25,
+                            children: [
+                              // add a forum icon
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                              ),
+
+                              Icon(
+                                FlutterRemix.notification_2_line,
+                                size: 100,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withOpacity(0.1),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.noNotifications,
+                                //align center
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.15),
+                                    ),
+                              ),
+                            ],
                           ),
+                        );
+                      }
 
-                          Icon(
-                            FlutterRemix.notification_2_line,
-                            size: 100,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.1),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.noNotifications,
-                            //align center
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.15),
-                                ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: notifications.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final notification = notifications.elementAt(index);
+                          return FutureBuilder<User?>(
+                            future: controller.getUser(notification.fromUser),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final user = snapshot.data!;
 
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: notifications.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final notification = notifications.elementAt(index);
-                      return FutureBuilder<User?>(
-                        future: controller.getUser(notification.fromUser),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final user = snapshot.data!;
-
-                            if (notification.type ==
-                                NotificationType.chatRequest) {
-                              return NotificationElement(
-                                authorName: '${user.fullName}',
-                                imageUrl: user.imageUrl,
-                                notificationText: 'möchte mit dir schreiben',
-                                time:
-                                    getTimeAgo(notification.createdAt.toDate()),
-                                acceptButtonOnPressed: () async =>
-                                    await controller.onAccept(
-                                        notification, user),
-                                declineButtonOnPressed: () async =>
-                                    await controller.onDecline(notification),
-                              );
-                            } else if (notification.type ==
-                                NotificationType.postRequest) {
-                              return FutureBuilder<Post?>(
-                                future:
-                                    controller.getPost(notification.postId!),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    final post = snapshot.data!;
-                                    final createdAt = post.createdAt.toDate();
-                                    return NotificationElement(
-                                      authorName: '${user.fullName}',
-                                      imageUrl: user.imageUrl,
-                                      notificationText:
-                                          'möchte dich wegen deinem Post anschreiben. "${post.title}" ${createdAt.day}.${createdAt.month}.${createdAt.year}',
-                                      time: getTimeAgo(
-                                          notification.createdAt.toDate()),
-                                      acceptButtonOnPressed: () async =>
-                                          await controller.onAccept(
-                                              notification, user),
-                                      declineButtonOnPressed: () async =>
-                                          await controller
-                                              .onDecline(notification),
-                                    );
-                                  } else {
-                                    return Container();
-                                  }
-                                },
-                              );
-                            } else {
-                              return Container();
-                            }
-                          } else {
-                            return Container();
-                          }
+                                if (notification.type ==
+                                    NotificationType.chatRequest) {
+                                  return NotificationElement(
+                                    authorName: '${user.fullName}',
+                                    imageUrl: user.imageUrl,
+                                    notificationText:
+                                        'möchte mit dir schreiben',
+                                    time: getTimeAgo(
+                                        notification.createdAt.toDate()),
+                                    acceptButtonOnPressed: () async =>
+                                        await controller.onAccept(
+                                            notification, user),
+                                    declineButtonOnPressed: () async =>
+                                        await controller
+                                            .onDecline(notification),
+                                  );
+                                } else if (notification.type ==
+                                    NotificationType.postRequest) {
+                                  return FutureBuilder<Post?>(
+                                    future: controller
+                                        .getPost(notification.postId!),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        final post = snapshot.data!;
+                                        final createdAt =
+                                            post.createdAt.toDate();
+                                        return NotificationElement(
+                                          authorName: '${user.fullName}',
+                                          imageUrl: user.imageUrl,
+                                          notificationText:
+                                              'möchte dich wegen deinem Post anschreiben. "${post.title}" ${createdAt.day}.${createdAt.month}.${createdAt.year}',
+                                          time: getTimeAgo(
+                                              notification.createdAt.toDate()),
+                                          acceptButtonOnPressed: () async =>
+                                              await controller.onAccept(
+                                                  notification, user),
+                                          declineButtonOnPressed: () async =>
+                                              await controller
+                                                  .onDecline(notification),
+                                        );
+                                      } else {
+                                        return Container();
+                                      }
+                                    },
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              } else {
+                                return Container();
+                              }
+                            },
+                          );
                         },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(height: 3),
                       );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(height: 3),
-                  );
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                  // return const Text('There are no posts in the moment',
-                  //   textAlign: TextAlign.center,
-                  //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
-                }
-              },
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                      // return const Text('There are no posts in the moment',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300));
+                    }
+                  },
+                ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
 //     return CupertinoPageScaffold(
 //       backgroundColor: Theme.of(context).backgroundColor,

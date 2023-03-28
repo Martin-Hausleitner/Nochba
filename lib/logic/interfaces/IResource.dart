@@ -7,6 +7,7 @@ abstract class IResource<T extends IModel> {
   Stream<T?> getAsStream(String id);
   Future<T?> getWhere(Map<String, dynamic> fields);
   Future<List<T>> getAllWhereIn(MapEntry<String, List<Object?>?> whereIn);
+  Stream<bool?> any(Map<String, dynamic> fields);
   Future<void> update(T post);
   Future<void> updateFields(String id, Map<String, dynamic> fields);
   Future<void> insert(T post);

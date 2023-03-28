@@ -16,8 +16,8 @@ class NotificationsController extends GetxController {
   Stream<List<Notification>> getNotificationsOfCurrentUser() {
     try {
       return notificationRepository.getNotifiactionsOfCurrentUser();
-    } on Exception {
-      return Stream.error(Error);
+    } on Exception catch (e) {
+      return Stream.error(e);
     }
   }
 
@@ -60,6 +60,16 @@ class NotificationsController extends GetxController {
       return notificationRepository.takeNotificationOff(notification.id);
     } on Exception {
       return Future.error(Error);
+    }
+  }
+
+  Future<void> markNotificationsOfCurrentUserAsSeen() async {
+    try {
+      return await notificationRepository
+          .markNotificationsOfCurrentUserAsSeen();
+    } catch (e) {
+      // print(e);
+      return Future.error(e);
     }
   }
 }

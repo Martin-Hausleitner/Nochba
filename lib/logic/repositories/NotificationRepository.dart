@@ -44,7 +44,8 @@ class NotificationRepository extends GenericRepository<Notification> {
   Stream<List<Notification>> getNotifiactionsOfCurrentUser() {
     try {
       return queryAsStream(const MapEntry('createdAt', true),
-          whereIsEqualTo: {'visible': true}, nexus: [resourceContext.uid]);
+          whereIsEqualTo: {'toUser': resourceContext.uid, 'visible': true},
+          nexus: []);
       /*return query(const MapEntry('createdAt', true), 
         whereIsEqualTo: {'toUser': resourceContext.uid}
       );*/
@@ -110,5 +111,19 @@ class NotificationRepository extends GenericRepository<Notification> {
   Future<void> takeNotificationOff(String id) async {
     return await updateFields(id, {'visible': false},
         nexus: [resourceContext.uid]);
+  }
+
+  Stream<bool?> hasCurrentUserAnyUnseenNotifications() {
+    return any({'toUser': resourceContext.uid, 'hasSeen': false}, nexus: []);
+  }
+
+  Future<void> markNotificationsOfCurrentUserAsSeen() async {
+    final notifications = await query(const MapEntry('createdAt', true),
+        whereIsEqualTo: {'toUser': resourceContext.uid, 'hasSeen': false},
+        nexus: []);
+
+    for (var notification in notifications) {
+      await updateFields(notification.id, {'hasSeen': true}, nexus: []);
+    }
   }
 }

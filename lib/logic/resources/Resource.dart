@@ -158,6 +158,27 @@ class Resource<T extends IModel> implements IResource<T> {
   }
 
   @override
+  Stream<bool?> any(Map<String, dynamic> fields, {List<String>? nexus}) {
+    if (fields.isNotEmpty) {
+      var query = firestoreInstance
+          .collection(getCollectionName(typeOf<T>(), nexus: nexus))
+          .where(fields.keys.first, isEqualTo: fields.values.first);
+
+      for (int i = 1; i < fields.length; i++) {
+        MapEntry<String, dynamic> field = fields.entries.elementAt(i);
+        query = query.where(field.key, isEqualTo: field.value);
+      }
+      query = query.limit(1);
+
+      return query.snapshots().map((doc) {
+        return doc.docs.isNotEmpty;
+      });
+    } else {
+      return Stream.value(null);
+    }
+  }
+
+  @override
   Future<void> update(T model, {List<String>? nexus}) async {
     return await firestoreInstance
         .collection(getCollectionName(typeOf<T>(), nexus: nexus))
