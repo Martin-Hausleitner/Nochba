@@ -8,7 +8,6 @@
 .buildlog/
 .history
 .svn/
-*.env
 migrate_working_dir/
 
 # IntelliJ related
@@ -33,8 +32,6 @@ migrate_working_dir/
 .pub/
 /build/
 
-# Web related
-
 # Symbolication related
 app.*.symbols
 
@@ -45,9 +42,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-firestore-debug.log
-lib/logic/env/env.dart
-lib/env/env.dart
-lib/env/env.g.dart
-*.p12

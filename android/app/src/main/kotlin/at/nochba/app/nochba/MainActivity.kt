@@ -1,4 +1,4 @@
-package com.example.nochba
+package at.nochba.app.nochba
 
 import io.flutter.embedding.android.FlutterActivity
 
