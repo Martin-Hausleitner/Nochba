@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pwa_install/pwa_install.dart';
 
 void main() {
+  PWAInstall().setup(installCallback: () {
+    debugPrint('APP INSTALLED!');
+  });
   runApp(const MyApp());
 }
 
